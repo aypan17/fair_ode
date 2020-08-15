@@ -114,7 +114,7 @@ def get_parser():
                         help="Tasks")
     parser.add_argument("--vars", type=int, default=1,
                         help="Tasks")
-    parser.add_argument("--num_bit", type=int, default=20,
+    parser.add_argument("--num_bit", type=int, default=10,
                         help="Tasks")
 
     # beam search configuration

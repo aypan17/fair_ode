@@ -673,7 +673,7 @@ class TreeLSTM_Encoder(torch.nn.Module):
 
         # Binary operators
         for op in BINARY:
-            if self.symmetric and (name == 'add' or name == 'mul'):
+            if self.symmetric and (op == 'add' or op == 'mul'):
                 setattr(self, op, BinaryLSTMNodeSym(num_input=self.dim, num_hidden=self.dim))
             else:
                 setattr(self, op, BinaryLSTMNode(num_input=self.dim, num_hidden=self.dim))

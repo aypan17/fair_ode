@@ -9,7 +9,7 @@ from logging import getLogger
 import os
 import torch
 
-from .transformer import TransformerModel
+from .transformer import TransformerModel, TreeLSTM_Encoder
 
 
 logger = getLogger()
@@ -32,7 +32,8 @@ def build_modules(env, params):
     Build modules.
     """
     modules = {}
-    modules['encoder'] = TransformerModel(params, env.id2word, is_encoder=True, with_output=False)
+    #modules['encoder'] = TransformerModel(params, env.id2word, is_encoder=True, with_output=False)
+    modules['encoder'] = TreeLSTM_Encoder(params)
     modules['decoder'] = TransformerModel(params, env.id2word, is_encoder=False, with_output=True)
 
     # reload pretrained modules

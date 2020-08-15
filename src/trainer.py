@@ -448,7 +448,7 @@ class Trainer(object):
         decoder.train()
 
         # batch
-        (x1, len1), (x2, len2), _ = self.get_batch(task)
+        (x1, len1), (xword, len1), (x2, len2), _ = self.get_batch(task)
 
         # target words to predict
         alen = torch.arange(len2.max(), dtype=torch.long, device=len2.device)
@@ -457,11 +457,16 @@ class Trainer(object):
         assert len(y) == (len2 - 1).sum().item()
 
         # cuda
+        '''
         x1, len1, x2, len2, y = to_cuda(x1, len1, x2, len2, y)
 
         # forward / loss
         encoded = encoder('fwd', x=x1, lengths=len1, causal=False)
         decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded.transpose(0, 1), src_len=len1)
+        '''
+        encoded, lengths = encoder(x=xword, causal=False)
+        x2, len2, encoded, lengths, y = to_cuda(x2, len2, encoded, lengths, y)
+        decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded, src_len=lengths)
         _, loss = decoder('predict', tensor=decoded, pred_mask=pred_mask, y=y, get_scores=False)
         self.stats[task].append(loss.item())
 

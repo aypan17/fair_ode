@@ -63,6 +63,8 @@ def get_parser():
                         help="Share input and output embeddings")
     parser.add_argument("--sinusoidal_embeddings", type=bool_flag, default=False,
                         help="Use sinusoidal embeddings")
+    parser.add_argument('--symmetric', action='store_true',
+                        help='run the version with enforced symmetry on add and mul')
 
     # training parameters
     parser.add_argument("--env_base_seed", type=int, default=0,
@@ -105,6 +107,12 @@ def get_parser():
 
     # tasks
     parser.add_argument("--tasks", type=str, default="",
+                        help="Tasks")
+    parser.add_argument("--order", type=int, default=1,
+                        help="Tasks")
+    parser.add_argument("--vars", type=int, default=1,
+                        help="Tasks")
+    parser.add_argument("--num_bit", type=int, default=20,
                         help="Tasks")
 
     # beam search configuration

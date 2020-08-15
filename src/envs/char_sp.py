@@ -11,6 +11,7 @@ import io
 import re
 import sys
 import math
+import random
 import itertools
 from collections import OrderedDict
 import numpy as np
@@ -38,6 +39,9 @@ SPECIAL_WORDS = ['<s>', '</s>', '<pad>', '(', ')']
 SPECIAL_WORDS = SPECIAL_WORDS + [f'<SPECIAL_{i}>' for i in range(len(SPECIAL_WORDS), 10)]
 
 
+SYMBOL_ENCODER = "Symbol"
+EOS = "#"
+
 INTEGRAL_FUNC = {sp.erf, sp.erfc, sp.erfi, sp.erfinv, sp.erfcinv, sp.expint, sp.Ei, sp.li, sp.Li, sp.Si, sp.Ci, sp.Shi, sp.Chi, sp.fresnelc, sp.fresnels}
 EXP_OPERATORS = {'exp', 'sinh', 'cosh'}
 EVAL_SYMBOLS = {'x', 'y', 'z', 'a0', 'a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8', 'a9'}
@@ -47,6 +51,88 @@ EVAL_VALUES = EVAL_VALUES + [-x for x in EVAL_VALUES]
 TEST_ZERO_VALUES = [0.1, 0.9, 1.1, 1.9]
 TEST_ZERO_VALUES = [-x for x in TEST_ZERO_VALUES] + TEST_ZERO_VALUES
 ZERO_THRESHOLD = 1e-13
+
+
+OPERATORS = {
+        # Elementary functions
+        'add': 2,
+        'sub': 2,
+        'mul': 2,
+        'div': 2,
+        'pow': 2,
+        'rac': 2,
+        'inv': 1,
+        'pow2': 1,
+        'pow3': 1,
+        'pow4': 1,
+        'pow5': 1,
+        'sqrt': 1,
+        'exp': 1,
+        'ln': 1,
+        'abs': 1,
+        'sign': 1,
+        # Trigonometric Functions
+        'sin': 1,
+        'cos': 1,
+        'tan': 1,
+        'cot': 1,
+        'sec': 1,
+        'csc': 1,
+        # Trigonometric Inverses
+        'asin': 1,
+        'acos': 1,
+        'atan': 1,
+        'acot': 1,
+        'asec': 1,
+        'acsc': 1,
+        # Hyperbolic Functions
+        'sinh': 1,
+        'cosh': 1,
+        'tanh': 1,
+        'coth': 1,
+        'sech': 1,
+        'csch': 1,
+        # Hyperbolic Inverses
+        'asinh': 1,
+        'acosh': 1,
+        'atanh': 1,
+        'acoth': 1,
+        'asech': 1,
+        'acsch': 1,
+        # Derivative
+        'derivative': 2,
+        # custom functions
+        'f': 1,
+        'g': 2,
+        'h': 3,
+    }
+
+BINARY = {x for x in OPERATORS if OPERATORS[x] == 2}
+UNARY = {x for x in OPERATORS if OPERATORS[x] == 1}
+
+LEAF = {'pi', 'E'}
+variables = OrderedDict({
+    'x': sp.Symbol('x', real=True, nonzero=True),  # , positive=True
+    'y': sp.Symbol('y', real=True, nonzero=True),  # , positive=True
+    'z': sp.Symbol('z', real=True, nonzero=True),  # , positive=True
+    't': sp.Symbol('t', real=True, nonzero=True),  # , positive=True
+})
+coefficients = OrderedDict({
+    f'a{i}': sp.Symbol(f'a{i}', real=True)
+    for i in range(10)
+})
+LEAF.update({x for x in variables.keys()})
+LEAF.update({x for x in coefficients.keys()})
+LEAF.update('Y')
+VOCAB = {key:value for value, key in enumerate(LEAF)}
+
+DERIVATIVES = {"Y"+"'"*(i) for i in range(1, 3)}
+DIFFERENTIALS = {'d'+str(i) for i in range(1, 3)}
+
+INT = {'INT+', 'INT-'}
+DIGITS = {str(x) for x in range(10)}
+
+
 
 
 logger = getLogger()
@@ -307,6 +393,7 @@ class CharSPEnvironment(object):
             self.local_dict[k] = v
 
         # vocabulary
+        # BOS, EOS, (, ), PAD, E, pi, x, y, z, t, a0, ..., a9, I, INT+, INT-, INT, FLOAT, -, ., 10^, Y, Y', Y'', 0, ..., 9, FUNCTIONS
         self.words = SPECIAL_WORDS + self.constants + list(self.variables.keys()) + list(self.coefficients.keys()) + self.operators + self.symbols + self.elements
         self.id2word = {i: s for i, s in enumerate(self.words)}
         self.word2id = {s: i for i, s in self.id2word.items()}
@@ -355,7 +442,7 @@ class CharSPEnvironment(object):
         """
         Take as input a list of n sequences (torch.LongTensor vectors) and return
         a tensor of size (slen, n) where slen is the length of the longest
-        sentence, and a vector lengths containing the length of each sentence.
+        sentence, and a vector of lengths containing the length of each sentence.
         """
         lengths = torch.LongTensor([len(s) + 2 for s in sequences])
         sent = torch.LongTensor(lengths.max().item(), lengths.size(0)).fill_(self.pad_index)
@@ -1418,15 +1505,20 @@ class EnvDataset(Dataset):
         """
         x, y = zip(*elements)
         nb_ops = [sum(int(word in self.env.OPERATORS) for word in seq) for seq in x]
-        # for i in range(len(x)):
-        #     print(self.env.prefix_to_infix(self.env.unclean_prefix(x[i])))
-        #     print(self.env.prefix_to_infix(self.env.unclean_prefix(y[i])))
-        #     print("")
+        '''
+        for i in range(len(x)):
+            print(self.env.prefix_to_infix(self.env.unclean_prefix(x[i])))
+            print()
+            print(self.env.prefix_to_infix(self.env.unclean_prefix(y[i])))
+            print("")
+        '''
+        xword = [['#'] + [w for w in seq if w in self.env.word2id] for seq in x]
         x = [torch.LongTensor([self.env.word2id[w] for w in seq if w in self.env.word2id]) for seq in x]
         y = [torch.LongTensor([self.env.word2id[w] for w in seq if w in self.env.word2id]) for seq in y]
+
         x, x_len = self.env.batch_sequences(x)
         y, y_len = self.env.batch_sequences(y)
-        return (x, x_len), (y, y_len), torch.LongTensor(nb_ops)
+        return (x, x_len), (xword, x_len), (y, y_len), torch.LongTensor(nb_ops)
 
     def init_rng(self):
         """
@@ -1471,7 +1563,7 @@ class EnvDataset(Dataset):
         Read a sample.
         """
         if self.train:
-            index = self.rng.randint(len(self.data))
+           index = self.rng.randint(len(self.data))
         x, y = self.data[index]
         x = x.split()
         y = y.split()
@@ -1516,3 +1608,140 @@ class EnvDataset(Dataset):
             clear_cache()
 
         return x, y
+
+class BinaryEqnTree:
+
+    NULL = "#"
+
+    def __init__(self, function_name, lchild, rchild, value=None,
+                 is_a_floating_point=False, raw=None, label=None, depth=None):
+        """
+
+        Args:
+            function_name: the name of the node
+            lchild: the left child (a BinaryEqnTree or None)
+            rchild: the right child (a BinaryEqnTree or None)
+        """
+        #TODO: make value a more general construct, i.e. a dictionary, or an object so that more than one value can be stored at a node
+        if lchild is None and rchild is not None:
+            raise ValueError("A tree can have the following children:" + "\n"
+            "    lchild=None, rchild=None or" + "\n"
+            "    lchild!=None, rchild=None or" + "\n"
+            "    lchild!=None, rchild!=None or" + "\n"
+            "Got the following instead:" + "\n"
+            "    lchild=%s, rchild=%s" % (repr(lchild), repr(rchild)))
+        self.function_name = function_name
+        self.lchild = lchild
+        self.rchild = rchild
+        self.is_a_floating_point = is_a_floating_point
+        self.value = value
+        self.is_binary = lchild is not None and rchild is not None
+        self.is_unary = lchild is not None and rchild is None
+        self.is_leaf = lchild is None and rchild is None
+        self.raw = raw
+        self.label = label
+        self.depth = depth
+        self.cls = None
+
+    def apply(self, fn):
+        if self.lchild is not None:
+            self.lchild.apply(fn)
+        if self.rchild is not None:
+            self.rchild.apply(fn)
+        fn(self)
+
+
+    def get_depth(self):
+        left = 0
+        right = 0
+        if self.lchild:
+            left = self.lchild.get_depth()
+        if self.rchild:
+            right = self.rchild.get_depth()
+        return 1 + max(left, right)
+
+    """
+    Runs a DFS to label all nodes and create the children, embedding dictionaries.
+
+    Args: 
+        BinaryEqnTree: tree in the batch to be labeled and embedded.
+
+        unused_id: one-element list containing lowest value unused id in the batch. Need list for mutability.
+                    Updated with every call.
+
+        current_depth: integer equal to the depth of the node calling the 
+
+        children: a Dict<id, list<id>> whose key is the id of a node and value is the list of its children ids.
+                    Updated with every call.
+
+        parent: a Dict<id, id> whose key is the id of a child and value is the id of its parent.
+                    Update with every call.
+
+        embedding: a Dict<id, embedding_vector> whose key is the id of a node in the tree
+                    and value is the embedding vector of the node; a node w/o embedding has value None.
+                    Updated with every call.
+
+        buckets: a list of defaultDict<function_name, [list<lchild_id>, list<rchild_id>]> indexed by depth. 
+                    Each defaultDict has function_name keys and [list<lchild_id>, list<rchild_id>] values 
+                    that contain the lchild and rchild ids of the [function_name] block.
+                    Updated with every call.
+
+    Returns:
+        idx: the integer id of the node that calls labels_embeddings.
+    """
+    def label_and_map_tree(self, unused_id, current_depth, children, parent, embedding, buckets):
+        idx = unused_id[0]
+        unused_id[0] += 1
+        self.depth = current_depth
+        current_depth -= 1
+        children[idx] = []
+        embedding[idx] = self.value
+        if self.lchild is not None:
+            lchild_id = self.lchild.label_and_map_tree(unused_id, current_depth, children, parent, embedding, buckets)
+            children[idx].append(lchild_id)
+            buckets[self.depth][self.function_name][0].append(lchild_id)
+        if self.rchild is not None:
+            rchild_id = self.rchild.label_and_map_tree(unused_id, current_depth, children, parent, embedding, buckets)
+            children[idx].append(rchild_id)
+            buckets[self.depth][self.function_name][1].append(rchild_id)
+        for child_id in children[idx]:
+            parent[child_id] = idx
+        return idx
+
+    def is_numeric(self):
+        if self.function_name != "Equality":
+            print("Warning: is_numeric should only be called on the root of an equation tree")
+            return False #raise ValueError("is_numeric should only be called on the root of an equation tree")
+        return self._is_numeric()
+
+    def _is_numeric(self):
+        if self.is_leaf:
+            return self.is_a_floating_point
+        if self.is_unary:
+            return self.lchild._is_numeric()
+        if self.is_binary:
+            return self.lchild._is_numeric() or self.rchild._is_numeric()
+        raise AssertionError(str(self))
+
+    def __str__(self):
+        if self.is_binary:
+            return "{}({}, {})".format(self.function_name,
+                                       str(self.lchild),
+                                       str(self.rchild))
+        elif self.is_unary:
+            return "{}({})".format(self.function_name,
+                                   str(self.lchild))
+        elif self.is_leaf:
+            return "{}={}".format(self.function_name, self.value)
+        else:
+            raise RuntimeError("Invalid tree:\n%s" % repr(self))
+
+
+    def __repr__(self):
+        return "BinaryEqnTree({},{},{},{},{},{},{})".format(repr(self.function_name),
+                                         repr(self.lchild),
+                                         repr(self.rchild),
+                                         repr(self.is_a_floating_point),
+                                         repr(self.raw),
+                                         repr(self.label),
+                                         repr(self.depth))

@@ -450,23 +450,36 @@ class Trainer(object):
         # batch
         (x1, len1), (xword, len1), (x2, len2), _ = self.get_batch(task)
 
-        # target words to predict
-        alen = torch.arange(len2.max(), dtype=torch.long, device=len2.device)
-        pred_mask = alen[:, None] < len2[None] - 1  # do not predict anything given the last target word
-        y = x2[1:].masked_select(pred_mask[:-1])
-        assert len(y) == (len2 - 1).sum().item()
+        # Use TreeLSTM encoder
+        if params.treelstm:
+            # encode and get valid equation/solutions (those with max(int) < 2^self.num_bit)
+            encoded, lengths, valid = encoder(x=xword, causal=False)
+            x2, len2, encoded, lengths = to_cuda(torch.transpose(torch.transpose(x2,0,1)[valid],-1,0), len2[valid], encoded, lengths)
+            x2 = x2[:len2.max().item(), :]
 
-        # cuda
-        '''
-        x1, len1, x2, len2, y = to_cuda(x1, len1, x2, len2, y)
+            # target words to predict
+            alen = torch.arange(len2.max(), dtype=torch.long, device=len2.device)
+            pred_mask = alen[:, None] < len2[None] - 1  # do not predict anything given the last target word
+            y = x2[1:].masked_select(pred_mask[:-1])
+            y, _ = to_cuda(y, None)
+            assert len(y) == (len2 - 1).sum().item()
 
-        # forward / loss
-        encoded = encoder('fwd', x=x1, lengths=len1, causal=False)
-        decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded.transpose(0, 1), src_len=len1)
-        '''
-        encoded, lengths = encoder(x=xword, causal=False)
-        x2, len2, encoded, lengths, y = to_cuda(x2, len2, encoded, lengths, y)
-        decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded, src_len=lengths)
+            # decode / loss
+            decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded, src_len=lengths)
+        # Use Transformer encoder
+        else:
+            # target words to predict
+            alen = torch.arange(len2.max(), dtype=torch.long, device=len2.device)
+            pred_mask = alen[:, None] < len2[None] - 1  # do not predict anything given the last target word
+            y = x2[1:].masked_select(pred_mask[:-1])
+            assert len(y) == (len2 - 1).sum().item()
+
+            x1, len1, x2, len2, y = to_cuda(x1, len1, x2, len2, y)
+
+            # forward / loss
+            encoded = encoder('fwd', x=x1, lengths=len1, causal=False)
+            decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded.transpose(0, 1), src_len=len1)
+        
         _, loss = decoder('predict', tensor=decoded, pred_mask=pred_mask, y=y, get_scores=False)
         self.stats[task].append(loss.item())
 

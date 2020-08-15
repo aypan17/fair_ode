@@ -684,7 +684,7 @@ class TreeLSTM_Encoder(torch.nn.Module):
         
     # We don't use attention yet, so casual is set to False
     def forward(self, x=None, causal=False):
-        batch, id2emb, lengths = self.prefix_to_tree(x)
+        batch, id2emb, lengths, invalid = self.prefix_to_tree(x)
         children, parents, embeddings, buckets, max_depth, batch_size, roots = self.label_and_map_batch(batch)
 
         # Compute nodes
@@ -712,7 +712,7 @@ class TreeLSTM_Encoder(torch.nn.Module):
         max_len = torch.max(lengths).item()
         output = self.flatten_tree(embeddings, id2emb, max_len)
         assert list(output.size()) == [batch_size, max_len, self.dim]
-        return output, lengths
+        return output, lengths, invalid
 
     # Helper function for concatenating inputs for models with a hidden state and cell state. 
     # For fixed depth, takes a dictionary of idx of child nodes and their embeddings.
@@ -755,7 +755,7 @@ class TreeLSTM_Encoder(torch.nn.Module):
     def int_emb(self, integer):
         b = bin(integer)[2:]
         if len(b) > self.num_bit:
-            raise AssertionError("{0} is too large to be encoded as a {1}-bit number".format(integer, self.num_bit))
+            return "Number too large"
         place = torch.LongTensor([i for i in range(len(b)) if b[len(b)-i-1] == '1'])
         return torch.sum(self.bin2emb(place), 0)
 
@@ -791,26 +791,34 @@ class TreeLSTM_Encoder(torch.nn.Module):
         trees = []
         id2embs = []
         lengths = []
+        valid_idx = []
         counter = 1
-        for tokens in token_list:
-            tree, id2emb, _, counter = self._prefix_to_tree(tokens, [], counter=counter)
-            trees.append(tree)
-            id2embs.append(id2emb)
-            lengths.append(len(id2emb)+1) # Add 1 to account for the end padding
-        return trees, id2embs, torch.LongTensor(lengths)
+        for i in range(len(token_list)):
+            old_counter = counter # reset the counter in case we come across an invalid equation
+            tree, id2emb, _, counter, valid = self._prefix_to_tree(token_list[i], [], counter=counter)
+            if valid:
+                trees.append(tree)
+                id2embs.append(id2emb)
+                lengths.append(len(id2emb)+1) # Add 1 to account for the end padding
+                valid_idx.append(i)
+            else:
+                counter = old_counter
+        return trees, id2embs, torch.LongTensor(lengths), valid_idx
 
     def _prefix_to_tree(self, tokens, id2emb, idx=0, counter=1):
         token = tokens[idx]
         idx += 1
         id2emb.append(counter)
         counter += 1
+        valid = True
 
         if token in BINARY:
-            left, _, idx, counter = self._prefix_to_tree(tokens, id2emb, idx=idx, counter=counter)
-            right, _, idx, counter = self._prefix_to_tree(tokens, id2emb, idx=idx, counter=counter) 
+            left, _, idx, counter, valid1 = self._prefix_to_tree(tokens, id2emb, idx=idx, counter=counter)
+            right, _, idx, counter, valid2 = self._prefix_to_tree(tokens, id2emb, idx=idx, counter=counter) 
+            valid = valid1 and valid2
             root = BinaryEqnTree(token, left, right)
         elif token == EOS or token in UNARY:
-            left, _, idx, counter = self._prefix_to_tree(tokens, id2emb, idx=idx, counter=counter)
+            left, _, idx, counter, valid = self._prefix_to_tree(tokens, id2emb, idx=idx, counter=counter)
             root = BinaryEqnTree(token, left, None)
         elif token in INT:
             counter += 1
@@ -818,6 +826,8 @@ class TreeLSTM_Encoder(torch.nn.Module):
             while idx < len(tokens) and tokens[idx] in DIGITS:
                 val += tokens[idx]
                 idx += 1
+            if int(val) >= (1 << self.num_bit):
+                valid = False
             root = BinaryEqnTree(token, BinaryEqnTree(val, None, None, value=self.int_emb(int(val))), None)
         elif token in DERIVATIVES:
             counter += 2
@@ -830,7 +840,7 @@ class TreeLSTM_Encoder(torch.nn.Module):
             raise AssertionError("{0} is not a valid symbol".format(token))
 
         root.depth = root.get_depth()
-        return (root, id2emb, idx, counter)
+        return root, id2emb, idx, counter, valid
 
 
 class BinaryLSTMNodeSym(torch.nn.Module):

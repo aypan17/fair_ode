@@ -160,9 +160,9 @@ class Evaluator(object):
             # Use TreeLSTM encoder
             if params.treelstm:
                 # encode and get valid equation/solutions (those with max(int) < 2^self.num_bit)
-                encoded, lengths, valid = encoder(x=xword, causal=False)
+                encoded, len1, valid = encoder(x=xword, causal=False)
                 
-                x2, len2, encoded, lengths = to_cuda(torch.transpose(torch.transpose(x2,0,1)[valid],-1,0), len2[valid], encoded, lengths)
+                x2, len2, encoded, len1 = to_cuda(torch.transpose(torch.transpose(x2,0,1)[valid],-1,0), len2[valid], encoded, len1)
                 nb_ops = nb_ops[valid]
                 x2 = x2[:len2.max().item(), :]
 
@@ -174,7 +174,7 @@ class Evaluator(object):
                 assert len(y) == (len2 - 1).sum().item()
 
                 # decode / loss
-                decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded, src_len=lengths)
+                decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded, src_len=len1)
             # Use Transformer encoder
             else:
                 # target words to predict

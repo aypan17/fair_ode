@@ -645,6 +645,7 @@ class TreeLSTM_Encoder(torch.nn.Module):
         super().__init__()
         self.dim = params.emb_dim    
         self.dropout = params.dropout 
+        self.cpu = params.cpu
         self.symmetric = params.symmetric # Whether or not to use symmetric blocks for add/mul
         self.max_order = params.order # Highest derivative that appears in the ode (currently 2)
         self.num_vars = params.vars # Number of variables in the ODE (currently 1)
@@ -725,6 +726,7 @@ class TreeLSTM_Encoder(torch.nn.Module):
                 children = input_ids[key][0]
                 hidden_state = torch.stack([embeddings[child_id] for child_id in children], dim=0)
                 cell_state = torch.zeros((len(children), dim), dtype=torch.float)
+                cell_state = cell_state if self.cpu else cell_state.cuda()
                 inputs[key] = hidden_state, cell_state
             elif key == EOS or key in UNARY or key in DIFFERENTIALS:
                 children = input_ids[key][0]
@@ -748,7 +750,9 @@ class TreeLSTM_Encoder(torch.nn.Module):
     # Given batch of binary trees with computed embeddings, returns tensor of size [maxlen, batch_size, model_dim] by flattening each tree
     def flatten_tree(self, embeddings, id2emb, maxlen):        
         id2emb = [tree + [tree[0]] + [0] * (maxlen-1-len(tree)) for tree in id2emb] # Use maxlen-1 because we already account for the end padding
-        embeddings[0] = torch.zeros(self.dim, dtype=torch.float), 0
+        zeros = torch.zeros(self.dim, dtype=torch.float)
+        zeros = zeros if self.cpu else zeros.cuda()
+        embeddings[0] = zeros, 0
         return torch.stack([torch.stack([embeddings[idx][0] for idx in tree], dim=0) for tree in id2emb], dim=0)
 
     # Returns the embedding of an integer using its binary embedding
@@ -757,6 +761,7 @@ class TreeLSTM_Encoder(torch.nn.Module):
         if len(b) > self.num_bit:
             return "Number too large"
         place = torch.LongTensor([i for i in range(len(b)) if b[len(b)-i-1] == '1'])
+        place = place if self.cpu else place.cuda()
         return torch.sum(self.bin2emb(place), 0)
 
     # Helper function for labeling batch. Calls label_and_map_tree() for the BinEqnTree object.
@@ -831,11 +836,15 @@ class TreeLSTM_Encoder(torch.nn.Module):
             root = BinaryEqnTree(token, BinaryEqnTree(val, None, None, value=self.int_emb(int(val))), None)
         elif token in DERIVATIVES:
             counter += 2
-            root = BinaryEqnTree(SYMBOL_ENCODER, BinaryEqnTree('Y', None, None, value=torch.LongTensor([VOCAB['Y']])[0]), None)
+            value = torch.LongTensor([VOCAB['Y']])[0]
+            value = value if self.cpu else value.cuda()
+            root = BinaryEqnTree(SYMBOL_ENCODER, BinaryEqnTree('Y', None, None, value=value), None)
             root = BinaryEqnTree('d'+str(len(token)-1), root, None)
         elif token in LEAF:
             counter += 1
-            root = BinaryEqnTree(SYMBOL_ENCODER, BinaryEqnTree(token, None, None, value=torch.LongTensor([VOCAB[token]])[0]), None)
+            value = torch.LongTensor([VOCAB[token]])[0]
+            value = value if self.cpu else value.cuda()
+            root = BinaryEqnTree(SYMBOL_ENCODER, BinaryEqnTree(token, None, None, value=value), None)
         else:
             raise AssertionError("{0} is not a valid symbol".format(token))
 

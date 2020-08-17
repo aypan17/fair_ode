@@ -56,7 +56,9 @@ def build_modules(env, params):
 
     # cuda
     if not params.cpu:
-        for v in modules.values():
-            v.cuda()
-
+        if params.treelstm and params.cpu:
+            modules['decoder'].cuda()
+        else:
+            for v in modules.values():
+                v.cuda()
     return modules

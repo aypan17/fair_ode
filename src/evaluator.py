@@ -23,12 +23,15 @@ logger = getLogger()
 BUCKET_LENGTH_SIZE = 5
 
 
-def idx_to_sp(env, idx, return_infix=False):
+def idx_to_sp(env, idx, return_infix=False, id2word=True):
     """
     Convert an indexed prefix expression to SymPy.
     """
-    prefix = [env.id2word[wid] for wid in idx]
-    prefix = env.unclean_prefix(prefix)
+    if id2word:
+        prefix = [env.id2word[wid] for wid in idx]
+        prefix = env.unclean_prefix(prefix)
+    else:
+        prefix = env.unclean_prefix(idx[1:]) # remove the hashtag
     infix = env.prefix_to_infix(prefix)
     eq = sp.S(infix, locals=env.local_dict)
     return (eq, infix) if return_infix else eq
@@ -162,7 +165,8 @@ class Evaluator(object):
                 # encode and get valid equation/solutions (those with max(int) < 2^self.num_bit)
                 encoded, len1, valid = encoder(x=xword, causal=False)
                 
-                x2, len2, encoded, len1 = to_cuda(torch.transpose(torch.transpose(x2,0,1)[valid],-1,0), len2[valid], encoded, len1)
+                x1, x2, len2, encoded, len1 = to_cuda(torch.transpose(torch.transpose(x1,0,1)[valid],-1,0), 
+                                                        torch.transpose(torch.transpose(x2,0,1)[valid],-1,0), len2[valid], encoded, len1)
                 nb_ops = nb_ops[valid]
                 x2 = x2[:len2.max().item(), :]
 
@@ -175,6 +179,7 @@ class Evaluator(object):
 
                 # decode / loss
                 decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded, src_len=len1)
+
             # Use Transformer encoder
             else:
                 # target words to predict
@@ -199,7 +204,7 @@ class Evaluator(object):
             # export evaluation details
             if params.eval_verbose:
                 for i in range(len(len1)):
-                    src = idx_to_sp(env, x1[1:len1[i] - 1, i].tolist())
+                    src = idx_to_sp(env, xword[i], id2word=False) if params.treelstm else idx_to_sp(env, x1[1:len1[i] - 1, i].tolist())
                     tgt = idx_to_sp(env, x2[1:len2[i] - 1, i].tolist())
                     s = f"Equation {n_total.sum().item() + i} ({'Valid' if valid[i] else 'Invalid'})\nsrc={src}\ntgt={tgt}\n"
                     if params.eval_verbose_print:
@@ -300,6 +305,7 @@ class Evaluator(object):
 
                 # decode / loss
                 decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded, src_len=len1)
+
             # Use Transformer encoder
             else:
                 # target words to predict
@@ -325,7 +331,7 @@ class Evaluator(object):
             # save evaluation details
             beam_log = {}
             for i in range(len(len1)):
-                src = idx_to_sp(env, x1[1:len1[i] - 1, i].tolist())
+                src = idx_to_sp(env, xword[i], id2word=False) if params.treelstm else idx_to_sp(env, x1[1:len1[i] - 1, i].tolist())
                 tgt = idx_to_sp(env, x2[1:len2[i] - 1, i].tolist())
                 if valid[i]:
                     beam_log[i] = {'src': src, 'tgt': tgt, 'hyps': [(tgt, None, True)]}
@@ -346,24 +352,14 @@ class Evaluator(object):
             logger.info(f"({n_total.sum().item()}/{eval_size}) Found {bs - len(invalid_idx)}/{bs} valid top-1 predictions. Generating solutions ...")
 
             # generate
-            if params.treelstm:
-                _, _, generations = decoder.generate_beam(
-                    encoded,
-                    len1,
-                    beam_size=params.beam_size,
-                    length_penalty=params.beam_length_penalty,
-                    early_stopping=params.beam_early_stopping,
-                    max_len=params.max_len
-                )
-            else:
-                _, _, generations = decoder.generate_beam(
-                    encoded.transpose(0, 1),
-                    len1,
-                    beam_size=params.beam_size,
-                    length_penalty=params.beam_length_penalty,
-                    early_stopping=params.beam_early_stopping,
-                    max_len=params.max_len
-                )
+            _, _, generations = decoder.generate_beam(
+                encoded if params.treelstm else encoded.transpose(0, 1),
+                len1,
+                beam_size=params.beam_size,
+                length_penalty=params.beam_length_penalty,
+                early_stopping=params.beam_early_stopping,
+                max_len=params.max_len
+            )
 
             # prepare inputs / hypotheses to check
             # if eval_verbose < 2, no beam search on equations solved greedily
@@ -376,7 +372,7 @@ class Evaluator(object):
                         'i': i,
                         'j': j,
                         'score': score,
-                        'src': x1[1:len1[i] - 1, i].tolist(),
+                        'src': idx_to_sp(env, xword[i], id2word=False) if params.treelstm else idx_to_sp(env, x1[1:len1[i] - 1, i].tolist()),
                         'tgt': x2[1:len2[i] - 1, i].tolist(),
                         'hyp': hyp[1:].tolist(),
                     })

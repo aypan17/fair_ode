@@ -54,8 +54,6 @@ def init_distributed_mode(params):
 								- world_size
 				"""
 				params.is_slurm_job = 'SLURM_JOB_ID' in os.environ and not params.debug_slurm
-				print("SLURM job: %s" % str(params.is_slurm_job))
-				print(os.environ)
 				# SLURM job
 				if params.is_slurm_job:
 								

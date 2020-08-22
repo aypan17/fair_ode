@@ -18,16 +18,6 @@ import torch.nn.functional as F
 from src.envs.char_sp import BinaryEqnTree, SYMBOL_ENCODER, EOS, LEAF, VOCAB, BINARY, UNARY, \
                             DERIVATIVES, DIFFERENTIALS, INT, DIGITS
 
-print(SYMBOL_ENCODER)
-print(EOS)
-print(LEAF)
-print(VOCAB)
-print(BINARY)
-print(UNARY)
-print(DERIVATIVES)
-print(DIFFERENTIALS)
-print(INT)
-print(DIGITS)
 N_MAX_POSITIONS = 4096  # maximum input sequence length
 
 

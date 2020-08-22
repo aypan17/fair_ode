@@ -280,7 +280,7 @@ class Evaluator(object):
         iterator = env.create_test_iterator(data_type, task, params=params, data_path=self.trainer.data_path)
         eval_size = len(iterator.dataset)
 
-        for (x1, len1), (x2, len2), nb_ops in iterator:
+        for (x1, len1), (xword, len1), (x2, len2), nb_ops in iterator:
 
             # Use TreeLSTM encoder
             if params.treelstm:

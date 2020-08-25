@@ -163,9 +163,10 @@ class Evaluator(object):
             # Use TreeLSTM encoder
             if params.treelstm:
                 # encode and get valid equation/solutions (those with max(int) < 2^self.num_bit)
+                old_len1 = len1.clone()
                 encoded, len1, valid = encoder(x=xword, causal=False)
                 
-                x1, x2, len2, encoded, len1 = to_cuda(torch.transpose(torch.transpose(x1,0,1)[valid],-1,0), 
+                x1, old_len1, x2, len2, encoded, len1 = to_cuda(torch.transpose(torch.transpose(x1,0,1)[valid],-1,0), old_len1[valid],
                                                         torch.transpose(torch.transpose(x2,0,1)[valid],-1,0), len2[valid], encoded, len1)
                 nb_ops = nb_ops[valid]
                 x2 = x2[:len2.max().item(), :]
@@ -204,7 +205,7 @@ class Evaluator(object):
             # export evaluation details
             if params.eval_verbose:
                 for i in range(len(len1)):
-                    src = idx_to_sp(env, xword[i], id2word=False) if params.treelstm else idx_to_sp(env, x1[1:len1[i] - 1, i].tolist())
+                    src = idx_to_sp(env, x1[1:old_len1[i] - 1, i].tolist()) if params.treelstm else idx_to_sp(env, x1[1:len1[i] - 1, i].tolist())
                     tgt = idx_to_sp(env, x2[1:len2[i] - 1, i].tolist())
                     s = f"Equation {n_total.sum().item() + i} ({'Valid' if valid[i] else 'Invalid'})\nsrc={src}\ntgt={tgt}\n"
                     if params.eval_verbose_print:
@@ -290,9 +291,11 @@ class Evaluator(object):
             # Use TreeLSTM encoder
             if params.treelstm:
                 # encode and get valid equation/solutions (those with max(int) < 2^self.num_bit)
+                old_len1 = len1.clone()
                 encoded, len1, valid = encoder(x=xword, causal=False)
                 
-                x2, len2, encoded, len1 = to_cuda(torch.transpose(torch.transpose(x2,0,1)[valid],-1,0), len2[valid], encoded, len1)
+                x1, old_len1, x2, len2, encoded, len1 = to_cuda(torch.transpose(torch.transpose(x1,0,1)[valid],-1,0), old_len1[valid],
+                                                        torch.transpose(torch.transpose(x2,0,1)[valid],-1,0), len2[valid], encoded, len1)
                 nb_ops = nb_ops[valid]
                 x2 = x2[:len2.max().item(), :]
 
@@ -331,7 +334,7 @@ class Evaluator(object):
             # save evaluation details
             beam_log = {}
             for i in range(len(len1)):
-                src = idx_to_sp(env, xword[i], id2word=False) if params.treelstm else idx_to_sp(env, x1[1:len1[i] - 1, i].tolist())
+                src = idx_to_sp(env, x1[1:old_len1[i] - 1, i].tolist()) if params.treelstm else idx_to_sp(env, x1[1:len1[i] - 1, i].tolist())
                 tgt = idx_to_sp(env, x2[1:len2[i] - 1, i].tolist())
                 if valid[i]:
                     beam_log[i] = {'src': src, 'tgt': tgt, 'hyps': [(tgt, None, True)]}
@@ -372,7 +375,7 @@ class Evaluator(object):
                         'i': i,
                         'j': j,
                         'score': score,
-                        'src': idx_to_sp(env, xword[i], id2word=False) if params.treelstm else idx_to_sp(env, x1[1:len1[i] - 1, i].tolist()),
+                        'src': idx_to_sp(env, x1[1:old_len1[i] - 1, i].tolist()) if params.treelstm else idx_to_sp(env, x1[1:len1[i] - 1, i].tolist()),
                         'tgt': x2[1:len2[i] - 1, i].tolist(),
                         'hyp': hyp[1:].tolist(),
                     })

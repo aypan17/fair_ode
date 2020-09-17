@@ -154,7 +154,7 @@ class Evaluator(object):
         iterator = self.env.create_test_iterator(data_type, task, params=params, data_path=self.trainer.data_path)
         eval_size = len(iterator.dataset)
 
-        for (x1, len1), (x2, len2), nb_ops, tensorized_batch in iterator:
+        for (x1, len1), (x2, len2), nb_ops, tensors in iterator:
 
             # print status
             if n_total.sum().item() % 100 < params.batch_size:
@@ -191,12 +191,14 @@ class Evaluator(object):
             y = x2[1:].masked_select(pred_mask[:-1])
             assert len(y) == (len2 - 1).sum().item()
 
-            x1, len1, x2, len2, y, tensorized_batch = to_cuda(x1, len1, x2, len2, y, tensorized_batch)
+            x1, len1, x2, len2, y = to_cuda(x1, len1, x2, len2, y)
+            if tensors:
+                tensors = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5], tensors[6])
 
             # forward / loss
             if params.treelstm or params.treesmu: # Use tree-based encoder
-                len1 -= tensorized_batch[6] # remove the digits from each element in len1
-                encoded = encoder(x=tensorized_batch, lengths=len1)
+                len1 -= tensors[6] # remove the digits from each element in len1
+                encoded = encoder(x=tensors, lengths=len1)
                 decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded, src_len=len1)
             else: # Use Transformer encoder
                 encoded = encoder('fwd', x=x1, lengths=len1, causal=False)
@@ -294,7 +296,7 @@ class Evaluator(object):
         iterator = env.create_test_iterator(data_type, task, params=params, data_path=self.trainer.data_path)
         eval_size = len(iterator.dataset)
 
-        for (x1, len1), (x2, len2), nb_ops, tensorized_batch in iterator:
+        for (x1, len1), (x2, len2), nb_ops, tensors in iterator:
             '''
             # Use TreeLSTM encoder
             if params.treelstm:
@@ -326,12 +328,14 @@ class Evaluator(object):
             y = x2[1:].masked_select(pred_mask[:-1])
             assert len(y) == (len2 - 1).sum().item()
 
-            x1, len1, x2, len2, y, tensorized_batch = to_cuda(x1, len1, x2, len2, y, tensorized_batch)
+            x1, len1, x2, len2, y = to_cuda(x1, len1, x2, len2, y)
+            if tensors:
+                tensors = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5], tensors[6])
 
             # forward / loss
             if params.treelstm or params.treesmu: # Use tree-based encoder
-                len1 -= tensorized_batch[6] # remove the digits from each element in len1
-                encoded = encoder(x=tensorized_batch, lengths=len1)
+                len1 -= tensors[6] # remove the digits from each element in len1
+                encoded = encoder(x=tensors, lengths=len1)
                 decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded, src_len=len1)
             else: # Use Transformer encoder
                 encoded = encoder('fwd', x=x1, lengths=len1, causal=False)

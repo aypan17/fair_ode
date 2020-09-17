@@ -33,7 +33,9 @@ def build_modules(env, params):
     """
     modules = {}
     if params.treelstm:
-        modules['encoder'] = TreeLSTM_Encoder(params)
+        modules['encoder'] = TreeLSTM_Encoder(params, env.id2word, env.word2id, env.una_ops, env.bin_ops)
+    elif params.treesmu:
+        modules['encoder'] = TreeSMU_Encoder(params, env.id2word, env.word2id, env.una_ops, env.bin_ops)
     else:
         modules['encoder'] = TransformerModel(params, env.id2word, is_encoder=True, with_output=False)
     modules['decoder'] = TransformerModel(params, env.id2word, is_encoder=False, with_output=True)
@@ -56,9 +58,6 @@ def build_modules(env, params):
 
     # cuda
     if not params.cpu:
-        if params.treelstm and params.cpu:
-            modules['decoder'].cuda()
-        else:
-            for v in modules.values():
-                v.cuda()
+        for v in modules.values():
+            v.cuda()
     return modules

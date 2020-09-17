@@ -14,6 +14,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from torch.nn.utils.rnn import pad_sequence
 
 from src.envs.char_sp import BinaryEqnTree, SYMBOL_ENCODER, EOS, LEAF, VOCAB, BINARY, UNARY, \
                             DERIVATIVES, DIFFERENTIALS, INT, DIGITS
@@ -638,7 +639,7 @@ class BeamHypotheses(object):
         else:
             return self.worst_score >= best_sum_logprobs / self.max_len ** self.length_penalty
 
-
+'''
 class TreeLSTM_Encoder(torch.nn.Module):
     def __init__(self, params):
         super().__init__()
@@ -972,3 +973,184 @@ class UnaryLSTMNode(torch.nn.Module):
             c = i * F.dropout(u,p=dropout,training=self.training) + f * c
         h = o * torch.tanh(c)
         return h, c
+'''
+class UnaryLSTM(torch.nn.Module):
+    def __init__(self, d_model: int):
+        super().__init__()
+        self.data = nn.Linear(d_model, d_model, bias=True)
+        self.forget = nn.Linear(d_model, d_model, bias=True)
+        self.output = nn.Linear(d_model, d_model, bias=True)
+        self.input = nn.Linear(d_model, d_model, bias=True)
+
+    def forward(self, inp: torch.Tensor, dropout=None) -> torch.Tensor:
+        h, c = torch.split(inp, 1, dim=1)
+        h = h.squeeze(1)
+        c = c.squeeze(1)
+        i = torch.sigmoid(self.data(h))
+        f = torch.sigmoid(self.forget(h))
+        o = torch.sigmoid(self.output(h))
+        u = torch.tanh(self.input(h))
+        if dropout is None:
+            c = i * u + f * c
+        else:
+            c = i * F.dropout(u,p=dropout,training=self.training) + f * c
+        h = o * torch.tanh(c)
+        h_norm = h / h.norm(p=2)
+        c_norm = c / c.norm(p=2)
+        return torch.stack([h_norm, c_norm], dim=1)
+
+
+class BinaryLSTM(torch.nn.Module):
+
+    def __init__(self, d_model: int):
+        super().__init__()
+        self.data_left = nn.Linear(d_model, d_model, bias=False)
+        self.data_right = nn.Linear(d_model, d_model, bias=False)
+        self.data_bias = nn.Parameter(torch.FloatTensor([0] * d_model))
+        self.forget_left_by_left = nn.Linear(d_model, d_model, bias=False)
+        self.forget_left_by_right = nn.Linear(d_model, d_model, bias=False)
+        self.forget_right_by_left = nn.Linear(d_model, d_model, bias=False)
+        self.forget_right_by_right = nn.Linear(d_model, d_model, bias=False)
+        self.forget_bias_left = nn.Parameter(torch.FloatTensor([0] * d_model))
+        self.forget_bias_right = nn.Parameter(torch.FloatTensor([0] * d_model))
+        self.output_left = nn.Linear(d_model, d_model, bias=False)
+        self.output_right = nn.Linear(d_model, d_model, bias=False)
+        self.output_bias = nn.Parameter(torch.FloatTensor([0] * d_model))
+        self.input_left = nn.Linear(d_model, d_model, bias=False)
+        self.input_right = nn.Linear(d_model, d_model, bias=False)
+        self.input_bias = nn.Parameter(torch.FloatTensor([0] * d_model))
+
+    def forward(self, inp_left, inp_right, dropout=None):
+        """
+
+        Args:
+            input_left: ((num_hidden,), (num_hidden,))
+            input_right: ((num_hidden,), (num_hidden,))
+
+        Returns:
+            (num_hidden,), (num_hidden)
+        """
+        hl, cl = torch.split(inp_left, 1, dim=1)
+        hr, cr = torch.split(inp_right, 1, dim=1)
+        hl = hl.squeeze(1)
+        cl = cl.squeeze(1)
+        hr = hr.squeeze(1)
+        cr = cr.squeeze(1)
+        i = torch.sigmoid(self.data_left(hl) + self.data_right(hr) + self.data_bias)
+        f_left = torch.sigmoid(self.forget_left_by_left(hl) + self.forget_left_by_right(hr) + self.forget_bias_left)
+        f_right = torch.sigmoid(self.forget_right_by_left(hl) + self.forget_right_by_right(hr) + self.forget_bias_right)
+        o = torch.sigmoid(self.output_left(hl) + self.output_right(hr) + self.output_bias)
+        u = torch.tanh(self.input_left(hl) + self.input_right(hr) + self.input_bias)
+        if dropout is None:
+            c = i * u + f_left * cl + f_right * cr
+        else:
+            c = i * F.dropout(u,p=dropout,training=self.training) + f_left * cl + f_right * cr
+        h = o * torch.tanh(c)
+        h_norm = h / h.norm(p=2)
+        c_norm = c / c.norm(p=2)
+        return torch.stack([h_norm, c_norm], dim=1)
+
+
+class TreeLSTM_Encoder(torch.nn.Module):
+    def __init__(self, params, id2word, word2id, una_ops, bin_ops):
+        super().__init__()
+
+        self.d_model = params.emb_dim
+        self.id2word = id2word
+        self.word2id = word2id
+        self.una_ops = una_ops
+        self.bin_ops = bin_ops
+        self.pad_idx = -1
+        self.unary_modules = torch.nn.ModuleDict(
+            {f: UnaryLSTM(params.emb_dim) for f in una_ops}
+        )
+        self.binary_modules = torch.nn.ModuleDict(
+            {f: BinaryLSTM(params.emb_dim) for f in bin_ops}
+        )
+        self.leaf_emb = torch.nn.Embedding(
+            num_embeddings=len(id2word),
+            embedding_dim=params.emb_dim,
+            padding_idx=self.pad_idx,
+            max_norm=1.0,
+        )
+        self.num_enc = torch.nn.Sequential(
+
+                nn.Linear(1, params.emb_dim),
+                nn.Sigmoid(),
+                nn.Linear(params.emb_dim, params.emb_dim),
+                nn.Sigmoid()
+            )
+
+    '''
+    operations: torch.Tensor,
+    tokens: torch.Tensor,
+    left_idx: torch.Tensor,
+    right_idx: torch.Tensor,
+    depths: torch.Tensor,
+    operation_order: torch.Tensor,
+    digits: torch.Tensor
+    '''
+    def forward(
+        self, x=None, lengths=None,
+    ) -> torch.Tensor:
+        """
+        Given a batch of tensorized trees, produce the model log probability that
+        equality holds for each.
+        """
+        operations, tokens, left_idx, right_idx, depths, operation_order, _ = x
+        num_steps = operation_order.numel()
+        num_nodes = operations.numel()
+        activations = torch.zeros(
+            (num_nodes, 2, self.d_model), dtype=torch.float, device=operations.device
+        )
+
+        for depth in range(num_steps):  # type: ignore
+            step_mask = depths == depth  # Indices to compute at this step
+            op = operation_order[depth].item()
+
+            if op in [-1, -2]:  # Embedding lookup or number encoding
+                idx = tokens.masked_select(step_mask)
+                step_activations = self.leaf_emb(idx) if op == -1 else self.num_enc(idx.float().unsqueeze(1))
+                zeros = torch.zeros(
+                    (len(idx), self.d_model), dtype=torch.float, device=operations.device
+                )
+                step_activations = torch.stack([step_activations, zeros], dim=1)
+            else:
+                op_name = self.id2word[op]
+
+                if op_name in self.unary_modules.keys():
+                    module = self.unary_modules[op_name]
+                    child_input_idx = left_idx.masked_select(step_mask)
+                    child_activations = activations[child_input_idx]
+                    step_activations = module(child_activations)
+                else:  # Binary; equality operations always have a depth of -1
+                    module = self.binary_modules[op_name]
+                    left_input_idx = left_idx.masked_select(step_mask)
+                    left_activations = activations[left_input_idx]
+                    right_input_idx = right_idx.masked_select(step_mask)
+                    right_activations = activations[right_input_idx]
+                    step_activations = module(left_activations, right_activations)
+
+            # Write computed activations into the shared buffer; NOTE: one copy of this
+            # buffer is computed for each step, to allow for dense backprop
+            activations = activations.masked_scatter(
+                torch.stack([step_mask, step_mask], dim=1).unsqueeze(2), step_activations
+            )
+
+        hidden, _ = torch.split(activations, 1, dim=1)
+        '''
+        if digits > 1:
+            zeros = torch.zeros(
+                (num_nodes, digits-1, self.d_model), dtype=torch.float, device=hidden.device
+            )
+            hidden_pad = torch.cat((hidden, zeros), dim=0)
+        else:
+            hidden_pad = hidden
+        hidden_pad = torch.where(int_mask.unsqueeze(1).unsqueeze(1), int_embs, hidden_pad)
+        dim = hidden_pad.size()
+        hidden_pad_flat = hidden_pad.view(dim[0]*dim[1], self.d_model)
+        nonzero = (hidden_pad_flat != 0).all(1)
+        hidden = hidden_pad_flat[nonzero, :]
+        '''
+        unpadded_batch = torch.split(hidden, lengths.tolist(), dim=0)
+        return pad_sequence(unpadded_batch, padding_value=0.0, batch_first=True).squeeze(2)

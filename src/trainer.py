@@ -14,6 +14,7 @@ from logging import getLogger
 from collections import OrderedDict
 import numpy as np
 import torch
+import time
 from torch import nn
 from torch.nn.utils import clip_grad_norm_
 
@@ -132,7 +133,6 @@ class Trainer(object):
                 assert (task in self.data_path) == (task in params.tasks)
         else:
             self.data_path = None
-
         # create data loaders
         if not params.eval_only:
             if params.env_base_seed < 0:
@@ -448,35 +448,25 @@ class Trainer(object):
         decoder.train()
 
         # batch
-        (x1, len1), (xword, len1), (x2, len2), _ = self.get_batch(task)
+        start = time.time()
+        (x1, len1), (x2, len2), _, tensorized_batch = self.get_batch(task)
+        end = time.time()
+        print(end-start)
 
-        # Use TreeLSTM encoder
-        if params.treelstm:
-            # encode and get valid equation/solutions (those with max(int) < 2^self.num_bit)
-            encoded, len1, valid = encoder(x=xword, causal=False)
-            x2, len2, encoded, len1 = to_cuda(torch.transpose(torch.transpose(x2,0,1)[valid],-1,0), len2[valid], encoded, len1)
-            x2 = x2[:len2.max().item(), :]
+        # target words to predict
+        alen = torch.arange(len2.max(), dtype=torch.long, device=len2.device)
+        pred_mask = alen[:, None] < len2[None] - 1  # do not predict anything given the last target word
+        y = x2[1:].masked_select(pred_mask[:-1])
+        assert len(y) == (len2 - 1).sum().item()
+        
+        x1, len1, x2, len2, y, tensorized_batch = to_cuda(x1, len1, x2, len2, y, tensorized_batch)
 
-            # target words to predict
-            alen = torch.arange(len2.max(), dtype=torch.long, device=len2.device)
-            pred_mask = alen[:, None] < len2[None] - 1  # do not predict anything given the last target word
-            y = x2[1:].masked_select(pred_mask[:-1])
-            y, _ = to_cuda(y, None)
-            assert len(y) == (len2 - 1).sum().item()
-
-            # decode / loss
+        # forward / loss
+        if params.treelstm or params.treesmu: # Use tree-based encoder
+            len1 -= tensorized_batch[6] # remove the digits from each element in len1
+            encoded = encoder(x=tensorized_batch, lengths=len1)
             decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded, src_len=len1)
-        # Use Transformer encoder
-        else:
-            # target words to predict
-            alen = torch.arange(len2.max(), dtype=torch.long, device=len2.device)
-            pred_mask = alen[:, None] < len2[None] - 1  # do not predict anything given the last target word
-            y = x2[1:].masked_select(pred_mask[:-1])
-            assert len(y) == (len2 - 1).sum().item()
-
-            x1, len1, x2, len2, y = to_cuda(x1, len1, x2, len2, y)
-
-            # forward / loss
+        else: # Use Transformer encoder
             encoded = encoder('fwd', x=x1, lengths=len1, causal=False)
             decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded.transpose(0, 1), src_len=len1)
         

@@ -41,6 +41,7 @@ SPECIAL_WORDS = SPECIAL_WORDS + [f'<SPECIAL_{i}>' for i in range(len(SPECIAL_WOR
 
 SYMBOL_ENCODER = "Symbol"
 EOS = "#"
+PAD = "<pad>"
 
 INTEGRAL_FUNC = {sp.erf, sp.erfc, sp.erfi, sp.erfinv, sp.erfcinv, sp.expint, sp.Ei, sp.li, sp.Li, sp.Si, sp.Ci, sp.Shi, sp.Chi, sp.fresnelc, sp.fresnels}
 EXP_OPERATORS = {'exp', 'sinh', 'cosh'}
@@ -55,6 +56,7 @@ ZERO_THRESHOLD = 1e-13
 
 OPERATORS = {
         # Elementary functions
+        'eq': 2,
         'add': 2,
         'sub': 2,
         'mul': 2,
@@ -107,10 +109,9 @@ OPERATORS = {
         'h': 3,
     }
 
-BINARY = {x for x in OPERATORS if OPERATORS[x] == 2}
-UNARY = {x for x in OPERATORS if OPERATORS[x] == 1}
+BINARY = [x for x in OPERATORS if OPERATORS[x] == 2]
+UNARY = [x for x in OPERATORS if OPERATORS[x] == 1]
 
-LEAF = {'pi', 'E'}
 variables = OrderedDict({
     'x': sp.Symbol('x', real=True, nonzero=True),  # , positive=True
     'y': sp.Symbol('y', real=True, nonzero=True),  # , positive=True
@@ -121,16 +122,14 @@ coefficients = OrderedDict({
     f'a{i}': sp.Symbol(f'a{i}', real=True)
     for i in range(10)
 })
-LEAF.update({x for x in variables.keys()})
-LEAF.update({x for x in coefficients.keys()})
-LEAF.update('Y')
+LEAF = ['pi', 'E'] + [x for x in variables.keys()] + [x for x in coefficients.keys()] + ['Y']
 VOCAB = {key:value for value, key in enumerate(LEAF)}
 
-DERIVATIVES = {"Y"+"'"*(i) for i in range(1, 3)}
-DIFFERENTIALS = {'d'+str(i) for i in range(1, 3)}
+DERIVATIVES = ["Y"+"'"*(i) for i in range(1, 3)]
+DIFFERENTIALS = ['d'+str(i) for i in range(1, 3)]
 
-INT = {'INT+', 'INT-'}
-DIGITS = {str(x) for x in range(10)}
+INT = ['INT+', 'INT-']
+DIGITS = [str(x) for x in range(10)]
 
 
 
@@ -216,6 +215,143 @@ def eval_test_zero(eq):
         _eq = eq.subs(zip(variables, values)).doit()
         outputs.append(float(sp.Abs(_eq.evalf())))
     return outputs
+
+class BinaryEqnTree:
+
+    NULL = "#"
+
+    def __init__(self, function_name, lchild, rchild, value=None,
+                 is_a_floating_point=False, raw=None, label=None, depth=None):
+        """
+
+        Args:
+            function_name: the name of the node
+            lchild: the left child (a BinaryEqnTree or None)
+            rchild: the right child (a BinaryEqnTree or None)
+        """
+        #TODO: make value a more general construct, i.e. a dictionary, or an object so that more than one value can be stored at a node
+        if lchild is None and rchild is not None:
+            raise ValueError("A tree can have the following children:" + "\n"
+            "    lchild=None, rchild=None or" + "\n"
+            "    lchild!=None, rchild=None or" + "\n"
+            "    lchild!=None, rchild!=None or" + "\n"
+            "Got the following instead:" + "\n"
+            "    lchild=%s, rchild=%s" % (repr(lchild), repr(rchild)))
+        self.function_name = function_name
+        self.lchild = lchild
+        self.rchild = rchild
+        self.is_a_floating_point = is_a_floating_point
+        self.value = value
+        self.is_binary = lchild is not None and rchild is not None
+        self.is_unary = lchild is not None and rchild is None
+        self.is_leaf = lchild is None and rchild is None
+        self.raw = raw
+        self.label = label
+        self.depth = depth
+        self.cls = None
+
+    def apply(self, fn):
+        if self.lchild is not None:
+            self.lchild.apply(fn)
+        if self.rchild is not None:
+            self.rchild.apply(fn)
+        fn(self)
+
+
+    def get_depth(self):
+        left = 0
+        right = 0
+        if self.lchild:
+            left = self.lchild.get_depth()
+        if self.rchild:
+            right = self.rchild.get_depth()
+        return 1 + max(left, right)
+
+    """
+    Runs a DFS to label all nodes and create the children, embedding dictionaries.
+
+    Args: 
+        BinaryEqnTree: tree in the batch to be labeled and embedded.
+
+        unused_id: one-element list containing lowest value unused id in the batch. Need list for mutability.
+                    Updated with every call.
+
+        current_depth: integer equal to the depth of the node calling the 
+
+        children: a Dict<id, list<id>> whose key is the id of a node and value is the list of its children ids.
+                    Updated with every call.
+
+        parent: a Dict<id, id> whose key is the id of a child and value is the id of its parent.
+                    Update with every call.
+
+        embedding: a Dict<id, embedding_vector> whose key is the id of a node in the tree
+                    and value is the embedding vector of the node; a node w/o embedding has value None.
+                    Updated with every call.
+
+        buckets: a list of defaultDict<function_name, [list<lchild_id>, list<rchild_id>]> indexed by depth. 
+                    Each defaultDict has function_name keys and [list<lchild_id>, list<rchild_id>] values 
+                    that contain the lchild and rchild ids of the [function_name] block.
+                    Updated with every call.
+
+    Returns:
+        idx: the integer id of the node that calls labels_embeddings.
+    """
+    def label_and_map_tree(self, unused_id, current_depth, children, parent, embedding, buckets):
+        idx = unused_id[0]
+        unused_id[0] += 1
+        self.depth = current_depth
+        current_depth -= 1
+        children[idx] = []
+        embedding[idx] = self.value
+        if self.lchild is not None:
+            lchild_id = self.lchild.label_and_map_tree(unused_id, current_depth, children, parent, embedding, buckets)
+            children[idx].append(lchild_id)
+            buckets[self.depth][self.function_name][0].append(lchild_id)
+        if self.rchild is not None:
+            rchild_id = self.rchild.label_and_map_tree(unused_id, current_depth, children, parent, embedding, buckets)
+            children[idx].append(rchild_id)
+            buckets[self.depth][self.function_name][1].append(rchild_id)
+        for child_id in children[idx]:
+            parent[child_id] = idx
+        return idx
+
+    def is_numeric(self):
+        if self.function_name != "Equality":
+            print("Warning: is_numeric should only be called on the root of an equation tree")
+            return False #raise ValueError("is_numeric should only be called on the root of an equation tree")
+        return self._is_numeric()
+
+    def _is_numeric(self):
+        if self.is_leaf:
+            return self.is_a_floating_point
+        if self.is_unary:
+            return self.lchild._is_numeric()
+        if self.is_binary:
+            return self.lchild._is_numeric() or self.rchild._is_numeric()
+        raise AssertionError(str(self))
+
+    def __str__(self):
+        if self.is_binary:
+            return "{}({}, {})".format(self.function_name,
+                                       str(self.lchild),
+                                       str(self.rchild))
+        elif self.is_unary:
+            return "{}({})".format(self.function_name,
+                                   str(self.lchild))
+        elif self.is_leaf:
+            return "{}={}".format(self.function_name, self.value)
+        else:
+            raise RuntimeError("Invalid tree:\n%s" % repr(self))
+
+
+    def __repr__(self):
+        return "BinaryEqnTree({},{},{},{},{},{},{})".format(repr(self.function_name),
+                                         repr(self.lchild),
+                                         repr(self.rchild),
+                                         repr(self.is_a_floating_point),
+                                         repr(self.raw),
+                                         repr(self.label),
+                                         repr(self.depth))
 
 
 class CharSPEnvironment(object):
@@ -316,7 +452,7 @@ class CharSPEnvironment(object):
         # custom functions
         'f': 1,
         'g': 2,
-        'h': 3,
+        #'h': 3,
     }
 
     def __init__(self, params):
@@ -338,8 +474,8 @@ class CharSPEnvironment(object):
 
         # parse operators with their weights
         self.operators = sorted(list(self.OPERATORS.keys()))
-        ops = params.operators.split(',')
-        ops = sorted([x.split(':') for x in ops])
+        ops = self.OPERATORS.items()
+        print(ops)
         assert len(ops) >= 1 and all(o in self.OPERATORS for o, _ in ops)
         self.all_ops = [o for o, _ in ops]
         self.una_ops = [o for o, _ in ops if self.OPERATORS[o] == 1]
@@ -372,7 +508,7 @@ class CharSPEnvironment(object):
         self.functions = OrderedDict({
             'f': sp.Function('f', real=True, nonzero=True),
             'g': sp.Function('g', real=True, nonzero=True),
-            'h': sp.Function('h', real=True, nonzero=True),
+            #'h': sp.Function('h', real=True, nonzero=True),
         })
         self.symbols = ['I', 'INT+', 'INT-', 'INT', 'FLOAT', '-', '.', '10^', 'Y', "Y'", "Y''"]
         if self.balanced:
@@ -1410,7 +1546,7 @@ class CharSPEnvironment(object):
         Create a dataset for this environment.
         """
         logger.info(f"Creating train iterator for {task} ...")
-
+        print(self.operators)
         dataset = EnvDataset(
             self,
             task,
@@ -1473,6 +1609,7 @@ class EnvDataset(Dataset):
         self.num_workers = params.num_workers
         self.batch_size = params.batch_size
         self.same_nb_ops_per_batch = params.same_nb_ops_per_batch
+        self.tree_batch = params.treelstm or params.treesmu
 
         # generation, or reloading from file
         if path is not None:
@@ -1499,6 +1636,284 @@ class EnvDataset(Dataset):
         else:
             self.size = 5000 if path is None else len(self.data)
 
+    def tensorize_tree(self, tree: BinaryEqnTree, digits=0):
+        """
+        Convert a tree into a collection of flat tensors appropriate for efficient
+        computation with tree-structured models.
+
+        Trees are flattened by a pre-order traversal, and the index tensors left_idx and
+        right_idx respect this order, with the root of the tree at index 0.
+
+        Parameters
+        ----------
+        tree
+            The tree to represent as tensors.
+
+        Returns
+        -------
+        operations : Tensor
+            An index (into INDEX_TO_OP) indicating which operation is applied at each node,
+            with -1 indicating an embedding lookup. Used to look up the appropriate
+            operation to apply at runtime.
+        tokens : Tensor
+            An index (into INDEX_TO_LEAF) indicating the token represented at each leaf
+            node, or -1 for non-leaf nodes. Used to look up leaf embeddings at runtime.
+        left_idx : Tensor
+            An index indicating the left child of each node, or -1 if
+            the node does not have a left child.
+        right_idx : Tensor
+            An index indicating the right child of each node, or -1 if
+            the node does not have a right child.
+        """
+        if tree.function_name in ['INT+', 'INT-']:
+            operations = torch.tensor([-2])
+            digits = len(str(tree.value))
+            tokens = token = torch.tensor([tree.value]) if tree.function_name == 'INT+' else torch.tensor([-1*tree.value])
+            left_idx = torch.tensor([-1])
+            right_idx = torch.tensor([-1])
+        elif tree.function_name == SYMBOL_ENCODER:  # Leaf
+            operations = torch.tensor([-1])
+            tokens = token = torch.tensor([self.env.word2id[tree.value]])
+            left_idx = torch.tensor([-1])
+            right_idx = torch.tensor([-1])
+        elif tree.is_unary:
+            if tree.lchild:
+                child = tree.lchild
+                new_left_idx = torch.tensor([1])
+                new_right_idx = torch.tensor([-1])
+            else:
+                child = tree.rchild
+                new_left_idx = torch.tensor([-1])
+                new_right_idx = torch.tensor([1])
+
+            child_ops, child_tokens, child_left, child_right, digits = self.tensorize_tree(child)
+
+            # Re-root at this (unary) node by setting the root index of the child to 1
+            # and re-indexing all of its nodes, ignoring null indices.
+            child_left[child_left != -1] += 1
+            child_right[child_right != -1] += 1
+
+            new_operation = torch.tensor([self.env.word2id[tree.function_name]])
+            new_token = torch.tensor([-1])
+
+            operations = torch.cat([new_operation, child_ops])
+            tokens = torch.cat([new_token, child_tokens])
+            left_idx = torch.cat([new_left_idx, child_left])
+            right_idx = torch.cat([new_right_idx, child_right])
+        elif tree.is_binary:
+            (
+                left_child_operations,
+                left_child_tokens,
+                left_child_left_idx,
+                left_child_right_idx,
+                ldigits
+            ) = self.tensorize_tree(tree.lchild)
+            (
+                right_child_operations,
+                right_child_tokens,
+                right_child_left_idx,
+                right_child_right_idx,
+                rdigits
+            ) = self.tensorize_tree(tree.rchild)
+
+            # Re-root at this (binary) node by setting the root index of the left child to
+            # 1, the root index of the right child to 1 + num_left_nodes, and re-indexing.
+            num_left_nodes = left_child_operations.numel()
+            left_child_left_idx[left_child_left_idx != -1] += 1
+            left_child_right_idx[left_child_right_idx != -1] += 1
+            right_child_left_idx[right_child_left_idx != -1] += num_left_nodes + 1
+            right_child_right_idx[right_child_right_idx != -1] += num_left_nodes + 1
+
+            new_operation = torch.tensor([self.env.word2id[tree.function_name]])
+            new_token = torch.tensor([-1])
+            new_left_idx = torch.tensor([1])
+            new_right_idx = torch.tensor([num_left_nodes + 1])
+
+            operations = torch.cat(
+                [new_operation, left_child_operations, right_child_operations]
+            )
+            tokens = torch.cat([new_token, left_child_tokens, right_child_tokens])
+            left_idx = torch.cat([new_left_idx, left_child_left_idx, right_child_left_idx])
+            right_idx = torch.cat(
+                [new_right_idx, left_child_right_idx, right_child_right_idx]
+            )
+            digits = ldigits + rdigits
+        else:
+            assert False
+                        
+        return (operations, tokens, left_idx, right_idx, torch.tensor([digits]))
+
+
+    def compute_operation_order(
+        self, operations: torch.Tensor, left_idx: torch.Tensor, right_idx: torch.Tensor
+    ):
+        """
+        Compute the step at which each node in a tree may execute.
+
+        Preserves these invariants:
+            - Any children of nodes indicated at a given step will have a lower depth.
+            - All nodes with the same depth will have the same operation index.
+
+        Operations are selected with a greedy algorithm, which always picks the operation
+        with the most "available" nodes at a given step to execute at that step.
+
+        Parameters
+        ----------
+        operations
+            An index indicating which operation is applied at each node.
+        left_idx
+            An index indicating the left child of each node, or -1 if the node does not
+            have a left child.
+        right_idx
+            An index indicating the right child of each node, or -1 if the node does not
+            have a right child.
+
+        Returns
+        -------
+        depths : Tensor
+            The depth of each node in the tree.
+        operation_order : Tensor
+            For each step, the operation performed at that step.
+        """
+        num_nodes = operations.numel()
+        complete = torch.zeros(num_nodes + 1, dtype=torch.bool)
+
+        # Add a fake "node" that is always available for leaf tensors to look up
+        complete[num_nodes] = True
+        left_idx_ = left_idx.clone()
+        left_idx_[left_idx_ == -1] = num_nodes
+        right_idx_ = right_idx.clone()
+        right_idx_[right_idx_ == -1] = num_nodes
+
+        depth = 0
+        depths = torch.zeros(num_nodes, dtype=torch.int)
+        operation_order = []
+
+        while not complete.all():
+            available = complete[left_idx_] & complete[right_idx_] & ~complete[:-1]
+            available_ops = operations.masked_select(available)
+            selected_op, _ = available_ops.mode()  # The op with the most available nodes
+            step_mask = (operations == selected_op) & available  # Indices for this step
+
+            operation_order.append(selected_op.item())
+            depths += step_mask * depth  # Set the depth for these indices to `depth`
+            complete[:-1] |= step_mask  # Mark indices computed at this step done
+            depth += 1
+
+        return depths, torch.tensor(operation_order, dtype=torch.int)
+
+    def tensorize_tree_batch(self, trees):
+        """
+        Convert a batch of trees into a collection of flat tensors appropriate for efficient
+        computation with tree-structured models.
+
+        All tensors are single "long tensors" effectively representing the whole batch
+        as a single disconnected forest.
+
+        Parameters
+        ----------
+        trees
+            A List of N trees, with M total nodes.
+
+        Returns
+        -------
+        operations : Tensor[M]
+            An index indicating which operation is applied at each node, with -1 indicating
+            an embedding lookup and -2 indicating an integer embedding. Used to look up the 
+            appropriate operation to apply at runtime.
+        tokens : Tensor[M]
+            An index indicating the token represented at each leaf node, or -1 for non-leaf
+            nodes. Used to look up leaf embeddings at runtime.
+        left_idx : Tensor[M]
+            An index (into all M-tensors) indicating the left child of each node, or -1 if
+            the node does not have a left child.
+        right_idx : Tensor[M]
+            An index (into all M-tensors) indicating the right child of each node, or -1 if
+            the node does not have a right child.
+        depth : Tensor[M]
+            What step each node in the tree may be applied at, preserving these invariants:
+                - Any children of nodes indicated at a given step will have a lower depth.
+                - All nodes with the same depth will have the same operation index.
+        operation_order : Tensor[max_depth]
+            For each step, the operation performed at that step.
+        """
+        operations = torch.tensor([], dtype=torch.long)
+        tokens = torch.tensor([], dtype=torch.long)
+        left_idx = torch.tensor([], dtype=torch.long)
+        right_idx = torch.tensor([], dtype=torch.long)
+        digits = torch.tensor([], dtype=torch.long)
+
+        root_idx = 0
+        for tree in trees:
+            (
+                tree_ops,
+                tree_tokens,
+                tree_left_idx,
+                tree_right_idx,
+                tree_digits,
+            ) = self.tensorize_tree(tree)
+            
+            # Append BOS and EOS embedding operations
+            tree_ops = torch.cat([torch.tensor([-1]), tree_ops, torch.tensor([-1])])
+            # Append BOS and EOS tokens to the tokens
+            eos = self.env.word2id['<s>']
+            tree_tokens = torch.cat([torch.tensor([eos]), tree_tokens, torch.tensor([eos])])
+            tree_left_idx = torch.cat([torch.tensor([-1]), tree_left_idx, torch.tensor([-1])])
+            tree_right_idx = torch.cat([torch.tensor([-1]), tree_right_idx, torch.tensor([-1])])
+            
+            # Re-index this tree at its new place in the batch-wide order
+            # Add 1 because we append an BOS token to the start
+            tree_left_idx[tree_left_idx != -1] += root_idx + 1
+            tree_right_idx[tree_right_idx != -1] += root_idx + 1
+
+            operations = torch.cat([operations, tree_ops])
+            tokens = torch.cat([tokens, tree_tokens])
+            left_idx = torch.cat([left_idx, tree_left_idx])
+            right_idx = torch.cat([right_idx, tree_right_idx])
+            digits = torch.cat([digits, tree_digits])
+
+            root_idx += tree_ops.numel() 
+
+        depths, operation_order = self.compute_operation_order(operations, left_idx, right_idx)
+        return (
+            operations,
+            tokens,
+            left_idx,
+            right_idx,
+            depths,
+            operation_order, 
+            digits
+        )
+
+    # Given a list of tokens in prefix form, convert to a BinaryEqnTree object for decoding.
+    def prefix_to_tree(self, token_list):
+        trees = []
+        for i in range(len(token_list)):
+            tree, _ = self._prefix_to_tree(token_list[i])
+            trees.append(tree)
+        return trees
+
+    def _prefix_to_tree(self, tokens, idx=0):
+        token = tokens[idx]
+        idx += 1
+        if token in self.env.bin_ops:
+            left, idx = self._prefix_to_tree(tokens, idx=idx)
+            right, idx = self._prefix_to_tree(tokens, idx=idx) 
+            root = BinaryEqnTree(token, left, right)
+        elif token in self.env.una_ops:
+            left, idx = self._prefix_to_tree(tokens, idx=idx)
+            root = BinaryEqnTree(token, left, None)
+        elif token in ['INT+', 'INT-']:
+            val = ""
+            while idx < len(tokens) and tokens[idx] in self.env.elements:
+                val += tokens[idx]
+                idx += 1
+            root = BinaryEqnTree(token, None, None, value=int(val))
+        else:
+            root = BinaryEqnTree(SYMBOL_ENCODER, None, None, value=token)
+        return root, idx
+
+
     def collate_fn(self, elements):
         """
         Collate samples into a batch.
@@ -1512,13 +1927,21 @@ class EnvDataset(Dataset):
             print(self.env.prefix_to_infix(self.env.unclean_prefix(y[i])))
             print("")
         '''
-        xword = [['#'] + [w for w in seq if w in self.env.word2id] for seq in x]
+        tensorized_batch = None
+        if self.tree_batch:
+            xword = [[w for w in seq if w in self.env.word2id] for seq in x]
+            trees = self.prefix_to_tree(xword)
+            # operations, tokens, left_idx, right_idx, depths, operation_order, tree_depths
+            tensorized_batch = self.tensorize_tree_batch(trees)
+
         x = [torch.LongTensor([self.env.word2id[w] for w in seq if w in self.env.word2id]) for seq in x]
         y = [torch.LongTensor([self.env.word2id[w] for w in seq if w in self.env.word2id]) for seq in y]
 
         x, x_len = self.env.batch_sequences(x)
         y, y_len = self.env.batch_sequences(y)
-        return (x, x_len), (xword, x_len), (y, y_len), torch.LongTensor(nb_ops)
+
+
+        return (x, x_len), (y, y_len), torch.LongTensor(nb_ops), tensorized_batch
 
     def init_rng(self):
         """
@@ -1609,139 +2032,4 @@ class EnvDataset(Dataset):
 
         return x, y
 
-class BinaryEqnTree:
 
-    NULL = "#"
-
-    def __init__(self, function_name, lchild, rchild, value=None,
-                 is_a_floating_point=False, raw=None, label=None, depth=None):
-        """
-
-        Args:
-            function_name: the name of the node
-            lchild: the left child (a BinaryEqnTree or None)
-            rchild: the right child (a BinaryEqnTree or None)
-        """
-        #TODO: make value a more general construct, i.e. a dictionary, or an object so that more than one value can be stored at a node
-        if lchild is None and rchild is not None:
-            raise ValueError("A tree can have the following children:" + "\n"
-            "    lchild=None, rchild=None or" + "\n"
-            "    lchild!=None, rchild=None or" + "\n"
-            "    lchild!=None, rchild!=None or" + "\n"
-            "Got the following instead:" + "\n"
-            "    lchild=%s, rchild=%s" % (repr(lchild), repr(rchild)))
-        self.function_name = function_name
-        self.lchild = lchild
-        self.rchild = rchild
-        self.is_a_floating_point = is_a_floating_point
-        self.value = value
-        self.is_binary = lchild is not None and rchild is not None
-        self.is_unary = lchild is not None and rchild is None
-        self.is_leaf = lchild is None and rchild is None
-        self.raw = raw
-        self.label = label
-        self.depth = depth
-        self.cls = None
-
-    def apply(self, fn):
-        if self.lchild is not None:
-            self.lchild.apply(fn)
-        if self.rchild is not None:
-            self.rchild.apply(fn)
-        fn(self)
-
-
-    def get_depth(self):
-        left = 0
-        right = 0
-        if self.lchild:
-            left = self.lchild.get_depth()
-        if self.rchild:
-            right = self.rchild.get_depth()
-        return 1 + max(left, right)
-
-    """
-    Runs a DFS to label all nodes and create the children, embedding dictionaries.
-
-    Args: 
-        BinaryEqnTree: tree in the batch to be labeled and embedded.
-
-        unused_id: one-element list containing lowest value unused id in the batch. Need list for mutability.
-                    Updated with every call.
-
-        current_depth: integer equal to the depth of the node calling the 
-
-        children: a Dict<id, list<id>> whose key is the id of a node and value is the list of its children ids.
-                    Updated with every call.
-
-        parent: a Dict<id, id> whose key is the id of a child and value is the id of its parent.
-                    Update with every call.
-
-        embedding: a Dict<id, embedding_vector> whose key is the id of a node in the tree
-                    and value is the embedding vector of the node; a node w/o embedding has value None.
-                    Updated with every call.
-
-        buckets: a list of defaultDict<function_name, [list<lchild_id>, list<rchild_id>]> indexed by depth. 
-                    Each defaultDict has function_name keys and [list<lchild_id>, list<rchild_id>] values 
-                    that contain the lchild and rchild ids of the [function_name] block.
-                    Updated with every call.
-
-    Returns:
-        idx: the integer id of the node that calls labels_embeddings.
-    """
-    def label_and_map_tree(self, unused_id, current_depth, children, parent, embedding, buckets):
-        idx = unused_id[0]
-        unused_id[0] += 1
-        self.depth = current_depth
-        current_depth -= 1
-        children[idx] = []
-        embedding[idx] = self.value
-        if self.lchild is not None:
-            lchild_id = self.lchild.label_and_map_tree(unused_id, current_depth, children, parent, embedding, buckets)
-            children[idx].append(lchild_id)
-            buckets[self.depth][self.function_name][0].append(lchild_id)
-        if self.rchild is not None:
-            rchild_id = self.rchild.label_and_map_tree(unused_id, current_depth, children, parent, embedding, buckets)
-            children[idx].append(rchild_id)
-            buckets[self.depth][self.function_name][1].append(rchild_id)
-        for child_id in children[idx]:
-            parent[child_id] = idx
-        return idx
-
-    def is_numeric(self):
-        if self.function_name != "Equality":
-            print("Warning: is_numeric should only be called on the root of an equation tree")
-            return False #raise ValueError("is_numeric should only be called on the root of an equation tree")
-        return self._is_numeric()
-
-    def _is_numeric(self):
-        if self.is_leaf:
-            return self.is_a_floating_point
-        if self.is_unary:
-            return self.lchild._is_numeric()
-        if self.is_binary:
-            return self.lchild._is_numeric() or self.rchild._is_numeric()
-        raise AssertionError(str(self))
-
-    def __str__(self):
-        if self.is_binary:
-            return "{}({}, {})".format(self.function_name,
-                                       str(self.lchild),
-                                       str(self.rchild))
-        elif self.is_unary:
-            return "{}({})".format(self.function_name,
-                                   str(self.lchild))
-        elif self.is_leaf:
-            return "{}={}".format(self.function_name, self.value)
-        else:
-            raise RuntimeError("Invalid tree:\n%s" % repr(self))
-
-
-    def __repr__(self):
-        return "BinaryEqnTree({},{},{},{},{},{},{})".format(repr(self.function_name),
-                                         repr(self.lchild),
-                                         repr(self.rchild),
-                                         repr(self.is_a_floating_point),
-                                         repr(self.raw),
-                                         repr(self.label),
-                                         repr(self.depth))

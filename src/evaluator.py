@@ -154,12 +154,13 @@ class Evaluator(object):
         iterator = self.env.create_test_iterator(data_type, task, params=params, data_path=self.trainer.data_path)
         eval_size = len(iterator.dataset)
 
-        for (x1, len1), (xword, len1), (x2, len2), nb_ops in iterator:
+        for (x1, len1), (x2, len2), nb_ops, tensorized_batch in iterator:
 
             # print status
             if n_total.sum().item() % 100 < params.batch_size:
                 logger.info(f"{n_total.sum().item()}/{eval_size}")
 
+            '''
             # Use TreeLSTM encoder
             if params.treelstm:
                 # encode and get valid equation/solutions (those with max(int) < 2^self.num_bit)
@@ -183,15 +184,21 @@ class Evaluator(object):
 
             # Use Transformer encoder
             else:
-                # target words to predict
-                alen = torch.arange(len2.max(), dtype=torch.long, device=len2.device)
-                pred_mask = alen[:, None] < len2[None] - 1  # do not predict anything given the last target word
-                y = x2[1:].masked_select(pred_mask[:-1])
-                assert len(y) == (len2 - 1).sum().item()
+            '''
+            # target words to predict
+            alen = torch.arange(len2.max(), dtype=torch.long, device=len2.device)
+            pred_mask = alen[:, None] < len2[None] - 1  # do not predict anything given the last target word
+            y = x2[1:].masked_select(pred_mask[:-1])
+            assert len(y) == (len2 - 1).sum().item()
 
-                x1, len1, x2, len2, y = to_cuda(x1, len1, x2, len2, y)
+            x1, len1, x2, len2, y, tensorized_batch = to_cuda(x1, len1, x2, len2, y, tensorized_batch)
 
-                # forward / loss
+            # forward / loss
+            if params.treelstm or params.treesmu: # Use tree-based encoder
+                len1 -= tensorized_batch[6] # remove the digits from each element in len1
+                encoded = encoder(x=tensorized_batch, lengths=len1)
+                decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded, src_len=len1)
+            else: # Use Transformer encoder
                 encoded = encoder('fwd', x=x1, lengths=len1, causal=False)
                 decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded.transpose(0, 1), src_len=len1)
 
@@ -205,7 +212,8 @@ class Evaluator(object):
             # export evaluation details
             if params.eval_verbose:
                 for i in range(len(len1)):
-                    src = idx_to_sp(env, x1[1:old_len1[i] - 1, i].tolist()) if params.treelstm else idx_to_sp(env, x1[1:len1[i] - 1, i].tolist())
+                    #src = idx_to_sp(env, x1[1:old_len1[i] - 1, i].tolist()) if params.treelstm else idx_to_sp(env, x1[1:len1[i] - 1, i].tolist())
+                    src = idx_to_sp(env, x1[1:len1[i] - 1, i].tolist())
                     tgt = idx_to_sp(env, x2[1:len2[i] - 1, i].tolist())
                     s = f"Equation {n_total.sum().item() + i} ({'Valid' if valid[i] else 'Invalid'})\nsrc={src}\ntgt={tgt}\n"
                     if params.eval_verbose_print:
@@ -286,8 +294,8 @@ class Evaluator(object):
         iterator = env.create_test_iterator(data_type, task, params=params, data_path=self.trainer.data_path)
         eval_size = len(iterator.dataset)
 
-        for (x1, len1), (xword, len1), (x2, len2), nb_ops in iterator:
-
+        for (x1, len1), (x2, len2), nb_ops, tensorized_batch in iterator:
+            '''
             # Use TreeLSTM encoder
             if params.treelstm:
                 # encode and get valid equation/solutions (those with max(int) < 2^self.num_bit)
@@ -311,15 +319,21 @@ class Evaluator(object):
 
             # Use Transformer encoder
             else:
-                # target words to predict
-                alen = torch.arange(len2.max(), dtype=torch.long, device=len2.device)
-                pred_mask = alen[:, None] < len2[None] - 1  # do not predict anything given the last target word
-                y = x2[1:].masked_select(pred_mask[:-1])
-                assert len(y) == (len2 - 1).sum().item()
+            '''
+            # target words to predict
+            alen = torch.arange(len2.max(), dtype=torch.long, device=len2.device)
+            pred_mask = alen[:, None] < len2[None] - 1  # do not predict anything given the last target word
+            y = x2[1:].masked_select(pred_mask[:-1])
+            assert len(y) == (len2 - 1).sum().item()
 
-                x1, len1, x2, len2, y = to_cuda(x1, len1, x2, len2, y)
+            x1, len1, x2, len2, y, tensorized_batch = to_cuda(x1, len1, x2, len2, y, tensorized_batch)
 
-                # forward / loss
+            # forward / loss
+            if params.treelstm or params.treesmu: # Use tree-based encoder
+                len1 -= tensorized_batch[6] # remove the digits from each element in len1
+                encoded = encoder(x=tensorized_batch, lengths=len1)
+                decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded, src_len=len1)
+            else: # Use Transformer encoder
                 encoded = encoder('fwd', x=x1, lengths=len1, causal=False)
                 decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded.transpose(0, 1), src_len=len1)
 
@@ -334,7 +348,8 @@ class Evaluator(object):
             # save evaluation details
             beam_log = {}
             for i in range(len(len1)):
-                src = idx_to_sp(env, x1[1:old_len1[i] - 1, i].tolist()) if params.treelstm else idx_to_sp(env, x1[1:len1[i] - 1, i].tolist())
+                #idx_to_sp(env, x1[1:old_len1[i] - 1, i].tolist()) if params.treelstm else idx_to_sp(env, x1[1:len1[i] - 1, i].tolist())
+                src = idx_to_sp(env, x1[1:len1[i] - 1, i].tolist())
                 tgt = idx_to_sp(env, x2[1:len2[i] - 1, i].tolist())
                 if valid[i]:
                     beam_log[i] = {'src': src, 'tgt': tgt, 'hyps': [(tgt, None, True)]}
@@ -356,7 +371,7 @@ class Evaluator(object):
 
             # generate
             _, _, generations = decoder.generate_beam(
-                encoded if params.treelstm else encoded.transpose(0, 1),
+                encoded if params.treelstm or params.treesmu else encoded.transpose(0, 1),
                 len1,
                 beam_size=params.beam_size,
                 length_penalty=params.beam_length_penalty,
@@ -375,7 +390,7 @@ class Evaluator(object):
                         'i': i,
                         'j': j,
                         'score': score,
-                        'src': idx_to_sp(env, x1[1:old_len1[i] - 1, i].tolist()) if params.treelstm else idx_to_sp(env, x1[1:len1[i] - 1, i].tolist()),
+                        'src': x1[1:len1[i] - 1, i].tolist(), # if params.treelstm else x1[1:len1[i] - 1, i].tolist()
                         'tgt': x2[1:len2[i] - 1, i].tolist(),
                         'hyp': hyp[1:].tolist(),
                     })

@@ -1090,14 +1090,19 @@ class TreeLSTM_Encoder(torch.nn.Module):
     operation_order: torch.Tensor,
     digits: torch.Tensor
     '''
-    def forward(
-        self, x=None, lengths=None,
+    def forward(self, x=None, lengths=None, augment=False):
+        if augment:
+            return self.forward_augment(x)
+        return self.forward_(x, lengths)
+
+    def forward_(
+        self, x, lengths,
     ) -> torch.Tensor:
         """
         Given a batch of tensorized trees, produce the model log probability that
         equality holds for each.
         """
-        operations, tokens, left_idx, right_idx, depths, operation_order, _ = x
+        operations, tokens, left_idx, right_idx, depths, operation_order, _, _ = x
         num_steps = operation_order.numel()
         num_nodes = operations.numel()
         activations = torch.zeros(
@@ -1154,3 +1159,39 @@ class TreeLSTM_Encoder(torch.nn.Module):
         '''
         unpadded_batch = torch.split(hidden, lengths.tolist(), dim=0)
         return pad_sequence(unpadded_batch, padding_value=0.0, batch_first=True).squeeze(2)
+
+    '''
+    Computes a batch of equations with the form Y' - k*exp(x), Y=k*exp(x) for k in integers. 
+    Augments the training for the NUMBER_ENCODER block.
+    '''
+    def forward_augment(self, x):
+        # Intialize cell states
+        zeros = torch.zeros((len(x), 1, self.d_model), dtype=torch.float, device=x.device)
+
+        # Y' and x and EOS embeddings
+        eos = self.word2id['<s>'] * torch.ones((len(x), 1), dtype=torch.long, device=x.device)
+        y_token = self.word2id["Y'"] * torch.ones((len(x), 1), dtype=torch.long, device=x.device)
+        x_token = self.word2id['x'] * torch.ones((len(x), 1), dtype=torch.long, device=x.device)
+        eos, y_token, x_token = torch.split(self.leaf_emb(torch.cat([y_token, x_token, eos], dim=1)), 1, dim=1)
+
+        # exp(x) embedding
+        exp_module = self.unary_modules['exp']
+        exp = exp_module(torch.cat([x_token, zeros], dim=1))
+
+        # number embedding
+        int_emb = self.num_enc(x.unsqueeze(1)).unsqueeze(1)
+
+        # mul embedding
+        mul_module = self.binary_modules['mul']
+        mul = mul_module(torch.cat([int_emb, zeros], dim=1), exp)
+
+        # sub embedding
+        sub_module = self.binary_modules['sub']
+        sub = sub_module(torch.cat([x_token, zeros], dim=1), mul)
+
+        # split into hidden, cell
+        exp, _ = torch.split(exp, 1, dim=1) 
+        mul, _ = torch.split(mul, 1, dim=1)
+        sub, _ = torch.split(sub, 1, dim=1)
+
+        return torch.cat([eos, sub, y_token, mul, int_emb, exp, x_token, eos], dim=1)

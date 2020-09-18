@@ -591,6 +591,23 @@ class CharSPEnvironment(object):
 
         return sent, lengths
 
+    def augment(self, integers):
+        """
+        Return batch of equations with the form Y' - k*exp(x), k*exp(x) for k
+        in integers. Augments the training for the NUMBER_ENCODER block.
+        """
+        y = []
+        for k in integers.tolist():
+            token = 'INT+' if k >= 0 else 'INT-'
+            k = k if k >= 0 else -1*k
+            y.append(['mul', token] + list(str(k)) + ['exp', 'x'])
+
+        y = [torch.LongTensor([self.word2id[w] for w in seq if w in self.word2id]) for seq in y]
+        y, lengths = self.batch_sequences(y)
+        
+        return 8*torch.ones(len(integers), dtype=torch.long), y, lengths
+
+
     def generate_bin_dist(self, max_ops):
         """
         `max_ops`: maximum number of operators
@@ -1636,7 +1653,7 @@ class EnvDataset(Dataset):
         else:
             self.size = 5000 if path is None else len(self.data)
 
-    def tensorize_tree(self, tree: BinaryEqnTree, digits=0):
+    def tensorize_tree(self, tree: BinaryEqnTree, integers, digits=0):
         """
         Convert a tree into a collection of flat tensors appropriate for efficient
         computation with tree-structured models.
@@ -1648,6 +1665,10 @@ class EnvDataset(Dataset):
         ----------
         tree
             The tree to represent as tensors.
+        integer
+            A long tensor of the current integers in the equation.
+        digits
+            A counter that tracks the current number of digits deleted.
 
         Returns
         -------
@@ -1664,11 +1685,17 @@ class EnvDataset(Dataset):
         right_idx : Tensor
             An index indicating the right child of each node, or -1 if
             the node does not have a right child.
+        digits : int
+            A counter that tracks the number of digits deleted from the source equation.
+        integers : Tensor
+            A long tensor of all the integers in the equation.
         """
         if tree.function_name in ['INT+', 'INT-']:
             operations = torch.tensor([-2])
             digits = len(str(tree.value))
-            tokens = token = torch.tensor([tree.value]) if tree.function_name == 'INT+' else torch.tensor([-1*tree.value])
+            value = torch.tensor([tree.value]) if tree.function_name == 'INT+' else torch.tensor([-1*tree.value])
+            integers = torch.cat([integers, value])
+            tokens = value
             left_idx = torch.tensor([-1])
             right_idx = torch.tensor([-1])
         elif tree.function_name == SYMBOL_ENCODER:  # Leaf
@@ -1686,7 +1713,7 @@ class EnvDataset(Dataset):
                 new_left_idx = torch.tensor([-1])
                 new_right_idx = torch.tensor([1])
 
-            child_ops, child_tokens, child_left, child_right, digits = self.tensorize_tree(child)
+            child_ops, child_tokens, child_left, child_right, digits, integers = self.tensorize_tree(child, integers)
 
             # Re-root at this (unary) node by setting the root index of the child to 1
             # and re-indexing all of its nodes, ignoring null indices.
@@ -1706,15 +1733,17 @@ class EnvDataset(Dataset):
                 left_child_tokens,
                 left_child_left_idx,
                 left_child_right_idx,
-                ldigits
-            ) = self.tensorize_tree(tree.lchild)
+                ldigits,
+                integers
+            ) = self.tensorize_tree(tree.lchild, integers)
             (
                 right_child_operations,
                 right_child_tokens,
                 right_child_left_idx,
                 right_child_right_idx,
-                rdigits
-            ) = self.tensorize_tree(tree.rchild)
+                rdigits,
+                integers
+            ) = self.tensorize_tree(tree.rchild, integers)
 
             # Re-root at this (binary) node by setting the root index of the left child to
             # 1, the root index of the right child to 1 + num_left_nodes, and re-indexing.
@@ -1741,7 +1770,7 @@ class EnvDataset(Dataset):
         else:
             assert False
                         
-        return (operations, tokens, left_idx, right_idx, torch.tensor([digits]))
+        return (operations, tokens, left_idx, right_idx, torch.tensor([digits]), integers)
 
 
     def compute_operation_order(
@@ -1836,12 +1865,18 @@ class EnvDataset(Dataset):
                 - All nodes with the same depth will have the same operation index.
         operation_order : Tensor[max_depth]
             For each step, the operation performed at that step.
+        digits : Tensor[M]
+            For each equation, the number of digits that were removed from the source.
+        integers : Tensor[# of integers]
+            All integers in the batch; will be used to augment the data toe better train 
+            the NUMBER_ENCODER block.
         """
         operations = torch.tensor([], dtype=torch.long)
         tokens = torch.tensor([], dtype=torch.long)
         left_idx = torch.tensor([], dtype=torch.long)
         right_idx = torch.tensor([], dtype=torch.long)
         digits = torch.tensor([], dtype=torch.long)
+        integers = torch.tensor([], dtype=torch.float)
 
         root_idx = 0
         for tree in trees:
@@ -1851,7 +1886,8 @@ class EnvDataset(Dataset):
                 tree_left_idx,
                 tree_right_idx,
                 tree_digits,
-            ) = self.tensorize_tree(tree)
+                tree_integers,
+            ) = self.tensorize_tree(tree, torch.tensor([], dtype=torch.float))
             
             # Append BOS and EOS embedding operations
             tree_ops = torch.cat([torch.tensor([-1]), tree_ops, torch.tensor([-1])])
@@ -1871,6 +1907,7 @@ class EnvDataset(Dataset):
             left_idx = torch.cat([left_idx, tree_left_idx])
             right_idx = torch.cat([right_idx, tree_right_idx])
             digits = torch.cat([digits, tree_digits])
+            integers = torch.cat([integers, tree_integers])
 
             root_idx += tree_ops.numel() 
 
@@ -1882,7 +1919,8 @@ class EnvDataset(Dataset):
             right_idx,
             depths,
             operation_order, 
-            digits
+            digits,
+            integers
         )
 
     # Given a list of tokens in prefix form, convert to a BinaryEqnTree object for decoding.
@@ -1912,7 +1950,6 @@ class EnvDataset(Dataset):
         else:
             root = BinaryEqnTree(SYMBOL_ENCODER, None, None, value=token)
         return root, idx
-
 
     def collate_fn(self, elements):
         """

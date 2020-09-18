@@ -67,6 +67,8 @@ def get_parser():
                         help='run the version with enforced symmetry on add and mul')
     parser.add_argument('--treelstm', action='store_true',
                         help='use a TreeLSTM encoder for the model')
+    parser.add_argument('--treesmu', action='store_true',
+                        help='use a TreeSMU encoder for the model')
 
     # training parameters
     parser.add_argument("--env_base_seed", type=int, default=0,
@@ -227,6 +229,7 @@ if __name__ == '__main__':
     # generate parser / parse parameters
     parser = get_parser()
     params = parser.parse_args()
+    print(params.operators)
 
     # debug mode
     if params.debug:
@@ -237,6 +240,5 @@ if __name__ == '__main__':
 
     # check parameters
     check_model_params(params)
-
     # run experiment
     main(params)

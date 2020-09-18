@@ -1,0 +1,500 @@
+548021|sub Y' pow x INT+ 2	mul div INT+ 1 INT+ 3 pow x INT+ 3
+183681|sub Y' add x pow x INT+ 3	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul div INT+ 1 INT+ 4 pow x INT+ 4
+143325|sub Y' ln x	add mul INT- 1 x mul x ln x
+84835|sub Y' add x ln x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul INT- 1 x mul x ln x
+69739|sub Y' pow x div INT+ 5 INT+ 2	mul div INT+ 2 INT+ 7 pow x div INT+ 7 INT+ 2
+50068|sub Y' mul INT+ 4 pow x INT- 1	mul INT+ 4 ln x
+39804|sub Y' mul INT+ 9 pow x INT+ 2	mul INT+ 3 pow x INT+ 3
+34036|sub Y' add x mul INT+ 5 pow x INT+ 2	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul div INT+ 5 INT+ 3 pow x INT+ 3
+29607|sub Y' ln pow x INT+ 3	add mul INT- 3 x mul x ln pow x INT+ 3
+25433|sub Y' mul x add x mul INT- 1 pow x INT+ 2	add mul div INT- 1 INT+ 4 pow x INT+ 4 mul div INT+ 1 INT+ 3 pow x INT+ 3
+21296|sub Y' add x acosh x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul INT- 1 sqrt add INT- 1 pow x INT+ 2 mul x acosh x
+18506|sub Y' add mul INT+ 2 x atan x	add pow x INT+ 2 add mul div INT- 1 INT+ 2 ln add INT+ 1 pow x INT+ 2 mul x atan x
+16605|sub Y' mul x sinh x	add mul INT- 1 sinh x mul x cosh x
+14242|sub Y' add mul INT- 1 sin x mul INT+ 2 x	add pow x INT+ 2 cos x
+12446|sub Y' add mul INT+ 2 x mul INT+ 2 pow x INT+ 3	add pow x INT+ 2 mul div INT+ 1 INT+ 2 pow x INT+ 4
+11227|sub Y' mul x pow add x pow x INT+ 3 INT- 1	atan x
+10159|sub Y' mul x add INT+ 1 mul INT+ 3 x	add pow x INT+ 3 mul div INT+ 1 INT+ 2 pow x INT+ 2
+9118|sub Y' mul x add sqrt x mul INT+ 2 x	add mul div INT+ 2 INT+ 3 pow x INT+ 3 mul div INT+ 2 INT+ 5 pow x div INT+ 5 INT+ 2
+8256|sub Y' mul INT+ 4 pow x INT+ 5	mul div INT+ 2 INT+ 3 pow x INT+ 6
+7695|sub Y' add pow x INT+ 3 sin x	add mul INT- 1 cos x mul div INT+ 1 INT+ 4 pow x INT+ 4
+7342|sub Y' mul cos x sin x	mul div INT+ 1 INT+ 2 pow sin x INT+ 2
+6861|sub Y' cos add INT+ 1 mul INT+ 2 x	mul div INT+ 1 INT+ 2 sin add INT+ 1 mul INT+ 2 x
+6384|sub Y' ln add INT+ 2 x	add mul INT- 1 x add mul INT+ 2 ln add INT+ 2 x mul x ln add INT+ 2 x
+6101|sub Y' add x ln mul INT+ 3 x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul INT- 1 x mul x ln mul INT+ 3 x
+5742|sub Y' add mul INT- 1 x mul INT- 1 exp x	add mul INT- 1 exp x mul div INT- 1 INT+ 2 pow x INT+ 2
+5404|sub Y' mul pow x INT+ 2 cos mul INT+ 2 x	add mul div INT- 1 INT+ 4 sin mul INT+ 2 x add mul div INT+ 1 INT+ 2 mul x cos mul INT+ 2 x mul div INT+ 1 INT+ 2 mul pow x INT+ 2 sin mul INT+ 2 x
+5128|sub Y' add pow x INT+ 2 mul INT- 1 ln x	add x add mul div INT+ 1 INT+ 3 pow x INT+ 3 mul INT- 1 mul x ln x
+4905|sub Y' mul pow x INT+ 3 sinh x	add mul INT- 6 sinh x add mul pow x INT+ 3 cosh x add mul INT- 3 mul pow x INT+ 2 sinh x mul INT+ 6 mul x cosh x
+4657|sub Y' mul x add INT+ 1 sqrt x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul div INT+ 2 INT+ 5 pow x div INT+ 5 INT+ 2
+4433|sub Y' mul pow x INT+ 2 exp mul INT- 2 x	mul div INT+ 1 INT+ 4 mul add INT- 1 add mul INT- 2 x mul INT- 2 pow x INT+ 2 exp mul INT- 2 x
+4196|sub Y' mul pow INT+ 2 div INT+ 1 INT+ 4 pow x div INT+ 1 INT+ 4	mul div INT+ 4 INT+ 5 mul pow INT+ 2 div INT+ 1 INT+ 4 pow x div INT+ 5 INT+ 4
+3933|sub Y' mul div INT+ 1 INT+ 9 x	mul div INT+ 1 INT+ 1 8 pow x INT+ 2
+3696|sub Y' mul x sin mul INT+ 2 pow x INT+ 2	mul div INT- 1 INT+ 4 cos mul INT+ 2 pow x INT+ 2
+3488|sub Y' pow add x ln x INT+ 3	add mul INT- 6 x add mul div INT- 1 INT+ 3 pow x INT+ 3 add mul div INT+ 1 INT+ 4 pow x INT+ 4 add mul div INT+ 3 INT+ 4 pow x INT+ 2 add mul x pow ln x INT+ 3 add mul pow ln x INT+ 2 add mul INT- 3 x mul div INT+ 3 INT+ 2 pow x INT+ 2 mul add pow x INT+ 3 add mul INT+ 6 x mul div INT- 3 INT+ 2 pow x INT+ 2 ln x
+3278|sub Y' mul x exp add INT+ 2 x	mul add INT- 1 x exp add INT+ 2 x
+3144|sub Y' add x mul INT- 1 mul x add INT+ 4 x	add mul div INT- 3 INT+ 2 pow x INT+ 2 mul div INT- 1 INT+ 3 pow x INT+ 3
+3030|sub Y' ln mul x add INT+ 4 x	add mul INT- 2 x add mul INT+ 4 ln add INT+ 4 x mul x ln mul x add INT+ 4 x
+2918|sub Y' mul INT+ 2 mul x cos pow x INT+ 2	sin pow x INT+ 2
+2781|sub Y' mul INT+ 2 mul x sin pow x INT+ 2	mul INT- 1 cos pow x INT+ 2
+2640|sub Y' exp asin x	add mul div INT+ 1 INT+ 2 mul x exp asin x mul div INT+ 1 INT+ 2 mul sqrt add INT+ 1 mul INT- 1 pow x INT+ 2 exp asin x
+2497|sub Y' mul pow x INT- 1 add INT+ 3 mul INT+ 3 x	add mul INT+ 3 x mul INT+ 3 ln x
+2349|sub Y' add mul INT+ 3 x mul INT+ 5 pow x INT- 1	add mul INT+ 5 ln x mul div INT+ 3 INT+ 2 pow x INT+ 2
+2249|sub Y' mul INT+ 2 mul pow x INT+ 3 add INT+ 1 x	add mul div INT+ 1 INT+ 2 pow x INT+ 4 mul div INT+ 2 INT+ 5 pow x INT+ 5
+2143|sub Y' add pow x INT- 1 pow x INT+ 3	add mul div INT+ 1 INT+ 4 pow x INT+ 4 ln x
+2059|sub Y' pow add INT+ 2 pow x INT+ 2 INT+ 2	add mul INT+ 4 x add mul div INT+ 1 INT+ 5 pow x INT+ 5 mul div INT+ 4 INT+ 3 pow x INT+ 3
+1989|sub Y' add x pow tanh x INT+ 2	add x add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul INT- 1 tanh x
+1936|sub Y' add atanh x sin x	add mul INT- 1 atanh x add mul INT- 1 cos x add mul x atanh x ln add INT+ 1 x
+1867|sub Y' mul x add x pow x div INT- 1 INT+ 2	add mul div INT+ 1 INT+ 3 pow x INT+ 3 mul div INT+ 2 INT+ 3 pow x div INT+ 3 INT+ 2
+1798|sub Y' mul cos x sinh x	add mul div INT+ 1 INT+ 2 mul cos x cosh x mul div INT+ 1 INT+ 2 mul sin x sinh x
+1727|sub Y' add x mul INT+ 2 mul pow x INT+ 2 cos x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul INT- 4 sin x add mul INT+ 2 mul pow x INT+ 2 sin x mul INT+ 4 mul x cos x
+1661|sub Y' mul INT+ 4 pow x div INT+ 7 INT+ 2	mul div INT+ 8 INT+ 9 pow x div INT+ 9 INT+ 2
+1605|sub Y' add x mul INT+ 2 4 3 pow x INT+ 5	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul div INT+ 8 1 INT+ 2 pow x INT+ 6
+1543|sub Y' ln add INT+ 3 mul INT+ 3 x	add mul INT- 1 x add mul x ln add INT+ 3 mul INT+ 3 x ln add INT+ 1 x
+1496|sub Y' add pow x INT+ 2 mul div INT+ 6 INT+ 5 x	add mul div INT+ 1 INT+ 3 pow x INT+ 3 mul div INT+ 3 INT+ 5 pow x INT+ 2
+1452|sub Y' add mul INT- 2 x atan x	add mul INT- 1 pow x INT+ 2 add mul div INT- 1 INT+ 2 ln add INT+ 1 pow x INT+ 2 mul x atan x
+1410|sub Y' mul x asin mul INT+ 3 x	add mul div INT- 1 INT+ 3 6 asin mul INT+ 3 x add mul div INT+ 1 INT+ 2 mul pow x INT+ 2 asin mul INT+ 3 x mul div INT+ 1 INT+ 1 2 mul x sqrt add INT+ 1 mul INT- 9 pow x INT+ 2
+1368|sub Y' add mul INT+ 2 x mul x add x sqrt x	add pow x INT+ 2 add mul div INT+ 1 INT+ 3 pow x INT+ 3 mul div INT+ 2 INT+ 5 pow x div INT+ 5 INT+ 2
+1332|sub Y' add INT+ 5 add mul INT- 1 x mul INT- 1 pow x INT+ 2	add mul INT+ 5 x add mul div INT- 1 INT+ 2 pow x INT+ 2 mul div INT- 1 INT+ 3 pow x INT+ 3
+1297|sub Y' add x mul div INT+ 1 INT+ 3 sqrt x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul div INT+ 2 INT+ 9 pow x div INT+ 3 INT+ 2
+1261|sub Y' add mul INT+ 3 pow x INT+ 2 exp x	add pow x INT+ 3 exp x
+1229|sub Y' add x mul x add pow x INT+ 3 mul INT+ 2 x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul div INT+ 1 INT+ 5 pow x INT+ 5 mul div INT+ 2 INT+ 3 pow x INT+ 3
+1194|sub Y' add INT- 4 add pow x INT+ 2 mul INT+ 2 x	add pow x INT+ 2 add mul INT- 4 x mul div INT+ 1 INT+ 3 pow x INT+ 3
+1156|sub Y' ln add INT+ 5 mul INT- 1 x	add mul INT- 1 x add mul INT- 5 ln add INT- 5 x mul x ln add INT+ 5 mul INT- 1 x
+1121|sub Y' mul div INT+ 1 INT+ 2 mul x add INT+ 4 x	add pow x INT+ 2 mul div INT+ 1 INT+ 6 pow x INT+ 3
+1094|sub Y' mul pow x INT- 2 add INT- 1 x	add pow x INT- 1 ln x
+1067|sub Y' add x mul x add INT+ 8 x	add mul div INT+ 1 INT+ 3 pow x INT+ 3 mul div INT+ 9 INT+ 2 pow x INT+ 2
+1043|sub Y' add x cos add INT- 2 x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 sin add INT- 2 x
+1017|sub Y' mul pow x INT+ 3 pow add INT+ 1 x INT+ 2	add mul div INT+ 1 INT+ 4 pow x INT+ 4 add mul div INT+ 1 INT+ 6 pow x INT+ 6 mul div INT+ 2 INT+ 5 pow x INT+ 5
+986|sub Y' mul pow x INT+ 2 pow sin INT+ 1 INT+ 2	mul div INT+ 1 INT+ 3 mul pow x INT+ 3 pow sin INT+ 1 INT+ 2
+960|sub Y' add mul INT+ 2 x tan mul INT+ 4 x	add pow x INT+ 2 mul div INT- 1 INT+ 4 ln cos mul INT+ 4 x
+935|sub Y' add div INT+ 1 INT+ 3 mul INT- 1 x	add mul div INT- 1 INT+ 2 pow x INT+ 2 mul div INT+ 1 INT+ 3 x
+911|sub Y' mul INT+ 3 mul x add INT+ 1 mul INT- 1 x	add mul INT- 1 pow x INT+ 3 mul div INT+ 3 INT+ 2 pow x INT+ 2
+889|sub Y' add pow x INT+ 3 mul INT+ 4 pow x INT- 1	add mul INT+ 4 ln x mul div INT+ 1 INT+ 4 pow x INT+ 4
+852|sub Y' mul pow x INT+ 2 sin mul INT+ 4 x	add mul div INT+ 1 INT+ 3 2 cos mul INT+ 4 x add mul div INT- 1 INT+ 4 mul pow x INT+ 2 cos mul INT+ 4 x mul div INT+ 1 INT+ 8 mul x sin mul INT+ 4 x
+836|sub Y' mul INT+ 3 mul x ln mul INT+ 2 x	add mul div INT- 3 INT+ 4 pow x INT+ 2 mul div INT+ 3 INT+ 2 mul pow x INT+ 2 ln mul INT+ 2 x
+818|sub Y' add INT+ 2 tan mul INT+ 2 x	add mul INT+ 2 x mul div INT- 1 INT+ 2 ln cos mul INT+ 2 x
+801|sub Y' add x pow add INT+ 3 x INT+ 5	add mul INT+ 3 pow x INT+ 5 add mul INT+ 9 0 pow x INT+ 3 add mul INT+ 2 0 3 pow x INT+ 2 add mul INT+ 2 4 3 x add mul div INT+ 1 INT+ 6 pow x INT+ 6 mul div INT+ 4 5 INT+ 2 pow x INT+ 4
+787|sub Y' mul pow x INT- 2 ln INT+ 2	mul INT- 1 mul pow x INT- 1 ln INT+ 2
+774|sub Y' add INT+ 2 tanh x	add mul INT- 1 ln add INT+ 1 tanh x mul INT+ 3 x
+761|sub Y' add x acos add INT+ 3 x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul INT- 1 sqrt add INT- 8 add mul INT- 1 pow x INT+ 2 mul INT- 6 x add mul INT+ 3 acos add INT+ 3 x mul x acos add INT+ 3 x
+747|sub Y' mul pow x INT- 2 sin INT+ 4	mul INT- 1 mul pow x INT- 1 sin INT+ 4
+733|sub Y' pow sin mul INT+ 4 x INT+ 2	add mul div INT+ 1 INT+ 2 x mul div INT- 1 INT+ 8 mul cos mul INT+ 4 x sin mul INT+ 4 x
+720|sub Y' add sqrt x add mul INT- 1 x ln x	add mul INT- 1 x add mul div INT- 1 INT+ 2 pow x INT+ 2 add mul div INT+ 2 INT+ 3 pow x div INT+ 3 INT+ 2 mul x ln x
+705|sub Y' mul pow x INT+ 2 add INT+ 4 sin x	add mul INT+ 2 cos x add mul div INT+ 4 INT+ 3 pow x INT+ 3 add mul INT- 1 mul pow x INT+ 2 cos x mul INT+ 2 mul x sin x
+689|sub Y' mul x pow add INT+ 3 mul INT+ 2 x INT+ 2	add pow x INT+ 4 add mul INT+ 4 pow x INT+ 3 mul div INT+ 9 INT+ 2 pow x INT+ 2
+674|sub Y' add x mul add INT+ 1 x ln x	add mul INT- 1 x add mul div INT+ 1 INT+ 4 pow x INT+ 2 mul add x mul div INT+ 1 INT+ 2 pow x INT+ 2 ln x
+660|sub Y' add x mul INT- 1 pow cos x INT+ 3	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul INT- 1 sin x mul div INT+ 1 INT+ 3 pow sin x INT+ 3
+646|sub Y' add INT+ 5 mul INT- 1 tan x	add mul INT+ 5 x ln cos x
+634|sub Y' add cos mul INT+ 2 x sin x	add mul div INT+ 1 INT+ 2 sin mul INT+ 2 x mul INT- 1 cos x
+620|sub Y' mul INT+ 5 mul x ln INT+ 5	mul div INT+ 5 INT+ 2 mul pow x INT+ 2 ln INT+ 5
+607|sub Y' mul x add sqrt INT+ 3 mul INT+ 2 x	add mul div INT+ 2 INT+ 3 pow x INT+ 3 mul div INT+ 1 INT+ 2 mul sqrt INT+ 3 pow x INT+ 2
+595|sub Y' ln add INT+ 2 mul INT+ 4 x	add mul div INT+ 1 INT+ 2 ln add INT+ 1 mul INT+ 2 x add mul INT- 1 x mul x ln add INT+ 2 mul INT+ 4 x
+581|sub Y' add mul INT+ 3 ln x mul INT+ 4 x	add mul INT- 3 x add mul INT+ 2 pow x INT+ 2 mul INT+ 3 mul x ln x
+569|sub Y' pow add INT+ 3 pow x INT+ 3 INT+ 2	add mul INT+ 9 x add mul div INT+ 1 INT+ 7 pow x INT+ 7 mul div INT+ 3 INT+ 2 pow x INT+ 4
+559|sub Y' add x mul INT+ 3 mul x add INT+ 2 x	add pow x INT+ 3 mul div INT+ 7 INT+ 2 pow x INT+ 2
+549|sub Y' add mul INT+ 5 x mul INT+ 1 5 pow x INT+ 2	add mul INT+ 5 pow x INT+ 3 mul div INT+ 5 INT+ 2 pow x INT+ 2
+540|sub Y' mul pow x INT+ 5 add x exp x	add mul div INT+ 1 INT+ 7 pow x INT+ 7 mul add INT- 1 2 0 add pow x INT+ 5 add mul INT- 6 0 pow x INT+ 2 add mul INT- 5 pow x INT+ 4 add mul INT+ 2 0 pow x INT+ 3 mul INT+ 1 2 0 x exp x
+532|sub Y' mul INT+ 3 mul sqrt INT+ 3 pow x INT+ 2	mul sqrt INT+ 3 pow x INT+ 3
+525|sub Y' mul x exp exp INT+ 3	mul div INT+ 1 INT+ 2 mul pow x INT+ 2 exp exp INT+ 3
+518|sub Y' mul pow x INT+ 2 pow add x pow x INT+ 2 INT+ 3	add mul div INT+ 1 INT+ 6 pow x INT+ 6 add mul div INT+ 1 INT+ 9 pow x INT+ 9 add mul div INT+ 3 INT+ 7 pow x INT+ 7 mul div INT+ 3 INT+ 8 pow x INT+ 8
+511|sub Y' mul x add x mul x add INT+ 2 mul INT+ 2 x	add pow x INT+ 3 mul div INT+ 1 INT+ 2 pow x INT+ 4
+504|sub Y' mul x pow add INT+ 4 mul INT+ 2 pow x INT+ 2 INT- 1	mul div INT+ 1 INT+ 4 ln add INT+ 2 pow x INT+ 2
+496|sub Y' pow add INT- 1 pow x INT+ 2 INT+ 2	add x add mul div INT- 2 INT+ 3 pow x INT+ 3 mul div INT+ 1 INT+ 5 pow x INT+ 5
+489|sub Y' add INT+ 5 add mul INT- 1 x mul INT+ 2 pow x INT+ 2	add mul INT+ 5 x add mul div INT- 1 INT+ 2 pow x INT+ 2 mul div INT+ 2 INT+ 3 pow x INT+ 3
+482|sub Y' mul x sin exp INT+ 4	mul div INT+ 1 INT+ 2 mul pow x INT+ 2 sin exp INT+ 4
+474|sub Y' add INT+ 1 add x tan INT+ 2	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul x add INT+ 1 tan INT+ 2
+466|sub Y' add INT- 1 add mul INT+ 2 x cos x	add pow x INT+ 2 add mul INT- 1 x sin x
+458|sub Y' mul INT+ 3 mul pow x INT+ 2 sin INT+ 1	mul pow x INT+ 3 sin INT+ 1
+450|sub Y' mul pow x INT- 1 add x pow x div INT- 1 INT+ 2	add x mul INT- 2 pow x div INT- 1 INT+ 2
+442|sub Y' mul x add INT+ 1 exp mul INT+ 2 x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul div INT+ 1 INT+ 4 mul add INT- 1 mul INT+ 2 x exp mul INT+ 2 x
+434|sub Y' pow add INT+ 4 mul INT- 1 x INT+ 4	add mul INT- 1 2 8 pow x INT+ 2 add mul INT- 4 pow x INT+ 4 add mul INT+ 3 2 pow x INT+ 3 add mul INT+ 2 5 6 x mul div INT+ 1 INT+ 5 pow x INT+ 5
+426|sub Y' mul x add INT+ 5 add pow x INT+ 3 mul INT+ 2 x	add mul div INT+ 1 INT+ 5 pow x INT+ 5 add mul div INT+ 2 INT+ 3 pow x INT+ 3 mul div INT+ 5 INT+ 2 pow x INT+ 2
+418|sub Y' mul x pow add INT+ 4 x INT- 3	mul INT- 1 mul pow add INT+ 1 6 add pow x INT+ 2 mul INT+ 8 x INT- 1 add INT+ 2 x
+410|sub Y' ln mul div INT+ 1 INT+ 2 sqrt x	add mul div INT- 1 INT+ 2 x add mul div INT+ 1 INT+ 2 mul x ln x mul INT- 1 mul x ln INT+ 2
+402|sub Y' add pow x INT+ 2 mul pow x INT+ 2 add INT+ 3 x	add mul div INT+ 1 INT+ 4 pow x INT+ 4 mul div INT+ 4 INT+ 3 pow x INT+ 3
+395|sub Y' mul x add x mul x sin INT+ 2	mul pow x INT+ 3 add div INT+ 1 INT+ 3 mul div INT+ 1 INT+ 3 sin INT+ 2
+386|sub Y' add x mul div INT+ 1 INT+ 5 mul x cos x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul div INT+ 1 INT+ 5 cos x mul div INT+ 1 INT+ 5 mul x sin x
+380|sub Y' add x mul INT+ 4 pow add INT+ 3 x INT- 1	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul INT+ 4 ln add INT+ 3 x
+373|sub Y' mul sqrt INT+ 1 1 sqrt x	mul div INT+ 2 INT+ 3 mul sqrt INT+ 1 1 pow x div INT+ 3 INT+ 2
+366|sub Y' mul pow x INT+ 2 pow add INT+ 6 x INT+ 2	add mul INT+ 3 pow x INT+ 4 add mul INT+ 1 2 pow x INT+ 3 mul div INT+ 1 INT+ 5 pow x INT+ 5
+360|sub Y' add x add mul INT+ 5 pow x INT+ 2 exp x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul div INT+ 5 INT+ 3 pow x INT+ 3 exp x
+353|sub Y' add pow add x pow x INT+ 2 INT- 1 mul INT+ 2 x	add pow x INT+ 2 add mul INT- 1 ln add INT+ 1 x ln x
+347|sub Y' add mul INT- 1 sin x acos x	add mul INT- 1 sqrt add INT+ 1 mul INT- 1 pow x INT+ 2 add mul x acos x cos x
+341|sub Y' add x add pow x INT+ 4 mul INT- 1 cos x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul INT- 1 sin x mul div INT+ 1 INT+ 5 pow x INT+ 5
+336|sub Y' mul x mul add INT+ 4 x acosh x	add mul INT- 1 acosh x add mul div INT- 2 INT+ 9 sqrt add INT- 1 pow x INT+ 2 add mul INT- 1 mul x sqrt add INT- 1 pow x INT+ 2 add mul INT+ 2 mul pow x INT+ 2 acosh x add mul div INT- 1 INT+ 9 mul pow x INT+ 2 sqrt add INT- 1 pow x INT+ 2 mul div INT+ 1 INT+ 3 mul pow x INT+ 3 acosh x
+331|sub Y' mul INT+ 4 mul x exp INT- 1	mul INT+ 2 mul pow x INT+ 2 exp INT- 1
+325|sub Y' add INT+ 6 pow x INT+ 4	add mul INT+ 6 x mul div INT+ 1 INT+ 5 pow x INT+ 5
+321|sub Y' mul pow x INT+ 3 exp INT+ 9	mul div INT+ 1 INT+ 4 mul pow x INT+ 4 exp INT+ 9
+316|sub Y' mul pow x INT- 1 pow add INT- 5 x INT- 1	add mul div INT- 1 INT+ 5 ln x mul div INT+ 1 INT+ 5 ln add INT- 5 x
+311|sub Y' add pow x INT+ 2 mul x tan INT+ 3	add mul div INT+ 1 INT+ 3 pow x INT+ 3 mul div INT+ 1 INT+ 2 mul pow x INT+ 2 tan INT+ 3
+307|sub Y' add sqrt x add mul INT- 1 x mul INT- 1 ln x	add x add mul div INT- 1 INT+ 2 pow x INT+ 2 add mul div INT+ 2 INT+ 3 pow x div INT+ 3 INT+ 2 mul INT- 1 mul x ln x
+302|sub Y' pow sin x INT+ 1 2	add mul div INT+ 2 3 1 INT+ 1 0 2 4 x add mul div INT- 2 3 1 INT+ 1 0 2 4 mul cos x sin x add mul div INT- 7 7 INT+ 5 1 2 mul pow sin x INT+ 3 cos x add mul div INT- 7 7 INT+ 6 4 0 mul pow sin x INT+ 5 cos x add mul div INT- 3 3 INT+ 3 2 0 mul pow sin x INT+ 7 cos x add mul div INT- 1 1 INT+ 1 2 0 mul pow sin x INT+ 9 cos x mul div INT- 1 INT+ 1 2 mul pow sin x INT+ 1 1 cos x
+298|sub Y' mul div INT+ 1 INT+ 3 2 pow x INT- 2	mul div INT- 1 INT+ 3 2 pow x INT- 1
+294|sub Y' mul pow x INT- 1 add x ln sqrt x	add x pow ln sqrt x INT+ 2
+289|sub Y' add mul INT- 1 x mul div INT+ 1 INT+ 4 pow x INT- 2	add mul div INT- 1 INT+ 2 pow x INT+ 2 mul div INT- 1 INT+ 4 pow x INT- 1
+285|sub Y' add mul INT+ 3 x sin add INT+ 1 x	add mul INT- 1 cos add INT+ 1 x mul div INT+ 3 INT+ 2 pow x INT+ 2
+281|sub Y' mul x add pow x INT+ 2 tan INT+ 4	add mul div INT+ 1 INT+ 4 pow x INT+ 4 mul div INT+ 1 INT+ 2 mul pow x INT+ 2 tan INT+ 4
+273|sub Y' mul pow x INT+ 4 add INT+ 2 pow x INT+ 2	add mul div INT+ 1 INT+ 7 pow x INT+ 7 mul div INT+ 2 INT+ 5 pow x INT+ 5
+269|sub Y' pow add x mul x exp x INT+ 4	add mul div INT+ 1 INT+ 5 pow x INT+ 5 add mul div INT+ 1 INT+ 2 0 7 3 6 mul add INT+ 4 8 6 add mul INT- 5 1 8 4 pow x INT+ 3 add mul INT- 1 9 4 4 x add mul INT+ 3 8 8 8 pow x INT+ 2 mul INT+ 5 1 8 4 pow x INT+ 4 exp mul INT+ 4 x add mul div INT+ 1 INT+ 2 0 7 3 6 mul add INT+ 8 1 9 2 add mul INT- 3 6 8 6 4 pow x INT+ 3 add mul INT- 2 4 5 7 6 x add mul INT+ 2 7 6 4 8 pow x INT+ 4 mul INT+ 3 6 8 6 4 pow x INT+ 2 exp mul INT+ 3 x add mul div INT+ 1 INT+ 2 0 7 3 6 mul add INT+ 9 3 3 1 2 add mul INT- 1 8 6 6 2 4 x add mul INT- 1 2 4 4 1 6 pow x INT+ 3 add mul INT+ 6 2 2 0 8 pow x INT+ 4 mul INT+ 1 8 6 6 2 4 pow x INT+ 2 exp mul INT+ 2 x mul div INT+ 1 INT+ 2 0 7 3 6 mul add INT+ 1 9 9 0 6 5 6 add mul INT- 1 9 9 0 6 5 6 x add mul INT- 3 3 1 7 7 6 pow x INT+ 3 add mul INT+ 8 2 9 4 4 pow x INT+ 4 mul INT+ 9 9 5 3 2 8 pow x INT+ 2 exp x
+266|sub Y' mul INT+ 5 mul pow x INT- 1 add x sqrt x	add mul INT+ 5 x mul INT+ 1 0 sqrt x
+262|sub Y' add mul div INT+ 1 INT+ 3 x mul div INT+ 1 INT+ 3 atan x	add mul div INT- 1 INT+ 6 ln add INT+ 1 pow x INT+ 2 add mul div INT+ 1 INT+ 6 pow x INT+ 2 mul div INT+ 1 INT+ 3 mul x atan x
+259|sub Y' add pow x INT+ 2 mul INT+ 4 pow x INT+ 5	add mul div INT+ 1 INT+ 3 pow x INT+ 3 mul div INT+ 2 INT+ 3 pow x INT+ 6
+256|sub Y' add x pow x INT+ 2 4	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul div INT+ 1 INT+ 2 5 pow x INT+ 2 5
+253|sub Y' mul pow x INT+ 3 pow add INT- 4 x INT+ 3	add mul INT- 1 6 pow x INT+ 4 add mul INT- 2 pow x INT+ 6 add mul div INT+ 1 INT+ 7 pow x INT+ 7 mul div INT+ 4 8 INT+ 5 pow x INT+ 5
+250|sub Y' mul pow x INT+ 2 add INT+ 3 add x sin x	add pow x INT+ 3 add mul INT+ 2 cos x add mul div INT+ 1 INT+ 4 pow x INT+ 4 add mul INT- 1 mul pow x INT+ 2 cos x mul INT+ 2 mul x sin x
+247|sub Y' mul div INT+ 1 INT+ 2 5 6 pow x INT- 1	mul div INT+ 1 INT+ 2 5 6 ln x
+244|sub Y' mul INT+ 1 5 mul pow x INT+ 2 exp x	mul add INT+ 3 0 add mul INT- 3 0 x mul INT+ 1 5 pow x INT+ 2 exp x
+241|sub Y' add mul INT- 1 x mul INT+ 5 mul x exp x	add mul div INT- 1 INT+ 2 pow x INT+ 2 mul add INT- 5 mul INT+ 5 x exp x
+238|sub Y' mul x mul add pow x INT+ 2 mul INT- 1 x exp x	mul add INT- 8 add pow x INT+ 3 add mul INT- 4 pow x INT+ 2 mul INT+ 8 x exp x
+235|sub Y' mul x ln INT+ 6 4	mul INT+ 3 mul pow x INT+ 2 ln INT+ 2
+233|sub Y' add x mul x add mul INT- 1 x acosh x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul div INT- 1 INT+ 3 pow x INT+ 3 add mul div INT- 1 INT+ 4 acosh x add mul div INT+ 1 INT+ 2 mul pow x INT+ 2 acosh x mul div INT- 1 INT+ 4 mul x sqrt add INT- 1 pow x INT+ 2
+230|sub Y' add x cos exp INT+ 5	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul x cos exp INT+ 5
+227|sub Y' add x atan mul INT+ 3 pow x INT- 1	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul div INT+ 3 INT+ 2 ln add INT+ 9 pow x INT+ 2 mul x atan mul INT+ 3 pow x INT- 1
+225|sub Y' add x add pow x INT+ 2 tan mul INT+ 3 x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul div INT- 1 INT+ 3 ln cos mul INT+ 3 x mul div INT+ 1 INT+ 3 pow x INT+ 3
+222|sub Y' mul INT+ 5 mul x asinh pow x INT+ 2	add mul div INT- 5 INT+ 2 sqrt add INT+ 1 pow x INT+ 4 mul div INT+ 5 INT+ 2 mul pow x INT+ 2 asinh pow x INT+ 2
+220|sub Y' mul pow x INT+ 2 pow add INT- 1 pow x INT+ 2 INT- 1	add x add mul div INT+ 1 INT+ 2 ln add INT- 1 x mul div INT- 1 INT+ 2 ln add INT+ 1 x
+218|sub Y' mul sqrt x add pow x INT+ 3 mul INT+ 2 x	add mul div INT+ 2 INT+ 9 pow x div INT+ 9 INT+ 2 mul div INT+ 4 INT+ 5 pow x div INT+ 5 INT+ 2
+216|sub Y' add x mul INT- 1 mul pow x INT+ 3 add INT+ 4 x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul INT- 1 pow x INT+ 4 mul div INT- 1 INT+ 5 pow x INT+ 5
+213|sub Y' add INT+ 3 add mul INT+ 4 x ln x	add mul INT+ 2 x add mul INT+ 2 pow x INT+ 2 mul x ln x
+211|sub Y' mul pow x INT- 1 add mul INT+ 2 x mul INT+ 2 sqrt x	add mul INT+ 2 x mul INT+ 4 sqrt x
+209|sub Y' mul sqrt INT+ 3 sqrt pow x INT- 3	mul INT- 2 mul x mul sqrt INT+ 3 sqrt pow x INT- 3
+206|sub Y' mul INT+ 2 mul pow x INT- 2 pow add INT+ 2 x INT- 1	add mul div INT+ 1 INT+ 2 ln add INT+ 2 x add mul INT- 1 pow x INT- 1 mul div INT- 1 INT+ 2 ln x
+204|sub Y' mul x add mul INT- 1 x mul pow x INT+ 2 ln x	add mul div INT- 1 INT+ 3 pow x INT+ 3 add mul div INT- 1 INT+ 1 6 pow x INT+ 4 mul div INT+ 1 INT+ 4 mul pow x INT+ 4 ln x
+202|sub Y' mul x add INT+ 1 add x mul INT+ 5 pow x INT+ 2	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul div INT+ 1 INT+ 3 pow x INT+ 3 mul div INT+ 5 INT+ 4 pow x INT+ 4
+200|sub Y' add mul INT- 1 mul x ln x sin x	add mul INT- 1 cos x add mul div INT+ 1 INT+ 4 pow x INT+ 2 mul div INT- 1 INT+ 2 mul pow x INT+ 2 ln x
+198|sub Y' exp add div INT- 1 INT+ 2 mul div INT+ 1 INT+ 2 x	mul INT+ 2 exp add div INT- 1 INT+ 2 mul div INT+ 1 INT+ 2 x
+196|sub Y' mul INT- 1 mul x ln add INT+ 1 sqrt INT+ 2	mul div INT- 1 INT+ 2 mul pow x INT+ 2 ln add INT+ 1 sqrt INT+ 2
+194|sub Y' add div INT+ 1 1 INT+ 2 mul INT+ 2 x	add pow x INT+ 2 mul div INT+ 1 1 INT+ 2 x
+192|sub Y' add INT+ 5 mul x add x pow x INT+ 3	add mul INT+ 5 x add mul div INT+ 1 INT+ 3 pow x INT+ 3 mul div INT+ 1 INT+ 5 pow x INT+ 5
+190|sub Y' add x exp mul INT+ 1 6 x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul div INT+ 1 INT+ 1 6 exp mul INT+ 1 6 x
+188|sub Y' mul INT+ 3 tan add INT+ 5 x	mul div INT+ 3 INT+ 2 ln add INT+ 1 pow tan add INT+ 5 x INT+ 2
+186|sub Y' add mul INT+ 2 x mul INT- 1 mul x ln pow x INT+ 2	add mul div INT+ 3 INT+ 2 pow x INT+ 2 mul div INT- 1 INT+ 2 mul pow x INT+ 2 ln pow x INT+ 2
+184|sub Y' add mul div INT- 1 INT+ 5 x mul div INT+ 1 INT+ 5 exp x	add mul div INT- 1 INT+ 1 0 pow x INT+ 2 mul div INT+ 1 INT+ 5 exp x
+183|sub Y' pow cos x INT- 5	add mul div INT- 3 INT+ 1 6 ln add INT- 1 sin x add mul div INT+ 3 INT+ 1 6 ln add INT+ 1 sin x mul INT- 1 mul pow add INT+ 8 add mul INT- 1 6 pow sin x INT+ 2 mul INT+ 8 pow sin x INT+ 4 INT- 1 add mul INT- 5 sin x mul INT+ 3 pow sin x INT+ 3
+181|sub Y' add mul INT+ 2 x mul pow x INT+ 2 ln INT+ 2	add pow x INT+ 2 mul div INT+ 1 INT+ 3 mul pow x INT+ 3 ln INT+ 2
+179|sub Y' mul x add x mul x add INT+ 3 mul INT+ 3 x	add mul div INT+ 3 INT+ 4 pow x INT+ 4 mul div INT+ 4 INT+ 3 pow x INT+ 3
+177|sub Y' mul x add x atan mul INT+ 3 x	add mul div INT- 1 INT+ 6 x add mul div INT+ 1 INT+ 3 pow x INT+ 3 add mul div INT+ 1 INT+ 1 8 atan mul INT+ 3 x mul div INT+ 1 INT+ 2 mul pow x INT+ 2 atan mul INT+ 3 x
+175|sub Y' add INT+ 8 add pow x INT+ 2 mul INT+ 4 x	add mul INT+ 2 pow x INT+ 2 add mul INT+ 8 x mul div INT+ 1 INT+ 3 pow x INT+ 3
+173|sub Y' mul pow x INT- 2 pow tan INT+ 2 INT+ 2	mul INT- 1 mul pow x INT- 1 pow tan INT+ 2 INT+ 2
+171|sub Y' add x add tan INT+ 1 tan x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul INT- 1 ln cos x mul x tan INT+ 1
+170|sub Y' mul pow x INT+ 2 pow add INT- 3 x INT- 2	add x add mul INT- 9 pow add INT- 3 x INT- 1 mul INT+ 6 ln add INT- 3 x
+168|sub Y' add mul INT+ 5 x tan INT+ 5	add mul div INT+ 5 INT+ 2 pow x INT+ 2 mul x tan INT+ 5
+166|sub Y' pow add x mul x add INT+ 5 x INT- 1	add mul div INT- 1 INT+ 6 ln add INT+ 6 x mul div INT+ 1 INT+ 6 ln x
+165|sub Y' cosh mul INT+ 4 sqrt x	add mul div INT- 1 INT+ 8 cosh mul INT+ 4 sqrt x mul div INT+ 1 INT+ 2 mul sqrt x sinh mul INT+ 4 sqrt x
+163|sub Y' mul div INT+ 1 INT+ 2 mul sqrt INT+ 5 sqrt pow x INT- 1	mul x mul sqrt INT+ 5 sqrt pow x INT- 1
+161|sub Y' cos asinh mul INT+ 5 x	add mul div INT+ 1 INT+ 2 mul x cos asinh mul INT+ 5 x mul div INT+ 1 INT+ 1 0 mul sqrt add INT+ 1 mul INT+ 2 5 pow x INT+ 2 sin asinh mul INT+ 5 x
+160|sub Y' cos mul div INT+ 1 INT+ 3 ln x	add mul div INT+ 3 INT+ 1 0 mul x sin mul div INT+ 1 INT+ 3 ln x mul div INT+ 9 INT+ 1 0 mul x cos mul div INT+ 1 INT+ 3 ln x
+158|sub Y' cosh add E x	sinh add E x
+157|sub Y' cosh mul div INT+ 5 INT+ 2 x	mul div INT+ 2 INT+ 5 sinh mul div INT+ 5 INT+ 2 x
+155|sub Y' mul pow x INT+ 2 add mul INT+ 2 x sin mul INT+ 2 x	add mul div INT+ 1 INT+ 2 pow x INT+ 4 add mul div INT+ 1 INT+ 4 cos mul INT+ 2 x add mul div INT+ 1 INT+ 2 mul x sin mul INT+ 2 x mul div INT- 1 INT+ 2 mul pow x INT+ 2 cos mul INT+ 2 x
+154|sub Y' mul x add INT- 1 mul div INT+ 1 INT+ 5 x	add mul div INT- 1 INT+ 2 pow x INT+ 2 mul div INT+ 1 INT+ 1 5 pow x INT+ 3
+152|sub Y' add mul INT+ 3 x ln pow x INT+ 5	add mul INT- 5 x add mul div INT+ 3 INT+ 2 pow x INT+ 2 mul x ln pow x INT+ 5
+151|sub Y' mul pow x INT+ 6 pow add INT+ 1 x INT- 3	add mul INT- 1 pow x INT+ 3 add mul INT- 1 0 x add mul INT+ 3 pow x INT+ 2 add mul INT+ 1 5 ln add INT+ 1 x add mul div INT+ 1 INT+ 4 pow x INT+ 4 mul pow add INT+ 2 add mul INT+ 2 pow x INT+ 2 mul INT+ 4 x INT- 1 add INT+ 1 1 mul INT+ 1 2 x
+150|sub Y' acosh add x ln INT+ 4	add mul INT- 1 sqrt add INT- 1 add pow x INT+ 2 add mul INT+ 4 pow ln INT+ 2 INT+ 2 mul INT+ 4 mul x ln INT+ 2 add mul x acosh add x mul INT+ 2 ln INT+ 2 mul INT+ 2 mul acosh add x mul INT+ 2 ln INT+ 2 ln INT+ 2
+148|sub Y' mul x add INT- 2 pow x INT- 1	add x mul INT- 1 pow x INT+ 2
+147|sub Y' add pow x INT+ 4 mul x asin x	add mul div INT- 1 INT+ 4 asin x add mul div INT+ 1 INT+ 5 pow x INT+ 5 add mul div INT+ 1 INT+ 2 mul pow x INT+ 2 asin x mul div INT+ 1 INT+ 4 mul x sqrt add INT+ 1 mul INT- 1 pow x INT+ 2
+146|sub Y' add pow x INT+ 3 sinh mul INT+ 2 x	add mul div INT+ 1 INT+ 2 cosh mul INT+ 2 x mul div INT+ 1 INT+ 4 pow x INT+ 4
+144|sub Y' mul div INT+ 1 INT+ 2 mul pow x INT+ 2 add INT- 1 x	add mul div INT- 1 INT+ 6 pow x INT+ 3 mul div INT+ 1 INT+ 8 pow x INT+ 4
+143|sub Y' mul INT+ 2 mul pow x INT+ 2 add INT- 5 mul INT+ 2 x	add pow x INT+ 4 mul div INT- 1 0 INT+ 3 pow x INT+ 3
+142|sub Y' mul INT- 1 mul x cos sqrt x	add mul INT+ 1 2 cos sqrt x add mul INT- 6 mul x cos sqrt x add mul INT- 2 mul pow x div INT+ 3 INT+ 2 sin sqrt x mul INT+ 1 2 mul sqrt x sin sqrt x
+141|sub Y' asinh add INT+ 8 mul INT+ 2 x	add mul INT+ 4 asinh add INT+ 8 mul INT+ 2 x add mul div INT- 1 INT+ 2 sqrt add INT+ 6 5 add mul INT+ 4 pow x INT+ 2 mul INT+ 3 2 x mul x asinh add INT+ 8 mul INT+ 2 x
+140|sub Y' mul INT+ 2 mul x add INT+ 1 add x pow x INT+ 3	add pow x INT+ 2 add mul div INT+ 2 INT+ 3 pow x INT+ 3 mul div INT+ 2 INT+ 5 pow x INT+ 5
+139|sub Y' add mul INT- 1 x mul div INT+ 1 INT+ 5 ln x	add mul div INT- 1 INT+ 2 pow x INT+ 2 add mul div INT- 1 INT+ 5 x mul div INT+ 1 INT+ 5 mul x ln x
+138|sub Y' pow add x pow x INT- 2 INT- 1	mul div INT+ 1 INT+ 3 ln add INT+ 1 pow x INT+ 3
+137|sub Y' mul div INT+ 4 INT+ 5 pow x INT- 4	mul div INT- 4 INT+ 1 5 pow x INT- 3
+136|sub Y' mul add INT+ 2 x add x pow x INT+ 5	add pow x INT+ 2 add mul div INT+ 1 INT+ 3 pow x INT+ 3 add mul div INT+ 1 INT+ 3 pow x INT+ 6 mul div INT+ 1 INT+ 7 pow x INT+ 7
+134|sub Y' mul pow tan INT+ 2 INT- 1 exp x	mul pow tan INT+ 2 INT- 1 exp x
+133|sub Y' add mul x ln x exp mul INT+ 2 x	add mul div INT+ 1 INT+ 2 exp mul INT+ 2 x add mul div INT- 1 INT+ 4 pow x INT+ 2 mul div INT+ 1 INT+ 2 mul pow x INT+ 2 ln x
+132|sub Y' mul pow x INT+ 2 add mul INT+ 2 x ln mul INT+ 2 x	add mul div INT+ 1 INT+ 2 pow x INT+ 4 add mul div INT- 1 INT+ 9 pow x INT+ 3 mul div INT+ 1 INT+ 3 mul pow x INT+ 3 ln mul INT+ 2 x
+131|sub Y' mul INT- 1 mul x asin INT+ 4	mul div INT- 1 INT+ 2 mul pow x INT+ 2 asin INT+ 4
+130|sub Y' acosh add x sin INT+ 4	add mul INT- 1 sqrt add INT- 1 add pow x INT+ 2 add pow sin INT+ 4 INT+ 2 mul INT+ 2 mul x sin INT+ 4 add mul x acosh add x sin INT+ 4 mul acosh add x sin INT+ 4 sin INT+ 4
+129|sub Y' pow add x atan INT+ 3 INT+ 2	add mul div INT+ 1 INT+ 3 pow x INT+ 3 add mul x pow atan INT+ 3 INT+ 2 mul pow x INT+ 2 atan INT+ 3
+128|sub Y' mul x add mul INT+ 2 x mul pow x INT- 1 add INT+ 5 x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul INT+ 5 x mul div INT+ 2 INT+ 3 pow x INT+ 3
+127|sub Y' mul cos x sinh INT+ 4	mul sin x sinh INT+ 4
+126|sub Y' mul x pow add div INT+ 1 INT+ 2 x INT+ 2	add mul div INT+ 1 INT+ 3 pow x INT+ 3 add mul div INT+ 1 INT+ 4 pow x INT+ 4 mul div INT+ 1 INT+ 8 pow x INT+ 2
+125|sub Y' add INT+ 5 add pow x INT+ 2 add mul INT+ 2 x ln x	add pow x INT+ 2 add mul INT+ 4 x add mul div INT+ 1 INT+ 3 pow x INT+ 3 mul x ln x
+125|sub Y' mul x acos add INT+ 5 mul INT- 1 x	add mul div INT- 5 1 INT+ 4 acos add INT+ 5 mul INT- 1 x add mul div INT+ 1 5 INT+ 4 sqrt add INT- 2 4 add mul INT- 1 pow x INT+ 2 mul INT+ 1 0 x add mul div INT+ 1 INT+ 2 mul pow x INT+ 2 acos add INT+ 5 mul INT- 1 x mul div INT+ 1 INT+ 4 mul x sqrt add INT- 2 4 add mul INT- 1 pow x INT+ 2 mul INT+ 1 0 x
+124|sub Y' add INT- 5 tan mul INT+ 2 x	add mul INT- 5 x mul div INT- 1 INT+ 2 ln cos mul INT+ 2 x
+123|sub Y' mul div INT+ 1 INT+ 2 mul pow x INT+ 2 exp INT+ 3	mul div INT+ 1 INT+ 6 mul pow x INT+ 3 exp INT+ 3
+122|sub Y' mul INT+ 3 pow cosh mul INT+ 2 x INT- 1	mul INT+ 3 atan tanh x
+121|sub Y' add pow x INT+ 2 mul INT+ 2 asin x	add mul INT+ 2 sqrt add INT+ 1 mul INT- 1 pow x INT+ 2 add mul div INT+ 1 INT+ 3 pow x INT+ 3 mul INT+ 2 mul x asin x
+120|sub Y' mul x add x mul INT- 1 ln mul INT+ 3 x	add mul div INT+ 1 INT+ 3 pow x INT+ 3 add mul div INT+ 1 INT+ 4 pow x INT+ 2 mul div INT- 1 INT+ 2 mul pow x INT+ 2 ln mul INT+ 3 x
+119|sub Y' add INT+ 1 add x atan INT+ 3	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul x add INT+ 1 atan INT+ 3
+118|sub Y' mul add INT+ 5 x add x acosh x	add mul INT- 5 sqrt add INT- 1 pow x INT+ 2 add mul div INT- 1 INT+ 4 acosh x add mul div INT+ 1 INT+ 3 pow x INT+ 3 add mul div INT+ 5 INT+ 2 pow x INT+ 2 add mul div INT+ 1 INT+ 2 mul pow x INT+ 2 acosh x add mul INT+ 5 mul x acosh x mul div INT- 1 INT+ 4 mul x sqrt add INT- 1 pow x INT+ 2
+118|sub Y' add x add pow x INT+ 2 mul x sin INT+ 5	add mul div INT+ 1 INT+ 3 pow x INT+ 3 mul pow x INT+ 2 add div INT+ 1 INT+ 2 mul div INT+ 1 INT+ 2 sin INT+ 5
+117|sub Y' mul x add x mul x cosh mul INT+ 2 x	add mul div INT+ 1 INT+ 3 pow x INT+ 3 add mul div INT+ 1 INT+ 4 sinh mul INT+ 2 x add mul div INT+ 1 INT+ 2 mul pow x INT+ 2 sinh mul INT+ 2 x mul div INT- 1 INT+ 2 mul x cosh mul INT+ 2 x
+116|sub Y' mul x add mul INT- 1 asin x mul INT+ 3 x	add pow x INT+ 3 add mul div INT+ 1 INT+ 4 asin x add mul div INT- 1 INT+ 2 mul pow x INT+ 2 asin x mul div INT- 1 INT+ 4 mul x sqrt add INT+ 1 mul INT- 1 pow x INT+ 2
+115|sub Y' add mul x add INT+ 4 mul INT+ 2 x ln x	add mul INT- 1 x add mul INT+ 2 pow x INT+ 2 add mul div INT+ 2 INT+ 3 pow x INT+ 3 mul x ln x
+114|sub Y' exp add x asinh INT+ 2	exp add x asinh INT+ 2
+113|sub Y' add x pow add x cos INT+ 1 INT+ 2	add mul div INT+ 1 INT+ 3 pow x INT+ 3 add mul x pow cos INT+ 1 INT+ 2 mul pow x INT+ 2 add div INT+ 1 INT+ 2 cos INT+ 1
+112|sub Y' add mul INT+ 5 pow x INT+ 4 exp x	add pow x INT+ 5 exp x
+112|sub Y' mul div INT+ 1 INT+ 2 pow sin x INT+ 3	add mul div INT- 1 INT+ 2 cos x mul div INT+ 1 INT+ 6 pow cos x INT+ 3
+111|sub Y' add x add sqrt x sin INT+ 3	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul div INT+ 2 INT+ 3 pow x div INT+ 3 INT+ 2 mul x sin INT+ 3
+110|sub Y' mul pow x INT- 2 add x exp INT+ 3	add mul INT- 1 mul pow x INT- 1 exp INT+ 3 ln x
+109|sub Y' add pow x INT- 1 mul x add INT+ 5 x	add mul div INT+ 1 INT+ 3 pow x INT+ 3 add mul div INT+ 5 INT+ 2 pow x INT+ 2 ln x
+108|sub Y' mul INT+ 3 cos add INT- 1 x	mul INT+ 3 sin add INT- 1 x
+107|sub Y' add pow x INT+ 4 ln INT+ 4	add mul div INT+ 1 INT+ 5 pow x INT+ 5 mul INT+ 2 mul x ln INT+ 2
+107|sub Y' add mul INT- 1 x mul pow x INT+ 2 pow add x pow x INT+ 2 INT+ 2	add mul div INT- 1 INT+ 2 pow x INT+ 2 add mul div INT+ 1 INT+ 3 pow x INT+ 6 add mul div INT+ 1 INT+ 5 pow x INT+ 5 mul div INT+ 1 INT+ 7 pow x INT+ 7
+106|sub Y' add mul INT+ 5 x exp mul INT+ 4 x	add mul div INT+ 1 INT+ 4 exp mul INT+ 4 x mul div INT+ 5 INT+ 2 pow x INT+ 2
+105|sub Y' mul x cos mul INT+ 2 5 x	add mul div INT+ 1 INT+ 6 2 5 cos mul INT+ 2 5 x mul div INT+ 1 INT+ 2 5 mul x sin mul INT+ 2 5 x
+104|sub Y' add x add cos INT+ 2 tan x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul INT- 1 ln cos x mul x cos INT+ 2
+103|sub Y' mul x add INT+ 1 sinh pow x INT+ 2	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul div INT+ 1 INT+ 2 cosh pow x INT+ 2
+102|sub Y' mul x ln sinh INT+ 4	mul div INT+ 1 INT+ 2 mul pow x INT+ 2 ln sinh INT+ 4
+101|sub Y' mul INT+ 5 mul pow x INT- 1 add INT- 5 x	add mul INT- 2 5 ln x mul INT+ 5 x
+101|sub Y' mul pow x INT+ 2 add x mul INT- 1 ln INT+ 3	add mul div INT+ 1 INT+ 4 pow x INT+ 4 mul div INT- 1 INT+ 3 mul pow x INT+ 3 ln INT+ 3
+100|sub Y' mul x add x mul x atan INT+ 3	mul pow x INT+ 3 add div INT+ 1 INT+ 3 mul div INT+ 1 INT+ 3 atan INT+ 3
+99|sub Y' sin add INT+ 1 2 mul INT+ 2 x	mul div INT- 1 INT+ 2 cos add INT+ 1 2 mul INT+ 2 x
+98|sub Y' add mul INT+ 3 x mul INT+ 3 exp mul INT- 1 x	add mul INT- 3 exp mul INT- 1 x mul div INT+ 3 INT+ 2 pow x INT+ 2
+97|sub Y' add INT+ 3 mul div INT+ 3 INT+ 5 x	add mul INT+ 3 x mul div INT+ 3 INT+ 1 0 pow x INT+ 2
+96|sub Y' mul div INT+ 1 INT+ 2 mul pow x INT+ 2 pow tan INT+ 1 INT- 1	mul div INT+ 1 INT+ 6 mul pow x INT+ 3 pow tan INT+ 1 INT- 1
+95|sub Y' mul div INT+ 1 INT+ 2 ln mul INT+ 5 x	add mul div INT- 1 INT+ 2 x mul div INT+ 1 INT+ 2 mul x ln mul INT+ 5 x
+95|sub Y' pow add INT+ 4 mul INT- 1 x div INT+ 1 INT+ 4	mul div INT- 4 INT+ 5 pow add INT+ 4 mul INT- 1 x div INT+ 5 INT+ 4
+94|sub Y' add mul INT+ 3 tan x cos x	add mul INT- 3 ln cos x sin x
+93|sub Y' add x mul INT+ 2 8 pow x INT+ 2	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul div INT+ 2 8 INT+ 3 pow x INT+ 3
+92|sub Y' add x add mul x exp x atan x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul div INT- 1 INT+ 2 ln add INT+ 1 pow x INT+ 2 add mul x atan x mul add INT- 1 x exp x
+92|sub Y' add x mul INT+ 5 tan INT+ 4	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul INT+ 5 mul x tan INT+ 4
+91|sub Y' mul pow x INT- 1 add x mul INT+ 8 pow x INT+ 4	add x mul INT+ 2 pow x INT+ 4
+90|sub Y' add INT+ 2 add mul INT- 1 x mul INT+ 5 pow x INT- 1	add mul INT+ 2 x add mul INT+ 5 ln x mul div INT- 1 INT+ 2 pow x INT+ 2
+90|sub Y' add x add mul INT- 1 pow x INT+ 3 mul INT- 1 pow x INT+ 5	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul div INT- 1 INT+ 4 pow x INT+ 4 mul div INT- 1 INT+ 6 pow x INT+ 6
+89|sub Y' add exp x ln mul INT+ 2 pow x INT+ 2	add mul INT- 2 x add mul x ln mul INT+ 2 pow x INT+ 2 exp x
+88|sub Y' pow add INT+ 6 mul INT+ 6 x INT+ 2	add mul INT+ 1 2 pow x INT+ 3 add mul INT+ 3 6 x mul INT+ 3 6 pow x INT+ 2
+88|sub Y' add x sin add INT+ 2 ln x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul div INT+ 1 INT+ 2 mul x sin add INT+ 2 ln x mul div INT- 1 INT+ 2 mul x cos add INT+ 2 ln x
+87|sub Y' add mul div INT+ 3 INT+ 2 x mul div INT+ 3 INT+ 2 tan x	add mul div INT- 3 INT+ 2 ln cos x mul div INT+ 3 INT+ 4 pow x INT+ 2
+86|sub Y' mul INT+ 6 mul pow x INT+ 2 cos INT+ 3	mul INT+ 2 mul pow x INT+ 3 cos INT+ 3
+86|sub Y' mul pow x INT+ 2 pow add INT+ 1 x INT- 5	mul INT- 1 mul pow add INT+ 1 2 add mul INT+ 1 2 pow x INT+ 4 add mul INT+ 4 8 x add mul INT+ 4 8 pow x INT+ 3 mul INT+ 7 2 pow x INT+ 2 INT- 1 add INT+ 1 add mul INT+ 4 x mul INT+ 6 pow x INT+ 2
+85|sub Y' add x mul INT+ 4 exp mul INT+ 4 x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 exp mul INT+ 4 x
+85|sub Y' add INT+ 2 mul pow x INT+ 2 acosh x	add mul INT+ 2 x add mul div INT- 2 INT+ 9 sqrt add INT- 1 pow x INT+ 2 add mul div INT- 1 INT+ 9 mul pow x INT+ 2 sqrt add INT- 1 pow x INT+ 2 mul div INT+ 1 INT+ 3 mul pow x INT+ 3 acosh x
+84|sub Y' add pow x INT+ 2 add mul INT- 1 x mul INT- 1 ln pow x INT+ 2	add mul INT+ 2 x add mul div INT- 1 INT+ 2 pow x INT+ 2 add mul div INT+ 1 INT+ 3 pow x INT+ 3 mul INT- 1 mul x ln pow x INT+ 2
+83|sub Y' mul INT+ 8 sqrt pow x INT- 3	mul INT- 1 6 mul x sqrt pow x INT- 3
+83|sub Y' add pow x INT+ 2 tan mul div INT+ 1 INT+ 4 x	add mul INT- 4 ln cos mul div INT+ 1 INT+ 4 x mul div INT+ 1 INT+ 3 pow x INT+ 3
+82|sub Y' mul pow x INT+ 2 add x mul x pow add INT+ 1 pow x INT+ 2 div INT- 1 INT+ 2	add mul div INT- 2 INT+ 3 sqrt add INT+ 1 pow x INT+ 2 add mul div INT+ 1 INT+ 4 pow x INT+ 4 mul div INT+ 1 INT+ 3 mul pow x INT+ 2 sqrt add INT+ 1 pow x INT+ 2
+82|sub Y' mul pow x div INT- 3 INT+ 2 sin INT+ 1	mul INT- 2 mul pow x div INT- 1 INT+ 2 sin INT+ 1
+81|sub Y' add mul INT- 4 pow x INT+ 2 asinh x	add mul INT- 1 sqrt add INT+ 1 pow x INT+ 2 add mul div INT- 4 INT+ 3 pow x INT+ 3 mul x asinh x
+81|sub Y' add x mul INT+ 3 sqrt pow x INT- 1	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul INT+ 6 mul x sqrt pow x INT- 1
+79|sub Y' mul x add mul INT+ 7 x cos x	add mul div INT+ 7 INT+ 3 pow x INT+ 3 add mul x sin x cos x
+79|sub Y' mul div INT+ 1 INT+ 4 ln mul INT+ 5 x	add mul div INT- 1 INT+ 4 x mul div INT+ 1 INT+ 4 mul x ln mul INT+ 5 x
+78|sub Y' mul x add INT- 1 mul INT+ 5 pow x INT+ 2	add mul div INT- 1 INT+ 2 pow x INT+ 2 mul div INT+ 5 INT+ 4 pow x INT+ 4
+78|sub Y' add x mul INT+ 3 2 pow x div INT+ 5 INT+ 2	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul div INT+ 6 4 INT+ 7 pow x div INT+ 7 INT+ 2
+77|sub Y' add INT+ 3 add mul INT- 1 cos x mul INT- 2 x	add mul INT- 1 pow x INT+ 2 add mul INT- 1 sin x mul INT+ 3 x
+77|sub Y' mul INT+ 2 pow tan mul INT+ 5 x INT- 1	mul div INT+ 2 INT+ 5 ln sin mul INT+ 5 x
+76|sub Y' sqrt add x mul INT- 1 cos INT+ 2	mul div INT+ 2 INT+ 3 pow add x mul INT- 1 cos INT+ 2 div INT+ 3 INT+ 2
+76|sub Y' mul INT+ 5 pow cos mul INT+ 5 x INT- 1	add mul div INT+ 1 INT+ 2 ln add INT+ 1 sin mul INT+ 5 x mul div INT- 1 INT+ 2 ln add INT- 1 sin mul INT+ 5 x
+75|sub Y' mul add INT+ 3 x exp mul INT+ 4 x	mul div INT+ 1 INT+ 1 6 mul add INT+ 1 1 mul INT+ 4 x exp mul INT+ 4 x
+75|sub Y' mul INT+ 3 7 5 pow x INT- 1	mul INT+ 3 7 5 ln x
+74|sub Y' pow add INT+ 5 x INT- 5	mul INT- 1 pow add INT+ 2 5 0 0 add mul INT+ 4 pow x INT+ 4 add mul INT+ 8 0 pow x INT+ 3 add mul INT+ 6 0 0 pow x INT+ 2 mul INT+ 2 0 0 0 x INT- 1
+74|sub Y' add mul INT+ 2 x mul x pow add INT+ 8 x INT- 1	add x add pow x INT+ 2 mul INT- 8 ln add INT+ 8 x
+73|sub Y' add pow x INT+ 3 exp add INT+ 2 x	add mul div INT+ 1 INT+ 4 pow x INT+ 4 exp add INT+ 2 x
+73|sub Y' mul div INT+ 1 INT+ 3 pow add INT+ 1 mul INT+ 2 x INT- 1	mul div INT+ 1 INT+ 6 ln add INT+ 3 mul INT+ 6 x
+72|sub Y' sqrt add x mul x tan INT+ 3	mul div INT+ 2 INT+ 3 mul pow x div INT+ 3 INT+ 2 sqrt add INT+ 1 tan INT+ 3
+72|sub Y' add x mul pow x INT+ 6 pow add INT+ 1 x INT+ 3	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul div INT+ 1 INT+ 3 pow x INT+ 9 add mul div INT+ 1 INT+ 7 pow x INT+ 7 add mul div INT+ 1 INT+ 1 0 pow x INT+ 1 0 mul div INT+ 3 INT+ 8 pow x INT+ 8
+71|sub Y' add x cos add x tan INT+ 5	add mul div INT+ 1 INT+ 2 pow x INT+ 2 sin add x tan INT+ 5
+71|sub Y' add mul INT- 1 x add mul INT- 1 acos x exp x	add sqrt add INT+ 1 mul INT- 1 pow x INT+ 2 add mul div INT- 1 INT+ 2 pow x INT+ 2 add mul INT- 1 mul x acos x exp x
+70|sub Y' add x mul x add mul INT- 1 x ln INT+ 4	add mul div INT- 1 INT+ 3 pow x INT+ 3 mul pow x INT+ 2 add div INT+ 1 INT+ 2 ln INT+ 2
+70|sub Y' mul pow x INT- 1 add x pow ln x INT+ 5	add x mul div INT+ 1 INT+ 6 pow ln x INT+ 6
+69|sub Y' mul x add x sin tan INT+ 3	add mul div INT+ 1 INT+ 3 pow x INT+ 3 mul div INT+ 1 INT+ 2 mul pow x INT+ 2 sin tan INT+ 3
+69|sub Y' add mul INT- 1 x mul INT+ 4 mul x add INT+ 2 x	add mul div INT+ 4 INT+ 3 pow x INT+ 3 mul div INT+ 7 INT+ 2 pow x INT+ 2
+69|sub Y' mul pow x INT+ 6 pow cos INT+ 3 INT+ 3	mul div INT+ 1 INT+ 7 mul pow x INT+ 7 pow cos INT+ 3 INT+ 3
+68|sub Y' add x mul cos INT+ 2 cos x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul cos INT+ 2 sin x
+68|sub Y' ln add INT+ 1 mul div INT+ 3 INT+ 2 x	add mul INT- 1 x add mul div INT+ 2 INT+ 3 ln add INT+ 2 mul INT+ 3 x mul x ln add INT+ 1 mul div INT+ 3 INT+ 2 x
+67|sub Y' add mul INT+ 2 pow x INT+ 2 add mul INT+ 3 x atanh x	add mul INT- 1 atanh x add mul div INT+ 2 INT+ 3 pow x INT+ 3 add mul div INT+ 3 INT+ 2 pow x INT+ 2 add mul x atanh x ln add INT+ 1 x
+67|sub Y' add mul INT+ 3 x mul INT+ 3 acosh mul INT+ 2 x	add mul div INT- 3 INT+ 2 sqrt add INT- 1 mul INT+ 4 pow x INT+ 2 add mul div INT+ 3 INT+ 2 pow x INT+ 2 mul INT+ 3 mul x acosh mul INT+ 2 x
+66|sub Y' mul pow add x pow x INT+ 4 INT- 1 add x pow x INT+ 2	mul div INT+ 2 INT+ 3 mul sqrt INT+ 3 atan add mul div INT- 1 INT+ 3 sqrt INT+ 3 mul div INT+ 2 INT+ 3 mul x sqrt INT+ 3
+66|sub Y' mul x sinh add INT+ 4 mul INT+ 3 x	add mul div INT- 1 INT+ 9 sinh add INT+ 4 mul INT+ 3 x mul div INT+ 1 INT+ 3 mul x cosh add INT+ 4 mul INT+ 3 x
+66|sub Y' add INT+ 5 acos mul INT+ 3 x	add mul INT+ 5 x add mul div INT- 1 INT+ 3 sqrt add INT+ 1 mul INT- 9 pow x INT+ 2 mul x acos mul INT+ 3 x
+65|sub Y' add x mul x add sqrt INT+ 5 mul INT- 1 x	add mul div INT- 1 INT+ 3 pow x INT+ 3 mul pow x INT+ 2 add div INT+ 1 INT+ 2 mul div INT+ 1 INT+ 2 sqrt INT+ 5
+65|sub Y' add mul INT+ 2 x mul pow x INT+ 2 add INT+ 5 pow x INT+ 2	add pow x INT+ 2 add mul div INT+ 1 INT+ 5 pow x INT+ 5 mul div INT+ 5 INT+ 3 pow x INT+ 3
+64|sub Y' mul x mul add INT+ 1 x add x pow x INT- 1	add x add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul div INT+ 1 INT+ 3 pow x INT+ 3 mul div INT+ 1 INT+ 4 pow x INT+ 4
+64|sub Y' add mul INT+ 2 x mul pow x INT- 1 add sqrt x mul INT+ 2 x	add pow x INT+ 2 add mul INT+ 2 x mul INT+ 2 sqrt x
+64|sub Y' mul div INT+ 8 INT+ 9 pow x INT- 1	mul div INT+ 8 INT+ 9 ln x
+63|sub Y' mul pow x INT- 2 sqrt pow x INT+ 5	mul div INT+ 2 INT+ 3 mul pow x INT- 1 sqrt pow x INT+ 5
+63|sub Y' mul INT+ 8 mul pow x INT+ 3 add INT+ 1 mul INT+ 2 x	add mul INT+ 2 pow x INT+ 4 mul div INT+ 1 6 INT+ 5 pow x INT+ 5
+62|sub Y' sin add x mul x exp INT+ 5	mul INT- 1 mul pow add INT+ 1 exp INT+ 5 INT- 1 cos add x mul x exp INT+ 5
+62|sub Y' add mul INT- 1 exp x add mul INT+ 3 x sin x	add mul INT- 1 cos x add mul INT- 1 exp x mul div INT+ 3 INT+ 2 pow x INT+ 2
+62|sub Y' mul INT+ 3 pow add x mul INT- 1 pow x INT+ 4 INT- 1	add mul INT- 1 ln add INT- 1 pow x INT+ 3 mul INT+ 3 ln x
+61|sub Y' mul x pow add mul INT+ 4 x mul INT+ 4 pow x INT+ 4 INT- 1	add mul div INT- 1 INT+ 2 4 ln add INT+ 1 add pow x INT+ 2 mul INT- 1 x add mul div INT+ 1 INT+ 1 2 ln add INT+ 1 x mul div INT+ 1 INT+ 1 2 mul sqrt INT+ 3 atan add mul div INT- 1 INT+ 3 sqrt INT+ 3 mul div INT+ 2 INT+ 3 mul x sqrt INT+ 3
+61|sub Y' add sqrt INT+ 3 add pow x INT+ 2 mul INT- 1 x	add mul div INT- 1 INT+ 2 pow x INT+ 2 add mul div INT+ 1 INT+ 3 pow x INT+ 3 mul x sqrt INT+ 3
+60|sub Y' sin add INT+ 4 mul div INT+ 1 INT+ 4 x	mul INT- 4 cos add INT+ 4 mul div INT+ 1 INT+ 4 x
+60|sub Y' add mul INT+ 2 x add mul INT+ 3 pow x INT+ 2 atanh x	add pow x INT+ 2 add pow x INT+ 3 add mul INT- 1 atanh x add mul x atanh x ln add INT+ 1 x
+60|sub Y' mul pow x INT- 1 add pow x INT+ 2 exp INT+ 5	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul exp INT+ 5 ln x
+59|sub Y' mul div INT+ 1 INT+ 3 mul pow x INT+ 3 pow add INT+ 5 x INT- 1	add mul div INT- 1 2 5 INT+ 3 ln add INT+ 5 x add mul div INT- 5 INT+ 6 pow x INT+ 2 add mul div INT+ 1 INT+ 9 pow x INT+ 3 mul div INT+ 2 5 INT+ 3 x
+59|sub Y' pow add x mul INT- 1 pow x INT+ 2 INT+ 8	add mul INT- 4 pow x INT+ 1 4 add mul div INT- 1 4 INT+ 3 pow x INT+ 1 2 add mul div INT- 4 INT+ 5 pow x INT+ 1 0 add mul div INT- 1 INT+ 2 pow x INT+ 1 6 add mul div INT+ 1 INT+ 9 pow x INT+ 9 add mul div INT+ 1 INT+ 1 7 pow x INT+ 1 7 add mul div INT+ 2 8 INT+ 1 1 pow x INT+ 1 1 add mul div INT+ 2 8 INT+ 1 5 pow x INT+ 1 5 mul div INT+ 7 0 INT+ 1 3 pow x INT+ 1 3
+59|sub Y' mul pow x div INT+ 3 INT+ 2 asin INT+ 2	mul div INT+ 2 INT+ 5 mul pow x div INT+ 5 INT+ 2 asin INT+ 2
+58|sub Y' add x sqrt acos INT+ 4	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul x sqrt acos INT+ 4
+58|sub Y' add pow x INT+ 2 mul div INT+ 7 INT+ 6 x	add mul div INT+ 1 INT+ 3 pow x INT+ 3 mul div INT+ 7 INT+ 1 2 pow x INT+ 2
+58|sub Y' mul pow x INT- 1 add x add pow x INT+ 2 mul INT+ 2 pow x INT- 1	add x add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul INT- 2 pow x INT- 1
+57|sub Y' add x mul x add INT+ 5 mul INT+ 3 pow x INT+ 2	add mul INT+ 3 pow x INT+ 2 mul div INT+ 3 INT+ 4 pow x INT+ 4
+57|sub Y' mul INT+ 3 mul pow x INT+ 3 pow tan INT+ 1 INT- 1	mul div INT+ 3 INT+ 4 mul pow x INT+ 4 pow tan INT+ 1 INT- 1
+56|sub Y' add x cos add INT+ 4 mul INT+ 5 x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul div INT+ 1 INT+ 5 sin add INT+ 4 mul INT+ 5 x
+56|sub Y' mul x pow add mul INT+ 2 x tanh INT+ 1 INT- 1	add mul div INT+ 1 INT+ 2 x mul div INT- 1 INT+ 4 mul ln add mul INT+ 2 x tanh INT+ 1 tanh INT+ 1
+56|sub Y' add x mul div INT- 1 INT+ 2 pow sin x INT- 1	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul div INT- 1 INT+ 4 ln add INT- 1 cos x mul div INT+ 1 INT+ 4 ln add INT+ 1 cos x
+56|sub Y' add sqrt INT+ 3 atan x	add mul div INT- 1 INT+ 2 ln add INT+ 1 pow x INT+ 2 add mul x sqrt INT+ 3 mul x atan x
+55|sub Y' add x atanh cos INT+ 4	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul x atanh cos INT+ 4
+55|sub Y' mul INT- 1 mul pow x INT+ 2 pow add INT+ 5 x INT+ 2	add mul div INT- 2 5 INT+ 3 pow x INT+ 3 add mul div INT- 5 INT+ 2 pow x INT+ 4 mul div INT- 1 INT+ 5 pow x INT+ 5
+55|sub Y' mul INT+ 9 sqrt pow x INT+ 3	mul div INT+ 1 8 INT+ 5 mul x sqrt pow x INT+ 3
+54|sub Y' mul x acos mul div INT+ 1 INT+ 2 pow x INT+ 2	add mul div INT- 1 INT+ 2 sqrt add INT+ 4 mul INT- 1 pow x INT+ 4 mul div INT+ 1 INT+ 2 mul pow x INT+ 2 acos mul div INT+ 1 INT+ 2 pow x INT+ 2
+54|sub Y' add INT+ 3 add mul INT+ 4 x acosh x	add mul INT- 1 sqrt add INT- 1 pow x INT+ 2 add mul INT+ 2 pow x INT+ 2 add mul INT+ 3 x mul x acosh x
+54|sub Y' add x mul INT- 1 exp tan INT+ 1	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul INT- 1 mul x exp tan INT+ 1
+53|sub Y' mul pow x INT- 1 add pow x INT+ 2 mul x add INT+ 5 x	add pow x INT+ 2 mul INT+ 5 x
+53|sub Y' pow add mul INT- 1 x mul INT- 1 exp x INT+ 2	add mul div INT+ 1 INT+ 2 exp mul INT+ 2 x add mul div INT+ 1 INT+ 3 pow x INT+ 3 mul div INT+ 1 INT+ 2 mul add INT- 4 mul INT+ 4 x exp x
+53|sub Y' add x sin add INT+ 3 mul INT+ 5 x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul div INT- 1 INT+ 5 cos add INT+ 3 mul INT+ 5 x
+52|sub Y' mul div INT+ 4 INT+ 5 acos x	add mul div INT- 4 INT+ 5 sqrt add INT+ 1 mul INT- 1 pow x INT+ 2 mul div INT+ 4 INT+ 5 mul x acos x
+52|sub Y' add pow x INT+ 2 mul add INT+ 1 x sin x	add mul INT- 1 cos x add mul div INT+ 1 INT+ 3 pow x INT+ 3 add mul INT- 1 mul x cos x sin x
+52|sub Y' add INT+ 3 add x add sqrt x mul INT- 1 pow x INT+ 2	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul INT+ 3 x add mul div INT- 1 INT+ 3 pow x INT+ 3 mul div INT+ 2 INT+ 3 pow x div INT+ 3 INT+ 2
+51|sub Y' add INT+ 5 add x pow x INT+ 1 2	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul INT+ 5 x mul div INT+ 1 INT+ 1 3 pow x INT+ 1 3
+51|sub Y' add INT- 2 mul div INT+ 1 INT+ 3 pow x INT+ 2	add mul INT- 2 x mul div INT+ 1 INT+ 9 pow x INT+ 3
+51|sub Y' add x mul INT- 1 sin exp INT+ 3	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul INT- 1 mul x sin exp INT+ 3
+51|sub Y' mul INT+ 4 tan add INT- 1 x	mul INT+ 2 ln add INT+ 1 pow tan add INT- 1 x INT+ 2
+50|sub Y' mul div INT+ 1 INT+ 2 mul sqrt INT+ 6 pow x div INT+ 5 INT+ 2	mul div INT+ 1 INT+ 7 mul sqrt INT+ 6 pow x div INT+ 7 INT+ 2
+50|sub Y' add mul div INT+ 1 INT+ 5 x mul div INT+ 1 INT+ 5 mul x add INT+ 2 x	add mul div INT+ 1 INT+ 1 5 pow x INT+ 3 mul div INT+ 3 INT+ 1 0 pow x INT+ 2
+50|sub Y' mul pow x INT- 1 add INT- 1 add x pow x INT+ 4	add x add mul INT- 1 ln x mul div INT+ 1 INT+ 4 pow x INT+ 4
+49|sub Y' mul INT+ 6 mul pow x INT+ 4 add INT+ 3 x	add pow x INT+ 6 mul div INT+ 1 8 INT+ 5 pow x INT+ 5
+49|sub Y' add x mul INT- 1 mul x pow asinh x INT+ 2	add mul div INT- 1 INT+ 4 pow asinh x INT+ 2 add mul div INT+ 1 INT+ 4 pow x INT+ 2 add mul div INT- 1 INT+ 2 mul pow x INT+ 2 pow asinh x INT+ 2 mul div INT+ 1 INT+ 2 mul x mul sqrt add INT+ 1 pow x INT+ 2 asinh x
+49|sub Y' add mul INT+ 3 x mul INT+ 3 mul pow x INT+ 2 exp mul INT- 1 x	add mul div INT+ 3 INT+ 2 pow x INT+ 2 mul add INT- 6 add mul INT- 6 x mul INT- 3 pow x INT+ 2 exp mul INT- 1 x
+49|sub Y' add mul INT- 3 x mul pow x INT+ 2 cos x	add mul INT- 2 sin x add mul div INT- 3 INT+ 2 pow x INT+ 2 add mul pow x INT+ 2 sin x mul INT+ 2 mul x cos x
+48|sub Y' add x mul div INT+ 1 INT+ 2 mul x ln INT+ 2	mul pow x INT+ 2 add div INT+ 1 INT+ 2 mul div INT+ 1 INT+ 4 ln INT+ 2
+48|sub Y' add mul INT+ 4 pow x INT- 1 mul x add INT+ 5 x	add mul INT+ 4 ln x add mul div INT+ 1 INT+ 3 pow x INT+ 3 mul div INT+ 5 INT+ 2 pow x INT+ 2
+48|sub Y' add x add mul x pow add INT+ 3 x INT- 1 sin x	add x add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul INT- 1 cos x mul INT- 3 ln add INT+ 3 x
+48|sub Y' mul pow x INT- 1 asin INT+ 9	mul asin INT+ 9 ln x
+47|sub Y' pow add pow x INT+ 2 ln INT+ 5 INT+ 2	add mul div INT+ 1 INT+ 5 pow x INT+ 5 add mul x pow ln INT+ 5 INT+ 2 mul div INT+ 2 INT+ 3 mul pow x INT+ 3 ln INT+ 5
+47|sub Y' pow add INT+ 5 pow x INT+ 5 INT+ 4	add mul INT+ 6 2 5 x add mul div INT+ 1 INT+ 2 1 pow x INT+ 2 1 add mul div INT+ 5 INT+ 4 pow x INT+ 1 6 add mul div INT+ 1 5 0 INT+ 1 1 pow x INT+ 1 1 mul div INT+ 2 5 0 INT+ 3 pow x INT+ 6
+47|sub Y' add x add mul INT- 1 pow x INT+ 2 add cos x tan x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul INT- 1 ln cos x add mul div INT- 1 INT+ 3 pow x INT+ 3 sin x
+47|sub Y' mul add INT+ 7 x exp mul INT- 1 x	mul add INT- 8 mul INT- 1 x exp mul INT- 1 x
+46|sub Y' mul x add pow x INT+ 2 mul INT- 1 mul sqrt INT+ 2 sqrt x	add mul div INT+ 1 INT+ 4 pow x INT+ 4 mul div INT- 2 INT+ 5 mul sqrt INT+ 2 pow x div INT+ 5 INT+ 2
+46|sub Y' add mul div INT- 1 INT+ 4 pow x INT+ 3 mul div INT+ 5 INT+ 4 x	add mul div INT- 1 INT+ 1 6 pow x INT+ 4 mul div INT+ 5 INT+ 8 pow x INT+ 2
+46|sub Y' add mul INT+ 2 7 x mul INT+ 2 7 tan x	add mul INT- 2 7 ln cos x mul div INT+ 2 7 INT+ 2 pow x INT+ 2
+46|sub Y' sinh add INT+ 1 5 x	cosh add INT+ 1 5 x
+45|sub Y' add x mul INT- 1 cos add INT+ 1 mul INT+ 3 x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul div INT- 1 INT+ 3 sin add INT+ 1 mul INT+ 3 x
+45|sub Y' add mul INT- 1 x atanh add INT+ 1 mul INT+ 2 x	add mul div INT+ 1 INT+ 2 ln add INT+ 1 x add mul div INT- 1 INT+ 2 pow x INT+ 2 mul x atanh add INT+ 1 mul INT+ 2 x
+45|sub Y' add INT+ 1 mul div INT+ 1 INT+ 5 pow x INT- 2	add x mul div INT- 1 INT+ 5 pow x INT- 1
+45|sub Y' add x mul INT- 1 mul pow x INT- 1 sinh INT+ 4	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul INT- 1 mul ln x sinh INT+ 4
+44|sub Y' mul INT+ 3 sqrt add INT- 3 x	mul INT+ 2 pow add INT- 3 x div INT+ 3 INT+ 2
+44|sub Y' mul pow x INT+ 2 ln mul INT- 2 x	add mul div INT- 1 INT+ 9 pow x INT+ 3 mul div INT+ 1 INT+ 3 mul pow x INT+ 3 ln mul INT- 2 x
+44|sub Y' sin add INT+ 2 mul INT+ 7 x	mul div INT- 1 INT+ 7 cos add INT+ 2 mul INT+ 7 x
+44|sub Y' add x mul add x pow x INT+ 3 atan x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul div INT- 1 INT+ 4 x add mul div INT- 1 INT+ 1 2 pow x INT+ 3 add mul div INT+ 1 INT+ 4 atan x add mul div INT+ 1 INT+ 2 mul pow x INT+ 2 atan x mul div INT+ 1 INT+ 4 mul pow x INT+ 4 atan x
+43|sub Y' mul INT+ 2 mul pow x INT+ 2 add INT+ 3 add x sqrt x	add mul div INT+ 1 INT+ 2 pow x INT+ 4 add mul INT+ 2 pow x INT+ 3 mul div INT+ 4 INT+ 7 pow x div INT+ 7 INT+ 2
+43|sub Y' add INT+ 3 add mul INT+ 2 x mul x acosh x	add pow x INT+ 2 add mul INT+ 3 x add mul div INT- 1 INT+ 4 acosh x add mul div INT+ 1 INT+ 2 mul pow x INT+ 2 acosh x mul div INT- 1 INT+ 4 mul x sqrt add INT- 1 pow x INT+ 2
+43|sub Y' add INT+ 5 mul INT- 1 exp sqrt x	add mul INT+ 2 exp sqrt x add mul INT+ 5 x mul INT- 2 mul sqrt x exp sqrt x
+43|sub Y' pow add x ln mul INT+ 4 x INT+ 3	add mul INT- 6 x add mul div INT- 1 INT+ 3 pow x INT+ 3 add mul div INT+ 1 INT+ 4 pow x INT+ 4 add mul div INT+ 3 INT+ 4 pow x INT+ 2 add mul x pow ln mul INT+ 4 x INT+ 3 add mul pow ln mul INT+ 4 x INT+ 2 add mul INT- 3 x mul div INT+ 3 INT+ 2 pow x INT+ 2 mul add pow x INT+ 3 add mul INT+ 6 x mul div INT- 3 INT+ 2 pow x INT+ 2 ln mul INT+ 4 x
+43|sub Y' add INT+ 6 mul div INT+ 1 INT+ 4 pow x INT+ 2	add mul INT+ 6 x mul div INT+ 1 INT+ 1 2 pow x INT+ 3
+42|sub Y' mul pow x INT- 1 add INT- 4 mul INT- 4 x	add mul INT- 4 x mul INT- 4 ln x
+42|sub Y' mul div INT+ 1 INT+ 6 2 5 pow tan x INT+ 4	add mul div INT+ 1 INT+ 6 2 5 x add mul div INT- 1 INT+ 6 2 5 mul pow cos x INT- 1 sin x mul div INT+ 1 INT+ 1 8 7 5 mul pow cos x INT- 3 pow sin x INT+ 3
+42|sub Y' mul x add x mul INT- 4 pow x div INT+ 3 INT+ 2	add mul div INT- 8 INT+ 7 pow x div INT+ 7 INT+ 2 mul div INT+ 1 INT+ 3 pow x INT+ 3
+42|sub Y' mul x add mul INT+ 2 x mul INT+ 4 pow x INT- 3	add mul INT- 4 pow x INT- 1 mul div INT+ 2 INT+ 3 pow x INT+ 3
+42|sub Y' add x mul INT- 6 pow x div INT+ 3 INT+ 2	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul div INT- 1 2 INT+ 5 pow x div INT+ 5 INT+ 2
+41|sub Y' add x mul x add cos x cosh x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul INT- 1 cosh x add mul x sin x add mul x sinh x cos x
+41|sub Y' mul div INT+ 5 INT+ 2 mul sqrt INT+ 2 pow x INT- 2	mul div INT- 5 INT+ 2 mul sqrt INT+ 2 pow x INT- 1
+41|sub Y' add mul INT+ 2 x mul x add x mul x acosh x	add pow x INT+ 2 add mul div INT- 2 INT+ 9 sqrt add INT- 1 pow x INT+ 2 add mul div INT+ 1 INT+ 3 pow x INT+ 3 add mul div INT- 1 INT+ 9 mul pow x INT+ 2 sqrt add INT- 1 pow x INT+ 2 mul div INT+ 1 INT+ 3 mul pow x INT+ 3 acosh x
+41|sub Y' add mul INT- 1 x exp mul INT+ 1 5 x	add mul div INT- 1 INT+ 2 pow x INT+ 2 mul div INT+ 1 INT+ 1 5 exp mul INT+ 1 5 x
+41|sub Y' mul x add pow x INT+ 4 add mul INT- 1 pow x INT+ 2 mul INT+ 2 x	add mul div INT- 1 INT+ 4 pow x INT+ 4 add mul div INT+ 1 INT+ 6 pow x INT+ 6 mul div INT+ 2 INT+ 3 pow x INT+ 3
+40|sub Y' mul INT+ 5 pow acosh x INT+ 4	add mul INT+ 1 2 0 x add mul INT- 1 2 0 mul sqrt add INT- 1 pow x INT+ 2 acosh x add mul INT- 2 0 mul sqrt add INT- 1 pow x INT+ 2 pow acosh x INT+ 3 add mul INT+ 5 mul x pow acosh x INT+ 4 mul INT+ 6 0 mul x pow acosh x INT+ 2
+40|sub Y' add x mul div INT+ 1 INT+ 1 6 mul pow pi INT+ 2 pow x INT+ 2	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul div INT+ 1 INT+ 4 8 mul pow pi INT+ 2 pow x INT+ 3
+40|sub Y' add INT- 1 mul x cos INT+ 1	add mul INT- 1 x mul div INT+ 1 INT+ 2 mul pow x INT+ 2 cos INT+ 1
+40|sub Y' add pow x INT+ 3 add mul INT+ 6 x exp x	add mul INT+ 3 pow x INT+ 2 add mul div INT+ 1 INT+ 4 pow x INT+ 4 exp x
+40|sub Y' mul pow tan INT+ 2 INT- 1 acosh x	mul pow tan INT+ 2 INT- 1 add mul INT- 1 sqrt add INT- 1 pow x INT+ 2 mul x acosh x
+39|sub Y' mul INT+ 4 mul pow x INT+ 3 pow add x pow x INT+ 4 INT- 1	mul div INT+ 4 INT+ 3 ln add INT+ 1 pow x INT+ 3
+39|sub Y' mul pow x INT+ 5 pow add INT+ 7 x INT+ 5	add mul INT+ 1 7 1 5 pow x INT+ 7 add mul div INT+ 1 INT+ 1 1 pow x INT+ 1 1 add mul div INT+ 7 INT+ 2 pow x INT+ 1 0 add mul div INT+ 4 9 0 INT+ 9 pow x INT+ 9 add mul div INT+ 1 7 1 5 INT+ 4 pow x INT+ 8 mul div INT+ 1 6 8 0 7 INT+ 6 pow x INT+ 6
+39|sub Y' mul pow x INT+ 3 add x cosh mul INT+ 2 x	add mul div INT- 3 INT+ 8 cosh mul INT+ 2 x add mul div INT+ 1 INT+ 5 pow x INT+ 5 add mul div INT+ 1 INT+ 2 mul pow x INT+ 3 sinh mul INT+ 2 x add mul div INT- 3 INT+ 4 mul pow x INT+ 2 cosh mul INT+ 2 x mul div INT+ 3 INT+ 4 mul x sinh mul INT+ 2 x
+39|sub Y' add x mul INT- 1 exp cos INT+ 3	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul INT- 1 mul x exp cos INT+ 3
+38|sub Y' mul INT+ 6 4 mul x sinh x	add mul INT- 6 4 sinh x mul INT+ 6 4 mul x cosh x
+38|sub Y' mul div INT+ 4 INT+ 3 mul pow x INT- 1 pow add INT+ 1 x INT- 1	add mul div INT- 4 INT+ 3 ln add INT+ 1 x mul div INT+ 4 INT+ 3 ln x
+38|sub Y' add x add mul x exp x ln pow x INT+ 2	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul INT- 2 x add mul x ln pow x INT+ 2 mul add INT- 1 x exp x
+38|sub Y' mul INT+ 3 mul pow x INT- 3 atanh x	add mul div INT- 3 INT+ 2 pow x INT- 1 add mul div INT+ 3 INT+ 2 atanh x mul div INT- 3 INT+ 2 mul pow x INT- 2 atanh x
+38|sub Y' mul INT+ 8 mul pow x INT+ 3 add INT- 5 x	add mul INT- 1 0 pow x INT+ 4 mul div INT+ 8 INT+ 5 pow x INT+ 5
+38|sub Y' add INT+ 3 mul INT+ 6 2 5 pow x INT+ 4	add mul INT+ 3 x mul INT+ 1 2 5 pow x INT+ 5
+37|sub Y' mul pow x INT+ 3 pow add x mul INT+ 4 pow x INT+ 3 INT- 1	add mul div INT- 1 INT+ 8 atan mul INT+ 2 x mul div INT+ 1 INT+ 4 x
+37|sub Y' add x atan add INT+ 7 x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul INT+ 7 atan add INT+ 7 x add mul div INT- 1 INT+ 2 ln add INT+ 5 0 add pow x INT+ 2 mul INT+ 1 4 x mul x atan add INT+ 7 x
+37|sub Y' mul INT+ 4 pow add INT+ 6 mul INT- 1 x INT- 1	mul INT- 4 ln add INT- 6 x
+37|sub Y' mul INT+ 2 mul pow x INT+ 3 pow add INT+ 3 x INT+ 3	add mul INT+ 3 pow x INT+ 6 add mul div INT+ 2 INT+ 7 pow x INT+ 7 add mul div INT+ 2 7 INT+ 2 pow x INT+ 4 mul div INT+ 5 4 INT+ 5 pow x INT+ 5
+37|sub Y' pow add pow x INT+ 2 cos INT+ 2 INT+ 2	add mul div INT+ 1 INT+ 5 pow x INT+ 5 add mul x pow cos INT+ 2 INT+ 2 mul div INT+ 2 INT+ 3 mul pow x INT+ 3 cos INT+ 2
+37|sub Y' mul add INT+ 6 mul INT+ 2 x acosh x	add mul INT- 6 sqrt add INT- 1 pow x INT+ 2 add mul div INT- 1 INT+ 2 acosh x add mul pow x INT+ 2 acosh x add mul INT+ 6 mul x acosh x mul div INT- 1 INT+ 2 mul x sqrt add INT- 1 pow x INT+ 2
+36|sub Y' mul sqrt INT+ 2 mul sqrt x sqrt pow x INT+ 3	mul div INT+ 1 INT+ 3 mul sqrt INT+ 2 pow x INT+ 3
+36|sub Y' mul INT+ 2 mul pow x INT+ 4 pow ln INT+ 3 INT- 1	mul div INT+ 2 INT+ 5 mul pow x INT+ 5 pow ln INT+ 3 INT- 1
+36|sub Y' mul INT+ 1 2 mul pow x INT+ 2 ln mul INT+ 2 x	add mul div INT- 4 INT+ 3 pow x INT+ 3 mul INT+ 4 mul pow x INT+ 3 ln mul INT+ 2 x
+36|sub Y' add mul INT+ 5 x mul INT+ 8 pow x INT+ 6	add mul div INT+ 5 INT+ 2 pow x INT+ 2 mul div INT+ 8 INT+ 7 pow x INT+ 7
+36|sub Y' mul x add INT+ 4 cos mul INT+ 4 x	add mul INT+ 2 pow x INT+ 2 add mul div INT+ 1 INT+ 1 6 cos mul INT+ 4 x mul div INT+ 1 INT+ 4 mul x sin mul INT+ 4 x
+36|sub Y' add INT+ 4 add x mul x add pow x INT+ 2 mul INT- 1 x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul INT+ 4 x add mul div INT- 1 INT+ 3 pow x INT+ 3 mul div INT+ 1 INT+ 4 pow x INT+ 4
+35|sub Y' mul div INT+ 2 INT+ 8 1 pow x INT- 4	mul div INT- 2 INT+ 2 4 3 pow x INT- 3
+35|sub Y' add INT- 2 5 mul INT+ 4 x	add mul INT- 2 5 x mul INT+ 2 pow x INT+ 2
+35|sub Y' mul pow x INT- 6 add x ln x	add mul div INT- 1 INT+ 5 mul pow x INT- 5 ln x mul div INT- 1 INT+ 1 0 0 mul pow x INT- 5 add INT+ 4 mul INT+ 2 5 x
+35|sub Y' mul x add INT+ 1 add mul INT+ 3 x mul x ln x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul div INT+ 8 INT+ 9 pow x INT+ 3 mul div INT+ 1 INT+ 3 mul pow x INT+ 3 ln x
+35|sub Y' add mul INT- 1 x tanh mul div INT+ 1 INT+ 5 x	add x add mul INT- 5 ln add INT+ 1 tanh mul div INT+ 1 INT+ 5 x mul div INT- 1 INT+ 2 pow x INT+ 2
+35|sub Y' mul INT+ 8 1 pow sin x INT- 4	add mul INT- 5 4 mul pow sin x INT- 1 cos x mul INT- 2 7 mul pow sin x INT- 3 cos x
+35|sub Y' mul x mul pow add INT+ 1 x INT- 1 pow add x sqrt x INT- 1	add mul div INT+ 1 INT+ 2 ln add INT+ 1 x add mul INT- 1 atan sqrt x ln add INT+ 1 sqrt x
+34|sub Y' mul INT+ 4 mul x add mul INT- 1 x acos x	add mul INT- 1 acos x add mul div INT- 4 INT+ 3 pow x INT+ 3 add mul INT- 1 mul x sqrt add INT+ 1 mul INT- 1 pow x INT+ 2 mul INT+ 2 mul pow x INT+ 2 acos x
+34|sub Y' add x add pow x INT+ 2 mul x add INT- 1 mul INT+ 2 x	pow x INT+ 3
+34|sub Y' mul pow x INT+ 2 add INT+ 2 7 mul INT+ 3 x	add mul INT+ 9 pow x INT+ 3 mul div INT+ 3 INT+ 4 pow x INT+ 4
+34|sub Y' mul x add mul INT- 1 cosh mul INT+ 2 x mul INT+ 2 x	add mul div INT+ 1 INT+ 4 cosh mul INT+ 2 x add mul div INT+ 2 INT+ 3 pow x INT+ 3 mul div INT- 1 INT+ 2 mul x sinh mul INT+ 2 x
+34|sub Y' mul pow x INT+ 2 pow add x mul INT- 3 pow x INT+ 2 INT+ 2	add mul INT- 1 pow x INT+ 6 add mul div INT+ 1 INT+ 5 pow x INT+ 5 mul div INT+ 9 INT+ 7 pow x INT+ 7
+34|sub Y' mul x add x pow ln INT+ 3 INT+ 3	add mul div INT+ 1 INT+ 3 pow x INT+ 3 mul div INT+ 1 INT+ 2 mul pow x INT+ 2 pow ln INT+ 3 INT+ 3
+34|sub Y' add x ln mul pow x INT- 1 exp INT+ 2	add x add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul x ln mul pow x INT- 1 exp INT+ 2
+33|sub Y' add x mul INT+ 4 mul pow x INT- 2 add x pow x INT+ 2	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul INT+ 4 x mul INT+ 4 ln x
+33|sub Y' add mul INT- 1 mul x add x sin x exp x	add mul INT- 1 sin x add mul div INT- 1 INT+ 3 pow x INT+ 3 add mul x cos x exp x
+33|sub Y' add x mul div INT+ 1 INT+ 5 mul x cos INT+ 4	mul pow x INT+ 2 add div INT+ 1 INT+ 2 mul div INT+ 1 INT+ 1 0 cos INT+ 4
+33|sub Y' mul x add x add pow x INT- 3 pow x INT+ 2	add mul INT- 1 pow x INT- 1 add mul div INT+ 1 INT+ 3 pow x INT+ 3 mul div INT+ 1 INT+ 4 pow x INT+ 4
+33|sub Y' add INT+ 5 9 0 4 9 mul INT+ 2 x	add pow x INT+ 2 mul INT+ 5 9 0 4 9 x
+33|sub Y' mul INT+ 2 mul pow x INT+ 4 tanh INT+ 1	mul div INT+ 2 INT+ 5 mul pow x INT+ 5 tanh INT+ 1
+33|sub Y' asinh add x atan INT+ 3	add mul INT- 1 sqrt add INT+ 1 add pow x INT+ 2 add pow atan INT+ 3 INT+ 2 mul INT+ 2 mul x atan INT+ 3 add mul x asinh add x atan INT+ 3 mul asinh add x atan INT+ 3 atan INT+ 3
+32|sub Y' add E add x mul INT- 1 exp x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul INT- 1 exp x mul E x
+32|sub Y' pow add INT- 5 mul INT+ 5 x INT+ 4	add mul INT- 1 2 5 0 pow x INT+ 2 add mul INT- 6 2 5 pow x INT+ 4 add mul INT+ 1 2 5 pow x INT+ 5 add mul INT+ 6 2 5 x mul INT+ 1 2 5 0 pow x INT+ 3
+32|sub Y' mul x add x add pow x INT+ 3 cos INT+ 2	add mul div INT+ 1 INT+ 3 pow x INT+ 3 add mul div INT+ 1 INT+ 5 pow x INT+ 5 mul div INT+ 1 INT+ 2 mul pow x INT+ 2 cos INT+ 2
+32|sub Y' add x add mul pow x INT+ 2 add INT+ 5 x cos x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul div INT+ 1 INT+ 4 pow x INT+ 4 add mul div INT+ 5 INT+ 3 pow x INT+ 3 sin x
+32|sub Y' mul pow x INT- 3 pow sinh INT+ 1 INT+ 3	mul div INT- 1 INT+ 2 mul pow x INT- 2 pow sinh INT+ 1 INT+ 3
+32|sub Y' ln add mul INT+ 2 x mul INT+ 2 5 pow x INT+ 2	add mul INT- 2 x add mul div INT+ 2 INT+ 2 5 ln add INT+ 2 mul INT+ 2 5 x mul x ln add mul INT+ 2 x mul INT+ 2 5 pow x INT+ 2
+32|sub Y' mul INT+ 5 mul x add INT+ 5 add x exp x	add mul div INT+ 5 INT+ 3 pow x INT+ 3 add mul div INT+ 2 5 INT+ 2 pow x INT+ 2 mul add INT- 5 mul INT+ 5 x exp x
+32|sub Y' mul pow x div INT+ 7 INT+ 2 add INT+ 2 mul INT- 1 x	add mul div INT- 2 INT+ 1 1 pow x div INT+ 1 1 INT+ 2 mul div INT+ 4 INT+ 9 pow x div INT+ 9 INT+ 2
+31|sub Y' mul INT+ 4 mul x sin mul INT+ 6 x	add mul div INT+ 1 INT+ 9 sin mul INT+ 6 x mul div INT- 2 INT+ 3 mul x cos mul INT+ 6 x
+31|sub Y' add x add mul x add INT+ 5 mul INT- 1 x exp x	add mul INT+ 3 pow x INT+ 2 add mul div INT- 1 INT+ 3 pow x INT+ 3 exp x
+31|sub Y' mul x add x sin INT+ 1 2	add mul div INT+ 1 INT+ 3 pow x INT+ 3 mul div INT+ 1 INT+ 2 mul pow x INT+ 2 sin INT+ 1 2
+31|sub Y' mul div INT+ 1 INT+ 4 mul pow x INT- 1 exp INT- 3	mul div INT+ 1 INT+ 4 mul exp INT- 3 ln x
+31|sub Y' mul x mul add INT+ 4 x exp mul INT+ 4 x	mul div INT+ 1 INT+ 3 2 mul add INT- 7 add mul INT+ 8 pow x INT+ 2 mul INT+ 2 8 x exp mul INT+ 4 x
+31|sub Y' add x mul pow x INT+ 3 add E x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul div INT+ 1 INT+ 5 pow x INT+ 5 mul div INT+ 1 INT+ 4 mul E pow x INT+ 4
+31|sub Y' add mul INT- 1 x mul div INT+ 1 INT+ 8 pow x INT+ 4	add mul div INT- 1 INT+ 2 pow x INT+ 2 mul div INT+ 1 INT+ 4 0 pow x INT+ 5
+31|sub Y' mul x add x pow add INT+ 3 mul INT+ 3 x INT+ 2	add mul div INT+ 9 INT+ 2 pow x INT+ 2 add mul div INT+ 9 INT+ 4 pow x INT+ 4 mul div INT+ 1 9 INT+ 3 pow x INT+ 3
+30|sub Y' add mul INT+ 2 x mul INT- 1 mul x acos mul INT+ 2 x	add pow x INT+ 2 add mul div INT+ 1 INT+ 1 6 acos mul INT+ 2 x add mul div INT- 1 INT+ 2 mul pow x INT+ 2 acos mul INT+ 2 x mul div INT+ 1 INT+ 8 mul x sqrt add INT+ 1 mul INT- 4 pow x INT+ 2
+30|sub Y' pow add x mul INT+ 9 pow x INT- 1 INT+ 3	add mul INT+ 2 4 3 ln x add mul div INT- 7 2 9 INT+ 2 pow x INT- 2 add mul div INT+ 1 INT+ 4 pow x INT+ 4 mul div INT+ 2 7 INT+ 2 pow x INT+ 2
+30|sub Y' add sin x tan add INT+ 4 mul INT+ 2 x	add mul INT- 1 cos x mul div INT+ 1 INT+ 4 ln add INT+ 1 pow tan add INT+ 4 mul INT+ 2 x INT+ 2
+30|sub Y' mul INT+ 2 mul pow x INT- 1 mul add INT+ 1 x ln x	add pow ln x INT+ 2 add mul INT- 2 x mul INT+ 2 mul x ln x
+30|sub Y' add div INT+ 1 INT+ 6 mul div INT+ 1 INT+ 1 2 x	add mul div INT+ 1 INT+ 6 x mul div INT+ 1 INT+ 2 4 pow x INT+ 2
+30|sub Y' add INT+ 1 add mul INT+ 4 x ln INT+ 4	add mul INT+ 2 pow x INT+ 2 mul x add INT+ 1 mul INT+ 2 ln INT+ 2
+30|sub Y' mul x cos add INT- 3 ln x	add mul div INT+ 1 INT+ 5 mul pow x INT+ 2 sin add INT- 3 ln x mul div INT+ 2 INT+ 5 mul pow x INT+ 2 cos add INT- 3 ln x
+30|sub Y' add mul INT+ 2 pow tan x INT- 1 ln x	add mul INT- 1 x add mul INT- 1 ln add INT+ 1 pow tan x INT+ 2 add mul INT+ 2 ln tan x mul x ln x
+29|sub Y' mul pow x INT+ 2 add x mul INT+ 5 pow x div INT- 1 INT+ 2	add mul INT+ 2 pow x div INT+ 5 INT+ 2 mul div INT+ 1 INT+ 4 pow x INT+ 4
+29|sub Y' add x tan div INT+ 5 INT+ 3	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul x tan div INT+ 5 INT+ 3
+29|sub Y' mul x add INT- 3 mul INT- 5 x	add mul div INT- 5 INT+ 3 pow x INT+ 3 mul div INT- 3 INT+ 2 pow x INT+ 2
+29|sub Y' add x mul div INT+ 3 INT+ 2 pow x INT+ 6	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul div INT+ 3 INT+ 1 4 pow x INT+ 7
+29|sub Y' mul pow cos INT+ 1 INT- 1 pow sin x INT- 1	mul pow cos INT+ 1 INT- 1 add mul div INT+ 1 INT+ 2 ln add INT- 1 cos x mul div INT- 1 INT+ 2 ln add INT+ 1 cos x
+29|sub Y' mul pow sin INT+ 4 INT- 1 add x sin x	mul pow sin INT+ 4 INT- 1 add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul INT- 1 cos x
+29|sub Y' add mul INT+ 3 pow x INT+ 2 mul INT- 1 mul x sin x	add pow x INT+ 3 add mul INT- 1 sin x mul x cos x
+29|sub Y' mul INT+ 2 mul pow x INT+ 3 pow add INT+ 1 pow x INT+ 4 div INT- 1 INT+ 2	sqrt add INT+ 1 pow x INT+ 4
+28|sub Y' mul INT+ 2 mul x asinh tan INT+ 1	mul pow x INT+ 2 asinh tan INT+ 1
+28|sub Y' ln mul x pow pow x INT+ 5 div INT- 1 INT+ 2	add mul div INT+ 3 INT+ 2 x mul x ln pow x div INT- 3 INT+ 2
+28|sub Y' add atan mul INT+ 2 pow x INT+ 2 ln x	add mul INT- 1 x add mul INT- 1 atan add INT+ 1 mul INT+ 2 x add mul div INT- 1 INT+ 2 atan mul INT+ 2 pow x INT+ 2 add mul div INT- 1 INT+ 4 ln add INT+ 2 add mul INT- 4 x mul INT+ 4 pow x INT+ 2 add mul div INT+ 1 INT+ 4 ln add INT+ 2 add mul INT+ 4 x mul INT+ 4 pow x INT+ 2 add mul x atan mul INT+ 2 pow x INT+ 2 mul x ln x
+28|sub Y' add x mul pow x INT+ 2 add mul INT+ 2 x exp mul INT+ 2 x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul div INT+ 1 INT+ 2 pow x INT+ 4 mul div INT+ 1 INT+ 4 mul add INT+ 1 add mul INT- 2 x mul INT+ 2 pow x INT+ 2 exp mul INT+ 2 x
+28|sub Y' mul x add INT+ 4 add x mul INT- 1 E	add mul div INT+ 1 INT+ 3 pow x INT+ 3 mul pow x INT+ 2 add INT+ 2 mul div INT- 1 INT+ 2 E
+28|sub Y' mul div INT+ 1 INT+ 5 mul pow x INT+ 2 pow add pow x INT+ 2 mul INT- 1 x INT- 1	add mul div INT+ 1 INT+ 5 x mul div INT+ 1 INT+ 5 ln add INT- 1 x
+28|sub Y' add mul INT- 3 x exp mul INT+ 4 x	add mul div INT- 3 INT+ 2 pow x INT+ 2 mul div INT+ 1 INT+ 4 exp mul INT+ 4 x
+28|sub Y' add x ln exp mul x ln x	add mul div INT+ 1 INT+ 4 pow x INT+ 2 mul div INT+ 1 INT+ 2 mul pow x INT+ 2 ln x
+28|sub Y' mul pow x INT- 1 tanh exp INT+ 5	mul ln x tanh exp INT+ 5
+27|sub Y' add x mul x cos mul INT+ 9 x	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul div INT+ 1 INT+ 8 1 cos mul INT+ 9 x mul div INT+ 1 INT+ 9 mul x sin mul INT+ 9 x
+27|sub Y' mul pow x INT+ 2 exp add INT- 6 mul INT+ 2 x	mul div INT+ 1 INT+ 4 mul add INT+ 1 add mul INT- 2 x mul INT+ 2 pow x INT+ 2 exp add INT- 6 mul INT+ 2 x
+27|sub Y' mul pow x INT- 1 add x mul div INT+ 1 INT+ 5 pow x INT- 2	add x mul div INT- 1 INT+ 1 0 pow x INT- 2
+27|sub Y' sin sqrt add INT+ 8 x	add mul INT+ 2 sin sqrt add INT+ 8 x mul INT- 2 mul sqrt add INT+ 8 x cos sqrt add INT+ 8 x
+27|sub Y' mul x tanh acos INT+ 3	mul div INT+ 1 INT+ 2 mul pow x INT+ 2 tanh acos INT+ 3
+27|sub Y' mul x mul add INT+ 4 x tanh INT+ 4	add mul INT+ 2 mul pow x INT+ 2 tanh INT+ 4 mul div INT+ 1 INT+ 3 mul pow x INT+ 3 tanh INT+ 4
+27|sub Y' mul pow x INT+ 2 pow tan tan INT+ 1 INT+ 2	mul div INT+ 1 INT+ 3 mul pow x INT+ 3 pow tan tan INT+ 1 INT+ 2
+27|sub Y' add mul INT- 3 pow x INT- 1 mul INT+ 4 pow x INT+ 2	add mul INT- 3 ln x mul div INT+ 4 INT+ 3 pow x INT+ 3
+27|sub Y' mul INT+ 5 mul pow x INT- 1 add x cos INT+ 2	add mul INT+ 5 x mul INT+ 5 mul cos INT+ 2 ln x
+27|sub Y' add INT- 1 add x mul x pow add INT+ 1 x INT- 1	add mul div INT+ 1 INT+ 2 pow x INT+ 2 mul INT- 1 ln add INT+ 1 x
+26|sub Y' mul INT+ 4 pow add x mul INT- 1 pow x div INT+ 3 INT+ 2 INT- 1	add mul INT- 8 ln add INT- 1 sqrt x mul INT+ 4 ln x
+26|sub Y' add pow x INT+ 2 mul INT+ 2 mul x add INT+ 2 mul INT+ 2 x	add mul INT+ 2 pow x INT+ 2 mul div INT+ 5 INT+ 3 pow x INT+ 3
+26|sub Y' mul INT+ 4 mul add INT+ 2 x add x pow x INT+ 2	add pow x INT+ 4 add mul INT+ 4 pow x INT+ 2 mul INT+ 4 pow x INT+ 3
+26|sub Y' add INT+ 1 add x mul x pow tan x INT+ 2	add x add mul div INT- 1 INT+ 2 ln add INT+ 1 pow tan x INT+ 2 mul x tan x
+26|sub Y' mul pow x INT+ 2 add x mul div INT+ 1 INT+ 3 mul sqrt INT+ 3 sqrt x	add mul div INT+ 1 INT+ 4 pow x INT+ 4 mul div INT+ 2 INT+ 2 1 mul sqrt INT+ 3 pow x div INT+ 7 INT+ 2
+26|sub Y' mul INT+ 1 0 2 4 mul pow x INT+ 2 exp x	mul add INT+ 2 0 4 8 add mul INT- 2 0 4 8 x mul INT+ 1 0 2 4 pow x INT+ 2 exp x
+26|sub Y' mul div INT+ 1 INT+ 1 6 mul pow x INT+ 4 pow ln x INT+ 2	add mul div INT+ 1 INT+ 1 0 0 0 pow x INT+ 5 add mul div INT- 1 INT+ 2 0 0 mul pow x INT+ 5 ln x mul div INT+ 1 INT+ 8 0 mul pow x INT+ 5 pow ln x INT+ 2
+26|sub Y' mul pow x INT+ 2 add pow x INT- 2 mul INT+ 3 x	add x mul div INT+ 3 INT+ 4 pow x INT+ 4
+26|sub Y' add INT+ 1 add x mul INT+ 2 mul x sinh x	add x add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul INT- 2 sinh x mul INT+ 2 mul x cosh x
+26|sub Y' mul pow x INT+ 2 0 pow add INT+ 2 x INT+ 5	add mul div INT+ 1 INT+ 2 6 pow x INT+ 2 6 add mul div INT+ 2 INT+ 5 pow x INT+ 2 5 add mul div INT+ 5 INT+ 3 pow x INT+ 2 4 add mul div INT+ 3 2 INT+ 2 1 pow x INT+ 2 1 add mul div INT+ 4 0 INT+ 1 1 pow x INT+ 2 2 mul div INT+ 8 0 INT+ 2 3 pow x INT+ 2 3
+26|sub Y' add mul INT+ 3 x add ln mul INT+ 2 x sin x	add mul INT- 1 x add mul INT- 1 cos x add mul div INT+ 3 INT+ 2 pow x INT+ 2 mul x ln mul INT+ 2 x
+25|sub Y' add x add pow x INT+ 3 mul INT- 1 tan INT+ 1	add mul div INT+ 1 INT+ 2 pow x INT+ 2 add mul div INT+ 1 INT+ 4 pow x INT+ 4 mul INT- 1 mul x tan INT+ 1

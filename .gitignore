@@ -121,15 +121,26 @@ dmypy.json
 ### Python Patch ###
 .venv/
 
-ode2.test
-ode2.train
-ode2.valid
-ode2/
+### Data ##
+
+prim_fwd.test
+prim_fwd.train
+prim_fwd.valid
+prim_fwd/
 
 ode1.test
 ode1.train
 ode1.valid
 ode1/
+
+ode2.test
+ode2.train
+ode2.valid
+ode2/
+
+fwd_test.nums
+fwd_train.nums
+fwd_valid.nums
 
 # End of https://www.gitignore.io/api/python
 

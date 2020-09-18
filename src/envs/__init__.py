@@ -30,5 +30,4 @@ def build_env(params):
     assert all(task in env.TRAINING_TASKS for task in tasks)
     params.tasks = tasks
     logger.info(f'Training tasks: {", ".join(tasks)}')
-
     return env

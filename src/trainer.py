@@ -14,6 +14,7 @@ from logging import getLogger
 from collections import OrderedDict
 import numpy as np
 import torch
+import time
 from torch import nn
 from torch.nn.utils import clip_grad_norm_
 
@@ -132,7 +133,6 @@ class Trainer(object):
                 assert (task in self.data_path) == (task in params.tasks)
         else:
             self.data_path = None
-
         # create data loaders
         if not params.eval_only:
             if params.env_base_seed < 0:
@@ -407,6 +407,25 @@ class Trainer(object):
 
         return batch
 
+    def get_augmented_batch(self, integers):
+        """
+        Return an augmented training batch; y-values only
+        """
+        try:
+            batch = self.env.augment(integers)
+        except Exception as e:
+            logger.error("An unknown exception of type {0} occurred in line {1} when fetching batch. "
+                         "Arguments:{2!r}. Restarting ...".format(type(e).__name__, sys.exc_info()[-1].tb_lineno, e.args))
+            if self.params.is_slurm_job:
+                if int(os.environ['SLURM_PROCID']) == 0:
+                    logger.warning("Requeuing job " + os.environ['SLURM_JOB_ID'])
+                    os.system('scontrol requeue ' + os.environ['SLURM_JOB_ID'])
+                else:
+                    logger.warning("Not the master process, no need to requeue.")
+            raise
+
+        return batch
+
     def export_data(self, task):
         """
         Export data to the disk.
@@ -438,6 +457,34 @@ class Trainer(object):
         self.stats['processed_e'] += len1.size(0)
         self.stats['processed_w'] += (len1 + len2 - 2).sum().item()
 
+    def train_integers(self, encoder, decoder, integers):
+        """
+        Augment the training with additional equations for the number encoder block.
+        Goal is to help the NUMBER_ENCODER block learn a better representation.
+        """
+        if integers.nelement() == 0:
+            return
+        len1, x2, len2 = self.get_augmented_batch(integers)
+
+        # target words to predict
+        alen = torch.arange(len2.max(), dtype=torch.long, device=len2.device)
+        pred_mask = alen[:, None] < len2[None] - 1  # do not predict anything given the last target word
+        y = x2[1:].masked_select(pred_mask[:-1])
+        assert len(y) == (len2 - 1).sum().item()
+
+        len1, x2, len2, y = to_cuda(len1, x2, len2, y)
+
+        # forward / loss
+        encoded = encoder(x=integers, augment=True)
+        decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded, src_len=len1)
+        _, loss = decoder('predict', tensor=decoded, pred_mask=pred_mask, y=y, get_scores=False)
+
+        # optimize
+        self.optimize(loss)
+
+        #self.stats['processed_e'] += len1.size(0)
+        #self.stats['processed_w'] += (len1 + len2 - 2).sum().item()
+
     def enc_dec_step(self, task):
         """
         Encoding / decoding step.
@@ -448,35 +495,25 @@ class Trainer(object):
         decoder.train()
 
         # batch
-        (x1, len1), (xword, len1), (x2, len2), _ = self.get_batch(task)
+        (x1, len1), (x2, len2), _, tensors = self.get_batch(task)
 
-        # Use TreeLSTM encoder
-        if params.treelstm:
-            # encode and get valid equation/solutions (those with max(int) < 2^self.num_bit)
-            encoded, len1, valid = encoder(x=xword, causal=False)
-            x2, len2, encoded, len1 = to_cuda(torch.transpose(torch.transpose(x2,0,1)[valid],-1,0), len2[valid], encoded, len1)
-            x2 = x2[:len2.max().item(), :]
+        # target words to predict
+        alen = torch.arange(len2.max(), dtype=torch.long, device=len2.device)
+        pred_mask = alen[:, None] < len2[None] - 1  # do not predict anything given the last target word
+        y = x2[1:].masked_select(pred_mask[:-1])
+        assert len(y) == (len2 - 1).sum().item()
+        
+        x1, len1, x2, len2, y = to_cuda(x1, len1, x2, len2, y)
+        if tensors:
+            tensors = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5], tensors[6], tensors[7])
 
-            # target words to predict
-            alen = torch.arange(len2.max(), dtype=torch.long, device=len2.device)
-            pred_mask = alen[:, None] < len2[None] - 1  # do not predict anything given the last target word
-            y = x2[1:].masked_select(pred_mask[:-1])
-            y, _ = to_cuda(y, None)
-            assert len(y) == (len2 - 1).sum().item()
-
-            # decode / loss
+        # forward / loss
+        if params.treelstm or params.treesmu: # Use tree-based encoder
+            self.train_integers(encoder, decoder, tensors[7])
+            len1 -= tensors[6] # remove the digits from each element in len1
+            encoded = encoder(x=tensors, lengths=len1)
             decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded, src_len=len1)
-        # Use Transformer encoder
-        else:
-            # target words to predict
-            alen = torch.arange(len2.max(), dtype=torch.long, device=len2.device)
-            pred_mask = alen[:, None] < len2[None] - 1  # do not predict anything given the last target word
-            y = x2[1:].masked_select(pred_mask[:-1])
-            assert len(y) == (len2 - 1).sum().item()
-
-            x1, len1, x2, len2, y = to_cuda(x1, len1, x2, len2, y)
-
-            # forward / loss
+        else: # Use Transformer encoder
             encoded = encoder('fwd', x=x1, lengths=len1, causal=False)
             decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded.transpose(0, 1), src_len=len1)
         

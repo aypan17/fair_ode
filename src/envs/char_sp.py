@@ -17,6 +17,7 @@ from collections import OrderedDict
 import numpy as np
 import numexpr as ne
 import torch
+from torch.nn.utils.rnn import pad_sequence
 from torch.utils.data.dataset import Dataset
 from torch.utils.data import DataLoader
 import sympy as sp
@@ -33,6 +34,8 @@ from .sympy_utils import remove_mul_const, has_inf_nan, has_I, simplify
 
 
 CLEAR_SYMPY_CACHE_FREQ = 10000
+
+MAX_INT = 2 ** 63 - 1
 
 
 SPECIAL_WORDS = ['<s>', '</s>', '<pad>', '(', ')']
@@ -604,7 +607,7 @@ class CharSPEnvironment(object):
 
         y = [torch.LongTensor([self.word2id[w] for w in seq if w in self.word2id]) for seq in y]
         y, lengths = self.batch_sequences(y)
-        
+
         return 8*torch.ones(len(integers), dtype=torch.long), y, lengths
 
 
@@ -1616,6 +1619,7 @@ class EnvDataset(Dataset):
         self.task = task
         self.batch_size = params.batch_size
         self.env_base_seed = params.env_base_seed
+        self.pad_idx = params.pad_index
         self.path = path
         self.global_rank = params.global_rank
         self.count = 0
@@ -1652,6 +1656,65 @@ class EnvDataset(Dataset):
             self.size = 1 << 60
         else:
             self.size = 5000 if path is None else len(self.data)
+
+    def compute_operation_order(
+        self, operations: torch.Tensor, left_idx: torch.Tensor, right_idx: torch.Tensor
+    ):
+        """
+        Compute the step at which each node in a tree may execute.
+
+        Preserves these invariants:
+            - Any children of nodes indicated at a given step will have a lower depth.
+            - All nodes with the same depth will have the same operation index.
+
+        Operations are selected with a greedy algorithm, which always picks the operation
+        with the most "available" nodes at a given step to execute at that step.
+
+        Parameters
+        ----------
+        operations
+            An index indicating which operation is applied at each node.
+        left_idx
+            An index indicating the left child of each node, or -1 if the node does not
+            have a left child.
+        right_idx
+            An index indicating the right child of each node, or -1 if the node does not
+            have a right child.
+
+        Returns
+        -------
+        depths : Tensor
+            The depth of each node in the tree.
+        operation_order : Tensor
+            For each step, the operation performed at that step.
+        """
+        num_nodes = operations.numel()
+        complete = torch.zeros(num_nodes + 1, dtype=torch.bool)
+
+        # Add a fake "node" that is always available for leaf tensors to look up
+        complete[num_nodes] = True
+        left_idx_ = left_idx.clone()
+        left_idx_[left_idx_ == -1] = num_nodes
+        right_idx_ = right_idx.clone()
+        right_idx_[right_idx_ == -1] = num_nodes
+
+        depth = 0
+        depths = torch.zeros(num_nodes, dtype=torch.int)
+        operation_order = []
+
+        while not complete.all():
+            available = complete[left_idx_] & complete[right_idx_] & ~complete[:-1]
+            available_ops = operations.masked_select(available)
+            selected_op, _ = available_ops.mode()  # The op with the most available nodes
+            step_mask = (operations == selected_op) & available  # Indices for this step
+
+            operation_order.append(selected_op.item())
+            depths += step_mask * depth  # Set the depth for these indices to `depth`
+            complete[:-1] |= step_mask  # Mark indices computed at this step done
+            depth += 1
+
+        return depths, torch.tensor(operation_order, dtype=torch.int)
+        
 
     def tensorize_tree(self, tree: BinaryEqnTree, integers, digits=0):
         """
@@ -1692,9 +1755,13 @@ class EnvDataset(Dataset):
         """
         if tree.function_name in ['INT+', 'INT-']:
             operations = torch.tensor([-2])
+            sign = torch.tensor([self.env.word2id[tree.function_name]])
+            int_id = torch.tensor([self.env.word2id[d] for d in list(str(tree.value))])
+            integers.append(torch.cat([sign, int_id]))
             digits = len(str(tree.value))
+            if tree.value > MAX_INT:
+                tree.value = MAX_INT
             value = torch.tensor([tree.value]) if tree.function_name == 'INT+' else torch.tensor([-1*tree.value])
-            integers = torch.cat([integers, value])
             tokens = value
             left_idx = torch.tensor([-1])
             right_idx = torch.tensor([-1])
@@ -1773,64 +1840,6 @@ class EnvDataset(Dataset):
         return (operations, tokens, left_idx, right_idx, torch.tensor([digits]), integers)
 
 
-    def compute_operation_order(
-        self, operations: torch.Tensor, left_idx: torch.Tensor, right_idx: torch.Tensor
-    ):
-        """
-        Compute the step at which each node in a tree may execute.
-
-        Preserves these invariants:
-            - Any children of nodes indicated at a given step will have a lower depth.
-            - All nodes with the same depth will have the same operation index.
-
-        Operations are selected with a greedy algorithm, which always picks the operation
-        with the most "available" nodes at a given step to execute at that step.
-
-        Parameters
-        ----------
-        operations
-            An index indicating which operation is applied at each node.
-        left_idx
-            An index indicating the left child of each node, or -1 if the node does not
-            have a left child.
-        right_idx
-            An index indicating the right child of each node, or -1 if the node does not
-            have a right child.
-
-        Returns
-        -------
-        depths : Tensor
-            The depth of each node in the tree.
-        operation_order : Tensor
-            For each step, the operation performed at that step.
-        """
-        num_nodes = operations.numel()
-        complete = torch.zeros(num_nodes + 1, dtype=torch.bool)
-
-        # Add a fake "node" that is always available for leaf tensors to look up
-        complete[num_nodes] = True
-        left_idx_ = left_idx.clone()
-        left_idx_[left_idx_ == -1] = num_nodes
-        right_idx_ = right_idx.clone()
-        right_idx_[right_idx_ == -1] = num_nodes
-
-        depth = 0
-        depths = torch.zeros(num_nodes, dtype=torch.int)
-        operation_order = []
-
-        while not complete.all():
-            available = complete[left_idx_] & complete[right_idx_] & ~complete[:-1]
-            available_ops = operations.masked_select(available)
-            selected_op, _ = available_ops.mode()  # The op with the most available nodes
-            step_mask = (operations == selected_op) & available  # Indices for this step
-
-            operation_order.append(selected_op.item())
-            depths += step_mask * depth  # Set the depth for these indices to `depth`
-            complete[:-1] |= step_mask  # Mark indices computed at this step done
-            depth += 1
-
-        return depths, torch.tensor(operation_order, dtype=torch.int)
-
     def tensorize_tree_batch(self, trees):
         """
         Convert a batch of trees into a collection of flat tensors appropriate for efficient
@@ -1876,7 +1885,7 @@ class EnvDataset(Dataset):
         left_idx = torch.tensor([], dtype=torch.long)
         right_idx = torch.tensor([], dtype=torch.long)
         digits = torch.tensor([], dtype=torch.long)
-        integers = torch.tensor([], dtype=torch.float)
+        integers = []
 
         root_idx = 0
         for tree in trees:
@@ -1887,7 +1896,7 @@ class EnvDataset(Dataset):
                 tree_right_idx,
                 tree_digits,
                 tree_integers,
-            ) = self.tensorize_tree(tree, torch.tensor([], dtype=torch.float))
+            ) = self.tensorize_tree(tree, [])
             
             # Append BOS and EOS embedding operations
             tree_ops = torch.cat([torch.tensor([-1]), tree_ops, torch.tensor([-1])])
@@ -1907,8 +1916,7 @@ class EnvDataset(Dataset):
             left_idx = torch.cat([left_idx, tree_left_idx])
             right_idx = torch.cat([right_idx, tree_right_idx])
             digits = torch.cat([digits, tree_digits])
-            integers = torch.cat([integers, tree_integers])
-
+            integers.extend(tree_integers)
             root_idx += tree_ops.numel() 
 
         depths, operation_order = self.compute_operation_order(operations, left_idx, right_idx)
@@ -1920,7 +1928,8 @@ class EnvDataset(Dataset):
             depths,
             operation_order, 
             digits,
-            integers
+            pad_sequence(integers, batch_first=True, padding_value=self.pad_idx),
+            torch.tensor([len(n) for n in integers])
         )
 
     # Given a list of tokens in prefix form, convert to a BinaryEqnTree object for decoding.

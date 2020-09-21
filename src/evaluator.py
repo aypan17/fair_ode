@@ -168,13 +168,15 @@ class Evaluator(object):
 
             x1, len1, x2, len2, y = to_cuda(x1, len1, x2, len2, y)
             if tensors:
-                tensors = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5], tensors[6], tensors[7])
+                tensors = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5], tensors[6], tensors[7], tensors[8])
 
             # forward / loss
             if params.treelstm or params.treesmu: # Use tree-based encoder
-                len1 -= tensors[6] # remove the digits from each element in len1
-                encoded = encoder(x=tensors, lengths=len1)
+                if not params.character_rnn:
+                    len1 -= tensors[6] # remove the digits from each element in len1
+                encoded = encoder(x=tensors, lengths=len1, seq_num=params.character_rnn)
                 decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded, src_len=len1)
+
             else: # Use Transformer encoder
                 encoded = encoder('fwd', x=x1, lengths=len1, causal=False)
                 decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded.transpose(0, 1), src_len=len1)
@@ -280,13 +282,15 @@ class Evaluator(object):
 
             x1, len1, x2, len2, y = to_cuda(x1, len1, x2, len2, y)
             if tensors:
-                tensors = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5], tensors[6], tensors[7])
+                tensors = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5], tensors[6], tensors[7], tensors[8])
 
             # forward / loss
             if params.treelstm or params.treesmu: # Use tree-based encoder
-                len1 -= tensors[6] # remove the digits from each element in len1
-                encoded = encoder(x=tensors, lengths=len1)
+                if not params.character_rnn:
+                    len1 -= tensors[6] # remove the digits from each element in len1
+                encoded = encoder(x=tensors, lengths=len1, seq_num=params.character_rnn)
                 decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded, src_len=len1)
+
             else: # Use Transformer encoder
                 encoded = encoder('fwd', x=x1, lengths=len1, causal=False)
                 decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded.transpose(0, 1), src_len=len1)

@@ -138,9 +138,7 @@ ode2.train
 ode2.valid
 ode2/
 
-fwd_test.nums
-fwd_train.nums
-fwd_valid.nums
+fwd_small/
 
 # End of https://www.gitignore.io/api/python
 

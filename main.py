@@ -65,6 +65,8 @@ def get_parser():
                         help="Use sinusoidal embeddings")
     parser.add_argument('--symmetric', action='store_true',
                         help='run the version with enforced symmetry on add and mul')
+    parser.add_argument('--character_rnn', action='store_true',
+                        help='use a character RNN to encode numbers')
     parser.add_argument('--treelstm', action='store_true',
                         help='use a TreeLSTM encoder for the model')
     parser.add_argument('--treesmu', action='store_true',

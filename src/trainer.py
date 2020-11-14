@@ -431,7 +431,7 @@ class Trainer(object):
         Export data to the disk.
         """
         env = self.env
-        (x1, len1), (x2, len2), _ = self.get_batch(task)
+        (x1, len1), (x2, len2), _, _ = self.get_batch(task)
         for i in range(len(len1)):
             # prefix
             prefix1 = [env.id2word[wid] for wid in x1[1:len1[i] - 1, i].tolist()]

@@ -1016,11 +1016,16 @@ class CharSPEnvironment(object):
         expr = expr.split()
         return expr
 
+    def check_int(self, expr, max_int):
+        return max({atom for atom in expr.atoms() if atom.is_number}) < max_int
+
+
     @timeout(3)
     def gen_prim_fwd(self, rng):
         """
         Generate pairs of (function, primitive).
         Start by generating a random function f, and use SymPy to compute F.
+        # NOTE: modified code to ensure numbers that aren't large
         """
         x = self.variables['x']
         if rng.randint(40) == 0:
@@ -1062,6 +1067,10 @@ class CharSPEnvironment(object):
             if any(op.func in INTEGRAL_FUNC for op in sp.preorder_traversal(F)):
                 self.prim_stats[2] += 1
                 return None
+            if not self.check_int(F, self.max_int):
+                # Expression has terms which exceed the max_int
+                self.prim_stats[-2] += 1
+                return None
             self.prim_stats[3] += 1
 
             # skip invalid expressions
@@ -1087,7 +1096,7 @@ class CharSPEnvironment(object):
 
         except TimeoutError:
             raise
-        except (ValueError, AttributeError, TypeError, OverflowError, NotImplementedError, UnknownSymPyOperator, ValueErrorExpression):
+        except (ValueError, AttributeError, TypeError, OverflowError, NotImplementedError, UnknownSymPyOperator, ValueErrorExpression) as e:
             return None
         except Exception as e:
             logger.error("An unknown exception of type {0} occurred in line {1} for expression \"{2}\". Arguments:{3!r}.".format(type(e).__name__, sys.exc_info()[-1].tb_lineno, infix, e.args))
@@ -1137,6 +1146,10 @@ class CharSPEnvironment(object):
 
             # skip invalid expressions
             if has_inf_nan(f, F):
+                return None
+
+            # f is has values which exceed max_int
+            if not self.check_int(f, self.max_int):
                 return None
 
             # convert back to prefix
@@ -1244,6 +1257,10 @@ class CharSPEnvironment(object):
 
             # skip invalid expressions
             if has_inf_nan(f, F, g, G):
+                return None
+
+            # either f or g has values which exceed max_int
+            if not (self.check_int(f, self.max_int) and self.check_int(g, self.max_int)):
                 return None
 
             # update cache
@@ -1388,6 +1405,10 @@ class CharSPEnvironment(object):
             if has_inf_nan(eq) or has_I(eq):
                 return None
 
+            # skip equations which contain values that exceed max_int
+            if not self.check_int(eq, self.max_int):
+                return None
+
             # convert equation to prefix
             eq_prefix = self.sympy_to_prefix(eq)
             eq_prefix = self.clean_prefix(eq_prefix)
@@ -1457,6 +1478,10 @@ class CharSPEnvironment(object):
             if has_inf_nan(expr) or has_I(expr):
                 return None
 
+            # skip expressions which contain values that exceed max_int
+            if not self.check_int(expr, self.max_int):
+                return None
+
             # convert the expression to prefix
             expr_prefix = self.sympy_to_prefix(expr)
 
@@ -1502,6 +1527,10 @@ class CharSPEnvironment(object):
 
             # skip invalid expressions
             if has_inf_nan(eq) or has_I(eq):
+                return None
+
+            # skip expressions which contain values that exceed max_int
+            if not self.check_int(eq, self.max_int):
                 return None
 
             # convert equation to prefix

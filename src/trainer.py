@@ -495,7 +495,7 @@ class Trainer(object):
         decoder.train()
 
         # batch
-        (x1, len1), (x2, len2), _, tensors = self.get_batch(task)
+        (x1, len1), (x2, len2), _, graphs = self.get_batch(task)
 
         # target words to predict
         alen = torch.arange(len2.max(), dtype=torch.long, device=len2.device)
@@ -503,16 +503,17 @@ class Trainer(object):
         y = x2[1:].masked_select(pred_mask[:-1])
         assert len(y) == (len2 - 1).sum().item()
         
-        x1, len1, x2, len2, y = to_cuda(x1, len1, x2, len2, y)
-        if tensors:
-            tensors = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5], tensors[6], tensors[7], tensors[8])
+        x1, len1, x2, len2, y, graphs = to_cuda(x1, len1, x2, len2, y, graphs)
+        #if tensors:
+        #    tensors = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5], tensors[6], tensors[7], tensors[8])
 
         # forward / loss
-        if params.treelstm or params.treesmu: # Use tree-based encoder
+        if params.treernn or params.treelstm or params.treesmu: # Use tree-based encoder
             #self.train_integers(encoder, decoder, tensors[7])
-            if not params.character_rnn:
-                len1 -= tensors[6] # remove the digits from each element in len1
-            encoded = encoder(x=tensors, lengths=len1, seq_num=params.character_rnn)
+            #if not params.character_rnn:
+            #    len1 -= tensors[6] # remove the digits from each element in len1
+            len1 -= 2
+            encoded = encoder(forest=graphs, lengths=len1)
             decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded, src_len=len1)
             
         else: # Use Transformer encoder

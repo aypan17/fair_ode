@@ -8,11 +8,13 @@
 from logging import getLogger
 import os
 import io
+import time
 import re
 import sys
 import math
 import random
 import itertools
+
 from collections import OrderedDict
 import numpy as np
 import numexpr as ne
@@ -25,6 +27,8 @@ from sympy.parsing.sympy_parser import parse_expr
 from sympy.core.cache import clear_cache
 from sympy.integrals.risch import NonElementaryIntegral
 from sympy.calculus.util import AccumBounds
+
+import dgl
 
 from ..utils import bool_flag
 from ..utils import timeout, TimeoutError
@@ -57,84 +61,22 @@ TEST_ZERO_VALUES = [-x for x in TEST_ZERO_VALUES] + TEST_ZERO_VALUES
 ZERO_THRESHOLD = 1e-13
 
 
-OPERATORS = {
-        # Elementary functions
-        'eq': 2,
-        'add': 2,
-        'sub': 2,
-        'mul': 2,
-        'div': 2,
-        'pow': 2,
-        'rac': 2,
-        'inv': 1,
-        'pow2': 1,
-        'pow3': 1,
-        'pow4': 1,
-        'pow5': 1,
-        'sqrt': 1,
-        'exp': 1,
-        'ln': 1,
-        'abs': 1,
-        'sign': 1,
-        # Trigonometric Functions
-        'sin': 1,
-        'cos': 1,
-        'tan': 1,
-        'cot': 1,
-        'sec': 1,
-        'csc': 1,
-        # Trigonometric Inverses
-        'asin': 1,
-        'acos': 1,
-        'atan': 1,
-        'acot': 1,
-        'asec': 1,
-        'acsc': 1,
-        # Hyperbolic Functions
-        'sinh': 1,
-        'cosh': 1,
-        'tanh': 1,
-        'coth': 1,
-        'sech': 1,
-        'csch': 1,
-        # Hyperbolic Inverses
-        'asinh': 1,
-        'acosh': 1,
-        'atanh': 1,
-        'acoth': 1,
-        'asech': 1,
-        'acsch': 1,
-        # Derivative
-        'derivative': 2,
-        # custom functions
-        'f': 1,
-        'g': 2,
-        'h': 3,
-    }
+FUNCTION_FIELD = "function"  # The function at a (non-leaf) node
+TOKEN_FIELD = "token"  # The token at a (leaf) node
+SIDE_FIELD = "side"  # Whether a node is on the left, right, or root of an equation
 
-BINARY = [x for x in OPERATORS if OPERATORS[x] == 2]
-UNARY = [x for x in OPERATORS if OPERATORS[x] == 1]
+LEAF_FUNCTION = "<Atom>"
+EQUALITY_FUNCTION = "Equality"
+PAD_FUNCTION = "<Pad_F>"
 
-variables = OrderedDict({
-    'x': sp.Symbol('x', real=True, nonzero=True),  # , positive=True
-    'y': sp.Symbol('y', real=True, nonzero=True),  # , positive=True
-    'z': sp.Symbol('z', real=True, nonzero=True),  # , positive=True
-    't': sp.Symbol('t', real=True, nonzero=True),  # , positive=True
-})
-coefficients = OrderedDict({
-    f'a{i}': sp.Symbol(f'a{i}', real=True)
-    for i in range(10)
-})
-LEAF = ['pi', 'E'] + [x for x in variables.keys()] + [x for x in coefficients.keys()] + ['Y']
-VOCAB = {key:value for value, key in enumerate(LEAF)}
+NONLEAF_TOKEN = "<Function>"
+PAD_TOKEN = "<Pad_T>"
 
-DERIVATIVES = ["Y"+"'"*(i) for i in range(1, 3)]
-DIFFERENTIALS = ['d'+str(i) for i in range(1, 3)]
+INDEX_PLACEHOLDER = -1
 
-INT = ['INT+', 'INT-']
-DIGITS = [str(x) for x in range(10)]
-
-
+SIDE_ROOT = 0
+SIDE_LEFT = 1
+SIDE_RIGHT = 2
 
 
 logger = getLogger()
@@ -218,143 +160,6 @@ def eval_test_zero(eq):
         _eq = eq.subs(zip(variables, values)).doit()
         outputs.append(float(sp.Abs(_eq.evalf())))
     return outputs
-
-class BinaryEqnTree:
-
-    NULL = "#"
-
-    def __init__(self, function_name, lchild, rchild, value=None,
-                 is_a_floating_point=False, raw=None, label=None, depth=None):
-        """
-
-        Args:
-            function_name: the name of the node
-            lchild: the left child (a BinaryEqnTree or None)
-            rchild: the right child (a BinaryEqnTree or None)
-        """
-        #TODO: make value a more general construct, i.e. a dictionary, or an object so that more than one value can be stored at a node
-        if lchild is None and rchild is not None:
-            raise ValueError("A tree can have the following children:" + "\n"
-            "    lchild=None, rchild=None or" + "\n"
-            "    lchild!=None, rchild=None or" + "\n"
-            "    lchild!=None, rchild!=None or" + "\n"
-            "Got the following instead:" + "\n"
-            "    lchild=%s, rchild=%s" % (repr(lchild), repr(rchild)))
-        self.function_name = function_name
-        self.lchild = lchild
-        self.rchild = rchild
-        self.is_a_floating_point = is_a_floating_point
-        self.value = value
-        self.is_binary = lchild is not None and rchild is not None
-        self.is_unary = lchild is not None and rchild is None
-        self.is_leaf = lchild is None and rchild is None
-        self.raw = raw
-        self.label = label
-        self.depth = depth
-        self.cls = None
-
-    def apply(self, fn):
-        if self.lchild is not None:
-            self.lchild.apply(fn)
-        if self.rchild is not None:
-            self.rchild.apply(fn)
-        fn(self)
-
-
-    def get_depth(self):
-        left = 0
-        right = 0
-        if self.lchild:
-            left = self.lchild.get_depth()
-        if self.rchild:
-            right = self.rchild.get_depth()
-        return 1 + max(left, right)
-
-    """
-    Runs a DFS to label all nodes and create the children, embedding dictionaries.
-
-    Args: 
-        BinaryEqnTree: tree in the batch to be labeled and embedded.
-
-        unused_id: one-element list containing lowest value unused id in the batch. Need list for mutability.
-                    Updated with every call.
-
-        current_depth: integer equal to the depth of the node calling the 
-
-        children: a Dict<id, list<id>> whose key is the id of a node and value is the list of its children ids.
-                    Updated with every call.
-
-        parent: a Dict<id, id> whose key is the id of a child and value is the id of its parent.
-                    Update with every call.
-
-        embedding: a Dict<id, embedding_vector> whose key is the id of a node in the tree
-                    and value is the embedding vector of the node; a node w/o embedding has value None.
-                    Updated with every call.
-
-        buckets: a list of defaultDict<function_name, [list<lchild_id>, list<rchild_id>]> indexed by depth. 
-                    Each defaultDict has function_name keys and [list<lchild_id>, list<rchild_id>] values 
-                    that contain the lchild and rchild ids of the [function_name] block.
-                    Updated with every call.
-
-    Returns:
-        idx: the integer id of the node that calls labels_embeddings.
-    """
-    def label_and_map_tree(self, unused_id, current_depth, children, parent, embedding, buckets):
-        idx = unused_id[0]
-        unused_id[0] += 1
-        self.depth = current_depth
-        current_depth -= 1
-        children[idx] = []
-        embedding[idx] = self.value
-        if self.lchild is not None:
-            lchild_id = self.lchild.label_and_map_tree(unused_id, current_depth, children, parent, embedding, buckets)
-            children[idx].append(lchild_id)
-            buckets[self.depth][self.function_name][0].append(lchild_id)
-        if self.rchild is not None:
-            rchild_id = self.rchild.label_and_map_tree(unused_id, current_depth, children, parent, embedding, buckets)
-            children[idx].append(rchild_id)
-            buckets[self.depth][self.function_name][1].append(rchild_id)
-        for child_id in children[idx]:
-            parent[child_id] = idx
-        return idx
-
-    def is_numeric(self):
-        if self.function_name != "Equality":
-            print("Warning: is_numeric should only be called on the root of an equation tree")
-            return False #raise ValueError("is_numeric should only be called on the root of an equation tree")
-        return self._is_numeric()
-
-    def _is_numeric(self):
-        if self.is_leaf:
-            return self.is_a_floating_point
-        if self.is_unary:
-            return self.lchild._is_numeric()
-        if self.is_binary:
-            return self.lchild._is_numeric() or self.rchild._is_numeric()
-        raise AssertionError(str(self))
-
-    def __str__(self):
-        if self.is_binary:
-            return "{}({}, {})".format(self.function_name,
-                                       str(self.lchild),
-                                       str(self.rchild))
-        elif self.is_unary:
-            return "{}({})".format(self.function_name,
-                                   str(self.lchild))
-        elif self.is_leaf:
-            return "{}={}".format(self.function_name, self.value)
-        else:
-            raise RuntimeError("Invalid tree:\n%s" % repr(self))
-
-
-    def __repr__(self):
-        return "BinaryEqnTree({},{},{},{},{},{},{})".format(repr(self.function_name),
-                                         repr(self.lchild),
-                                         repr(self.rchild),
-                                         repr(self.is_a_floating_point),
-                                         repr(self.raw),
-                                         repr(self.label),
-                                         repr(self.depth))
 
 
 class CharSPEnvironment(object):
@@ -477,8 +282,11 @@ class CharSPEnvironment(object):
 
         # parse operators with their weights
         self.operators = sorted(list(self.OPERATORS.keys()))
-        ops = self.OPERATORS.items()
-        print(ops)
+        if params.export_data:
+            ops = params.operators.split(',')
+            ops = sorted([x.split(':') for x in ops])
+        else:
+            ops = list(self.OPERATORS.items())
         assert len(ops) >= 1 and all(o in self.OPERATORS for o, _ in ops)
         self.all_ops = [o for o, _ in ops]
         self.una_ops = [o for o, _ in ops if self.OPERATORS[o] == 1]
@@ -534,8 +342,12 @@ class CharSPEnvironment(object):
         # vocabulary
         # BOS, EOS, (, ), PAD, E, pi, x, y, z, t, a0, ..., a9, I, INT+, INT-, INT, FLOAT, -, ., 10^, Y, Y', Y'', 0, ..., 9, FUNCTIONS
         self.words = SPECIAL_WORDS + self.constants + list(self.variables.keys()) + list(self.coefficients.keys()) + self.operators + self.symbols + self.elements
+        self.functions = self.operators + ['I', 'INT', 'INT+', 'INT-'] + [PAD_FUNCTION, LEAF_FUNCTION]
+        self.tokens = SPECIAL_WORDS + self.constants + list(self.variables.keys()) + self.elements + ['Y', "Y'", "Y''"] + [PAD_TOKEN, NONLEAF_TOKEN]
         self.id2word = {i: s for i, s in enumerate(self.words)}
         self.word2id = {s: i for i, s in self.id2word.items()}
+        self.function_vocab = {s: i for i, s in enumerate(self.functions)}
+        self.token_vocab = {s: i for i, s in enumerate(self.tokens)}
         assert len(self.words) == len(set(self.words))
 
         # number of words / indices
@@ -1017,7 +829,8 @@ class CharSPEnvironment(object):
         return expr
 
     def check_int(self, expr, max_int):
-        return max({atom for atom in expr.atoms() if atom.is_number}) < max_int
+        nums = {atom for atom in expr.atoms() if atom.is_number}
+        return not nums or max(nums) < max_int
 
 
     @timeout(3)
@@ -1035,13 +848,16 @@ class CharSPEnvironment(object):
 
         if not hasattr(self, 'prim_stats'):
             self.prim_stats = np.zeros(10, dtype=np.int64)
-
         try:
             # generate an expression and rewrite it,
             # avoid issues in 0 and convert to SymPy
             f_expr = self._generate_expr(nb_ops, self.max_int, rng)
             infix = self.prefix_to_infix(f_expr)
+            f_unsimp = self.infix_to_sympy(infix, no_rewrite=True)
+            print(f_unsimp)
             f = self.infix_to_sympy(infix)
+            print(f)
+            print()
 
             # skip constant expressions
             if x not in f.free_symbols:
@@ -1050,9 +866,14 @@ class CharSPEnvironment(object):
             # remove additive constant, re-index coefficients
             if rng.randint(2) == 0:
                 f = remove_root_constant_terms(f, x, 'add')
+
             f = self.reduce_coefficients(f)
             f = self.simplify_const_with_coeff(f)
             f = self.reindex_coefficients(f)
+            if not self.check_int(f, 10*self.max_int):
+                print("getting trolled here")
+                self.prim_stats[-2] += 1
+                return None
 
             # compute its primitive, and rewrite it
             self.prim_stats[-1] += 1
@@ -1067,8 +888,9 @@ class CharSPEnvironment(object):
             if any(op.func in INTEGRAL_FUNC for op in sp.preorder_traversal(F)):
                 self.prim_stats[2] += 1
                 return None
-            if not self.check_int(F, self.max_int):
+            if not self.check_int(F, 10*self.max_int):
                 # Expression has terms which exceed the max_int
+                print("trolled again")
                 self.prim_stats[-2] += 1
                 return None
             self.prim_stats[3] += 1
@@ -1095,13 +917,14 @@ class CharSPEnvironment(object):
                 logger.debug(f"{self.worker_id:>2} PRIM STATS {self.prim_stats}")
 
         except TimeoutError:
+            print("f")
             raise
         except (ValueError, AttributeError, TypeError, OverflowError, NotImplementedError, UnknownSymPyOperator, ValueErrorExpression) as e:
             return None
         except Exception as e:
             logger.error("An unknown exception of type {0} occurred in line {1} for expression \"{2}\". Arguments:{3!r}.".format(type(e).__name__, sys.exc_info()[-1].tb_lineno, infix, e.args))
             return None
-
+        
         # define input / output
         x = ['sub', 'derivative', 'f', 'x', 'x'] + f_prefix
         y = F_prefix
@@ -1579,7 +1402,7 @@ class CharSPEnvironment(object):
                             help="Float numbers precision")
         parser.add_argument("--positive", type=bool_flag, default=False,
                             help="Do not sample negative numbers")
-        parser.add_argument("--rewrite_functions", type=str, default="",
+        parser.add_argument("--rewrite_functions", type=str, default="simplify",
                             help="Rewrite expressions with SymPy")
         parser.add_argument("--leaf_probs", type=str, default="0.75,0,0.25,0",
                             help="Leaf probabilities of being a variable, a coefficient, an integer, or a constant.")
@@ -1595,7 +1418,6 @@ class CharSPEnvironment(object):
         Create a dataset for this environment.
         """
         logger.info(f"Creating train iterator for {task} ...")
-        print(self.operators)
         dataset = EnvDataset(
             self,
             task,
@@ -1638,6 +1460,174 @@ class CharSPEnvironment(object):
         )
 
 
+def plot_graph(graph, function_vocab, token_vocab):
+    """
+    Plot an equation graph in a human-readable format.
+
+    Each node is labeled with its token type if it is a leaf or its function type if it
+    is internal, as well as its input index.
+
+    Parameters
+    ----------
+    graph
+        The graph to display.
+    function_vocab
+        A mapping from function name to id.
+    token_vocab
+        A mapping from token name to id.
+    """
+    function_names = {idx: name for name, idx in function_vocab.items()}
+    token_names = {idx: name for name, idx in token_vocab.items()}
+
+    labels = {}
+    for i, (function_id, token_id) in enumerate(
+        zip(graph.ndata[FUNCTION_FIELD].numpy(), graph.ndata[TOKEN_FIELD].numpy(),)
+    ):
+        if function_names[function_id] == LEAF_FUNCTION:
+            labels[i] = f"{token_names[token_id]}"
+        else:
+            labels[i] = f"{function_names[function_id]}"
+
+    plt.subplots()
+    nx_graph = graph.to_networkx()
+    positions = nx.nx_agraph.graphviz_layout(nx_graph, prog="dot")
+    nx.draw(nx_graph, positions, with_labels=False)
+    nx.draw_networkx_labels(nx_graph, positions, labels)
+    plt.axis("off")
+    plt.show(block=False)
+    plt.ion()
+
+def typed_topological_nodes_generator(graph, node_mask=None):
+    """
+    Generates a topological traversal for the nodes of `graph`, guaranteeing the
+    following two properties:
+        - A node is visited only if all of its descendants have been visited.
+        - At each step, all nodes visited have the same function type (FUNCTION_FIELD).
+
+    Additionally, the algorithm will heuristically attempt to maximize parallelism by
+    greedily selecting the node type with the most available nodes at each step.
+
+    Parameters
+    ----------
+    graph
+        The graph whose nodes to traverse. May have multiple independent graphs
+        packaged together with `dgl.batch()`.
+    node_mask
+        If provided, any node with a 0 in this mask is ignored.
+        Must be a bool tensor or None.
+
+    Returns
+    -------
+    List[Tensor]
+        The i-th element in this list is a tensor consisting of the nodes to visit
+        at step i. The union of these lists is exactly the node indices of `graph`.
+    """
+    visited = torch.zeros(graph.num_nodes(), dtype=torch.bool, device=graph.device)
+    remaining_dependencies = graph.in_degrees()
+    order: list[torch.Tensor] = []
+
+    if node_mask is not None:
+        opposite_mask = ~node_mask
+        visited |= opposite_mask
+        remaining_dependencies *= node_mask
+        (opposite_indices,) = torch.nonzero(opposite_mask, as_tuple=True)
+        _, masked_successors = graph.out_edges(opposite_indices)
+        visit_counts = torch.bincount(masked_successors, minlength=graph.num_nodes())
+        remaining_dependencies -= visit_counts
+
+    while not visited.all():
+        # Find unvisited nodes with no unfulfilled dependencies
+        available = visited.bitwise_not() & (remaining_dependencies == 0)
+
+        # Greedily select the type with the most available nodes
+        available_types = graph.ndata[FUNCTION_FIELD].masked_select(available)
+        step_type, _ = available_types.mode()
+
+        # Find all nodes of this type with no additional dependencies
+        step_mask = available & (graph.ndata[FUNCTION_FIELD] == step_type)
+
+        # Flag these nodes as visited, convert the mask to indices, and add to the order
+        visited |= step_mask
+        (step_indices,) = torch.nonzero(step_mask, as_tuple=True)
+        order.append(step_indices)
+
+        # Tick down the dependency count of these nodes' successors
+        _, successor_indices = graph.out_edges(step_indices)
+        visit_counts = torch.bincount(successor_indices, minlength=graph.num_nodes())
+        remaining_dependencies -= visit_counts
+
+    return order
+
+
+def tensorize_predecessors(graph):
+    """
+    Given a DAG G, produce a tensor `index` of shape [N, D] where:
+        - N is the number of nodes in G
+        - D is the maximum in-degree in G
+        - index[n, i] is the i-th predecessor of node n, or -1 if none exists.
+
+    Note that this should work for non-binary graphs.
+
+    Parameters
+    ----------
+    graph
+        A directed acyclic graph, as a homogeneous DGLGraph.
+
+    Returns
+    -------
+    torch.Tensor
+        The tensor `index` described above.
+    """
+    src, dst = graph.edges()
+
+    # Assume edges are in increasing order; count the number of children for each node
+    dst_unique, dst_count = dst.unique_consecutive(return_counts=True)
+    dst_count = dst_count.cpu()
+
+    # Partition the source nodes according to their destination node;
+    # produces a list of tensors, where the i-th tensor is the children of node i
+    src_partition = src.split(list(dst_count))
+
+    # Create a dense tensor from src_partition with a placeholder for any node that
+    # doesn't have a full set of children. This is `index` without any degree-0 nodes.
+    partition_padded = torch.nn.utils.rnn.pad_sequence(
+        src_partition, padding_value=INDEX_PLACEHOLDER, batch_first=True
+    )
+
+    max_in_degree = dst_count.max().item()
+    index = torch.full(
+        (graph.num_nodes(), max_in_degree),
+        INDEX_PLACEHOLDER,
+        dtype=torch.int64,
+        device=graph.device,
+    )
+
+    # Write any rows for nodes having children into the index
+    index[dst_unique] = partition_padded
+
+    return index
+
+
+def tree_depth(tree):
+    """
+    Compute the maximum distance from a leaf to the root.
+    """
+    return len(dgl.topological_nodes_generator(tree)) - 1
+
+
+'''
+Datset that optionally returns a batched forest of DGL graphs. Does not generate data.
+
+Each example is a directed DGLGraph, with the following int64 node data fields:
+ - FUNCTION_FIELD: Indicates the type of function applied at this node. Leaf nodes
+        (which represent atoms) have function type LEAF_FUNCTION.
+ - TOKEN_FIELD: For leaf nodes, which token is present at that index.
+        Function nodes (internal nodes) have value NONLEAF_TOKEN.
+
+Graphs are batched by combining them into one larger disconnected graph via dgl.batch().
+This enables greater parallelism when traversing the nodes by type.
+'''
+
 class EnvDataset(Dataset):
 
     def __init__(self, env, task, train, rng, params, path):
@@ -1659,7 +1649,7 @@ class EnvDataset(Dataset):
         self.num_workers = params.num_workers
         self.batch_size = params.batch_size
         self.same_nb_ops_per_batch = params.same_nb_ops_per_batch
-        self.tree_batch = params.treelstm or params.treesmu
+        self.tree_batch = params.treernn or params.treelstm or params.treesmu
 
         # generation, or reloading from file
         if path is not None:
@@ -1685,309 +1675,126 @@ class EnvDataset(Dataset):
             self.size = 1 << 60
         else:
             self.size = 5000 if path is None else len(self.data)
-
-    def compute_operation_order(
-        self, operations: torch.Tensor, left_idx: torch.Tensor, right_idx: torch.Tensor
-    ):
+ 
+    def _deserialize(self, equation, function_vocab, token_vocab):
         """
-        Compute the step at which each node in a tree may execute.
+        Recursive helper function for `deserialize`. Nodes are traversed in reverse pre-order.
 
-        Preserves these invariants:
-            - Any children of nodes indicated at a given step will have a lower depth.
-            - All nodes with the same depth will have the same operation index.
-
-        Operations are selected with a greedy algorithm, which always picks the operation
-        with the most "available" nodes at a given step to execute at that step.
+        Do not use this function directly; call `deserialize` instead.
 
         Parameters
         ----------
-        operations
-            An index indicating which operation is applied at each node.
-        left_idx
-            An index indicating the left child of each node, or -1 if the node does not
-            have a left child.
-        right_idx
-            An index indicating the right child of each node, or -1 if the node does not
-            have a right child.
+        equation
+            Symbols in the tree's preorder traversal. Modified in place.
+        function_vocab
+            Mapping from function names to indices.
+        token_vocab
+            Mapping from token names to indices.
 
         Returns
         -------
-        depths : Tensor
-            The depth of each node in the tree.
-        operation_order : Tensor
-            For each step, the operation performed at that step.
+        DGLGraph
+            A homogeneous graph representing the parseable prefix of the serialized tree.
         """
-        num_nodes = operations.numel()
-        complete = torch.zeros(num_nodes + 1, dtype=torch.bool)
-
-        # Add a fake "node" that is always available for leaf tensors to look up
-        complete[num_nodes] = True
-        left_idx_ = left_idx.clone()
-        left_idx_[left_idx_ == -1] = num_nodes
-        right_idx_ = right_idx.clone()
-        right_idx_[right_idx_ == -1] = num_nodes
-
-        depth = 0
-        depths = torch.zeros(num_nodes, dtype=torch.int)
-        operation_order = []
-
-        while not complete.all():
-            available = complete[left_idx_] & complete[right_idx_] & ~complete[:-1]
-            available_ops = operations.masked_select(available)
-            selected_op, _ = available_ops.mode()  # The op with the most available nodes
-            step_mask = (operations == selected_op) & available  # Indices for this step
-
-            operation_order.append(selected_op.item())
-            depths += step_mask * depth  # Set the depth for these indices to `depth`
-            complete[:-1] |= step_mask  # Mark indices computed at this step done
-            depth += 1
-
-        return depths, torch.tensor(operation_order, dtype=torch.int)
-        
-
-    def tensorize_tree(self, tree: BinaryEqnTree, integers, digits=0):
-        """
-        Convert a tree into a collection of flat tensors appropriate for efficient
-        computation with tree-structured models.
-
-        Trees are flattened by a pre-order traversal, and the index tensors left_idx and
-        right_idx respect this order, with the root of the tree at index 0.
-
-        Parameters
-        ----------
-        tree
-            The tree to represent as tensors.
-        integer
-            A long tensor of the current integers in the equation.
-        digits
-            A counter that tracks the current number of digits deleted.
-
-        Returns
-        -------
-        operations : Tensor
-            An index (into INDEX_TO_OP) indicating which operation is applied at each node,
-            with -1 indicating an embedding lookup. Used to look up the appropriate
-            operation to apply at runtime.
-        tokens : Tensor
-            An index (into INDEX_TO_LEAF) indicating the token represented at each leaf
-            node, or -1 for non-leaf nodes. Used to look up leaf embeddings at runtime.
-        left_idx : Tensor
-            An index indicating the left child of each node, or -1 if
-            the node does not have a left child.
-        right_idx : Tensor
-            An index indicating the right child of each node, or -1 if
-            the node does not have a right child.
-        digits : int
-            A counter that tracks the number of digits deleted from the source equation.
-        integers : Tensor
-            A long tensor of all the integers in the equation.
-        """
-        if tree.function_name in ['INT+', 'INT-']:
-            operations = torch.tensor([-2])
-            sign = torch.tensor([self.env.word2id[tree.function_name]])
-            int_id = torch.tensor([self.env.word2id[d] for d in list(str(tree.value))])
-            integers.append(torch.cat([sign, int_id]))
-            digits = len(str(tree.value))
-            if tree.value > MAX_INT:
-                tree.value = MAX_INT
-            value = torch.tensor([tree.value]) if tree.function_name == 'INT+' else torch.tensor([-1*tree.value])
-            tokens = value
-            left_idx = torch.tensor([-1])
-            right_idx = torch.tensor([-1])
-        elif tree.function_name == SYMBOL_ENCODER:  # Leaf
-            operations = torch.tensor([-1])
-            tokens = token = torch.tensor([self.env.word2id[tree.value]])
-            left_idx = torch.tensor([-1])
-            right_idx = torch.tensor([-1])
-        elif tree.is_unary:
-            if tree.lchild:
-                child = tree.lchild
-                new_left_idx = torch.tensor([1])
-                new_right_idx = torch.tensor([-1])
-            else:
-                child = tree.rchild
-                new_left_idx = torch.tensor([-1])
-                new_right_idx = torch.tensor([1])
-
-            child_ops, child_tokens, child_left, child_right, digits, integers = self.tensorize_tree(child, integers)
-
-            # Re-root at this (unary) node by setting the root index of the child to 1
-            # and re-indexing all of its nodes, ignoring null indices.
-            child_left[child_left != -1] += 1
-            child_right[child_right != -1] += 1
-
-            new_operation = torch.tensor([self.env.word2id[tree.function_name]])
-            new_token = torch.tensor([-1])
-
-            operations = torch.cat([new_operation, child_ops])
-            tokens = torch.cat([new_token, child_tokens])
-            left_idx = torch.cat([new_left_idx, child_left])
-            right_idx = torch.cat([new_right_idx, child_right])
-        elif tree.is_binary:
-            (
-                left_child_operations,
-                left_child_tokens,
-                left_child_left_idx,
-                left_child_right_idx,
-                ldigits,
-                integers
-            ) = self.tensorize_tree(tree.lchild, integers)
-            (
-                right_child_operations,
-                right_child_tokens,
-                right_child_left_idx,
-                right_child_right_idx,
-                rdigits,
-                integers
-            ) = self.tensorize_tree(tree.rchild, integers)
-
-            # Re-root at this (binary) node by setting the root index of the left child to
-            # 1, the root index of the right child to 1 + num_left_nodes, and re-indexing.
-            num_left_nodes = left_child_operations.numel()
-            left_child_left_idx[left_child_left_idx != -1] += 1
-            left_child_right_idx[left_child_right_idx != -1] += 1
-            right_child_left_idx[right_child_left_idx != -1] += num_left_nodes + 1
-            right_child_right_idx[right_child_right_idx != -1] += num_left_nodes + 1
-
-            new_operation = torch.tensor([self.env.word2id[tree.function_name]])
-            new_token = torch.tensor([-1])
-            new_left_idx = torch.tensor([1])
-            new_right_idx = torch.tensor([num_left_nodes + 1])
-
-            operations = torch.cat(
-                [new_operation, left_child_operations, right_child_operations]
+        if not equation:
+            raise ValueError(
+                "Cannot deserialize an empty structure. Empty trees are serialized as '#'."
             )
-            tokens = torch.cat([new_token, left_child_tokens, right_child_tokens])
-            left_idx = torch.cat([new_left_idx, left_child_left_idx, right_child_left_idx])
-            right_idx = torch.cat(
-                [new_right_idx, left_child_right_idx, right_child_right_idx]
-            )
-            digits = ldigits + rdigits
-        else:
-            assert False
-                        
-        return (operations, tokens, left_idx, right_idx, torch.tensor([digits]), integers)
 
+        token = equation.pop(0)
 
-    def tensorize_tree_batch(self, trees):
-        """
-        Convert a batch of trees into a collection of flat tensors appropriate for efficient
-        computation with tree-structured models.
+        # Base case: non-integer leaf node
+        if token in token_vocab:
+            graph = dgl.graph(([], []))
+            graph.add_nodes(1)
+            graph.ndata[FUNCTION_FIELD] = torch.tensor([function_vocab[LEAF_FUNCTION]], dtype=torch.int64)
+            graph.ndata[TOKEN_FIELD] = torch.tensor([token_vocab[token]], dtype=torch.int64)
+            graph.ndata[SIDE_FIELD] = torch.tensor([SIDE_ROOT], dtype=torch.int64)
 
-        All tensors are single "long tensors" effectively representing the whole batch
-        as a single disconnected forest.
-
-        Parameters
-        ----------
-        trees
-            A List of N trees, with M total nodes.
-
-        Returns
-        -------
-        operations : Tensor[M]
-            An index indicating which operation is applied at each node, with -1 indicating
-            an embedding lookup and -2 indicating an integer embedding. Used to look up the 
-            appropriate operation to apply at runtime.
-        tokens : Tensor[M]
-            An index indicating the token represented at each leaf node, or -1 for non-leaf
-            nodes. Used to look up leaf embeddings at runtime.
-        left_idx : Tensor[M]
-            An index (into all M-tensors) indicating the left child of each node, or -1 if
-            the node does not have a left child.
-        right_idx : Tensor[M]
-            An index (into all M-tensors) indicating the right child of each node, or -1 if
-            the node does not have a right child.
-        depth : Tensor[M]
-            What step each node in the tree may be applied at, preserving these invariants:
-                - Any children of nodes indicated at a given step will have a lower depth.
-                - All nodes with the same depth will have the same operation index.
-        operation_order : Tensor[max_depth]
-            For each step, the operation performed at that step.
-        digits : Tensor[M]
-            For each equation, the number of digits that were removed from the source.
-        integers : Tensor[# of integers]
-            All integers in the batch; will be used to augment the data toe better train 
-            the NUMBER_ENCODER block.
-        """
-        operations = torch.tensor([], dtype=torch.long)
-        tokens = torch.tensor([], dtype=torch.long)
-        left_idx = torch.tensor([], dtype=torch.long)
-        right_idx = torch.tensor([], dtype=torch.long)
-        digits = torch.tensor([], dtype=torch.long)
-        integers = []
-
-        root_idx = 0
-        for tree in trees:
-            (
-                tree_ops,
-                tree_tokens,
-                tree_left_idx,
-                tree_right_idx,
-                tree_digits,
-                tree_integers,
-            ) = self.tensorize_tree(tree, [])
-            
-            # Append BOS and EOS embedding operations
-            tree_ops = torch.cat([torch.tensor([-1]), tree_ops, torch.tensor([-1])])
-            # Append BOS and EOS tokens to the tokens
-            eos = self.env.word2id['<s>']
-            tree_tokens = torch.cat([torch.tensor([eos]), tree_tokens, torch.tensor([eos])])
-            tree_left_idx = torch.cat([torch.tensor([-1]), tree_left_idx, torch.tensor([-1])])
-            tree_right_idx = torch.cat([torch.tensor([-1]), tree_right_idx, torch.tensor([-1])])
-            
-            # Re-index this tree at its new place in the batch-wide order
-            # Add 1 because we append an BOS token to the start
-            tree_left_idx[tree_left_idx != -1] += root_idx + 1
-            tree_right_idx[tree_right_idx != -1] += root_idx + 1
-
-            operations = torch.cat([operations, tree_ops])
-            tokens = torch.cat([tokens, tree_tokens])
-            left_idx = torch.cat([left_idx, tree_left_idx])
-            right_idx = torch.cat([right_idx, tree_right_idx])
-            digits = torch.cat([digits, tree_digits])
-            integers.extend(tree_integers)
-            root_idx += tree_ops.numel() 
-
-        depths, operation_order = self.compute_operation_order(operations, left_idx, right_idx)
-        return (
-            operations,
-            tokens,
-            left_idx,
-            right_idx,
-            depths,
-            operation_order, 
-            digits,
-            pad_sequence(integers, batch_first=True, padding_value=self.pad_idx),
-            torch.tensor([len(n) for n in integers])
-        )
-
-    # Given a list of tokens in prefix form, convert to a BinaryEqnTree object for decoding.
-    def prefix_to_tree(self, token_list):
-        trees = []
-        for i in range(len(token_list)):
-            tree, _ = self._prefix_to_tree(token_list[i])
-            trees.append(tree)
-        return trees
-
-    def _prefix_to_tree(self, tokens, idx=0):
-        token = tokens[idx]
-        idx += 1
-        if token in self.env.bin_ops:
-            left, idx = self._prefix_to_tree(tokens, idx=idx)
-            right, idx = self._prefix_to_tree(tokens, idx=idx) 
-            root = BinaryEqnTree(token, left, right)
-        elif token in self.env.una_ops:
-            left, idx = self._prefix_to_tree(tokens, idx=idx)
-            root = BinaryEqnTree(token, left, None)
+        # Base case: integer
         elif token in ['INT+', 'INT-']:
-            val = ""
-            while idx < len(tokens) and tokens[idx] in self.env.elements:
-                val += tokens[idx]
-                idx += 1
-            root = BinaryEqnTree(token, None, None, value=int(val))
+            digits = []
+            while equation and equation[0] in self.env.elements:
+                digits.append(equation.pop(0))
+
+            graph = dgl.graph(([], []))
+            graph.ndata[FUNCTION_FIELD] = torch.tensor([], dtype=torch.int64)
+            graph.ndata[TOKEN_FIELD] = torch.tensor([], dtype=torch.int64)
+            graph.ndata[SIDE_FIELD] = torch.tensor([], dtype=torch.int64)
+            graph.add_nodes(len(digits)+1)
+
+            graph.add_edges([i for i in range(len(digits))], len(digits)) # Connect INT node with each digit
+            for i in range(len(digits)):
+                graph.ndata[FUNCTION_FIELD][i] = function_vocab[LEAF_FUNCTION]
+                # Reverse order to maintain reverse pre-order traversal
+                graph.ndata[TOKEN_FIELD][i] = token_vocab[digits[len(digits)-i-1]]
+                graph.ndata[SIDE_FIELD][i] = i+1
+
+            graph.ndata[FUNCTION_FIELD][-1] = function_vocab[token]
+            graph.ndata[TOKEN_FIELD][-1] = token_vocab[NONLEAF_TOKEN]
+            graph.ndata[SIDE_FIELD][-1] = SIDE_ROOT
+ 
+        # Operator
         else:
-            root = BinaryEqnTree(SYMBOL_ENCODER, None, None, value=token)
-        return root, idx
+            function_id = function_vocab[token]
+            token_id = token_vocab[NONLEAF_TOKEN]
+
+            # Recursively collect left and right children
+            if token in self.env.bin_ops:
+                left_subgraph = self._deserialize(equation, function_vocab, token_vocab)
+            else:
+                left_subgraph = dgl.graph(([], []))
+            right_subgraph = self._deserialize(equation, function_vocab, token_vocab)
+
+            right_root_idx = right_subgraph.num_nodes() - 1
+            left_root_idx = right_root_idx + left_subgraph.num_nodes()
+            root_idx = left_root_idx + 1
+
+            if SIDE_FIELD in left_subgraph.ndata.keys():
+                left_subgraph.ndata[SIDE_FIELD][:] = SIDE_LEFT
+            if SIDE_FIELD in right_subgraph.ndata.keys():
+                right_subgraph.ndata[SIDE_FIELD][:] = SIDE_RIGHT
+
+            # Batch right child then left child. 
+            # This enforces the node_ids to be labeled in reverse preorder traversal.
+            graph = dgl.batch([right_subgraph, left_subgraph])
+            graph.add_nodes(1)
+
+            if left_subgraph.num_nodes() == 0:  # Right-unary
+                graph.add_edges(right_root_idx, root_idx)
+            elif right_subgraph.num_nodes() == 0:  # Left-unary
+                graph.add_edges(left_root_idx, root_idx)
+            else:  # Binary
+                graph.add_edges([right_root_idx, left_root_idx], root_idx)
+
+            graph.ndata[FUNCTION_FIELD][-1] = function_vocab[token]
+            graph.ndata[TOKEN_FIELD][-1] = token_vocab[NONLEAF_TOKEN]
+            graph.ndata[SIDE_FIELD][-1] = SIDE_ROOT
+
+        return graph
+
+
+    def deserialize(self, equation):
+        """
+        Deserialize binary equation data from a preorder token traversal
+        into a DGLGraph. See the module docstring for the graph properties.
+
+        Parameters
+        ----------
+        equation
+            The "equation" field of a serialized example; a serialized binary tree.
+        function_vocab
+            A mapping from function name to id. See `build_vocabs()`.
+        token_vocab
+            A mapping from token name to id. See `build_vocabs()`.
+
+        Returns
+        -------
+        DGLGraph
+            The equation tree, deserialized into a usable data structure.
+        """
+        return self._deserialize(equation, self.env.function_vocab, self.env.token_vocab)
+
 
     def collate_fn(self, elements):
         """
@@ -2002,21 +1809,22 @@ class EnvDataset(Dataset):
             print(self.env.prefix_to_infix(self.env.unclean_prefix(y[i])))
             print("")
         '''
-        tensorized_batch = None
+        graphs = []
         if self.tree_batch:
             xword = [[w for w in seq if w in self.env.word2id] for seq in x]
-            trees = self.prefix_to_tree(xword)
-            # operations, tokens, left_idx, right_idx, depths, operation_order, tree_depths
-            tensorized_batch = self.tensorize_tree_batch(trees)
-
+            # Each equation in the batch is a DGLGraph in the list
+            for eq in xword:
+                graphs.append(self.deserialize(eq))
+        if graphs:
+            graphs = dgl.batch(graphs)
+            
         x = [torch.LongTensor([self.env.word2id[w] for w in seq if w in self.env.word2id]) for seq in x]
         y = [torch.LongTensor([self.env.word2id[w] for w in seq if w in self.env.word2id]) for seq in y]
 
         x, x_len = self.env.batch_sequences(x)
         y, y_len = self.env.batch_sequences(y)
 
-
-        return (x, x_len), (y, y_len), torch.LongTensor(nb_ops), tensorized_batch
+        return (x, x_len), (y, y_len), torch.LongTensor(nb_ops), graphs
 
     def init_rng(self):
         """
@@ -2106,5 +1914,6 @@ class EnvDataset(Dataset):
             clear_cache()
 
         return x, y
+
 
 

@@ -10,6 +10,7 @@ import random
 import argparse
 import numpy as np
 import torch
+import typing
 
 import src
 from src.slurm import init_signal_handler, init_distributed_mode
@@ -67,10 +68,36 @@ def get_parser():
                         help='run the version with enforced symmetry on add and mul')
     parser.add_argument('--character_rnn', action='store_true',
                         help='use a character RNN to encode numbers')
+    parser.add_argument('--treernn', action='store_true',
+                        help='use a TreeRNN encoder for the model')
+    parser.add_argument('--num_layers', type=int, default=1,
+                        help='number of layers in the RNN model')
     parser.add_argument('--treelstm', action='store_true',
                         help='use a TreeLSTM encoder for the model')
     parser.add_argument('--treesmu', action='store_true',
                         help='use a TreeSMU encoder for the model')
+
+    # smu parameters
+    parser.add_argument('--stack_size', type=int, default=5,
+                        help='max size of the stack/queue')
+    parser.add_argument('--tree_activation', type=str, default='tanh',
+                        help='tree node activation')
+    parser.add_argument('--stack_activation', type=str, default='tanh',
+                        help='stack node activation')
+    parser.add_argument('--no_op', default=False, action='store_true',
+                        help='add no-op as an additional stack op')
+    parser.add_argument('--no_pop', default=False, action='store_true',
+                        help='add only push and no-op')
+    parser.add_argument('--like_LSTM', default=False, action='store_true',
+                        help='make the mem2out stack tree behave as an LSTM+stack')
+    parser.add_argument('--gate_push_pop', default=False, action='store_true',
+                        help='make the push pop action a gate rather than a number')
+    parser.add_argument('--normalize_action', default=False, action='store_true',
+                        help='normalize push-pop magnitude before push and pop')
+    parser.add_argument('--gate_top_k', default=False, action='store_true',
+                        help='gate the top-k instead of weighted average')
+    parser.add_argument('--top_k', type=int, default=1,
+                        help='use the top-k stack elements to compute the output.')
 
     # training parameters
     parser.add_argument("--env_base_seed", type=int, default=0,

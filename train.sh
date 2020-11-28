@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 python3 main.py \
 	--exp_name treelstm_noparaminit \
-	--emb_dim 256 \
+	--emb_dim 8 \
 	--n_dec_layers 6 \
 	--n_heads 8 \
 	--dropout 0.1 \
 	--symmetric \
-	--treelstm \
+	--treernn \
 	--character_rnn \
 	--optimizer "adam,lr=0.0001" \
 	--batch_size 256 \

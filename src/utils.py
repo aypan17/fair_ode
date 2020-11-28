@@ -126,7 +126,7 @@ def to_cuda(*args):
     """
     if not CUDA:
         return args
-    return [None if x is None else x.cuda() for x in args]
+    return [None if x is None else x.to('cuda:0') for x in args]
 
 
 class TimeoutError(BaseException):

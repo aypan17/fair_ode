@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+#Submit this script with: sbatch <this-filename>
+
+#SBATCH --time=30:00:00   # walltime
+#SBATCH --ntasks=1   # number of processor cores (i.e. tasks)
+#SBATCH --nodes=1   # number of nodes
+#SBATCH --gres gpu:4 # number of GPUs per node
+#SBATCH --qos normal #QOS to run in
+#SBATCH --mem-per-gpu=16G   # memory per CPU core
+#SBATCH --ntasks-per-node=1 # tasks per node
+#SBATCH -J lstm-transformer-noinit   # job name
+#SBATCH --mail-user aypan@caltech.edu   # email address
+
+#SBATCH -p tensortest # partition
+
+# Notify on end and failure.
+#SBATCH --mail-type END
+#SBATCH --mail-type FAIL
+
+export NGPU=4; python3 -m torch.distributed.launch --nproc_per_node=$NGPU main.py \
+	--exp_name treelstm_50k_numenc \
+	--emb_dim 128 \
+	--n_dec_layers 6 \
+	--n_heads 8 \
+	--dropout 0.1 \
+	--symmetric \
+	--treelstm \
+	--character_rnn \
+	--optimizer "adam,lr=0.0001" \
+	--batch_size 64 \
+	--tasks "prim_fwd" \
+	--reload_data "prim_fwd,fwd_small/fwd_small.train,fwd_small/fwd_small.valid,fwd_small/fwd_small.test" \
+	--reload_size 50000 \
+	--epoch_size 50000 \
+	--max_epoch 50 
+echo done

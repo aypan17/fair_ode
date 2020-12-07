@@ -1,0 +1,581 @@
+SLURM job: True
+environ({'SLURM_NODELIST': 'hpc-25-17', 'SLURM_JOB_NAME': 'lstm-transformer-noinit', 'MANPATH': '/software/gcc/6.4.0/share/man:/central/software/CUDA/10.2/doc/man:/central/slurm/install/current/share/man/:/usr/local/share/man:/usr/share/man/overrides:/usr/share/man:/opt/ibutils/share/man:/cm/local/apps/environment-modules/current/share/man', 'GCC_HOME': '/software/gcc/6.4.0', 'XDG_SESSION_ID': '326589', 'SLURMD_NODENAME': 'hpc-25-17', 'SLURM_TOPOLOGY_ADDR': 'hpc-25-17', 'HOSTNAME': 'hpc-25-17', 'SLURM_PRIO_PROCESS': '0', 'SLURM_NODE_ALIASES': '(null)', 'SHELL': '/bin/bash', 'TERM': 'xterm-256color', 'SLURM_JOB_QOS': 'normal', 'HISTSIZE': '1000', 'TMPDIR': '/tmp', 'SLURM_TOPOLOGY_ADDR_PATTERN': 'node', 'SSH_CLIENT': '131.215.250.32 50025 22', 'CONDA_SHLVL': '1', 'LIBRARY_PATH': '/software/gcc/6.4.0/lib64:/central/software/CUDA/10.2/lib64', 'CONDA_PROMPT_MODIFIER': '(base) ', 'QTDIR': '/usr/lib64/qt-3.3', 'SLURM_JOB_GPUS': '0,1,2,3', 'QTINC': '/usr/lib64/qt-3.3/include', 'SSH_TTY': '/dev/pts/143', 'SLURM_MEM_PER_CPU': '4096', 'QT_GRAPHICSSYSTEM_CHECKED': '1', 'ROCR_VISIBLE_DEVICES': '0,1,2,3', 'SLURM_NNODES': '1', 'USER': 'aypan', 'CUDA_HOME': '/central/software/CUDA/10.2', 'LS_COLORS': 'rs=0:di=38;5;27:ln=38;5;51:mh=44;38;5;15:pi=40;38;5;11:so=38;5;13:do=38;5;5:bd=48;5;232;38;5;11:cd=48;5;232;38;5;3:or=48;5;232;38;5;9:mi=05;48;5;232;38;5;15:su=48;5;196;38;5;15:sg=48;5;11;38;5;16:ca=48;5;196;38;5;226:tw=48;5;10;38;5;16:ow=48;5;10;38;5;21:st=48;5;21;38;5;15:ex=38;5;34:*.tar=38;5;9:*.tgz=38;5;9:*.arc=38;5;9:*.arj=38;5;9:*.taz=38;5;9:*.lha=38;5;9:*.lz4=38;5;9:*.lzh=38;5;9:*.lzma=38;5;9:*.tlz=38;5;9:*.txz=38;5;9:*.tzo=38;5;9:*.t7z=38;5;9:*.zip=38;5;9:*.z=38;5;9:*.Z=38;5;9:*.dz=38;5;9:*.gz=38;5;9:*.lrz=38;5;9:*.lz=38;5;9:*.lzo=38;5;9:*.xz=38;5;9:*.bz2=38;5;9:*.bz=38;5;9:*.tbz=38;5;9:*.tbz2=38;5;9:*.tz=38;5;9:*.deb=38;5;9:*.rpm=38;5;9:*.jar=38;5;9:*.war=38;5;9:*.ear=38;5;9:*.sar=38;5;9:*.rar=38;5;9:*.alz=38;5;9:*.ace=38;5;9:*.zoo=38;5;9:*.cpio=38;5;9:*.7z=38;5;9:*.rz=38;5;9:*.cab=38;5;9:*.jpg=38;5;13:*.jpeg=38;5;13:*.gif=38;5;13:*.bmp=38;5;13:*.pbm=38;5;13:*.pgm=38;5;13:*.ppm=38;5;13:*.tga=38;5;13:*.xbm=38;5;13:*.xpm=38;5;13:*.tif=38;5;13:*.tiff=38;5;13:*.png=38;5;13:*.svg=38;5;13:*.svgz=38;5;13:*.mng=38;5;13:*.pcx=38;5;13:*.mov=38;5;13:*.mpg=38;5;13:*.mpeg=38;5;13:*.m2v=38;5;13:*.mkv=38;5;13:*.webm=38;5;13:*.ogm=38;5;13:*.mp4=38;5;13:*.m4v=38;5;13:*.mp4v=38;5;13:*.vob=38;5;13:*.qt=38;5;13:*.nuv=38;5;13:*.wmv=38;5;13:*.asf=38;5;13:*.rm=38;5;13:*.rmvb=38;5;13:*.flc=38;5;13:*.avi=38;5;13:*.fli=38;5;13:*.flv=38;5;13:*.gl=38;5;13:*.dl=38;5;13:*.xcf=38;5;13:*.xwd=38;5;13:*.yuv=38;5;13:*.cgm=38;5;13:*.emf=38;5;13:*.axv=38;5;13:*.anx=38;5;13:*.ogv=38;5;13:*.ogx=38;5;13:*.aac=38;5;45:*.au=38;5;45:*.flac=38;5;45:*.mid=38;5;45:*.midi=38;5;45:*.mka=38;5;45:*.mp3=38;5;45:*.mpc=38;5;45:*.ogg=38;5;45:*.ra=38;5;45:*.wav=38;5;45:*.axa=38;5;45:*.oga=38;5;45:*.spx=38;5;45:*.xspf=38;5;45:', 'LD_LIBRARY_PATH': '/software/gcc/6.4.0/lib64:/central/software/CUDA/10.2/lib64', 'CONDA_EXE': '/home/aypan/miniconda3/bin/conda', 'SLURM_JOBID': '10968144', 'CPATH': '/software/gcc/6.4.0/include', 'SLURM_NTASKS': '1', 'GCC_VERSION': '6.4.0', '_CE_CONDA': '', 'SLURM_TASKS_PER_NODE': '4', 'PATH': '/software/gcc/6.4.0/bin:/central/software/CUDA/10.2/bin:/home/aypan/miniconda3/bin:/home/aypan/miniconda3/condabin:/central/slurm/install/current/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/usr/lpp/mmfs/bin:/opt/ibutils/bin:/opt/dell/srvadmin/bin:/home/aypan/.local/bin:/home/aypan/bin', 'MAIL': '/var/spool/mail/aypan', 'SLURM_WORKING_CLUSTER': 'central:head1:6817:8960:101', 'SLURM_CONF': '/central/slurm/etc/slurm.conf', 'SLURM_JOB_ID': '10968144', 'CONDA_PREFIX': '/home/aypan/miniconda3', 'LD_RUN_PATH': '/software/gcc/6.4.0/lib64:/central/software/CUDA/10.2/lib64', 'SLURM_JOB_USER': 'aypan', 'PWD': '/home/aypan/enc_dec', 'F90': 'gfortran', 'CUDA_VISIBLE_DEVICES': '0,1,2,3', '_LMFILES_': '/software/Modules/modulefiles/libraries/cuda/10.2:/software/Modules/modulefiles/compilers/gcc/6.4.0', 'LANG': 'C.UTF-8', 'MODULEPATH': '/software/Modules/modulefiles/biology:/software/Modules/modulefiles/chemistry:/software/Modules/modulefiles/compilers:/software/Modules/modulefiles/data:/software/Modules/modulefiles/debuggers:/software/Modules/modulefiles/developement:/software/Modules/modulefiles/geo:/software/Modules/modulefiles/languages:/software/Modules/modulefiles/libraries:/software/Modules/modulefiles/math:/software/Modules/modulefiles/misc:/software/Modules/modulefiles/mpi:/software/Modules/modulefiles/profilers:/software/Modules/modulefiles/tools:/software/Modules/modulefiles/visualization:/software/Modules/modulefiles/testing:/software/Modules/modulefiles/cloud:/software/Modules/modulefiles/groups', 'SLURM_JOB_UID': '8901', 'LOADEDMODULES': 'cuda/10.2:gcc/6.4.0', 'SLURM_NODEID': '0', 'SLURM_SUBMIT_DIR': '/central/home/aypan/enc_dec', 'CUDA_VERSION': '10.2', 'F77': 'gfortran', 'SLURM_TASK_PID': '27506', 'SLURM_NPROCS': '1', 'SLURM_CPUS_ON_NODE': '4', 'SLURM_PROCID': '0', 'ENVIRONMENT': 'BATCH', 'HISTCONTROL': 'ignoredups', 'SSH_ASKPASS': '/usr/libexec/openssh/gnome-ssh-askpass', '_CE_M': '', 'CXX': 'g++', 'SLURM_JOB_NODELIST': 'hpc-25-17', 'HOME': '/home/aypan', 'SHLVL': '2', 'SLURM_LOCALID': '0', 'NGPU': '4', 'SLURM_JOB_GID': '105', 'SLURM_JOB_CPUS_PER_NODE': '4', 'SLURM_CLUSTER_NAME': 'central', 'SLURM_GTIDS': '0', 'SLURM_SUBMIT_HOST': 'login2', 'SLURM_JOB_PARTITION': 'tensortest', 'LOGNAME': 'aypan', 'CONDA_PYTHON_EXE': '/home/aypan/miniconda3/bin/python', 'QTLIB': '/usr/lib64/qt-3.3/lib', 'GPU_DEVICE_ORDINAL': '0,1,2,3', 'SLURM_JOB_ACCOUNT': 'tensorlab', 'SSH_CONNECTION': '131.215.250.32 50025 131.215.148.23 22', 'XDG_DATA_DIRS': '/home/aypan/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share', 'SLURM_JOB_NUM_NODES': '1', 'MODULESHOME': '/software/Modules', 'LESSOPEN': '||/usr/bin/lesspipe.sh %s', 'CONDA_DEFAULT_ENV': 'base', 'XDG_RUNTIME_DIR': '/run/user/8901', 'CC': 'gcc', 'BASH_FUNC_module()': '() {  eval `/software/Modules/bin/modulecmd bash $*`\n}', '_': '/home/aypan/miniconda3/bin/python3', 'MASTER_ADDR': '127.0.0.1', 'MASTER_PORT': '29500', 'WORLD_SIZE': '4', 'OMP_NUM_THREADS': '1', 'RANK': '3', 'LOCAL_RANK': '3'})
+0 - SLURM_JOB_ID: 10968144
+0 - SLURM_JOB_NODELIST: hpc-25-17
+0 - SLURM_JOB_NUM_NODES: 1
+0 - SLURM_NTASKS: 1
+0 - SLURM_TASKS_PER_NODE: 4
+0 - SLURM_MEM_PER_NODE: None
+0 - SLURM_MEM_PER_CPU: 4096
+0 - SLURM_NODEID: 0
+0 - SLURM_PROCID: 0
+0 - SLURM_LOCALID: 0
+0 - SLURM_TASK_PID: 27506
+SLURM job: True
+environ({'SLURM_NODELIST': 'hpc-25-17', 'SLURM_JOB_NAME': 'lstm-transformer-noinit', 'MANPATH': '/software/gcc/6.4.0/share/man:/central/software/CUDA/10.2/doc/man:/central/slurm/install/current/share/man/:/usr/local/share/man:/usr/share/man/overrides:/usr/share/man:/opt/ibutils/share/man:/cm/local/apps/environment-modules/current/share/man', 'GCC_HOME': '/software/gcc/6.4.0', 'XDG_SESSION_ID': '326589', 'SLURMD_NODENAME': 'hpc-25-17', 'SLURM_TOPOLOGY_ADDR': 'hpc-25-17', 'HOSTNAME': 'hpc-25-17', 'SLURM_PRIO_PROCESS': '0', 'SLURM_NODE_ALIASES': '(null)', 'SHELL': '/bin/bash', 'TERM': 'xterm-256color', 'SLURM_JOB_QOS': 'normal', 'HISTSIZE': '1000', 'TMPDIR': '/tmp', 'SLURM_TOPOLOGY_ADDR_PATTERN': 'node', 'SSH_CLIENT': '131.215.250.32 50025 22', 'CONDA_SHLVL': '1', 'LIBRARY_PATH': '/software/gcc/6.4.0/lib64:/central/software/CUDA/10.2/lib64', 'CONDA_PROMPT_MODIFIER': '(base) ', 'QTDIR': '/usr/lib64/qt-3.3', 'SLURM_JOB_GPUS': '0,1,2,3', 'QTINC': '/usr/lib64/qt-3.3/include', 'SSH_TTY': '/dev/pts/143', 'SLURM_MEM_PER_CPU': '4096', 'QT_GRAPHICSSYSTEM_CHECKED': '1', 'ROCR_VISIBLE_DEVICES': '0,1,2,3', 'SLURM_NNODES': '1', 'USER': 'aypan', 'CUDA_HOME': '/central/software/CUDA/10.2', 'LS_COLORS': 'rs=0:di=38;5;27:ln=38;5;51:mh=44;38;5;15:pi=40;38;5;11:so=38;5;13:do=38;5;5:bd=48;5;232;38;5;11:cd=48;5;232;38;5;3:or=48;5;232;38;5;9:mi=05;48;5;232;38;5;15:su=48;5;196;38;5;15:sg=48;5;11;38;5;16:ca=48;5;196;38;5;226:tw=48;5;10;38;5;16:ow=48;5;10;38;5;21:st=48;5;21;38;5;15:ex=38;5;34:*.tar=38;5;9:*.tgz=38;5;9:*.arc=38;5;9:*.arj=38;5;9:*.taz=38;5;9:*.lha=38;5;9:*.lz4=38;5;9:*.lzh=38;5;9:*.lzma=38;5;9:*.tlz=38;5;9:*.txz=38;5;9:*.tzo=38;5;9:*.t7z=38;5;9:*.zip=38;5;9:*.z=38;5;9:*.Z=38;5;9:*.dz=38;5;9:*.gz=38;5;9:*.lrz=38;5;9:*.lz=38;5;9:*.lzo=38;5;9:*.xz=38;5;9:*.bz2=38;5;9:*.bz=38;5;9:*.tbz=38;5;9:*.tbz2=38;5;9:*.tz=38;5;9:*.deb=38;5;9:*.rpm=38;5;9:*.jar=38;5;9:*.war=38;5;9:*.ear=38;5;9:*.sar=38;5;9:*.rar=38;5;9:*.alz=38;5;9:*.ace=38;5;9:*.zoo=38;5;9:*.cpio=38;5;9:*.7z=38;5;9:*.rz=38;5;9:*.cab=38;5;9:*.jpg=38;5;13:*.jpeg=38;5;13:*.gif=38;5;13:*.bmp=38;5;13:*.pbm=38;5;13:*.pgm=38;5;13:*.ppm=38;5;13:*.tga=38;5;13:*.xbm=38;5;13:*.xpm=38;5;13:*.tif=38;5;13:*.tiff=38;5;13:*.png=38;5;13:*.svg=38;5;13:*.svgz=38;5;13:*.mng=38;5;13:*.pcx=38;5;13:*.mov=38;5;13:*.mpg=38;5;13:*.mpeg=38;5;13:*.m2v=38;5;13:*.mkv=38;5;13:*.webm=38;5;13:*.ogm=38;5;13:*.mp4=38;5;13:*.m4v=38;5;13:*.mp4v=38;5;13:*.vob=38;5;13:*.qt=38;5;13:*.nuv=38;5;13:*.wmv=38;5;13:*.asf=38;5;13:*.rm=38;5;13:*.rmvb=38;5;13:*.flc=38;5;13:*.avi=38;5;13:*.fli=38;5;13:*.flv=38;5;13:*.gl=38;5;13:*.dl=38;5;13:*.xcf=38;5;13:*.xwd=38;5;13:*.yuv=38;5;13:*.cgm=38;5;13:*.emf=38;5;13:*.axv=38;5;13:*.anx=38;5;13:*.ogv=38;5;13:*.ogx=38;5;13:*.aac=38;5;45:*.au=38;5;45:*.flac=38;5;45:*.mid=38;5;45:*.midi=38;5;45:*.mka=38;5;45:*.mp3=38;5;45:*.mpc=38;5;45:*.ogg=38;5;45:*.ra=38;5;45:*.wav=38;5;45:*.axa=38;5;45:*.oga=38;5;45:*.spx=38;5;45:*.xspf=38;5;45:', 'LD_LIBRARY_PATH': '/software/gcc/6.4.0/lib64:/central/software/CUDA/10.2/lib64', 'CONDA_EXE': '/home/aypan/miniconda3/bin/conda', 'SLURM_JOBID': '10968144', 'CPATH': '/software/gcc/6.4.0/include', 'SLURM_NTASKS': '1', 'GCC_VERSION': '6.4.0', '_CE_CONDA': '', 'SLURM_TASKS_PER_NODE': '4', 'PATH': '/software/gcc/6.4.0/bin:/central/software/CUDA/10.2/bin:/home/aypan/miniconda3/bin:/home/aypan/miniconda3/condabin:/central/slurm/install/current/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/usr/lpp/mmfs/bin:/opt/ibutils/bin:/opt/dell/srvadmin/bin:/home/aypan/.local/bin:/home/aypan/bin', 'MAIL': '/var/spool/mail/aypan', 'SLURM_WORKING_CLUSTER': 'central:head1:6817:8960:101', 'SLURM_CONF': '/central/slurm/etc/slurm.conf', 'SLURM_JOB_ID': '10968144', 'CONDA_PREFIX': '/home/aypan/miniconda3', 'LD_RUN_PATH': '/software/gcc/6.4.0/lib64:/central/software/CUDA/10.2/lib64', 'SLURM_JOB_USER': 'aypan', 'PWD': '/home/aypan/enc_dec', 'F90': 'gfortran', 'CUDA_VISIBLE_DEVICES': '0,1,2,3', '_LMFILES_': '/software/Modules/modulefiles/libraries/cuda/10.2:/software/Modules/modulefiles/compilers/gcc/6.4.0', 'LANG': 'C.UTF-8', 'MODULEPATH': '/software/Modules/modulefiles/biology:/software/Modules/modulefiles/chemistry:/software/Modules/modulefiles/compilers:/software/Modules/modulefiles/data:/software/Modules/modulefiles/debuggers:/software/Modules/modulefiles/developement:/software/Modules/modulefiles/geo:/software/Modules/modulefiles/languages:/software/Modules/modulefiles/libraries:/software/Modules/modulefiles/math:/software/Modules/modulefiles/misc:/software/Modules/modulefiles/mpi:/software/Modules/modulefiles/profilers:/software/Modules/modulefiles/tools:/software/Modules/modulefiles/visualization:/software/Modules/modulefiles/testing:/software/Modules/modulefiles/cloud:/software/Modules/modulefiles/groups', 'SLURM_JOB_UID': '8901', 'LOADEDMODULES': 'cuda/10.2:gcc/6.4.0', 'SLURM_NODEID': '0', 'SLURM_SUBMIT_DIR': '/central/home/aypan/enc_dec', 'CUDA_VERSION': '10.2', 'F77': 'gfortran', 'SLURM_TASK_PID': '27506', 'SLURM_NPROCS': '1', 'SLURM_CPUS_ON_NODE': '4', 'SLURM_PROCID': '0', 'ENVIRONMENT': 'BATCH', 'HISTCONTROL': 'ignoredups', 'SSH_ASKPASS': '/usr/libexec/openssh/gnome-ssh-askpass', '_CE_M': '', 'CXX': 'g++', 'SLURM_JOB_NODELIST': 'hpc-25-17', 'HOME': '/home/aypan', 'SHLVL': '2', 'SLURM_LOCALID': '0', 'NGPU': '4', 'SLURM_JOB_GID': '105', 'SLURM_JOB_CPUS_PER_NODE': '4', 'SLURM_CLUSTER_NAME': 'central', 'SLURM_GTIDS': '0', 'SLURM_SUBMIT_HOST': 'login2', 'SLURM_JOB_PARTITION': 'tensortest', 'LOGNAME': 'aypan', 'CONDA_PYTHON_EXE': '/home/aypan/miniconda3/bin/python', 'QTLIB': '/usr/lib64/qt-3.3/lib', 'GPU_DEVICE_ORDINAL': '0,1,2,3', 'SLURM_JOB_ACCOUNT': 'tensorlab', 'SSH_CONNECTION': '131.215.250.32 50025 131.215.148.23 22', 'XDG_DATA_DIRS': '/home/aypan/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share', 'SLURM_JOB_NUM_NODES': '1', 'MODULESHOME': '/software/Modules', 'LESSOPEN': '||/usr/bin/lesspipe.sh %s', 'CONDA_DEFAULT_ENV': 'base', 'XDG_RUNTIME_DIR': '/run/user/8901', 'CC': 'gcc', 'BASH_FUNC_module()': '() {  eval `/software/Modules/bin/modulecmd bash $*`\n}', '_': '/home/aypan/miniconda3/bin/python3', 'MASTER_ADDR': '127.0.0.1', 'MASTER_PORT': '29500', 'WORLD_SIZE': '4', 'OMP_NUM_THREADS': '1', 'RANK': '2', 'LOCAL_RANK': '2'})
+0 - SLURM_JOB_ID: 10968144
+0 - SLURM_JOB_NODELIST: hpc-25-17
+0 - SLURM_JOB_NUM_NODES: 1
+0 - SLURM_NTASKS: 1
+0 - SLURM_TASKS_PER_NODE: 4
+0 - SLURM_MEM_PER_NODE: None
+0 - SLURM_MEM_PER_CPU: 4096
+0 - SLURM_NODEID: 0
+0 - SLURM_PROCID: 0
+0 - SLURM_LOCALID: 0
+0 - SLURM_TASK_PID: 27506
+SLURM job: True
+environ({'SLURM_NODELIST': 'hpc-25-17', 'SLURM_JOB_NAME': 'lstm-transformer-noinit', 'MANPATH': '/software/gcc/6.4.0/share/man:/central/software/CUDA/10.2/doc/man:/central/slurm/install/current/share/man/:/usr/local/share/man:/usr/share/man/overrides:/usr/share/man:/opt/ibutils/share/man:/cm/local/apps/environment-modules/current/share/man', 'GCC_HOME': '/software/gcc/6.4.0', 'XDG_SESSION_ID': '326589', 'SLURMD_NODENAME': 'hpc-25-17', 'SLURM_TOPOLOGY_ADDR': 'hpc-25-17', 'HOSTNAME': 'hpc-25-17', 'SLURM_PRIO_PROCESS': '0', 'SLURM_NODE_ALIASES': '(null)', 'SHELL': '/bin/bash', 'TERM': 'xterm-256color', 'SLURM_JOB_QOS': 'normal', 'HISTSIZE': '1000', 'TMPDIR': '/tmp', 'SLURM_TOPOLOGY_ADDR_PATTERN': 'node', 'SSH_CLIENT': '131.215.250.32 50025 22', 'CONDA_SHLVL': '1', 'LIBRARY_PATH': '/software/gcc/6.4.0/lib64:/central/software/CUDA/10.2/lib64', 'CONDA_PROMPT_MODIFIER': '(base) ', 'QTDIR': '/usr/lib64/qt-3.3', 'SLURM_JOB_GPUS': '0,1,2,3', 'QTINC': '/usr/lib64/qt-3.3/include', 'SSH_TTY': '/dev/pts/143', 'SLURM_MEM_PER_CPU': '4096', 'QT_GRAPHICSSYSTEM_CHECKED': '1', 'ROCR_VISIBLE_DEVICES': '0,1,2,3', 'SLURM_NNODES': '1', 'USER': 'aypan', 'CUDA_HOME': '/central/software/CUDA/10.2', 'LS_COLORS': 'rs=0:di=38;5;27:ln=38;5;51:mh=44;38;5;15:pi=40;38;5;11:so=38;5;13:do=38;5;5:bd=48;5;232;38;5;11:cd=48;5;232;38;5;3:or=48;5;232;38;5;9:mi=05;48;5;232;38;5;15:su=48;5;196;38;5;15:sg=48;5;11;38;5;16:ca=48;5;196;38;5;226:tw=48;5;10;38;5;16:ow=48;5;10;38;5;21:st=48;5;21;38;5;15:ex=38;5;34:*.tar=38;5;9:*.tgz=38;5;9:*.arc=38;5;9:*.arj=38;5;9:*.taz=38;5;9:*.lha=38;5;9:*.lz4=38;5;9:*.lzh=38;5;9:*.lzma=38;5;9:*.tlz=38;5;9:*.txz=38;5;9:*.tzo=38;5;9:*.t7z=38;5;9:*.zip=38;5;9:*.z=38;5;9:*.Z=38;5;9:*.dz=38;5;9:*.gz=38;5;9:*.lrz=38;5;9:*.lz=38;5;9:*.lzo=38;5;9:*.xz=38;5;9:*.bz2=38;5;9:*.bz=38;5;9:*.tbz=38;5;9:*.tbz2=38;5;9:*.tz=38;5;9:*.deb=38;5;9:*.rpm=38;5;9:*.jar=38;5;9:*.war=38;5;9:*.ear=38;5;9:*.sar=38;5;9:*.rar=38;5;9:*.alz=38;5;9:*.ace=38;5;9:*.zoo=38;5;9:*.cpio=38;5;9:*.7z=38;5;9:*.rz=38;5;9:*.cab=38;5;9:*.jpg=38;5;13:*.jpeg=38;5;13:*.gif=38;5;13:*.bmp=38;5;13:*.pbm=38;5;13:*.pgm=38;5;13:*.ppm=38;5;13:*.tga=38;5;13:*.xbm=38;5;13:*.xpm=38;5;13:*.tif=38;5;13:*.tiff=38;5;13:*.png=38;5;13:*.svg=38;5;13:*.svgz=38;5;13:*.mng=38;5;13:*.pcx=38;5;13:*.mov=38;5;13:*.mpg=38;5;13:*.mpeg=38;5;13:*.m2v=38;5;13:*.mkv=38;5;13:*.webm=38;5;13:*.ogm=38;5;13:*.mp4=38;5;13:*.m4v=38;5;13:*.mp4v=38;5;13:*.vob=38;5;13:*.qt=38;5;13:*.nuv=38;5;13:*.wmv=38;5;13:*.asf=38;5;13:*.rm=38;5;13:*.rmvb=38;5;13:*.flc=38;5;13:*.avi=38;5;13:*.fli=38;5;13:*.flv=38;5;13:*.gl=38;5;13:*.dl=38;5;13:*.xcf=38;5;13:*.xwd=38;5;13:*.yuv=38;5;13:*.cgm=38;5;13:*.emf=38;5;13:*.axv=38;5;13:*.anx=38;5;13:*.ogv=38;5;13:*.ogx=38;5;13:*.aac=38;5;45:*.au=38;5;45:*.flac=38;5;45:*.mid=38;5;45:*.midi=38;5;45:*.mka=38;5;45:*.mp3=38;5;45:*.mpc=38;5;45:*.ogg=38;5;45:*.ra=38;5;45:*.wav=38;5;45:*.axa=38;5;45:*.oga=38;5;45:*.spx=38;5;45:*.xspf=38;5;45:', 'LD_LIBRARY_PATH': '/software/gcc/6.4.0/lib64:/central/software/CUDA/10.2/lib64', 'CONDA_EXE': '/home/aypan/miniconda3/bin/conda', 'SLURM_JOBID': '10968144', 'CPATH': '/software/gcc/6.4.0/include', 'SLURM_NTASKS': '1', 'GCC_VERSION': '6.4.0', '_CE_CONDA': '', 'SLURM_TASKS_PER_NODE': '4', 'PATH': '/software/gcc/6.4.0/bin:/central/software/CUDA/10.2/bin:/home/aypan/miniconda3/bin:/home/aypan/miniconda3/condabin:/central/slurm/install/current/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/usr/lpp/mmfs/bin:/opt/ibutils/bin:/opt/dell/srvadmin/bin:/home/aypan/.local/bin:/home/aypan/bin', 'MAIL': '/var/spool/mail/aypan', 'SLURM_WORKING_CLUSTER': 'central:head1:6817:8960:101', 'SLURM_CONF': '/central/slurm/etc/slurm.conf', 'SLURM_JOB_ID': '10968144', 'CONDA_PREFIX': '/home/aypan/miniconda3', 'LD_RUN_PATH': '/software/gcc/6.4.0/lib64:/central/software/CUDA/10.2/lib64', 'SLURM_JOB_USER': 'aypan', 'PWD': '/home/aypan/enc_dec', 'F90': 'gfortran', 'CUDA_VISIBLE_DEVICES': '0,1,2,3', '_LMFILES_': '/software/Modules/modulefiles/libraries/cuda/10.2:/software/Modules/modulefiles/compilers/gcc/6.4.0', 'LANG': 'C.UTF-8', 'MODULEPATH': '/software/Modules/modulefiles/biology:/software/Modules/modulefiles/chemistry:/software/Modules/modulefiles/compilers:/software/Modules/modulefiles/data:/software/Modules/modulefiles/debuggers:/software/Modules/modulefiles/developement:/software/Modules/modulefiles/geo:/software/Modules/modulefiles/languages:/software/Modules/modulefiles/libraries:/software/Modules/modulefiles/math:/software/Modules/modulefiles/misc:/software/Modules/modulefiles/mpi:/software/Modules/modulefiles/profilers:/software/Modules/modulefiles/tools:/software/Modules/modulefiles/visualization:/software/Modules/modulefiles/testing:/software/Modules/modulefiles/cloud:/software/Modules/modulefiles/groups', 'SLURM_JOB_UID': '8901', 'LOADEDMODULES': 'cuda/10.2:gcc/6.4.0', 'SLURM_NODEID': '0', 'SLURM_SUBMIT_DIR': '/central/home/aypan/enc_dec', 'CUDA_VERSION': '10.2', 'F77': 'gfortran', 'SLURM_TASK_PID': '27506', 'SLURM_NPROCS': '1', 'SLURM_CPUS_ON_NODE': '4', 'SLURM_PROCID': '0', 'ENVIRONMENT': 'BATCH', 'HISTCONTROL': 'ignoredups', 'SSH_ASKPASS': '/usr/libexec/openssh/gnome-ssh-askpass', '_CE_M': '', 'CXX': 'g++', 'SLURM_JOB_NODELIST': 'hpc-25-17', 'HOME': '/home/aypan', 'SHLVL': '2', 'SLURM_LOCALID': '0', 'NGPU': '4', 'SLURM_JOB_GID': '105', 'SLURM_JOB_CPUS_PER_NODE': '4', 'SLURM_CLUSTER_NAME': 'central', 'SLURM_GTIDS': '0', 'SLURM_SUBMIT_HOST': 'login2', 'SLURM_JOB_PARTITION': 'tensortest', 'LOGNAME': 'aypan', 'CONDA_PYTHON_EXE': '/home/aypan/miniconda3/bin/python', 'QTLIB': '/usr/lib64/qt-3.3/lib', 'GPU_DEVICE_ORDINAL': '0,1,2,3', 'SLURM_JOB_ACCOUNT': 'tensorlab', 'SSH_CONNECTION': '131.215.250.32 50025 131.215.148.23 22', 'XDG_DATA_DIRS': '/home/aypan/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share', 'SLURM_JOB_NUM_NODES': '1', 'MODULESHOME': '/software/Modules', 'LESSOPEN': '||/usr/bin/lesspipe.sh %s', 'CONDA_DEFAULT_ENV': 'base', 'XDG_RUNTIME_DIR': '/run/user/8901', 'CC': 'gcc', 'BASH_FUNC_module()': '() {  eval `/software/Modules/bin/modulecmd bash $*`\n}', '_': '/home/aypan/miniconda3/bin/python3', 'MASTER_ADDR': '127.0.0.1', 'MASTER_PORT': '29500', 'WORLD_SIZE': '4', 'OMP_NUM_THREADS': '1', 'RANK': '1', 'LOCAL_RANK': '1'})
+0 - SLURM_JOB_ID: 10968144
+0 - SLURM_JOB_NODELIST: hpc-25-17
+0 - SLURM_JOB_NUM_NODES: 1
+0 - SLURM_NTASKS: 1
+0 - SLURM_TASKS_PER_NODE: 4
+0 - SLURM_MEM_PER_NODE: None
+0 - SLURM_MEM_PER_CPU: 4096
+0 - SLURM_NODEID: 0
+0 - SLURM_PROCID: 0
+0 - SLURM_LOCALID: 0
+0 - SLURM_TASK_PID: 27506
+SLURM job: True
+environ({'SLURM_NODELIST': 'hpc-25-17', 'SLURM_JOB_NAME': 'lstm-transformer-noinit', 'MANPATH': '/software/gcc/6.4.0/share/man:/central/software/CUDA/10.2/doc/man:/central/slurm/install/current/share/man/:/usr/local/share/man:/usr/share/man/overrides:/usr/share/man:/opt/ibutils/share/man:/cm/local/apps/environment-modules/current/share/man', 'GCC_HOME': '/software/gcc/6.4.0', 'XDG_SESSION_ID': '326589', 'SLURMD_NODENAME': 'hpc-25-17', 'SLURM_TOPOLOGY_ADDR': 'hpc-25-17', 'HOSTNAME': 'hpc-25-17', 'SLURM_PRIO_PROCESS': '0', 'SLURM_NODE_ALIASES': '(null)', 'SHELL': '/bin/bash', 'TERM': 'xterm-256color', 'SLURM_JOB_QOS': 'normal', 'HISTSIZE': '1000', 'TMPDIR': '/tmp', 'SLURM_TOPOLOGY_ADDR_PATTERN': 'node', 'SSH_CLIENT': '131.215.250.32 50025 22', 'CONDA_SHLVL': '1', 'LIBRARY_PATH': '/software/gcc/6.4.0/lib64:/central/software/CUDA/10.2/lib64', 'CONDA_PROMPT_MODIFIER': '(base) ', 'QTDIR': '/usr/lib64/qt-3.3', 'SLURM_JOB_GPUS': '0,1,2,3', 'QTINC': '/usr/lib64/qt-3.3/include', 'SSH_TTY': '/dev/pts/143', 'SLURM_MEM_PER_CPU': '4096', 'QT_GRAPHICSSYSTEM_CHECKED': '1', 'ROCR_VISIBLE_DEVICES': '0,1,2,3', 'SLURM_NNODES': '1', 'USER': 'aypan', 'CUDA_HOME': '/central/software/CUDA/10.2', 'LS_COLORS': 'rs=0:di=38;5;27:ln=38;5;51:mh=44;38;5;15:pi=40;38;5;11:so=38;5;13:do=38;5;5:bd=48;5;232;38;5;11:cd=48;5;232;38;5;3:or=48;5;232;38;5;9:mi=05;48;5;232;38;5;15:su=48;5;196;38;5;15:sg=48;5;11;38;5;16:ca=48;5;196;38;5;226:tw=48;5;10;38;5;16:ow=48;5;10;38;5;21:st=48;5;21;38;5;15:ex=38;5;34:*.tar=38;5;9:*.tgz=38;5;9:*.arc=38;5;9:*.arj=38;5;9:*.taz=38;5;9:*.lha=38;5;9:*.lz4=38;5;9:*.lzh=38;5;9:*.lzma=38;5;9:*.tlz=38;5;9:*.txz=38;5;9:*.tzo=38;5;9:*.t7z=38;5;9:*.zip=38;5;9:*.z=38;5;9:*.Z=38;5;9:*.dz=38;5;9:*.gz=38;5;9:*.lrz=38;5;9:*.lz=38;5;9:*.lzo=38;5;9:*.xz=38;5;9:*.bz2=38;5;9:*.bz=38;5;9:*.tbz=38;5;9:*.tbz2=38;5;9:*.tz=38;5;9:*.deb=38;5;9:*.rpm=38;5;9:*.jar=38;5;9:*.war=38;5;9:*.ear=38;5;9:*.sar=38;5;9:*.rar=38;5;9:*.alz=38;5;9:*.ace=38;5;9:*.zoo=38;5;9:*.cpio=38;5;9:*.7z=38;5;9:*.rz=38;5;9:*.cab=38;5;9:*.jpg=38;5;13:*.jpeg=38;5;13:*.gif=38;5;13:*.bmp=38;5;13:*.pbm=38;5;13:*.pgm=38;5;13:*.ppm=38;5;13:*.tga=38;5;13:*.xbm=38;5;13:*.xpm=38;5;13:*.tif=38;5;13:*.tiff=38;5;13:*.png=38;5;13:*.svg=38;5;13:*.svgz=38;5;13:*.mng=38;5;13:*.pcx=38;5;13:*.mov=38;5;13:*.mpg=38;5;13:*.mpeg=38;5;13:*.m2v=38;5;13:*.mkv=38;5;13:*.webm=38;5;13:*.ogm=38;5;13:*.mp4=38;5;13:*.m4v=38;5;13:*.mp4v=38;5;13:*.vob=38;5;13:*.qt=38;5;13:*.nuv=38;5;13:*.wmv=38;5;13:*.asf=38;5;13:*.rm=38;5;13:*.rmvb=38;5;13:*.flc=38;5;13:*.avi=38;5;13:*.fli=38;5;13:*.flv=38;5;13:*.gl=38;5;13:*.dl=38;5;13:*.xcf=38;5;13:*.xwd=38;5;13:*.yuv=38;5;13:*.cgm=38;5;13:*.emf=38;5;13:*.axv=38;5;13:*.anx=38;5;13:*.ogv=38;5;13:*.ogx=38;5;13:*.aac=38;5;45:*.au=38;5;45:*.flac=38;5;45:*.mid=38;5;45:*.midi=38;5;45:*.mka=38;5;45:*.mp3=38;5;45:*.mpc=38;5;45:*.ogg=38;5;45:*.ra=38;5;45:*.wav=38;5;45:*.axa=38;5;45:*.oga=38;5;45:*.spx=38;5;45:*.xspf=38;5;45:', 'LD_LIBRARY_PATH': '/software/gcc/6.4.0/lib64:/central/software/CUDA/10.2/lib64', 'CONDA_EXE': '/home/aypan/miniconda3/bin/conda', 'SLURM_JOBID': '10968144', 'CPATH': '/software/gcc/6.4.0/include', 'SLURM_NTASKS': '1', 'GCC_VERSION': '6.4.0', '_CE_CONDA': '', 'SLURM_TASKS_PER_NODE': '4', 'PATH': '/software/gcc/6.4.0/bin:/central/software/CUDA/10.2/bin:/home/aypan/miniconda3/bin:/home/aypan/miniconda3/condabin:/central/slurm/install/current/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/usr/lpp/mmfs/bin:/opt/ibutils/bin:/opt/dell/srvadmin/bin:/home/aypan/.local/bin:/home/aypan/bin', 'MAIL': '/var/spool/mail/aypan', 'SLURM_WORKING_CLUSTER': 'central:head1:6817:8960:101', 'SLURM_CONF': '/central/slurm/etc/slurm.conf', 'SLURM_JOB_ID': '10968144', 'CONDA_PREFIX': '/home/aypan/miniconda3', 'LD_RUN_PATH': '/software/gcc/6.4.0/lib64:/central/software/CUDA/10.2/lib64', 'SLURM_JOB_USER': 'aypan', 'PWD': '/home/aypan/enc_dec', 'F90': 'gfortran', 'CUDA_VISIBLE_DEVICES': '0,1,2,3', '_LMFILES_': '/software/Modules/modulefiles/libraries/cuda/10.2:/software/Modules/modulefiles/compilers/gcc/6.4.0', 'LANG': 'C.UTF-8', 'MODULEPATH': '/software/Modules/modulefiles/biology:/software/Modules/modulefiles/chemistry:/software/Modules/modulefiles/compilers:/software/Modules/modulefiles/data:/software/Modules/modulefiles/debuggers:/software/Modules/modulefiles/developement:/software/Modules/modulefiles/geo:/software/Modules/modulefiles/languages:/software/Modules/modulefiles/libraries:/software/Modules/modulefiles/math:/software/Modules/modulefiles/misc:/software/Modules/modulefiles/mpi:/software/Modules/modulefiles/profilers:/software/Modules/modulefiles/tools:/software/Modules/modulefiles/visualization:/software/Modules/modulefiles/testing:/software/Modules/modulefiles/cloud:/software/Modules/modulefiles/groups', 'SLURM_JOB_UID': '8901', 'LOADEDMODULES': 'cuda/10.2:gcc/6.4.0', 'SLURM_NODEID': '0', 'SLURM_SUBMIT_DIR': '/central/home/aypan/enc_dec', 'CUDA_VERSION': '10.2', 'F77': 'gfortran', 'SLURM_TASK_PID': '27506', 'SLURM_NPROCS': '1', 'SLURM_CPUS_ON_NODE': '4', 'SLURM_PROCID': '0', 'ENVIRONMENT': 'BATCH', 'HISTCONTROL': 'ignoredups', 'SSH_ASKPASS': '/usr/libexec/openssh/gnome-ssh-askpass', '_CE_M': '', 'CXX': 'g++', 'SLURM_JOB_NODELIST': 'hpc-25-17', 'HOME': '/home/aypan', 'SHLVL': '2', 'SLURM_LOCALID': '0', 'NGPU': '4', 'SLURM_JOB_GID': '105', 'SLURM_JOB_CPUS_PER_NODE': '4', 'SLURM_CLUSTER_NAME': 'central', 'SLURM_GTIDS': '0', 'SLURM_SUBMIT_HOST': 'login2', 'SLURM_JOB_PARTITION': 'tensortest', 'LOGNAME': 'aypan', 'CONDA_PYTHON_EXE': '/home/aypan/miniconda3/bin/python', 'QTLIB': '/usr/lib64/qt-3.3/lib', 'GPU_DEVICE_ORDINAL': '0,1,2,3', 'SLURM_JOB_ACCOUNT': 'tensorlab', 'SSH_CONNECTION': '131.215.250.32 50025 131.215.148.23 22', 'XDG_DATA_DIRS': '/home/aypan/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share', 'SLURM_JOB_NUM_NODES': '1', 'MODULESHOME': '/software/Modules', 'LESSOPEN': '||/usr/bin/lesspipe.sh %s', 'CONDA_DEFAULT_ENV': 'base', 'XDG_RUNTIME_DIR': '/run/user/8901', 'CC': 'gcc', 'BASH_FUNC_module()': '() {  eval `/software/Modules/bin/modulecmd bash $*`\n}', '_': '/home/aypan/miniconda3/bin/python3', 'MASTER_ADDR': '127.0.0.1', 'MASTER_PORT': '29500', 'WORLD_SIZE': '4', 'OMP_NUM_THREADS': '1', 'RANK': '0', 'LOCAL_RANK': '0'})
+0 - SLURM_JOB_ID: 10968144
+0 - SLURM_JOB_NODELIST: hpc-25-17
+0 - SLURM_JOB_NUM_NODES: 1
+0 - SLURM_NTASKS: 1
+0 - SLURM_TASKS_PER_NODE: 4
+0 - SLURM_MEM_PER_NODE: None
+0 - SLURM_MEM_PER_CPU: 4096
+0 - SLURM_NODEID: 0
+0 - SLURM_PROCID: 0
+0 - SLURM_LOCALID: 0
+0 - SLURM_TASK_PID: 27506
+0 - Master address: 127.0.0.1
+0 - Master port   : 29500
+3 - Number of nodes: 1
+3 - Node ID					   : 0
+3 - Local rank				   : 3
+3 - Global rank    : 3
+3 - World size				   : 4
+3 - GPUs per node  : 4
+3 - Master					   : False
+3 - Multi-node				   : False
+3 - Multi-GPU				   : True
+3 - Hostname				   : hpc-25-17.cm.cluster
+Initializing PyTorch distributed ...
+0 - Master address: 127.0.0.1
+0 - Master port   : 29500
+2 - Number of nodes: 1
+2 - Node ID					   : 0
+2 - Local rank				   : 2
+2 - Global rank    : 2
+2 - World size				   : 4
+2 - GPUs per node  : 4
+2 - Master					   : False
+2 - Multi-node				   : False
+2 - Multi-GPU				   : True
+2 - Hostname				   : hpc-25-17.cm.cluster
+0 - Master address: 127.0.0.1
+0 - Master port   : 29500
+1 - Number of nodes: 1
+1 - Node ID					   : 0
+1 - Local rank				   : 1
+1 - Global rank    : 1
+1 - World size				   : 4
+1 - GPUs per node  : 4
+1 - Master					   : False
+1 - Multi-node				   : False
+1 - Multi-GPU				   : True
+1 - Hostname				   : hpc-25-17.cm.cluster
+Initializing PyTorch distributed ...
+0 - Master address: 127.0.0.1
+0 - Master port   : 29500
+0 - Number of nodes: 1
+0 - Node ID					   : 0
+0 - Local rank				   : 0
+0 - Global rank    : 0
+0 - World size				   : 4
+0 - GPUs per node  : 4
+0 - Master					   : True
+0 - Multi-node				   : False
+0 - Multi-GPU				   : True
+0 - Hostname				   : hpc-25-17.cm.cluster
+Initializing PyTorch distributed ...
+Initializing PyTorch distributed ...
+INFO - 08/17/20 14:41:14 - 0:00:00 - ============ Initialized logger ============
+INFO - 08/17/20 14:41:14 - 0:00:00 - ============ Initialized logger ============
+INFO - 08/17/20 14:41:14 - 0:00:00 - accumulate_gradients: 1
+                                     amp: 2
+                                     attention_dropout: 0
+                                     balanced: False
+                                     batch_size: 32
+                                     beam_early_stopping: True
+                                     beam_eval: False
+                                     beam_length_penalty: 1
+                                     beam_size: 1
+                                     clean_prefix_expr: True
+                                     clip_grad_norm: 5
+                                     command: python main.py --local_rank=3 --exp_name treelstm_noinit --fp16 true --amp 2 --master_port 8888 --tasks ode2 --reload_data 'ode2,ode2.train,ode2.valid,ode2.test' --reload_size 100 --emb_dim 256 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --treelstm --symmetric --num_bit 10 --optimizer 'adam,lr=0.0001' --batch_size 32 --epoch_size 100 --max_epoch 10 --validation_metrics valid_ode2_acc --exp_id "10968144"
+                                     cpu: False
+                                     debug: False
+                                     debug_slurm: False
+                                     dropout: 0.1
+                                     dump_path: ./dumped/treelstm_noinit/10968144
+                                     emb_dim: 256
+                                     env_base_seed: 0
+                                     env_name: char_sp
+                                     epoch_size: 100
+                                     eval_only: False
+                                     eval_verbose: 0
+                                     eval_verbose_print: False
+                                     exp_id: 10968144
+                                     exp_name: treelstm_noinit
+                                     export_data: False
+                                     fp16: True
+                                     global_rank: 3
+                                     int_base: 10
+                                     is_master: False
+                                     is_slurm_job: True
+                                     leaf_probs: 0.75,0,0.25,0
+                                     local_rank: 3
+                                     master_addr: 127.0.0.1
+                                     master_port: 29500
+                                     max_epoch: 10
+                                     max_int: 10000
+                                     max_len: 512
+                                     max_ops: 10
+                                     max_ops_G: 4
+                                     multi_gpu: True
+                                     multi_node: False
+                                     n_coefficients: 0
+                                     n_dec_layers: 6
+                                     n_enc_layers: 4
+                                     n_gpu_per_node: 4
+                                     n_heads: 8
+                                     n_nodes: 1
+                                     n_variables: 1
+                                     node_id: 0
+                                     num_bit: 10
+                                     num_workers: 10
+                                     operators: add:2,sub:1
+                                     optimizer: adam,lr=0.0001
+                                     order: 1
+                                     positive: False
+                                     precision: 10
+                                     reload_checkpoint: 
+                                     reload_data: ode2,ode2.train,ode2.valid,ode2.test
+                                     reload_model: 
+                                     reload_size: 100
+                                     rewrite_functions: 
+                                     same_nb_ops_per_batch: False
+                                     save_periodic: 0
+                                     share_inout_emb: True
+                                     sinusoidal_embeddings: False
+                                     stopping_criterion: 
+                                     symmetric: True
+                                     tasks: ode2
+                                     treelstm: True
+                                     validation_metrics: valid_ode2_acc
+                                     vars: 1
+                                     world_size: 4
+INFO - 08/17/20 14:41:14 - 0:00:00 - The experiment will be stored in ./dumped/treelstm_noinit/10968144
+                                     
+INFO - 08/17/20 14:41:14 - 0:00:00 - ============ Initialized logger ============
+INFO - 08/17/20 14:41:14 - 0:00:00 - Running command: python main.py --local_rank=3 --exp_name treelstm_noinit --fp16 true --amp 2 --master_port 8888 --tasks ode2 --reload_data 'ode2,ode2.train,ode2.valid,ode2.test' --reload_size 100 --emb_dim 256 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --treelstm --symmetric --num_bit 10 --optimizer 'adam,lr=0.0001' --batch_size 32 --epoch_size 100 --max_epoch 10 --validation_metrics valid_ode2_acc
+
+WARNING - 08/17/20 14:41:14 - 0:00:00 - Signal handler installed.
+INFO - 08/17/20 14:41:14 - 0:00:00 - Unary operators: []
+INFO - 08/17/20 14:41:14 - 0:00:00 - Binary operators: ['add', 'sub']
+INFO - 08/17/20 14:41:14 - 0:00:00 - ============ Initialized logger ============
+INFO - 08/17/20 14:41:14 - 0:00:00 - words: {'<s>': 0, '</s>': 1, '<pad>': 2, '(': 3, ')': 4, '<SPECIAL_5>': 5, '<SPECIAL_6>': 6, '<SPECIAL_7>': 7, '<SPECIAL_8>': 8, '<SPECIAL_9>': 9, 'pi': 10, 'E': 11, 'x': 12, 'y': 13, 'z': 14, 't': 15, 'a0': 16, 'a1': 17, 'a2': 18, 'a3': 19, 'a4': 20, 'a5': 21, 'a6': 22, 'a7': 23, 'a8': 24, 'a9': 25, 'abs': 26, 'acos': 27, 'acosh': 28, 'acot': 29, 'acoth': 30, 'acsc': 31, 'acsch': 32, 'add': 33, 'asec': 34, 'asech': 35, 'asin': 36, 'asinh': 37, 'atan': 38, 'atanh': 39, 'cos': 40, 'cosh': 41, 'cot': 42, 'coth': 43, 'csc': 44, 'csch': 45, 'derivative': 46, 'div': 47, 'exp': 48, 'f': 49, 'g': 50, 'h': 51, 'inv': 52, 'ln': 53, 'mul': 54, 'pow': 55, 'pow2': 56, 'pow3': 57, 'pow4': 58, 'pow5': 59, 'rac': 60, 'sec': 61, 'sech': 62, 'sign': 63, 'sin': 64, 'sinh': 65, 'sqrt': 66, 'sub': 67, 'tan': 68, 'tanh': 69, 'I': 70, 'INT+': 71, 'INT-': 72, 'INT': 73, 'FLOAT': 74, '-': 75, '.': 76, '10^': 77, 'Y': 78, "Y'": 79, "Y''": 80, '0': 81, '1': 82, '2': 83, '3': 84, '4': 85, '5': 86, '6': 87, '7': 88, '8': 89, '9': 90}
+INFO - 08/17/20 14:41:14 - 0:00:00 - 20001 possible leaves.
+INFO - 08/17/20 14:41:14 - 0:00:00 - Checking expressions in [0.01, 0.1, 0.3, 0.5, 0.7, 0.9, 1.1, 2.1, 3.1, -0.01, -0.1, -0.3, -0.5, -0.7, -0.9, -1.1, -2.1, -3.1]
+INFO - 08/17/20 14:41:14 - 0:00:00 - Training tasks: ode2
+INFO - 08/17/20 14:41:14 - 0:00:00 - accumulate_gradients: 1
+                                     amp: 2
+                                     attention_dropout: 0
+                                     balanced: False
+                                     batch_size: 32
+                                     beam_early_stopping: True
+                                     beam_eval: False
+                                     beam_length_penalty: 1
+                                     beam_size: 1
+                                     clean_prefix_expr: True
+                                     clip_grad_norm: 5
+                                     command: python main.py --local_rank=0 --exp_name treelstm_noinit --fp16 true --amp 2 --master_port 8888 --tasks ode2 --reload_data 'ode2,ode2.train,ode2.valid,ode2.test' --reload_size 100 --emb_dim 256 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --treelstm --symmetric --num_bit 10 --optimizer 'adam,lr=0.0001' --batch_size 32 --epoch_size 100 --max_epoch 10 --validation_metrics valid_ode2_acc --exp_id "10968144"
+                                     cpu: False
+                                     debug: False
+                                     debug_slurm: False
+                                     dropout: 0.1
+                                     dump_path: ./dumped/treelstm_noinit/10968144
+                                     emb_dim: 256
+                                     env_base_seed: 0
+                                     env_name: char_sp
+                                     epoch_size: 100
+                                     eval_only: False
+                                     eval_verbose: 0
+                                     eval_verbose_print: False
+                                     exp_id: 10968144
+                                     exp_name: treelstm_noinit
+                                     export_data: False
+                                     fp16: True
+                                     global_rank: 0
+                                     int_base: 10
+                                     is_master: True
+                                     is_slurm_job: True
+                                     leaf_probs: 0.75,0,0.25,0
+                                     local_rank: 0
+                                     master_addr: 127.0.0.1
+                                     master_port: 29500
+                                     max_epoch: 10
+                                     max_int: 10000
+                                     max_len: 512
+                                     max_ops: 10
+                                     max_ops_G: 4
+                                     multi_gpu: True
+                                     multi_node: False
+                                     n_coefficients: 0
+                                     n_dec_layers: 6
+                                     n_enc_layers: 4
+                                     n_gpu_per_node: 4
+                                     n_heads: 8
+                                     n_nodes: 1
+                                     n_variables: 1
+                                     node_id: 0
+                                     num_bit: 10
+                                     num_workers: 10
+                                     operators: add:2,sub:1
+                                     optimizer: adam,lr=0.0001
+                                     order: 1
+                                     positive: False
+                                     precision: 10
+                                     reload_checkpoint: 
+                                     reload_data: ode2,ode2.train,ode2.valid,ode2.test
+                                     reload_model: 
+                                     reload_size: 100
+                                     rewrite_functions: 
+                                     same_nb_ops_per_batch: False
+                                     save_periodic: 0
+                                     share_inout_emb: True
+                                     sinusoidal_embeddings: False
+                                     stopping_criterion: 
+                                     symmetric: True
+                                     tasks: ode2
+                                     treelstm: True
+                                     validation_metrics: valid_ode2_acc
+                                     vars: 1
+                                     world_size: 4
+INFO - 08/17/20 14:41:14 - 0:00:00 - The experiment will be stored in ./dumped/treelstm_noinit/10968144
+                                     
+INFO - 08/17/20 14:41:14 - 0:00:00 - Running command: python main.py --local_rank=0 --exp_name treelstm_noinit --fp16 true --amp 2 --master_port 8888 --tasks ode2 --reload_data 'ode2,ode2.train,ode2.valid,ode2.test' --reload_size 100 --emb_dim 256 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --treelstm --symmetric --num_bit 10 --optimizer 'adam,lr=0.0001' --batch_size 32 --epoch_size 100 --max_epoch 10 --validation_metrics valid_ode2_acc
+
+WARNING - 08/17/20 14:41:14 - 0:00:00 - Signal handler installed.
+INFO - 08/17/20 14:41:14 - 0:00:00 - Unary operators: []
+INFO - 08/17/20 14:41:14 - 0:00:00 - Binary operators: ['add', 'sub']
+INFO - 08/17/20 14:41:14 - 0:00:00 - words: {'<s>': 0, '</s>': 1, '<pad>': 2, '(': 3, ')': 4, '<SPECIAL_5>': 5, '<SPECIAL_6>': 6, '<SPECIAL_7>': 7, '<SPECIAL_8>': 8, '<SPECIAL_9>': 9, 'pi': 10, 'E': 11, 'x': 12, 'y': 13, 'z': 14, 't': 15, 'a0': 16, 'a1': 17, 'a2': 18, 'a3': 19, 'a4': 20, 'a5': 21, 'a6': 22, 'a7': 23, 'a8': 24, 'a9': 25, 'abs': 26, 'acos': 27, 'acosh': 28, 'acot': 29, 'acoth': 30, 'acsc': 31, 'acsch': 32, 'add': 33, 'asec': 34, 'asech': 35, 'asin': 36, 'asinh': 37, 'atan': 38, 'atanh': 39, 'cos': 40, 'cosh': 41, 'cot': 42, 'coth': 43, 'csc': 44, 'csch': 45, 'derivative': 46, 'div': 47, 'exp': 48, 'f': 49, 'g': 50, 'h': 51, 'inv': 52, 'ln': 53, 'mul': 54, 'pow': 55, 'pow2': 56, 'pow3': 57, 'pow4': 58, 'pow5': 59, 'rac': 60, 'sec': 61, 'sech': 62, 'sign': 63, 'sin': 64, 'sinh': 65, 'sqrt': 66, 'sub': 67, 'tan': 68, 'tanh': 69, 'I': 70, 'INT+': 71, 'INT-': 72, 'INT': 73, 'FLOAT': 74, '-': 75, '.': 76, '10^': 77, 'Y': 78, "Y'": 79, "Y''": 80, '0': 81, '1': 82, '2': 83, '3': 84, '4': 85, '5': 86, '6': 87, '7': 88, '8': 89, '9': 90}
+INFO - 08/17/20 14:41:14 - 0:00:00 - 20001 possible leaves.
+INFO - 08/17/20 14:41:14 - 0:00:00 - Checking expressions in [0.01, 0.1, 0.3, 0.5, 0.7, 0.9, 1.1, 2.1, 3.1, -0.01, -0.1, -0.3, -0.5, -0.7, -0.9, -1.1, -2.1, -3.1]
+INFO - 08/17/20 14:41:14 - 0:00:00 - Training tasks: ode2
+INFO - 08/17/20 14:41:14 - 0:00:00 - accumulate_gradients: 1
+                                     amp: 2
+                                     attention_dropout: 0
+                                     balanced: False
+                                     batch_size: 32
+                                     beam_early_stopping: True
+                                     beam_eval: False
+                                     beam_length_penalty: 1
+                                     beam_size: 1
+                                     clean_prefix_expr: True
+                                     clip_grad_norm: 5
+                                     command: python main.py --local_rank=1 --exp_name treelstm_noinit --fp16 true --amp 2 --master_port 8888 --tasks ode2 --reload_data 'ode2,ode2.train,ode2.valid,ode2.test' --reload_size 100 --emb_dim 256 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --treelstm --symmetric --num_bit 10 --optimizer 'adam,lr=0.0001' --batch_size 32 --epoch_size 100 --max_epoch 10 --validation_metrics valid_ode2_acc --exp_id "10968144"
+                                     cpu: False
+                                     debug: False
+                                     debug_slurm: False
+                                     dropout: 0.1
+                                     dump_path: ./dumped/treelstm_noinit/10968144
+                                     emb_dim: 256
+                                     env_base_seed: 0
+                                     env_name: char_sp
+                                     epoch_size: 100
+                                     eval_only: False
+                                     eval_verbose: 0
+                                     eval_verbose_print: False
+                                     exp_id: 10968144
+                                     exp_name: treelstm_noinit
+                                     export_data: False
+                                     fp16: True
+                                     global_rank: 1
+                                     int_base: 10
+                                     is_master: False
+                                     is_slurm_job: True
+                                     leaf_probs: 0.75,0,0.25,0
+                                     local_rank: 1
+                                     master_addr: 127.0.0.1
+                                     master_port: 29500
+                                     max_epoch: 10
+                                     max_int: 10000
+                                     max_len: 512
+                                     max_ops: 10
+                                     max_ops_G: 4
+                                     multi_gpu: True
+                                     multi_node: False
+                                     n_coefficients: 0
+                                     n_dec_layers: 6
+                                     n_enc_layers: 4
+                                     n_gpu_per_node: 4
+                                     n_heads: 8
+                                     n_nodes: 1
+                                     n_variables: 1
+                                     node_id: 0
+                                     num_bit: 10
+                                     num_workers: 10
+                                     operators: add:2,sub:1
+                                     optimizer: adam,lr=0.0001
+                                     order: 1
+                                     positive: False
+                                     precision: 10
+                                     reload_checkpoint: 
+                                     reload_data: ode2,ode2.train,ode2.valid,ode2.test
+                                     reload_model: 
+                                     reload_size: 100
+                                     rewrite_functions: 
+                                     same_nb_ops_per_batch: False
+                                     save_periodic: 0
+                                     share_inout_emb: True
+                                     sinusoidal_embeddings: False
+                                     stopping_criterion: 
+                                     symmetric: True
+                                     tasks: ode2
+                                     treelstm: True
+                                     validation_metrics: valid_ode2_acc
+                                     vars: 1
+                                     world_size: 4
+INFO - 08/17/20 14:41:14 - 0:00:00 - The experiment will be stored in ./dumped/treelstm_noinit/10968144
+                                     
+INFO - 08/17/20 14:41:14 - 0:00:00 - Running command: python main.py --local_rank=1 --exp_name treelstm_noinit --fp16 true --amp 2 --master_port 8888 --tasks ode2 --reload_data 'ode2,ode2.train,ode2.valid,ode2.test' --reload_size 100 --emb_dim 256 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --treelstm --symmetric --num_bit 10 --optimizer 'adam,lr=0.0001' --batch_size 32 --epoch_size 100 --max_epoch 10 --validation_metrics valid_ode2_acc
+
+WARNING - 08/17/20 14:41:14 - 0:00:00 - Signal handler installed.
+INFO - 08/17/20 14:41:14 - 0:00:00 - Unary operators: []
+INFO - 08/17/20 14:41:14 - 0:00:00 - Binary operators: ['add', 'sub']
+INFO - 08/17/20 14:41:14 - 0:00:00 - words: {'<s>': 0, '</s>': 1, '<pad>': 2, '(': 3, ')': 4, '<SPECIAL_5>': 5, '<SPECIAL_6>': 6, '<SPECIAL_7>': 7, '<SPECIAL_8>': 8, '<SPECIAL_9>': 9, 'pi': 10, 'E': 11, 'x': 12, 'y': 13, 'z': 14, 't': 15, 'a0': 16, 'a1': 17, 'a2': 18, 'a3': 19, 'a4': 20, 'a5': 21, 'a6': 22, 'a7': 23, 'a8': 24, 'a9': 25, 'abs': 26, 'acos': 27, 'acosh': 28, 'acot': 29, 'acoth': 30, 'acsc': 31, 'acsch': 32, 'add': 33, 'asec': 34, 'asech': 35, 'asin': 36, 'asinh': 37, 'atan': 38, 'atanh': 39, 'cos': 40, 'cosh': 41, 'cot': 42, 'coth': 43, 'csc': 44, 'csch': 45, 'derivative': 46, 'div': 47, 'exp': 48, 'f': 49, 'g': 50, 'h': 51, 'inv': 52, 'ln': 53, 'mul': 54, 'pow': 55, 'pow2': 56, 'pow3': 57, 'pow4': 58, 'pow5': 59, 'rac': 60, 'sec': 61, 'sech': 62, 'sign': 63, 'sin': 64, 'sinh': 65, 'sqrt': 66, 'sub': 67, 'tan': 68, 'tanh': 69, 'I': 70, 'INT+': 71, 'INT-': 72, 'INT': 73, 'FLOAT': 74, '-': 75, '.': 76, '10^': 77, 'Y': 78, "Y'": 79, "Y''": 80, '0': 81, '1': 82, '2': 83, '3': 84, '4': 85, '5': 86, '6': 87, '7': 88, '8': 89, '9': 90}
+INFO - 08/17/20 14:41:14 - 0:00:00 - 20001 possible leaves.
+INFO - 08/17/20 14:41:14 - 0:00:00 - Checking expressions in [0.01, 0.1, 0.3, 0.5, 0.7, 0.9, 1.1, 2.1, 3.1, -0.01, -0.1, -0.3, -0.5, -0.7, -0.9, -1.1, -2.1, -3.1]
+INFO - 08/17/20 14:41:14 - 0:00:00 - Training tasks: ode2
+INFO - 08/17/20 14:41:14 - 0:00:00 - accumulate_gradients: 1
+                                     amp: 2
+                                     attention_dropout: 0
+                                     balanced: False
+                                     batch_size: 32
+                                     beam_early_stopping: True
+                                     beam_eval: False
+                                     beam_length_penalty: 1
+                                     beam_size: 1
+                                     clean_prefix_expr: True
+                                     clip_grad_norm: 5
+                                     command: python main.py --local_rank=2 --exp_name treelstm_noinit --fp16 true --amp 2 --master_port 8888 --tasks ode2 --reload_data 'ode2,ode2.train,ode2.valid,ode2.test' --reload_size 100 --emb_dim 256 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --treelstm --symmetric --num_bit 10 --optimizer 'adam,lr=0.0001' --batch_size 32 --epoch_size 100 --max_epoch 10 --validation_metrics valid_ode2_acc --exp_id "10968144"
+                                     cpu: False
+                                     debug: False
+                                     debug_slurm: False
+                                     dropout: 0.1
+                                     dump_path: ./dumped/treelstm_noinit/10968144
+                                     emb_dim: 256
+                                     env_base_seed: 0
+                                     env_name: char_sp
+                                     epoch_size: 100
+                                     eval_only: False
+                                     eval_verbose: 0
+                                     eval_verbose_print: False
+                                     exp_id: 10968144
+                                     exp_name: treelstm_noinit
+                                     export_data: False
+                                     fp16: True
+                                     global_rank: 2
+                                     int_base: 10
+                                     is_master: False
+                                     is_slurm_job: True
+                                     leaf_probs: 0.75,0,0.25,0
+                                     local_rank: 2
+                                     master_addr: 127.0.0.1
+                                     master_port: 29500
+                                     max_epoch: 10
+                                     max_int: 10000
+                                     max_len: 512
+                                     max_ops: 10
+                                     max_ops_G: 4
+                                     multi_gpu: True
+                                     multi_node: False
+                                     n_coefficients: 0
+                                     n_dec_layers: 6
+                                     n_enc_layers: 4
+                                     n_gpu_per_node: 4
+                                     n_heads: 8
+                                     n_nodes: 1
+                                     n_variables: 1
+                                     node_id: 0
+                                     num_bit: 10
+                                     num_workers: 10
+                                     operators: add:2,sub:1
+                                     optimizer: adam,lr=0.0001
+                                     order: 1
+                                     positive: False
+                                     precision: 10
+                                     reload_checkpoint: 
+                                     reload_data: ode2,ode2.train,ode2.valid,ode2.test
+                                     reload_model: 
+                                     reload_size: 100
+                                     rewrite_functions: 
+                                     same_nb_ops_per_batch: False
+                                     save_periodic: 0
+                                     share_inout_emb: True
+                                     sinusoidal_embeddings: False
+                                     stopping_criterion: 
+                                     symmetric: True
+                                     tasks: ode2
+                                     treelstm: True
+                                     validation_metrics: valid_ode2_acc
+                                     vars: 1
+                                     world_size: 4
+INFO - 08/17/20 14:41:14 - 0:00:00 - The experiment will be stored in ./dumped/treelstm_noinit/10968144
+                                     
+INFO - 08/17/20 14:41:14 - 0:00:00 - Running command: python main.py --local_rank=2 --exp_name treelstm_noinit --fp16 true --amp 2 --master_port 8888 --tasks ode2 --reload_data 'ode2,ode2.train,ode2.valid,ode2.test' --reload_size 100 --emb_dim 256 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --treelstm --symmetric --num_bit 10 --optimizer 'adam,lr=0.0001' --batch_size 32 --epoch_size 100 --max_epoch 10 --validation_metrics valid_ode2_acc
+
+WARNING - 08/17/20 14:41:14 - 0:00:00 - Signal handler installed.
+INFO - 08/17/20 14:41:14 - 0:00:00 - Unary operators: []
+INFO - 08/17/20 14:41:14 - 0:00:00 - Binary operators: ['add', 'sub']
+INFO - 08/17/20 14:41:14 - 0:00:00 - words: {'<s>': 0, '</s>': 1, '<pad>': 2, '(': 3, ')': 4, '<SPECIAL_5>': 5, '<SPECIAL_6>': 6, '<SPECIAL_7>': 7, '<SPECIAL_8>': 8, '<SPECIAL_9>': 9, 'pi': 10, 'E': 11, 'x': 12, 'y': 13, 'z': 14, 't': 15, 'a0': 16, 'a1': 17, 'a2': 18, 'a3': 19, 'a4': 20, 'a5': 21, 'a6': 22, 'a7': 23, 'a8': 24, 'a9': 25, 'abs': 26, 'acos': 27, 'acosh': 28, 'acot': 29, 'acoth': 30, 'acsc': 31, 'acsch': 32, 'add': 33, 'asec': 34, 'asech': 35, 'asin': 36, 'asinh': 37, 'atan': 38, 'atanh': 39, 'cos': 40, 'cosh': 41, 'cot': 42, 'coth': 43, 'csc': 44, 'csch': 45, 'derivative': 46, 'div': 47, 'exp': 48, 'f': 49, 'g': 50, 'h': 51, 'inv': 52, 'ln': 53, 'mul': 54, 'pow': 55, 'pow2': 56, 'pow3': 57, 'pow4': 58, 'pow5': 59, 'rac': 60, 'sec': 61, 'sech': 62, 'sign': 63, 'sin': 64, 'sinh': 65, 'sqrt': 66, 'sub': 67, 'tan': 68, 'tanh': 69, 'I': 70, 'INT+': 71, 'INT-': 72, 'INT': 73, 'FLOAT': 74, '-': 75, '.': 76, '10^': 77, 'Y': 78, "Y'": 79, "Y''": 80, '0': 81, '1': 82, '2': 83, '3': 84, '4': 85, '5': 86, '6': 87, '7': 88, '8': 89, '9': 90}
+INFO - 08/17/20 14:41:14 - 0:00:00 - 20001 possible leaves.
+INFO - 08/17/20 14:41:14 - 0:00:00 - Checking expressions in [0.01, 0.1, 0.3, 0.5, 0.7, 0.9, 1.1, 2.1, 3.1, -0.01, -0.1, -0.3, -0.5, -0.7, -0.9, -1.1, -2.1, -3.1]
+INFO - 08/17/20 14:41:14 - 0:00:00 - Training tasks: ode2
+INFO - 08/17/20 14:41:14 - 0:00:00 - Number of parameters (encoder): 14867712
+INFO - 08/17/20 14:41:14 - 0:00:00 - Number of parameters (decoder): 7393115
+INFO - 08/17/20 14:41:14 - 0:00:00 - Number of parameters (encoder): 14867712
+INFO - 08/17/20 14:41:14 - 0:00:00 - Number of parameters (decoder): 7393115
+INFO - 08/17/20 14:41:14 - 0:00:00 - Number of parameters (encoder): 14867712
+INFO - 08/17/20 14:41:14 - 0:00:00 - Number of parameters (decoder): 7393115
+INFO - 08/17/20 14:41:14 - 0:00:00 - Number of parameters (encoder): 14867712
+INFO - 08/17/20 14:41:14 - 0:00:00 - Number of parameters (decoder): 7393115
+INFO - 08/17/20 14:41:16 - 0:00:02 - Found 583 parameters in model.
+INFO - 08/17/20 14:41:16 - 0:00:02 - Found 583 parameters in model.
+INFO - 08/17/20 14:41:16 - 0:00:02 - Found 583 parameters in model.
+INFO - 08/17/20 14:41:16 - 0:00:02 - Found 583 parameters in model.
+INFO - 08/17/20 14:41:16 - 0:00:02 - Optimizers: model
+Traceback (most recent call last):
+  File "main.py", line 242, in <module>
+    main(params)
+  File "main.py", line 179, in main
+    trainer = Trainer(modules, env, params)
+  File "/central/home/aypan/enc_dec/src/trainer.py", line 68, in __init__
+    self.init_amp()
+  File "/central/home/aypan/enc_dec/src/trainer.py", line 178, in init_amp
+    opt_level=('O%i' % params.amp)
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/apex-0.1-py3.7-linux-x86_64.egg/apex/amp/frontend.py", line 358, in initialize
+    return _initialize(models, optimizers, _amp_state.opt_properties, num_losses, cast_model_outputs)
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/apex-0.1-py3.7-linux-x86_64.egg/apex/amp/_initialize.py", line 171, in _initialize
+INFO - 08/17/20 14:41:16 - 0:00:02 - Optimizers: model
+Traceback (most recent call last):
+  File "main.py", line 242, in <module>
+    main(params)
+  File "main.py", line 179, in main
+    trainer = Trainer(modules, env, params)
+  File "/central/home/aypan/enc_dec/src/trainer.py", line 68, in __init__
+    self.init_amp()
+  File "/central/home/aypan/enc_dec/src/trainer.py", line 178, in init_amp
+    opt_level=('O%i' % params.amp)
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/apex-0.1-py3.7-linux-x86_64.egg/apex/amp/frontend.py", line 358, in initialize
+    return _initialize(models, optimizers, _amp_state.opt_properties, num_losses, cast_model_outputs)
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/apex-0.1-py3.7-linux-x86_64.egg/apex/amp/_initialize.py", line 171, in _initialize
+INFO - 08/17/20 14:41:16 - 0:00:02 - Optimizers: model
+Selected optimization level O2:  FP16 training with FP32 batchnorm and FP32 master weights.
+
+Defaults for this optimization level are:
+enabled                : True
+opt_level              : O2
+cast_model_type        : torch.float16
+patch_torch_functions  : False
+keep_batchnorm_fp32    : True
+master_weights         : True
+loss_scale             : dynamic
+Processing user overrides (additional kwargs that are not None)...
+After processing overrides, optimization options are:
+enabled                : True
+opt_level              : O2
+cast_model_type        : torch.float16
+patch_torch_functions  : False
+keep_batchnorm_fp32    : True
+master_weights         : True
+loss_scale             : dynamic
+        check_params_fp32(models)check_params_fp32(models)
+
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/apex-0.1-py3.7-linux-x86_64.egg/apex/amp/_initialize.py", line 93, in check_params_fp32
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/apex-0.1-py3.7-linux-x86_64.egg/apex/amp/_initialize.py", line 93, in check_params_fp32
+        Traceback (most recent call last):
+name, param.type()))name, param.type()))  File "main.py", line 242, in <module>
+
+
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/apex-0.1-py3.7-linux-x86_64.egg/apex/amp/_amp_state.py", line 32, in warn_or_err
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/apex-0.1-py3.7-linux-x86_64.egg/apex/amp/_amp_state.py", line 32, in warn_or_err
+    raise RuntimeError(msg)
+RuntimeError: Found param Symbol.weight with type torch.FloatTensor, expected torch.cuda.FloatTensor.
+When using amp.initialize, you need to provide a model with parameters
+located on a CUDA device before passing it no matter what optimization level
+you chose. Use model.to('cuda') to use the default device.
+    main(params)
+  File "main.py", line 179, in main
+    raise RuntimeError(msg)
+RuntimeError: Found param Symbol.weight with type torch.FloatTensor, expected torch.cuda.FloatTensor.
+When using amp.initialize, you need to provide a model with parameters
+located on a CUDA device before passing it no matter what optimization level
+you chose. Use model.to('cuda') to use the default device.
+    trainer = Trainer(modules, env, params)
+  File "/central/home/aypan/enc_dec/src/trainer.py", line 68, in __init__
+    self.init_amp()
+  File "/central/home/aypan/enc_dec/src/trainer.py", line 178, in init_amp
+    opt_level=('O%i' % params.amp)
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/apex-0.1-py3.7-linux-x86_64.egg/apex/amp/frontend.py", line 358, in initialize
+    return _initialize(models, optimizers, _amp_state.opt_properties, num_losses, cast_model_outputs)
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/apex-0.1-py3.7-linux-x86_64.egg/apex/amp/_initialize.py", line 171, in _initialize
+    check_params_fp32(models)
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/apex-0.1-py3.7-linux-x86_64.egg/apex/amp/_initialize.py", line 93, in check_params_fp32
+    name, param.type()))
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/apex-0.1-py3.7-linux-x86_64.egg/apex/amp/_amp_state.py", line 32, in warn_or_err
+    raise RuntimeError(msg)
+RuntimeError: Found param Symbol.weight with type torch.FloatTensor, expected torch.cuda.FloatTensor.
+When using amp.initialize, you need to provide a model with parameters
+located on a CUDA device before passing it no matter what optimization level
+you chose. Use model.to('cuda') to use the default device.
+INFO - 08/17/20 14:41:16 - 0:00:02 - Optimizers: model
+Traceback (most recent call last):
+  File "main.py", line 242, in <module>
+    main(params)
+  File "main.py", line 179, in main
+    trainer = Trainer(modules, env, params)
+  File "/central/home/aypan/enc_dec/src/trainer.py", line 68, in __init__
+    self.init_amp()
+  File "/central/home/aypan/enc_dec/src/trainer.py", line 178, in init_amp
+    opt_level=('O%i' % params.amp)
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/apex-0.1-py3.7-linux-x86_64.egg/apex/amp/frontend.py", line 358, in initialize
+    return _initialize(models, optimizers, _amp_state.opt_properties, num_losses, cast_model_outputs)
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/apex-0.1-py3.7-linux-x86_64.egg/apex/amp/_initialize.py", line 171, in _initialize
+    check_params_fp32(models)
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/apex-0.1-py3.7-linux-x86_64.egg/apex/amp/_initialize.py", line 93, in check_params_fp32
+    name, param.type()))
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/apex-0.1-py3.7-linux-x86_64.egg/apex/amp/_amp_state.py", line 32, in warn_or_err
+    raise RuntimeError(msg)
+RuntimeError: Found param Symbol.weight with type torch.FloatTensor, expected torch.cuda.FloatTensor.
+When using amp.initialize, you need to provide a model with parameters
+located on a CUDA device before passing it no matter what optimization level
+you chose. Use model.to('cuda') to use the default device.
+Traceback (most recent call last):
+  File "/home/aypan/miniconda3/lib/python3.7/runpy.py", line 193, in _run_module_as_main
+    "__main__", mod_spec)
+  File "/home/aypan/miniconda3/lib/python3.7/runpy.py", line 85, in _run_code
+    exec(code, run_globals)
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/distributed/launch.py", line 263, in <module>
+    main()
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/distributed/launch.py", line 259, in main
+    cmd=cmd)
+subprocess.CalledProcessError: Command '['/home/aypan/miniconda3/bin/python3', '-u', 'main.py', '--local_rank=3', '--exp_name', 'treelstm_noinit', '--fp16', 'true', '--amp', '2', '--master_port', '8888', '--tasks', 'ode2', '--reload_data', 'ode2,ode2.train,ode2.valid,ode2.test', '--reload_size', '100', '--emb_dim', '256', '--n_dec_layers', '6', '--n_heads', '8', '--dropout', '0.1', '--treelstm', '--symmetric', '--num_bit', '10', '--optimizer', 'adam,lr=0.0001', '--batch_size', '32', '--epoch_size', '100', '--max_epoch', '10', '--validation_metrics', 'valid_ode2_acc']' returned non-zero exit status 1.
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+done

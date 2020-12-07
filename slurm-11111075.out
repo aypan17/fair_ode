@@ -1,0 +1,2708 @@
+0 - SLURM_JOB_ID: 11111075
+0 - SLURM_JOB_NODELIST: hpc-25-17
+0 - SLURM_JOB_NUM_NODES: 1
+0 - SLURM_NTASKS: 1
+0 - SLURM_TASKS_PER_NODE: 4
+0 - SLURM_MEM_PER_NODE: None
+0 - SLURM_MEM_PER_CPU: 4096
+0 - SLURM_NODEID: 0
+0 - SLURM_PROCID: 0
+0 - SLURM_LOCALID: 0
+0 - SLURM_TASK_PID: 15422
+0 - Master address: 127.0.0.1
+0 - Master port   : 29500
+0 - Number of nodes: 1
+0 - Node ID					   : 0
+0 - Local rank				   : 0
+0 - Global rank    : 0
+0 - World size				   : 1
+0 - GPUs per node  : 1
+0 - Master					   : True
+0 - Multi-node				   : False
+0 - Multi-GPU				   : False
+0 - Hostname				   : hpc-25-17.cm.cluster
+INFO - 08/29/20 10:45:34 - 0:00:00 - ============ Initialized logger ============
+INFO - 08/29/20 10:45:34 - 0:00:00 - accumulate_gradients: 1
+                                     amp: -1
+                                     attention_dropout: 0
+                                     balanced: False
+                                     batch_size: 32
+                                     beam_early_stopping: True
+                                     beam_eval: True
+                                     beam_length_penalty: 1.0
+                                     beam_size: 2
+                                     clean_prefix_expr: True
+                                     clip_grad_norm: 5
+                                     command: python main.py --local_rank=0 --exp_name treelstm_noparaminit_eval --eval_only true --reload_model 'dumped/treelstm_noinit/10976003/best-valid_ode2_acc.pth' --beam_eval true --beam_size 2 --beam_length_penalty '1.0' --beam_early_stopping 1 --eval_verbose 1 --eval_verbose_print false --emb_dim 256 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --treelstm --symmetric --num_bit 10 --optimizer 'adam,lr=0.0001' --batch_size 32 --tasks ode2 --reload_data 'ode2,ode2.train,ode2.valid,ode2.test' --exp_id "11111075"
+                                     cpu: False
+                                     debug: False
+                                     debug_slurm: False
+                                     dropout: 0.1
+                                     dump_path: ./dumped/treelstm_noparaminit_eval/11111075
+                                     emb_dim: 256
+                                     env_base_seed: 0
+                                     env_name: char_sp
+                                     epoch_size: 300000
+                                     eval_only: True
+                                     eval_verbose: 1
+                                     eval_verbose_print: False
+                                     exp_id: 11111075
+                                     exp_name: treelstm_noparaminit_eval
+                                     export_data: False
+                                     fp16: False
+                                     global_rank: 0
+                                     int_base: 10
+                                     is_master: True
+                                     is_slurm_job: True
+                                     leaf_probs: 0.75,0,0.25,0
+                                     local_rank: 0
+                                     master_addr: 127.0.0.1
+                                     master_port: 29500
+                                     max_epoch: 100000
+                                     max_int: 10000
+                                     max_len: 512
+                                     max_ops: 10
+                                     max_ops_G: 4
+                                     multi_gpu: False
+                                     multi_node: False
+                                     n_coefficients: 0
+                                     n_dec_layers: 6
+                                     n_enc_layers: 4
+                                     n_gpu_per_node: 1
+                                     n_heads: 8
+                                     n_nodes: 1
+                                     n_variables: 1
+                                     node_id: 0
+                                     num_bit: 10
+                                     num_workers: 10
+                                     operators: add:2,sub:1
+                                     optimizer: adam,lr=0.0001
+                                     order: 1
+                                     positive: False
+                                     precision: 10
+                                     reload_checkpoint: 
+                                     reload_data: ode2,ode2.train,ode2.valid,ode2.test
+                                     reload_model: dumped/treelstm_noinit/10976003/best-valid_ode2_acc.pth
+                                     reload_size: -1
+                                     rewrite_functions: 
+                                     same_nb_ops_per_batch: False
+                                     save_periodic: 0
+                                     share_inout_emb: True
+                                     sinusoidal_embeddings: False
+                                     stopping_criterion: 
+                                     symmetric: True
+                                     tasks: ode2
+                                     treelstm: True
+                                     validation_metrics: 
+                                     vars: 1
+                                     world_size: 1
+INFO - 08/29/20 10:45:34 - 0:00:00 - The experiment will be stored in ./dumped/treelstm_noparaminit_eval/11111075
+                                     
+INFO - 08/29/20 10:45:34 - 0:00:00 - Running command: python main.py --local_rank=0 --exp_name treelstm_noparaminit_eval --eval_only true --reload_model 'dumped/treelstm_noinit/10976003/best-valid_ode2_acc.pth' --beam_eval true --beam_size 2 --beam_length_penalty '1.0' --beam_early_stopping 1 --eval_verbose 1 --eval_verbose_print false --emb_dim 256 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --treelstm --symmetric --num_bit 10 --optimizer 'adam,lr=0.0001' --batch_size 32 --tasks ode2 --reload_data 'ode2,ode2.train,ode2.valid,ode2.test'
+
+WARNING - 08/29/20 10:45:34 - 0:00:00 - Signal handler installed.
+INFO - 08/29/20 10:45:34 - 0:00:00 - Unary operators: []
+INFO - 08/29/20 10:45:34 - 0:00:00 - Binary operators: ['add', 'sub']
+INFO - 08/29/20 10:45:34 - 0:00:00 - words: {'<s>': 0, '</s>': 1, '<pad>': 2, '(': 3, ')': 4, '<SPECIAL_5>': 5, '<SPECIAL_6>': 6, '<SPECIAL_7>': 7, '<SPECIAL_8>': 8, '<SPECIAL_9>': 9, 'pi': 10, 'E': 11, 'x': 12, 'y': 13, 'z': 14, 't': 15, 'a0': 16, 'a1': 17, 'a2': 18, 'a3': 19, 'a4': 20, 'a5': 21, 'a6': 22, 'a7': 23, 'a8': 24, 'a9': 25, 'abs': 26, 'acos': 27, 'acosh': 28, 'acot': 29, 'acoth': 30, 'acsc': 31, 'acsch': 32, 'add': 33, 'asec': 34, 'asech': 35, 'asin': 36, 'asinh': 37, 'atan': 38, 'atanh': 39, 'cos': 40, 'cosh': 41, 'cot': 42, 'coth': 43, 'csc': 44, 'csch': 45, 'derivative': 46, 'div': 47, 'exp': 48, 'f': 49, 'g': 50, 'h': 51, 'inv': 52, 'ln': 53, 'mul': 54, 'pow': 55, 'pow2': 56, 'pow3': 57, 'pow4': 58, 'pow5': 59, 'rac': 60, 'sec': 61, 'sech': 62, 'sign': 63, 'sin': 64, 'sinh': 65, 'sqrt': 66, 'sub': 67, 'tan': 68, 'tanh': 69, 'I': 70, 'INT+': 71, 'INT-': 72, 'INT': 73, 'FLOAT': 74, '-': 75, '.': 76, '10^': 77, 'Y': 78, "Y'": 79, "Y''": 80, '0': 81, '1': 82, '2': 83, '3': 84, '4': 85, '5': 86, '6': 87, '7': 88, '8': 89, '9': 90}
+INFO - 08/29/20 10:45:34 - 0:00:00 - 20001 possible leaves.
+INFO - 08/29/20 10:45:34 - 0:00:00 - Checking expressions in [0.01, 0.1, 0.3, 0.5, 0.7, 0.9, 1.1, 2.1, 3.1, -0.01, -0.1, -0.3, -0.5, -0.7, -0.9, -1.1, -2.1, -3.1]
+INFO - 08/29/20 10:45:34 - 0:00:00 - Training tasks: ode2
+INFO - 08/29/20 10:45:35 - 0:00:00 - Reloading modules from dumped/treelstm_noinit/10976003/best-valid_ode2_acc.pth ...
+INFO - 08/29/20 10:45:45 - 0:00:11 - Number of parameters (encoder): 14867712
+INFO - 08/29/20 10:45:45 - 0:00:11 - Number of parameters (decoder): 7393115
+INFO - 08/29/20 10:45:45 - 0:00:11 - Found 583 parameters in model.
+INFO - 08/29/20 10:45:45 - 0:00:11 - Optimizers: model
+INFO - 08/29/20 10:45:45 - 0:00:11 - Writing evaluation results in ./dumped/treelstm_noparaminit_eval/11111075/eval.ode2.0 ...
+INFO - 08/29/20 10:45:45 - 0:00:11 - Creating valid iterator for ode2 ...
+INFO - 08/29/20 10:45:45 - 0:00:11 - Loading data from ode2.valid ...
+INFO - 08/29/20 10:45:45 - 0:00:11 - Loaded 8941 equations from the disk.
+INFO - 08/29/20 10:45:48 - 0:00:14 - (32/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 10:45:48 - 0:00:14 - check hypothesis
+INFO - 08/29/20 10:46:50 - 0:01:16 - get results
+INFO - 08/29/20 10:46:50 - 0:01:16 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 10:46:51 - 0:01:17 - (64/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 10:46:52 - 0:01:17 - check hypothesis
+INFO - 08/29/20 10:47:56 - 0:02:22 - get results
+INFO - 08/29/20 10:47:56 - 0:02:22 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 10:47:57 - 0:02:23 - (95/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 10:47:57 - 0:02:23 - check hypothesis
+INFO - 08/29/20 10:49:01 - 0:03:27 - get results
+INFO - 08/29/20 10:49:01 - 0:03:27 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 10:49:02 - 0:03:28 - (127/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 10:49:02 - 0:03:28 - check hypothesis
+INFO - 08/29/20 10:50:02 - 0:04:28 - get results
+INFO - 08/29/20 10:50:02 - 0:04:28 - 	  Found 1/32 solutions in beam hypotheses.
+INFO - 08/29/20 10:50:03 - 0:04:29 - (159/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 10:50:04 - 0:04:30 - check hypothesis
+INFO - 08/29/20 10:51:03 - 0:05:29 - get results
+INFO - 08/29/20 10:51:03 - 0:05:29 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 10:51:04 - 0:05:30 - (191/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 10:51:05 - 0:05:31 - check hypothesis
+INFO - 08/29/20 10:52:12 - 0:06:38 - get results
+INFO - 08/29/20 10:52:12 - 0:06:38 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 10:52:14 - 0:06:39 - (223/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 10:52:14 - 0:06:40 - check hypothesis
+INFO - 08/29/20 10:53:19 - 0:07:45 - get results
+INFO - 08/29/20 10:53:19 - 0:07:45 - 	  Found 1/32 solutions in beam hypotheses.
+INFO - 08/29/20 10:53:20 - 0:07:46 - (255/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 10:53:21 - 0:07:46 - check hypothesis
+INFO - 08/29/20 10:54:30 - 0:08:56 - get results
+INFO - 08/29/20 10:54:30 - 0:08:56 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 10:54:31 - 0:08:57 - (286/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 10:54:31 - 0:08:57 - check hypothesis
+INFO - 08/29/20 10:55:27 - 0:09:53 - get results
+INFO - 08/29/20 10:55:27 - 0:09:53 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 10:55:28 - 0:09:54 - (318/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 10:55:29 - 0:09:55 - check hypothesis
+INFO - 08/29/20 10:56:49 - 0:11:15 - get results
+INFO - 08/29/20 10:56:49 - 0:11:15 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 10:56:50 - 0:11:16 - (346/8941) Found 0/28 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 10:56:50 - 0:11:16 - check hypothesis
+INFO - 08/29/20 10:57:44 - 0:12:10 - get results
+INFO - 08/29/20 10:57:44 - 0:12:10 - 	  Found 0/28 solutions in beam hypotheses.
+INFO - 08/29/20 10:57:45 - 0:12:11 - (377/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 10:57:46 - 0:12:11 - check hypothesis
+INFO - 08/29/20 10:58:48 - 0:13:13 - get results
+INFO - 08/29/20 10:58:48 - 0:13:13 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 10:58:49 - 0:13:14 - (407/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 10:58:49 - 0:13:15 - check hypothesis
+INFO - 08/29/20 10:59:58 - 0:14:24 - get results
+INFO - 08/29/20 10:59:58 - 0:14:24 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 10:59:59 - 0:14:25 - (439/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 10:59:59 - 0:14:25 - check hypothesis
+INFO - 08/29/20 11:01:12 - 0:15:38 - get results
+INFO - 08/29/20 11:01:12 - 0:15:38 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 11:01:13 - 0:15:39 - (470/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:01:13 - 0:15:39 - check hypothesis
+INFO - 08/29/20 11:02:07 - 0:16:33 - get results
+INFO - 08/29/20 11:02:07 - 0:16:33 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 11:02:08 - 0:16:34 - (502/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:02:09 - 0:16:34 - check hypothesis
+INFO - 08/29/20 11:03:21 - 0:17:47 - get results
+INFO - 08/29/20 11:03:21 - 0:17:47 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 11:03:22 - 0:17:48 - (532/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:03:22 - 0:17:48 - check hypothesis
+INFO - 08/29/20 11:04:12 - 0:18:38 - get results
+INFO - 08/29/20 11:04:12 - 0:18:38 - 	  Found 1/30 solutions in beam hypotheses.
+INFO - 08/29/20 11:04:13 - 0:18:39 - (563/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:04:13 - 0:18:39 - check hypothesis
+INFO - 08/29/20 11:05:20 - 0:19:46 - get results
+INFO - 08/29/20 11:05:20 - 0:19:46 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 11:05:21 - 0:19:47 - (595/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:05:22 - 0:19:48 - check hypothesis
+INFO - 08/29/20 11:06:37 - 0:21:03 - get results
+INFO - 08/29/20 11:06:37 - 0:21:03 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 11:06:38 - 0:21:04 - (627/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:06:38 - 0:21:04 - check hypothesis
+INFO - 08/29/20 11:07:46 - 0:22:12 - get results
+INFO - 08/29/20 11:07:46 - 0:22:12 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 11:07:47 - 0:22:13 - (658/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:07:48 - 0:22:13 - check hypothesis
+INFO - 08/29/20 11:08:56 - 0:23:22 - get results
+INFO - 08/29/20 11:08:56 - 0:23:22 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 11:08:57 - 0:23:23 - (688/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:08:58 - 0:23:23 - check hypothesis
+INFO - 08/29/20 11:10:03 - 0:24:29 - get results
+INFO - 08/29/20 11:10:03 - 0:24:29 - 	  Found 1/30 solutions in beam hypotheses.
+INFO - 08/29/20 11:10:04 - 0:24:30 - (718/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:10:04 - 0:24:30 - check hypothesis
+INFO - 08/29/20 11:11:00 - 0:25:26 - get results
+INFO - 08/29/20 11:11:00 - 0:25:26 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 11:11:01 - 0:25:27 - (747/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:11:01 - 0:25:27 - check hypothesis
+INFO - 08/29/20 11:12:09 - 0:26:34 - get results
+INFO - 08/29/20 11:12:09 - 0:26:34 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 11:12:10 - 0:26:35 - (777/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:12:10 - 0:26:36 - check hypothesis
+INFO - 08/29/20 11:13:15 - 0:27:41 - get results
+INFO - 08/29/20 11:13:15 - 0:27:41 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 11:13:16 - 0:27:42 - (807/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:13:16 - 0:27:42 - check hypothesis
+INFO - 08/29/20 11:14:26 - 0:28:51 - get results
+INFO - 08/29/20 11:14:26 - 0:28:51 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 11:14:27 - 0:28:52 - (838/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:14:27 - 0:28:53 - check hypothesis
+INFO - 08/29/20 11:15:48 - 0:30:14 - get results
+INFO - 08/29/20 11:15:48 - 0:30:14 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 11:15:49 - 0:30:15 - (869/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:15:50 - 0:30:15 - check hypothesis
+INFO - 08/29/20 11:16:57 - 0:31:23 - get results
+INFO - 08/29/20 11:16:57 - 0:31:23 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 11:16:58 - 0:31:24 - (900/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:16:59 - 0:31:24 - check hypothesis
+INFO - 08/29/20 11:18:10 - 0:32:35 - get results
+INFO - 08/29/20 11:18:10 - 0:32:35 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 11:18:11 - 0:32:37 - (932/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:18:11 - 0:32:37 - check hypothesis
+INFO - 08/29/20 11:19:17 - 0:33:43 - get results
+INFO - 08/29/20 11:19:17 - 0:33:43 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 11:19:18 - 0:33:44 - (963/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:19:18 - 0:33:44 - check hypothesis
+INFO - 08/29/20 11:20:17 - 0:34:43 - get results
+INFO - 08/29/20 11:20:17 - 0:34:43 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 11:20:18 - 0:34:44 - (994/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:20:19 - 0:34:44 - check hypothesis
+INFO - 08/29/20 11:21:36 - 0:36:01 - get results
+INFO - 08/29/20 11:21:36 - 0:36:01 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 11:21:37 - 0:36:02 - (1026/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:21:37 - 0:36:03 - check hypothesis
+INFO - 08/29/20 11:22:42 - 0:37:08 - get results
+INFO - 08/29/20 11:22:42 - 0:37:08 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 11:22:43 - 0:37:09 - (1054/8941) Found 0/28 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:22:44 - 0:37:10 - check hypothesis
+INFO - 08/29/20 11:23:45 - 0:38:11 - get results
+INFO - 08/29/20 11:23:45 - 0:38:11 - 	  Found 0/28 solutions in beam hypotheses.
+INFO - 08/29/20 11:23:46 - 0:38:12 - (1086/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:23:47 - 0:38:13 - check hypothesis
+INFO - 08/29/20 11:24:57 - 0:39:23 - get results
+INFO - 08/29/20 11:24:57 - 0:39:23 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 11:24:58 - 0:39:24 - (1113/8941) Found 0/27 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:24:59 - 0:39:25 - check hypothesis
+INFO - 08/29/20 11:25:55 - 0:40:21 - get results
+INFO - 08/29/20 11:25:55 - 0:40:21 - 	  Found 0/27 solutions in beam hypotheses.
+INFO - 08/29/20 11:25:56 - 0:40:22 - (1143/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:25:57 - 0:40:22 - check hypothesis
+INFO - 08/29/20 11:27:09 - 0:41:35 - get results
+INFO - 08/29/20 11:27:09 - 0:41:35 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 11:27:10 - 0:41:36 - (1174/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:27:10 - 0:41:36 - check hypothesis
+INFO - 08/29/20 11:28:23 - 0:42:48 - get results
+INFO - 08/29/20 11:28:23 - 0:42:48 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 11:28:24 - 0:42:50 - (1204/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:28:24 - 0:42:50 - check hypothesis
+INFO - 08/29/20 11:29:28 - 0:43:53 - get results
+INFO - 08/29/20 11:29:28 - 0:43:53 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 11:29:29 - 0:43:54 - (1235/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:29:29 - 0:43:55 - check hypothesis
+INFO - 08/29/20 11:30:36 - 0:45:02 - get results
+INFO - 08/29/20 11:30:36 - 0:45:02 - 	  Found 1/31 solutions in beam hypotheses.
+INFO - 08/29/20 11:30:37 - 0:45:03 - (1265/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:30:37 - 0:45:03 - check hypothesis
+INFO - 08/29/20 11:31:31 - 0:45:57 - get results
+INFO - 08/29/20 11:31:31 - 0:45:57 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 11:31:32 - 0:45:58 - (1297/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:31:32 - 0:45:58 - check hypothesis
+INFO - 08/29/20 11:32:36 - 0:47:02 - get results
+INFO - 08/29/20 11:32:36 - 0:47:02 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 11:32:37 - 0:47:03 - (1328/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:32:37 - 0:47:03 - check hypothesis
+INFO - 08/29/20 11:33:46 - 0:48:12 - get results
+INFO - 08/29/20 11:33:46 - 0:48:12 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 11:33:47 - 0:48:13 - (1358/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:33:48 - 0:48:14 - check hypothesis
+INFO - 08/29/20 11:35:01 - 0:49:27 - get results
+INFO - 08/29/20 11:35:01 - 0:49:27 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 11:35:02 - 0:49:28 - (1387/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:35:02 - 0:49:28 - check hypothesis
+INFO - 08/29/20 11:36:04 - 0:50:29 - get results
+INFO - 08/29/20 11:36:04 - 0:50:29 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 11:36:05 - 0:50:31 - (1418/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:36:05 - 0:50:31 - check hypothesis
+INFO - 08/29/20 11:37:13 - 0:51:38 - get results
+INFO - 08/29/20 11:37:13 - 0:51:38 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 11:37:14 - 0:51:40 - (1448/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:37:14 - 0:51:40 - check hypothesis
+INFO - 08/29/20 11:38:21 - 0:52:47 - get results
+INFO - 08/29/20 11:38:21 - 0:52:47 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 11:38:22 - 0:52:48 - (1478/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:38:23 - 0:52:48 - check hypothesis
+INFO - 08/29/20 11:39:35 - 0:54:01 - get results
+INFO - 08/29/20 11:39:35 - 0:54:01 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 11:39:36 - 0:54:02 - (1510/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:39:37 - 0:54:03 - check hypothesis
+INFO - 08/29/20 11:40:39 - 0:55:05 - get results
+INFO - 08/29/20 11:40:39 - 0:55:05 - 	  Found 1/32 solutions in beam hypotheses.
+INFO - 08/29/20 11:40:41 - 0:55:06 - (1539/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:40:41 - 0:55:07 - check hypothesis
+INFO - 08/29/20 11:41:53 - 0:56:19 - get results
+INFO - 08/29/20 11:41:53 - 0:56:19 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 11:41:54 - 0:56:20 - (1571/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:41:54 - 0:56:20 - check hypothesis
+INFO - 08/29/20 11:42:58 - 0:57:24 - get results
+INFO - 08/29/20 11:42:58 - 0:57:24 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 11:42:59 - 0:57:25 - (1602/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:43:00 - 0:57:25 - check hypothesis
+INFO - 08/29/20 11:44:14 - 0:58:40 - get results
+INFO - 08/29/20 11:44:14 - 0:58:40 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 11:44:15 - 0:58:41 - (1634/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:44:16 - 0:58:42 - check hypothesis
+INFO - 08/29/20 11:45:21 - 0:59:47 - get results
+INFO - 08/29/20 11:45:21 - 0:59:47 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 11:45:22 - 0:59:48 - (1665/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:45:22 - 0:59:48 - check hypothesis
+INFO - 08/29/20 11:46:32 - 1:00:58 - get results
+INFO - 08/29/20 11:46:32 - 1:00:58 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 11:46:33 - 1:00:59 - (1697/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:46:34 - 1:01:00 - check hypothesis
+INFO - 08/29/20 11:47:44 - 1:02:09 - get results
+INFO - 08/29/20 11:47:44 - 1:02:09 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 11:47:44 - 1:02:10 - (1728/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:47:45 - 1:02:11 - check hypothesis
+INFO - 08/29/20 11:48:35 - 1:03:01 - get results
+INFO - 08/29/20 11:48:35 - 1:03:01 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 11:48:37 - 1:03:02 - (1760/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:48:37 - 1:03:03 - check hypothesis
+INFO - 08/29/20 11:49:51 - 1:04:16 - get results
+INFO - 08/29/20 11:49:51 - 1:04:16 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 11:49:52 - 1:04:17 - (1791/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:49:52 - 1:04:18 - check hypothesis
+INFO - 08/29/20 11:51:00 - 1:05:26 - get results
+INFO - 08/29/20 11:51:00 - 1:05:26 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 11:51:01 - 1:05:27 - (1821/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:51:01 - 1:05:27 - check hypothesis
+INFO - 08/29/20 11:52:07 - 1:06:32 - get results
+INFO - 08/29/20 11:52:07 - 1:06:32 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 11:52:08 - 1:06:33 - (1849/8941) Found 0/28 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:52:08 - 1:06:34 - check hypothesis
+INFO - 08/29/20 11:53:14 - 1:07:40 - get results
+INFO - 08/29/20 11:53:14 - 1:07:40 - 	  Found 0/28 solutions in beam hypotheses.
+INFO - 08/29/20 11:53:15 - 1:07:41 - (1880/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:53:15 - 1:07:41 - check hypothesis
+INFO - 08/29/20 11:54:30 - 1:08:56 - get results
+INFO - 08/29/20 11:54:30 - 1:08:56 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 11:54:31 - 1:08:57 - (1911/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:54:32 - 1:08:57 - check hypothesis
+INFO - 08/29/20 11:55:35 - 1:10:00 - get results
+INFO - 08/29/20 11:55:35 - 1:10:00 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 11:55:36 - 1:10:02 - (1942/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:55:36 - 1:10:02 - check hypothesis
+INFO - 08/29/20 11:56:43 - 1:11:09 - get results
+INFO - 08/29/20 11:56:43 - 1:11:09 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 11:56:44 - 1:11:10 - (1974/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:56:44 - 1:11:10 - check hypothesis
+INFO - 08/29/20 11:57:59 - 1:12:25 - get results
+INFO - 08/29/20 11:57:59 - 1:12:25 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 11:58:00 - 1:12:26 - (2003/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:58:01 - 1:12:27 - check hypothesis
+INFO - 08/29/20 11:58:58 - 1:13:24 - get results
+INFO - 08/29/20 11:58:58 - 1:13:24 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 11:58:59 - 1:13:25 - (2032/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:58:59 - 1:13:25 - check hypothesis
+INFO - 08/29/20 11:59:57 - 1:14:22 - get results
+INFO - 08/29/20 11:59:57 - 1:14:22 - 	  Found 1/29 solutions in beam hypotheses.
+INFO - 08/29/20 11:59:58 - 1:14:24 - (2064/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 11:59:58 - 1:14:24 - check hypothesis
+INFO - 08/29/20 12:01:17 - 1:15:43 - get results
+INFO - 08/29/20 12:01:17 - 1:15:43 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 12:01:19 - 1:15:44 - (2095/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:01:19 - 1:15:45 - check hypothesis
+WARNING - 08/29/20 12:01:58 - 1:16:24 - TypeError exception when simplifying -sqrt(a8 + exp((a9 - 2*x)*acos(E))) + log(a9*tan(2)/(a8 + x))
+INFO - 08/29/20 12:02:23 - 1:16:49 - get results
+INFO - 08/29/20 12:02:23 - 1:16:49 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 12:02:24 - 1:16:50 - (2126/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:02:25 - 1:16:50 - check hypothesis
+INFO - 08/29/20 12:03:21 - 1:17:47 - get results
+INFO - 08/29/20 12:03:21 - 1:17:47 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 12:03:23 - 1:17:49 - (2158/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:03:23 - 1:17:49 - check hypothesis
+INFO - 08/29/20 12:04:37 - 1:19:03 - get results
+INFO - 08/29/20 12:04:37 - 1:19:03 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 12:04:39 - 1:19:04 - (2189/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:04:39 - 1:19:05 - check hypothesis
+INFO - 08/29/20 12:05:40 - 1:20:06 - get results
+INFO - 08/29/20 12:05:40 - 1:20:06 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 12:05:42 - 1:20:07 - (2220/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:05:42 - 1:20:08 - check hypothesis
+INFO - 08/29/20 12:06:48 - 1:21:14 - get results
+INFO - 08/29/20 12:06:48 - 1:21:14 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 12:06:49 - 1:21:15 - (2252/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:06:50 - 1:21:16 - check hypothesis
+INFO - 08/29/20 12:07:57 - 1:22:23 - get results
+INFO - 08/29/20 12:07:57 - 1:22:23 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 12:07:58 - 1:22:24 - (2281/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:07:58 - 1:22:24 - check hypothesis
+INFO - 08/29/20 12:09:05 - 1:23:31 - get results
+INFO - 08/29/20 12:09:05 - 1:23:31 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 12:09:06 - 1:23:32 - (2312/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:09:07 - 1:23:32 - check hypothesis
+INFO - 08/29/20 12:10:14 - 1:24:40 - get results
+INFO - 08/29/20 12:10:14 - 1:24:40 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 12:10:15 - 1:24:41 - (2342/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:10:16 - 1:24:41 - check hypothesis
+INFO - 08/29/20 12:11:13 - 1:25:38 - get results
+INFO - 08/29/20 12:11:13 - 1:25:38 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 12:11:14 - 1:25:39 - (2371/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:11:14 - 1:25:40 - check hypothesis
+INFO - 08/29/20 12:12:20 - 1:26:46 - get results
+INFO - 08/29/20 12:12:20 - 1:26:46 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 12:12:21 - 1:26:47 - (2401/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:12:21 - 1:26:47 - check hypothesis
+INFO - 08/29/20 12:13:18 - 1:27:43 - get results
+INFO - 08/29/20 12:13:18 - 1:27:43 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 12:13:19 - 1:27:45 - (2431/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:13:19 - 1:27:45 - check hypothesis
+INFO - 08/29/20 12:14:38 - 1:29:04 - get results
+INFO - 08/29/20 12:14:38 - 1:29:04 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 12:14:39 - 1:29:05 - (2462/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:14:40 - 1:29:06 - check hypothesis
+INFO - 08/29/20 12:15:53 - 1:30:19 - get results
+INFO - 08/29/20 12:15:53 - 1:30:19 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 12:15:54 - 1:30:20 - (2493/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:15:55 - 1:30:20 - check hypothesis
+INFO - 08/29/20 12:16:56 - 1:31:22 - get results
+INFO - 08/29/20 12:16:56 - 1:31:22 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 12:16:57 - 1:31:23 - (2523/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:16:58 - 1:31:23 - check hypothesis
+INFO - 08/29/20 12:17:57 - 1:32:23 - get results
+INFO - 08/29/20 12:17:57 - 1:32:23 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 12:17:59 - 1:32:24 - (2555/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:17:59 - 1:32:25 - check hypothesis
+INFO - 08/29/20 12:19:06 - 1:33:31 - get results
+INFO - 08/29/20 12:19:06 - 1:33:31 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 12:19:07 - 1:33:32 - (2586/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:19:07 - 1:33:33 - check hypothesis
+INFO - 08/29/20 12:20:12 - 1:34:38 - get results
+INFO - 08/29/20 12:20:12 - 1:34:38 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 12:20:13 - 1:34:39 - (2617/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:20:14 - 1:34:40 - check hypothesis
+INFO - 08/29/20 12:21:24 - 1:35:49 - get results
+INFO - 08/29/20 12:21:24 - 1:35:49 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 12:21:25 - 1:35:51 - (2649/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:21:25 - 1:35:51 - check hypothesis
+INFO - 08/29/20 12:22:32 - 1:36:57 - get results
+INFO - 08/29/20 12:22:32 - 1:36:57 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 12:22:33 - 1:36:58 - (2680/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:22:33 - 1:36:59 - check hypothesis
+INFO - 08/29/20 12:23:51 - 1:38:16 - get results
+INFO - 08/29/20 12:23:51 - 1:38:16 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 12:23:52 - 1:38:18 - (2710/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:23:52 - 1:38:18 - check hypothesis
+INFO - 08/29/20 12:25:01 - 1:39:27 - get results
+INFO - 08/29/20 12:25:01 - 1:39:27 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 12:25:02 - 1:39:28 - (2740/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:25:02 - 1:39:28 - check hypothesis
+INFO - 08/29/20 12:26:07 - 1:40:32 - get results
+INFO - 08/29/20 12:26:07 - 1:40:32 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 12:26:08 - 1:40:34 - (2771/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:26:08 - 1:40:34 - check hypothesis
+INFO - 08/29/20 12:27:18 - 1:41:44 - get results
+INFO - 08/29/20 12:27:18 - 1:41:44 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 12:27:19 - 1:41:45 - (2799/8941) Found 0/28 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:27:19 - 1:41:45 - check hypothesis
+INFO - 08/29/20 12:28:03 - 1:42:29 - get results
+INFO - 08/29/20 12:28:03 - 1:42:29 - 	  Found 0/28 solutions in beam hypotheses.
+INFO - 08/29/20 12:28:04 - 1:42:30 - (2827/8941) Found 0/28 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:28:04 - 1:42:30 - check hypothesis
+INFO - 08/29/20 12:29:04 - 1:43:30 - get results
+INFO - 08/29/20 12:29:04 - 1:43:30 - 	  Found 0/28 solutions in beam hypotheses.
+INFO - 08/29/20 12:29:05 - 1:43:31 - (2856/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:29:05 - 1:43:31 - check hypothesis
+INFO - 08/29/20 12:30:09 - 1:44:34 - get results
+INFO - 08/29/20 12:30:09 - 1:44:34 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 12:30:10 - 1:44:35 - (2886/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:30:10 - 1:44:36 - check hypothesis
+INFO - 08/29/20 12:31:04 - 1:45:30 - get results
+INFO - 08/29/20 12:31:04 - 1:45:30 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 12:31:05 - 1:45:31 - (2914/8941) Found 0/28 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:31:06 - 1:45:31 - check hypothesis
+INFO - 08/29/20 12:31:58 - 1:46:23 - get results
+INFO - 08/29/20 12:31:58 - 1:46:23 - 	  Found 0/28 solutions in beam hypotheses.
+INFO - 08/29/20 12:31:59 - 1:46:24 - (2944/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:31:59 - 1:46:25 - check hypothesis
+INFO - 08/29/20 12:32:59 - 1:47:25 - get results
+INFO - 08/29/20 12:32:59 - 1:47:25 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 12:33:00 - 1:47:26 - (2974/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:33:00 - 1:47:26 - check hypothesis
+INFO - 08/29/20 12:34:00 - 1:48:26 - get results
+INFO - 08/29/20 12:34:00 - 1:48:26 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 12:34:02 - 1:48:27 - (3005/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:34:02 - 1:48:28 - check hypothesis
+INFO - 08/29/20 12:35:00 - 1:49:26 - get results
+INFO - 08/29/20 12:35:00 - 1:49:26 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 12:35:01 - 1:49:27 - (3037/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:35:02 - 1:49:27 - check hypothesis
+INFO - 08/29/20 12:35:47 - 1:50:13 - get results
+INFO - 08/29/20 12:35:47 - 1:50:13 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 12:35:48 - 1:50:14 - (3068/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:35:48 - 1:50:14 - check hypothesis
+INFO - 08/29/20 12:36:50 - 1:51:16 - get results
+INFO - 08/29/20 12:36:50 - 1:51:16 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 12:36:51 - 1:51:17 - (3098/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:36:52 - 1:51:18 - check hypothesis
+INFO - 08/29/20 12:38:03 - 1:52:29 - get results
+INFO - 08/29/20 12:38:03 - 1:52:29 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 12:38:05 - 1:52:30 - (3130/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:38:05 - 1:52:31 - check hypothesis
+INFO - 08/29/20 12:39:14 - 1:53:40 - get results
+INFO - 08/29/20 12:39:14 - 1:53:40 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 12:39:16 - 1:53:41 - (3160/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:39:16 - 1:53:42 - check hypothesis
+INFO - 08/29/20 12:40:12 - 1:54:38 - get results
+INFO - 08/29/20 12:40:12 - 1:54:38 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 12:40:13 - 1:54:39 - (3192/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:40:13 - 1:54:39 - check hypothesis
+INFO - 08/29/20 12:41:19 - 1:55:44 - get results
+INFO - 08/29/20 12:41:19 - 1:55:44 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 12:41:20 - 1:55:45 - (3224/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:41:20 - 1:55:46 - check hypothesis
+INFO - 08/29/20 12:42:32 - 1:56:58 - get results
+INFO - 08/29/20 12:42:32 - 1:56:58 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 12:42:33 - 1:56:59 - (3252/8941) Found 0/28 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:42:33 - 1:56:59 - check hypothesis
+INFO - 08/29/20 12:43:50 - 1:58:16 - get results
+INFO - 08/29/20 12:43:50 - 1:58:16 - 	  Found 0/28 solutions in beam hypotheses.
+INFO - 08/29/20 12:43:51 - 1:58:17 - (3284/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:43:51 - 1:58:17 - check hypothesis
+INFO - 08/29/20 12:44:53 - 1:59:19 - get results
+INFO - 08/29/20 12:44:53 - 1:59:19 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 12:44:54 - 1:59:19 - (3313/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:44:54 - 1:59:20 - check hypothesis
+INFO - 08/29/20 12:45:47 - 2:00:13 - get results
+INFO - 08/29/20 12:45:47 - 2:00:13 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 12:45:48 - 2:00:14 - (3344/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:45:49 - 2:00:14 - check hypothesis
+INFO - 08/29/20 12:46:54 - 2:01:20 - get results
+INFO - 08/29/20 12:46:54 - 2:01:20 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 12:46:55 - 2:01:21 - (3373/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:46:55 - 2:01:21 - check hypothesis
+INFO - 08/29/20 12:48:04 - 2:02:30 - get results
+INFO - 08/29/20 12:48:04 - 2:02:30 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 12:48:05 - 2:02:31 - (3402/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:48:05 - 2:02:31 - check hypothesis
+INFO - 08/29/20 12:49:11 - 2:03:37 - get results
+INFO - 08/29/20 12:49:11 - 2:03:37 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 12:49:12 - 2:03:38 - (3434/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:49:13 - 2:03:39 - check hypothesis
+INFO - 08/29/20 12:50:15 - 2:04:41 - get results
+INFO - 08/29/20 12:50:15 - 2:04:41 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 12:50:16 - 2:04:42 - (3466/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:50:16 - 2:04:42 - check hypothesis
+INFO - 08/29/20 12:51:30 - 2:05:56 - get results
+INFO - 08/29/20 12:51:30 - 2:05:56 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 12:51:31 - 2:05:57 - (3496/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:51:31 - 2:05:57 - check hypothesis
+INFO - 08/29/20 12:52:36 - 2:07:01 - get results
+INFO - 08/29/20 12:52:36 - 2:07:01 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 12:52:37 - 2:07:02 - (3527/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:52:37 - 2:07:03 - check hypothesis
+INFO - 08/29/20 12:53:41 - 2:08:06 - get results
+INFO - 08/29/20 12:53:41 - 2:08:06 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 12:53:42 - 2:08:08 - (3558/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:53:42 - 2:08:08 - check hypothesis
+INFO - 08/29/20 12:54:49 - 2:09:15 - get results
+INFO - 08/29/20 12:54:49 - 2:09:15 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 12:54:50 - 2:09:16 - (3586/8941) Found 0/28 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:54:50 - 2:09:16 - check hypothesis
+INFO - 08/29/20 12:55:56 - 2:10:22 - get results
+INFO - 08/29/20 12:55:56 - 2:10:22 - 	  Found 0/28 solutions in beam hypotheses.
+INFO - 08/29/20 12:55:57 - 2:10:23 - (3616/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:55:57 - 2:10:23 - check hypothesis
+INFO - 08/29/20 12:57:09 - 2:11:35 - get results
+INFO - 08/29/20 12:57:09 - 2:11:35 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 12:57:10 - 2:11:36 - (3645/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:57:11 - 2:11:37 - check hypothesis
+INFO - 08/29/20 12:58:21 - 2:12:47 - get results
+INFO - 08/29/20 12:58:21 - 2:12:47 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 12:58:22 - 2:12:48 - (3675/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:58:22 - 2:12:48 - check hypothesis
+INFO - 08/29/20 12:59:26 - 2:13:52 - get results
+INFO - 08/29/20 12:59:26 - 2:13:52 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 12:59:27 - 2:13:53 - (3706/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 12:59:28 - 2:13:53 - check hypothesis
+INFO - 08/29/20 13:00:30 - 2:14:56 - get results
+INFO - 08/29/20 13:00:30 - 2:14:56 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 13:00:31 - 2:14:57 - (3734/8941) Found 0/28 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:00:31 - 2:14:57 - check hypothesis
+INFO - 08/29/20 13:01:38 - 2:16:04 - get results
+INFO - 08/29/20 13:01:38 - 2:16:04 - 	  Found 0/28 solutions in beam hypotheses.
+INFO - 08/29/20 13:01:39 - 2:16:05 - (3765/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:01:39 - 2:16:05 - check hypothesis
+INFO - 08/29/20 13:02:31 - 2:16:57 - get results
+INFO - 08/29/20 13:02:31 - 2:16:57 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 13:02:32 - 2:16:58 - (3796/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:02:32 - 2:16:58 - check hypothesis
+INFO - 08/29/20 13:03:39 - 2:18:05 - get results
+INFO - 08/29/20 13:03:39 - 2:18:05 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 13:03:40 - 2:18:06 - (3826/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:03:40 - 2:18:06 - check hypothesis
+INFO - 08/29/20 13:04:35 - 2:19:01 - get results
+INFO - 08/29/20 13:04:35 - 2:19:01 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 13:04:36 - 2:19:02 - (3857/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:04:37 - 2:19:02 - check hypothesis
+INFO - 08/29/20 13:05:41 - 2:20:06 - get results
+INFO - 08/29/20 13:05:41 - 2:20:06 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 13:05:42 - 2:20:08 - (3889/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:05:42 - 2:20:08 - check hypothesis
+INFO - 08/29/20 13:07:04 - 2:21:30 - get results
+INFO - 08/29/20 13:07:04 - 2:21:30 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 13:07:05 - 2:21:31 - (3920/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:07:05 - 2:21:31 - check hypothesis
+INFO - 08/29/20 13:08:13 - 2:22:38 - get results
+INFO - 08/29/20 13:08:13 - 2:22:38 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 13:08:14 - 2:22:40 - (3950/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:08:14 - 2:22:40 - check hypothesis
+INFO - 08/29/20 13:09:30 - 2:23:56 - get results
+INFO - 08/29/20 13:09:30 - 2:23:56 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 13:09:31 - 2:23:57 - (3982/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:09:32 - 2:23:58 - check hypothesis
+INFO - 08/29/20 13:10:43 - 2:25:09 - get results
+INFO - 08/29/20 13:10:43 - 2:25:09 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 13:10:44 - 2:25:10 - (4012/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:10:44 - 2:25:10 - check hypothesis
+INFO - 08/29/20 13:11:54 - 2:26:20 - get results
+INFO - 08/29/20 13:11:54 - 2:26:20 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 13:11:55 - 2:26:21 - (4041/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:11:55 - 2:26:21 - check hypothesis
+INFO - 08/29/20 13:12:55 - 2:27:21 - get results
+INFO - 08/29/20 13:12:55 - 2:27:21 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 13:12:56 - 2:27:22 - (4071/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:12:57 - 2:27:22 - check hypothesis
+INFO - 08/29/20 13:14:03 - 2:28:29 - get results
+INFO - 08/29/20 13:14:03 - 2:28:29 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 13:14:04 - 2:28:30 - (4103/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:14:05 - 2:28:31 - check hypothesis
+INFO - 08/29/20 13:15:26 - 2:29:52 - get results
+INFO - 08/29/20 13:15:26 - 2:29:52 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 13:15:27 - 2:29:53 - (4134/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:15:27 - 2:29:53 - check hypothesis
+INFO - 08/29/20 13:16:30 - 2:30:56 - get results
+INFO - 08/29/20 13:16:30 - 2:30:56 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 13:16:31 - 2:30:57 - (4166/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:16:32 - 2:30:57 - check hypothesis
+INFO - 08/29/20 13:17:34 - 2:31:59 - get results
+INFO - 08/29/20 13:17:34 - 2:31:59 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 13:17:35 - 2:32:01 - (4197/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:17:35 - 2:32:01 - check hypothesis
+INFO - 08/29/20 13:18:46 - 2:33:12 - get results
+INFO - 08/29/20 13:18:46 - 2:33:12 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 13:18:47 - 2:33:13 - (4228/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:18:47 - 2:33:13 - check hypothesis
+INFO - 08/29/20 13:19:41 - 2:34:07 - get results
+INFO - 08/29/20 13:19:41 - 2:34:07 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 13:19:42 - 2:34:08 - (4256/8941) Found 0/28 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:19:43 - 2:34:08 - check hypothesis
+INFO - 08/29/20 13:20:44 - 2:35:10 - get results
+INFO - 08/29/20 13:20:44 - 2:35:10 - 	  Found 0/28 solutions in beam hypotheses.
+INFO - 08/29/20 13:20:45 - 2:35:11 - (4287/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:20:46 - 2:35:11 - check hypothesis
+INFO - 08/29/20 13:21:57 - 2:36:23 - get results
+INFO - 08/29/20 13:21:57 - 2:36:23 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 13:21:59 - 2:36:24 - (4319/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:21:59 - 2:36:25 - check hypothesis
+INFO - 08/29/20 13:23:10 - 2:37:35 - get results
+INFO - 08/29/20 13:23:10 - 2:37:35 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 13:23:11 - 2:37:37 - (4349/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:23:11 - 2:37:37 - check hypothesis
+INFO - 08/29/20 13:24:16 - 2:38:42 - get results
+INFO - 08/29/20 13:24:16 - 2:38:42 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 13:24:17 - 2:38:43 - (4380/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:24:17 - 2:38:43 - check hypothesis
+INFO - 08/29/20 13:25:32 - 2:39:58 - get results
+INFO - 08/29/20 13:25:32 - 2:39:58 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 13:25:33 - 2:39:59 - (4409/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:25:33 - 2:39:59 - check hypothesis
+INFO - 08/29/20 13:26:26 - 2:40:52 - get results
+INFO - 08/29/20 13:26:26 - 2:40:52 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 13:26:28 - 2:40:53 - (4441/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:26:28 - 2:40:54 - check hypothesis
+INFO - 08/29/20 13:27:43 - 2:42:09 - get results
+INFO - 08/29/20 13:27:43 - 2:42:09 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 13:27:44 - 2:42:10 - (4472/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:27:45 - 2:42:10 - check hypothesis
+INFO - 08/29/20 13:28:48 - 2:43:13 - get results
+INFO - 08/29/20 13:28:48 - 2:43:13 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 13:28:49 - 2:43:15 - (4504/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:28:49 - 2:43:15 - check hypothesis
+INFO - 08/29/20 13:29:55 - 2:44:21 - get results
+INFO - 08/29/20 13:29:55 - 2:44:21 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 13:29:56 - 2:44:22 - (4534/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:29:56 - 2:44:22 - check hypothesis
+INFO - 08/29/20 13:31:09 - 2:45:34 - get results
+INFO - 08/29/20 13:31:09 - 2:45:34 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 13:31:10 - 2:45:35 - (4563/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:31:10 - 2:45:36 - check hypothesis
+INFO - 08/29/20 13:32:04 - 2:46:29 - get results
+INFO - 08/29/20 13:32:04 - 2:46:29 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 13:32:05 - 2:46:30 - (4595/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:32:05 - 2:46:31 - check hypothesis
+INFO - 08/29/20 13:33:10 - 2:47:36 - get results
+INFO - 08/29/20 13:33:10 - 2:47:36 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 13:33:11 - 2:47:37 - (4627/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:33:12 - 2:47:38 - check hypothesis
+INFO - 08/29/20 13:34:15 - 2:48:41 - get results
+INFO - 08/29/20 13:34:15 - 2:48:41 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 13:34:16 - 2:48:42 - (4656/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:34:17 - 2:48:43 - check hypothesis
+INFO - 08/29/20 13:35:15 - 2:49:41 - get results
+INFO - 08/29/20 13:35:15 - 2:49:41 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 13:35:16 - 2:49:42 - (4687/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:35:17 - 2:49:43 - check hypothesis
+INFO - 08/29/20 13:36:18 - 2:50:44 - get results
+INFO - 08/29/20 13:36:18 - 2:50:44 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 13:36:19 - 2:50:45 - (4717/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:36:19 - 2:50:45 - check hypothesis
+INFO - 08/29/20 13:37:25 - 2:51:51 - get results
+INFO - 08/29/20 13:37:25 - 2:51:51 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 13:37:27 - 2:51:52 - (4748/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:37:27 - 2:51:53 - check hypothesis
+INFO - 08/29/20 13:38:42 - 2:53:07 - get results
+INFO - 08/29/20 13:38:42 - 2:53:07 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 13:38:43 - 2:53:08 - (4779/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:38:43 - 2:53:09 - check hypothesis
+INFO - 08/29/20 13:39:37 - 2:54:03 - get results
+INFO - 08/29/20 13:39:37 - 2:54:03 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 13:39:38 - 2:54:04 - (4810/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:39:38 - 2:54:04 - check hypothesis
+INFO - 08/29/20 13:40:46 - 2:55:12 - get results
+INFO - 08/29/20 13:40:46 - 2:55:12 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 13:40:47 - 2:55:13 - (4840/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:40:47 - 2:55:13 - check hypothesis
+INFO - 08/29/20 13:41:53 - 2:56:18 - get results
+INFO - 08/29/20 13:41:53 - 2:56:18 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 13:41:54 - 2:56:20 - (4870/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:41:54 - 2:56:20 - check hypothesis
+INFO - 08/29/20 13:42:55 - 2:57:21 - get results
+INFO - 08/29/20 13:42:55 - 2:57:21 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 13:42:56 - 2:57:22 - (4901/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:42:57 - 2:57:23 - check hypothesis
+INFO - 08/29/20 13:44:06 - 2:58:32 - get results
+INFO - 08/29/20 13:44:06 - 2:58:32 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 13:44:07 - 2:58:33 - (4932/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:44:07 - 2:58:33 - check hypothesis
+INFO - 08/29/20 13:45:01 - 2:59:27 - get results
+INFO - 08/29/20 13:45:01 - 2:59:27 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 13:45:02 - 2:59:28 - (4963/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:45:03 - 2:59:28 - check hypothesis
+INFO - 08/29/20 13:46:10 - 3:00:36 - get results
+INFO - 08/29/20 13:46:10 - 3:00:36 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 13:46:11 - 3:00:37 - (4994/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:46:11 - 3:00:37 - check hypothesis
+INFO - 08/29/20 13:47:21 - 3:01:47 - get results
+INFO - 08/29/20 13:47:21 - 3:01:47 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 13:47:22 - 3:01:48 - (5025/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:47:23 - 3:01:48 - check hypothesis
+INFO - 08/29/20 13:48:35 - 3:03:00 - get results
+INFO - 08/29/20 13:48:35 - 3:03:00 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 13:48:36 - 3:03:02 - (5057/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:48:36 - 3:03:02 - check hypothesis
+INFO - 08/29/20 13:49:34 - 3:04:00 - get results
+INFO - 08/29/20 13:49:34 - 3:04:00 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 13:49:35 - 3:04:01 - (5087/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:49:36 - 3:04:02 - check hypothesis
+INFO - 08/29/20 13:50:42 - 3:05:08 - get results
+INFO - 08/29/20 13:50:42 - 3:05:08 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 13:50:43 - 3:05:09 - (5119/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:50:44 - 3:05:09 - check hypothesis
+INFO - 08/29/20 13:51:55 - 3:06:21 - get results
+INFO - 08/29/20 13:51:55 - 3:06:21 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 13:51:56 - 3:06:22 - (5149/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:51:57 - 3:06:22 - check hypothesis
+INFO - 08/29/20 13:53:01 - 3:07:27 - get results
+INFO - 08/29/20 13:53:01 - 3:07:27 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 13:53:02 - 3:07:28 - (5181/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:53:03 - 3:07:28 - check hypothesis
+INFO - 08/29/20 13:54:16 - 3:08:42 - get results
+INFO - 08/29/20 13:54:16 - 3:08:42 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 13:54:17 - 3:08:43 - (5210/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:54:18 - 3:08:43 - check hypothesis
+INFO - 08/29/20 13:55:25 - 3:09:51 - get results
+INFO - 08/29/20 13:55:25 - 3:09:51 - 	  Found 1/29 solutions in beam hypotheses.
+INFO - 08/29/20 13:55:26 - 3:09:52 - (5242/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:55:27 - 3:09:52 - check hypothesis
+INFO - 08/29/20 13:56:30 - 3:10:56 - get results
+INFO - 08/29/20 13:56:30 - 3:10:56 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 13:56:31 - 3:10:57 - (5273/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:56:32 - 3:10:57 - check hypothesis
+INFO - 08/29/20 13:57:31 - 3:11:57 - get results
+INFO - 08/29/20 13:57:31 - 3:11:57 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 13:57:32 - 3:11:57 - (5303/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:57:32 - 3:11:58 - check hypothesis
+INFO - 08/29/20 13:58:34 - 3:13:00 - get results
+INFO - 08/29/20 13:58:34 - 3:13:00 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 13:58:35 - 3:13:01 - (5332/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:58:35 - 3:13:01 - check hypothesis
+INFO - 08/29/20 13:59:34 - 3:14:00 - get results
+INFO - 08/29/20 13:59:34 - 3:14:00 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 13:59:36 - 3:14:01 - (5361/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 13:59:36 - 3:14:02 - check hypothesis
+INFO - 08/29/20 14:00:40 - 3:15:06 - get results
+INFO - 08/29/20 14:00:40 - 3:15:06 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 14:00:41 - 3:15:07 - (5391/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:00:42 - 3:15:08 - check hypothesis
+INFO - 08/29/20 14:01:54 - 3:16:19 - get results
+INFO - 08/29/20 14:01:54 - 3:16:19 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 14:01:54 - 3:16:20 - (5418/8941) Found 0/27 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:01:55 - 3:16:21 - check hypothesis
+INFO - 08/29/20 14:02:50 - 3:17:16 - get results
+INFO - 08/29/20 14:02:50 - 3:17:16 - 	  Found 0/27 solutions in beam hypotheses.
+INFO - 08/29/20 14:02:51 - 3:17:17 - (5450/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:02:52 - 3:17:18 - check hypothesis
+INFO - 08/29/20 14:04:00 - 3:18:26 - get results
+INFO - 08/29/20 14:04:00 - 3:18:26 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 14:04:01 - 3:18:27 - (5481/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:04:02 - 3:18:27 - check hypothesis
+INFO - 08/29/20 14:05:14 - 3:19:40 - get results
+INFO - 08/29/20 14:05:14 - 3:19:40 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 14:05:15 - 3:19:41 - (5512/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:05:15 - 3:19:41 - check hypothesis
+INFO - 08/29/20 14:06:23 - 3:20:48 - get results
+INFO - 08/29/20 14:06:23 - 3:20:48 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 14:06:24 - 3:20:49 - (5543/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:06:24 - 3:20:50 - check hypothesis
+INFO - 08/29/20 14:07:26 - 3:21:51 - get results
+INFO - 08/29/20 14:07:26 - 3:21:51 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 14:07:27 - 3:21:53 - (5572/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:07:27 - 3:21:53 - check hypothesis
+INFO - 08/29/20 14:08:29 - 3:22:55 - get results
+INFO - 08/29/20 14:08:29 - 3:22:55 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 14:08:30 - 3:22:56 - (5602/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:08:31 - 3:22:56 - check hypothesis
+INFO - 08/29/20 14:09:34 - 3:24:00 - get results
+INFO - 08/29/20 14:09:34 - 3:24:00 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 14:09:35 - 3:24:01 - (5630/8941) Found 0/28 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:09:35 - 3:24:01 - check hypothesis
+INFO - 08/29/20 14:10:50 - 3:25:16 - get results
+INFO - 08/29/20 14:10:50 - 3:25:16 - 	  Found 0/28 solutions in beam hypotheses.
+INFO - 08/29/20 14:10:51 - 3:25:17 - (5660/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:10:52 - 3:25:17 - check hypothesis
+INFO - 08/29/20 14:11:59 - 3:26:25 - get results
+INFO - 08/29/20 14:11:59 - 3:26:25 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 14:12:01 - 3:26:26 - (5691/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:12:01 - 3:26:27 - check hypothesis
+INFO - 08/29/20 14:13:15 - 3:27:41 - get results
+INFO - 08/29/20 14:13:15 - 3:27:41 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 14:13:16 - 3:27:42 - (5720/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:13:17 - 3:27:43 - check hypothesis
+INFO - 08/29/20 14:14:26 - 3:28:51 - get results
+INFO - 08/29/20 14:14:26 - 3:28:51 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 14:14:27 - 3:28:53 - (5751/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:14:27 - 3:28:53 - check hypothesis
+INFO - 08/29/20 14:15:33 - 3:29:59 - get results
+INFO - 08/29/20 14:15:33 - 3:29:59 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 14:15:34 - 3:30:00 - (5782/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:15:35 - 3:30:00 - check hypothesis
+INFO - 08/29/20 14:16:46 - 3:31:11 - get results
+INFO - 08/29/20 14:16:46 - 3:31:11 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 14:16:47 - 3:31:12 - (5813/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:16:47 - 3:31:13 - check hypothesis
+INFO - 08/29/20 14:17:47 - 3:32:12 - get results
+INFO - 08/29/20 14:17:47 - 3:32:12 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 14:17:48 - 3:32:13 - (5842/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:17:48 - 3:32:14 - check hypothesis
+INFO - 08/29/20 14:18:50 - 3:33:16 - get results
+INFO - 08/29/20 14:18:50 - 3:33:16 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 14:18:51 - 3:33:17 - (5869/8941) Found 0/27 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:18:51 - 3:33:17 - check hypothesis
+INFO - 08/29/20 14:19:46 - 3:34:12 - get results
+INFO - 08/29/20 14:19:46 - 3:34:12 - 	  Found 0/27 solutions in beam hypotheses.
+INFO - 08/29/20 14:19:48 - 3:34:13 - (5901/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:19:48 - 3:34:14 - check hypothesis
+INFO - 08/29/20 14:20:51 - 3:35:17 - get results
+INFO - 08/29/20 14:20:51 - 3:35:17 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 14:20:52 - 3:35:18 - (5933/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:20:52 - 3:35:18 - check hypothesis
+INFO - 08/29/20 14:21:51 - 3:36:17 - get results
+INFO - 08/29/20 14:21:52 - 3:36:17 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 14:21:53 - 3:36:18 - (5962/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:21:53 - 3:36:19 - check hypothesis
+INFO - 08/29/20 14:22:59 - 3:37:25 - get results
+INFO - 08/29/20 14:22:59 - 3:37:25 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 14:23:00 - 3:37:26 - (5993/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:23:01 - 3:37:27 - check hypothesis
+INFO - 08/29/20 14:24:05 - 3:38:30 - get results
+INFO - 08/29/20 14:24:05 - 3:38:30 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 14:24:06 - 3:38:32 - (6023/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:24:06 - 3:38:32 - check hypothesis
+INFO - 08/29/20 14:25:11 - 3:39:37 - get results
+INFO - 08/29/20 14:25:11 - 3:39:37 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 14:25:12 - 3:39:38 - (6052/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:25:12 - 3:39:38 - check hypothesis
+INFO - 08/29/20 14:26:15 - 3:40:41 - get results
+INFO - 08/29/20 14:26:15 - 3:40:41 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 14:26:16 - 3:40:42 - (6083/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:26:17 - 3:40:43 - check hypothesis
+INFO - 08/29/20 14:27:22 - 3:41:48 - get results
+INFO - 08/29/20 14:27:22 - 3:41:48 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 14:27:23 - 3:41:49 - (6114/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:27:23 - 3:41:49 - check hypothesis
+INFO - 08/29/20 14:28:27 - 3:42:53 - get results
+INFO - 08/29/20 14:28:27 - 3:42:53 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 14:28:28 - 3:42:54 - (6144/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:28:29 - 3:42:54 - check hypothesis
+INFO - 08/29/20 14:29:34 - 3:44:00 - get results
+INFO - 08/29/20 14:29:34 - 3:44:00 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 14:29:35 - 3:44:01 - (6176/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:29:35 - 3:44:01 - check hypothesis
+INFO - 08/29/20 14:30:39 - 3:45:05 - get results
+INFO - 08/29/20 14:30:39 - 3:45:05 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 14:30:40 - 3:45:06 - (6207/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:30:41 - 3:45:06 - check hypothesis
+INFO - 08/29/20 14:31:48 - 3:46:13 - get results
+INFO - 08/29/20 14:31:48 - 3:46:13 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 14:31:49 - 3:46:14 - (6237/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:31:49 - 3:46:15 - check hypothesis
+INFO - 08/29/20 14:32:57 - 3:47:23 - get results
+INFO - 08/29/20 14:32:57 - 3:47:23 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 14:32:58 - 3:47:24 - (6266/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:32:59 - 3:47:25 - check hypothesis
+INFO - 08/29/20 14:33:57 - 3:48:23 - get results
+INFO - 08/29/20 14:33:57 - 3:48:23 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 14:33:58 - 3:48:24 - (6296/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:33:59 - 3:48:25 - check hypothesis
+INFO - 08/29/20 14:35:00 - 3:49:25 - get results
+INFO - 08/29/20 14:35:00 - 3:49:25 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 14:35:01 - 3:49:26 - (6327/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:35:01 - 3:49:27 - check hypothesis
+INFO - 08/29/20 14:36:07 - 3:50:33 - get results
+INFO - 08/29/20 14:36:07 - 3:50:33 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 14:36:08 - 3:50:34 - (6359/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:36:09 - 3:50:35 - check hypothesis
+INFO - 08/29/20 14:37:19 - 3:51:45 - get results
+INFO - 08/29/20 14:37:19 - 3:51:45 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 14:37:20 - 3:51:46 - (6391/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:37:20 - 3:51:46 - check hypothesis
+INFO - 08/29/20 14:38:23 - 3:52:49 - get results
+INFO - 08/29/20 14:38:23 - 3:52:49 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 14:38:25 - 3:52:50 - (6419/8941) Found 0/28 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:38:25 - 3:52:51 - check hypothesis
+INFO - 08/29/20 14:39:26 - 3:53:52 - get results
+INFO - 08/29/20 14:39:26 - 3:53:52 - 	  Found 0/28 solutions in beam hypotheses.
+INFO - 08/29/20 14:39:27 - 3:53:53 - (6451/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:39:27 - 3:53:53 - check hypothesis
+INFO - 08/29/20 14:40:30 - 3:54:56 - get results
+INFO - 08/29/20 14:40:30 - 3:54:56 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 14:40:32 - 3:54:57 - (6482/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:40:32 - 3:54:58 - check hypothesis
+INFO - 08/29/20 14:41:32 - 3:55:58 - get results
+INFO - 08/29/20 14:41:32 - 3:55:58 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 14:41:33 - 3:55:59 - (6513/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:41:33 - 3:55:59 - check hypothesis
+INFO - 08/29/20 14:42:19 - 3:56:44 - get results
+INFO - 08/29/20 14:42:19 - 3:56:44 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 14:42:20 - 3:56:45 - (6544/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:42:20 - 3:56:46 - check hypothesis
+INFO - 08/29/20 14:43:31 - 3:57:57 - get results
+INFO - 08/29/20 14:43:31 - 3:57:57 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 14:43:32 - 3:57:58 - (6573/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:43:33 - 3:57:59 - check hypothesis
+INFO - 08/29/20 14:44:35 - 3:59:01 - get results
+INFO - 08/29/20 14:44:35 - 3:59:01 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 14:44:36 - 3:59:02 - (6601/8941) Found 0/28 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:44:37 - 3:59:02 - check hypothesis
+INFO - 08/29/20 14:45:40 - 4:00:06 - get results
+INFO - 08/29/20 14:45:40 - 4:00:06 - 	  Found 0/28 solutions in beam hypotheses.
+INFO - 08/29/20 14:45:41 - 4:00:07 - (6633/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:45:42 - 4:00:08 - check hypothesis
+INFO - 08/29/20 14:46:55 - 4:01:21 - get results
+INFO - 08/29/20 14:46:55 - 4:01:21 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 14:46:56 - 4:01:22 - (6665/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:46:56 - 4:01:22 - check hypothesis
+INFO - 08/29/20 14:48:00 - 4:02:25 - get results
+INFO - 08/29/20 14:48:00 - 4:02:25 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 14:48:01 - 4:02:26 - (6694/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:48:01 - 4:02:27 - check hypothesis
+INFO - 08/29/20 14:48:54 - 4:03:20 - get results
+INFO - 08/29/20 14:48:54 - 4:03:20 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 14:48:56 - 4:03:21 - (6725/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:48:56 - 4:03:22 - check hypothesis
+INFO - 08/29/20 14:50:05 - 4:04:30 - get results
+INFO - 08/29/20 14:50:05 - 4:04:30 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 14:50:06 - 4:04:31 - (6754/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:50:06 - 4:04:32 - check hypothesis
+INFO - 08/29/20 14:51:01 - 4:05:27 - get results
+INFO - 08/29/20 14:51:01 - 4:05:27 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 14:51:02 - 4:05:28 - (6780/8941) Found 0/26 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:51:02 - 4:05:28 - check hypothesis
+INFO - 08/29/20 14:52:00 - 4:06:26 - get results
+INFO - 08/29/20 14:52:00 - 4:06:26 - 	  Found 0/26 solutions in beam hypotheses.
+INFO - 08/29/20 14:52:01 - 4:06:27 - (6812/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:52:02 - 4:06:28 - check hypothesis
+INFO - 08/29/20 14:53:09 - 4:07:35 - get results
+INFO - 08/29/20 14:53:09 - 4:07:35 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 14:53:10 - 4:07:36 - (6842/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:53:10 - 4:07:36 - check hypothesis
+INFO - 08/29/20 14:54:14 - 4:08:40 - get results
+INFO - 08/29/20 14:54:14 - 4:08:40 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 14:54:16 - 4:08:41 - (6873/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:54:16 - 4:08:42 - check hypothesis
+INFO - 08/29/20 14:55:18 - 4:09:44 - get results
+INFO - 08/29/20 14:55:19 - 4:09:44 - 	  Found 1/31 solutions in beam hypotheses.
+INFO - 08/29/20 14:55:20 - 4:09:45 - (6904/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:55:20 - 4:09:46 - check hypothesis
+INFO - 08/29/20 14:56:24 - 4:10:50 - get results
+INFO - 08/29/20 14:56:24 - 4:10:50 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 14:56:25 - 4:10:51 - (6936/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:56:26 - 4:10:51 - check hypothesis
+INFO - 08/29/20 14:57:39 - 4:12:04 - get results
+INFO - 08/29/20 14:57:39 - 4:12:04 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 14:57:40 - 4:12:05 - (6966/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:57:40 - 4:12:06 - check hypothesis
+INFO - 08/29/20 14:58:52 - 4:13:17 - get results
+INFO - 08/29/20 14:58:52 - 4:13:17 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 14:58:53 - 4:13:18 - (6997/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 14:58:53 - 4:13:19 - check hypothesis
+INFO - 08/29/20 15:00:04 - 4:14:30 - get results
+INFO - 08/29/20 15:00:04 - 4:14:30 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 15:00:05 - 4:14:31 - (7027/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:00:05 - 4:14:31 - check hypothesis
+INFO - 08/29/20 15:01:09 - 4:15:35 - get results
+INFO - 08/29/20 15:01:09 - 4:15:35 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 15:01:10 - 4:15:36 - (7055/8941) Found 0/28 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:01:11 - 4:15:36 - check hypothesis
+INFO - 08/29/20 15:02:10 - 4:16:35 - get results
+INFO - 08/29/20 15:02:10 - 4:16:35 - 	  Found 0/28 solutions in beam hypotheses.
+INFO - 08/29/20 15:02:11 - 4:16:37 - (7086/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:02:11 - 4:16:37 - check hypothesis
+INFO - 08/29/20 15:03:07 - 4:17:33 - get results
+INFO - 08/29/20 15:03:07 - 4:17:33 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 15:03:08 - 4:17:34 - (7116/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:03:08 - 4:17:34 - check hypothesis
+INFO - 08/29/20 15:04:12 - 4:18:37 - get results
+INFO - 08/29/20 15:04:12 - 4:18:37 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 15:04:13 - 4:18:38 - (7147/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:04:13 - 4:18:39 - check hypothesis
+INFO - 08/29/20 15:05:15 - 4:19:41 - get results
+INFO - 08/29/20 15:05:15 - 4:19:41 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 15:05:16 - 4:19:42 - (7178/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:05:17 - 4:19:42 - check hypothesis
+INFO - 08/29/20 15:06:23 - 4:20:48 - get results
+INFO - 08/29/20 15:06:23 - 4:20:48 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 15:06:23 - 4:20:49 - (7208/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:06:24 - 4:20:50 - check hypothesis
+INFO - 08/29/20 15:07:14 - 4:21:39 - get results
+INFO - 08/29/20 15:07:14 - 4:21:39 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 15:07:15 - 4:21:40 - (7239/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:07:15 - 4:21:41 - check hypothesis
+INFO - 08/29/20 15:08:10 - 4:22:36 - get results
+INFO - 08/29/20 15:08:10 - 4:22:36 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 15:08:11 - 4:22:37 - (7268/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:08:12 - 4:22:38 - check hypothesis
+INFO - 08/29/20 15:09:19 - 4:23:45 - get results
+INFO - 08/29/20 15:09:19 - 4:23:45 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 15:09:20 - 4:23:46 - (7299/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:09:21 - 4:23:47 - check hypothesis
+INFO - 08/29/20 15:10:26 - 4:24:52 - get results
+INFO - 08/29/20 15:10:26 - 4:24:52 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 15:10:27 - 4:24:53 - (7328/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:10:28 - 4:24:53 - check hypothesis
+INFO - 08/29/20 15:11:30 - 4:25:56 - get results
+INFO - 08/29/20 15:11:30 - 4:25:56 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 15:11:31 - 4:25:57 - (7359/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:11:32 - 4:25:57 - check hypothesis
+INFO - 08/29/20 15:12:32 - 4:26:58 - get results
+INFO - 08/29/20 15:12:32 - 4:26:58 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 15:12:33 - 4:26:59 - (7390/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:12:34 - 4:27:00 - check hypothesis
+INFO - 08/29/20 15:13:38 - 4:28:04 - get results
+INFO - 08/29/20 15:13:38 - 4:28:04 - 	  Found 1/31 solutions in beam hypotheses.
+INFO - 08/29/20 15:13:40 - 4:28:05 - (7420/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:13:40 - 4:28:06 - check hypothesis
+INFO - 08/29/20 15:14:42 - 4:29:08 - get results
+INFO - 08/29/20 15:14:42 - 4:29:08 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 15:14:43 - 4:29:09 - (7451/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:14:44 - 4:29:10 - check hypothesis
+INFO - 08/29/20 15:15:51 - 4:30:17 - get results
+INFO - 08/29/20 15:15:51 - 4:30:17 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 15:15:52 - 4:30:18 - (7482/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:15:52 - 4:30:18 - check hypothesis
+INFO - 08/29/20 15:16:56 - 4:31:22 - get results
+INFO - 08/29/20 15:16:56 - 4:31:22 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 15:16:57 - 4:31:23 - (7514/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:16:58 - 4:31:24 - check hypothesis
+INFO - 08/29/20 15:18:12 - 4:32:38 - get results
+INFO - 08/29/20 15:18:12 - 4:32:38 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 15:18:14 - 4:32:39 - (7545/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:18:14 - 4:32:40 - check hypothesis
+INFO - 08/29/20 15:19:20 - 4:33:46 - get results
+INFO - 08/29/20 15:19:20 - 4:33:46 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 15:19:21 - 4:33:47 - (7575/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:19:22 - 4:33:47 - check hypothesis
+INFO - 08/29/20 15:20:22 - 4:34:48 - get results
+INFO - 08/29/20 15:20:22 - 4:34:48 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 15:20:23 - 4:34:49 - (7606/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:20:24 - 4:34:50 - check hypothesis
+INFO - 08/29/20 15:21:35 - 4:36:01 - get results
+INFO - 08/29/20 15:21:35 - 4:36:01 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 15:21:36 - 4:36:02 - (7635/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:21:36 - 4:36:02 - check hypothesis
+INFO - 08/29/20 15:22:28 - 4:36:54 - get results
+INFO - 08/29/20 15:22:28 - 4:36:54 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 15:22:29 - 4:36:55 - (7666/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:22:30 - 4:36:56 - check hypothesis
+INFO - 08/29/20 15:23:35 - 4:38:00 - get results
+INFO - 08/29/20 15:23:35 - 4:38:00 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 15:23:36 - 4:38:02 - (7696/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:23:36 - 4:38:02 - check hypothesis
+INFO - 08/29/20 15:24:43 - 4:39:08 - get results
+INFO - 08/29/20 15:24:43 - 4:39:08 - 	  Found 1/30 solutions in beam hypotheses.
+INFO - 08/29/20 15:24:44 - 4:39:09 - (7726/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:24:44 - 4:39:10 - check hypothesis
+INFO - 08/29/20 15:25:42 - 4:40:07 - get results
+INFO - 08/29/20 15:25:42 - 4:40:07 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 15:25:43 - 4:40:08 - (7757/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:25:43 - 4:40:09 - check hypothesis
+INFO - 08/29/20 15:26:54 - 4:41:20 - get results
+INFO - 08/29/20 15:26:54 - 4:41:20 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 15:26:55 - 4:41:21 - (7787/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:26:55 - 4:41:21 - check hypothesis
+INFO - 08/29/20 15:27:58 - 4:42:24 - get results
+INFO - 08/29/20 15:27:58 - 4:42:24 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 15:27:59 - 4:42:25 - (7817/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:28:00 - 4:42:25 - check hypothesis
+INFO - 08/29/20 15:29:05 - 4:43:31 - get results
+INFO - 08/29/20 15:29:05 - 4:43:31 - 	  Found 1/30 solutions in beam hypotheses.
+INFO - 08/29/20 15:29:06 - 4:43:32 - (7848/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:29:06 - 4:43:32 - check hypothesis
+INFO - 08/29/20 15:30:10 - 4:44:36 - get results
+INFO - 08/29/20 15:30:11 - 4:44:36 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 15:30:12 - 4:44:37 - (7880/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:30:12 - 4:44:38 - check hypothesis
+INFO - 08/29/20 15:31:20 - 4:45:46 - get results
+INFO - 08/29/20 15:31:20 - 4:45:46 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 15:31:21 - 4:45:47 - (7909/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:31:21 - 4:45:47 - check hypothesis
+INFO - 08/29/20 15:32:21 - 4:46:47 - get results
+INFO - 08/29/20 15:32:21 - 4:46:47 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 15:32:22 - 4:46:48 - (7940/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:32:23 - 4:46:49 - check hypothesis
+INFO - 08/29/20 15:33:34 - 4:48:00 - get results
+INFO - 08/29/20 15:33:34 - 4:48:00 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 15:33:35 - 4:48:01 - (7971/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:33:36 - 4:48:01 - check hypothesis
+INFO - 08/29/20 15:34:31 - 4:48:57 - get results
+INFO - 08/29/20 15:34:31 - 4:48:57 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 15:34:32 - 4:48:58 - (8001/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:34:32 - 4:48:58 - check hypothesis
+INFO - 08/29/20 15:35:41 - 4:50:07 - get results
+INFO - 08/29/20 15:35:41 - 4:50:07 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 15:35:42 - 4:50:08 - (8031/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:35:43 - 4:50:08 - check hypothesis
+INFO - 08/29/20 15:36:52 - 4:51:18 - get results
+INFO - 08/29/20 15:36:52 - 4:51:18 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 15:36:53 - 4:51:19 - (8060/8941) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:36:54 - 4:51:19 - check hypothesis
+INFO - 08/29/20 15:37:54 - 4:52:20 - get results
+INFO - 08/29/20 15:37:54 - 4:52:20 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 15:37:55 - 4:52:21 - (8091/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:37:55 - 4:52:21 - check hypothesis
+INFO - 08/29/20 15:39:15 - 4:53:41 - get results
+INFO - 08/29/20 15:39:15 - 4:53:41 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 15:39:16 - 4:53:42 - (8121/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:39:17 - 4:53:43 - check hypothesis
+INFO - 08/29/20 15:40:25 - 4:54:51 - get results
+INFO - 08/29/20 15:40:25 - 4:54:51 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 15:40:27 - 4:54:52 - (8152/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:40:27 - 4:54:53 - check hypothesis
+INFO - 08/29/20 15:41:42 - 4:56:08 - get results
+INFO - 08/29/20 15:41:42 - 4:56:08 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 15:41:43 - 4:56:09 - (8182/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:41:44 - 4:56:10 - check hypothesis
+INFO - 08/29/20 15:42:44 - 4:57:09 - get results
+INFO - 08/29/20 15:42:44 - 4:57:09 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 15:42:45 - 4:57:10 - (8213/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:42:45 - 4:57:11 - check hypothesis
+INFO - 08/29/20 15:44:01 - 4:58:26 - get results
+INFO - 08/29/20 15:44:01 - 4:58:26 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 15:44:02 - 4:58:28 - (8243/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:44:02 - 4:58:28 - check hypothesis
+INFO - 08/29/20 15:45:02 - 4:59:28 - get results
+INFO - 08/29/20 15:45:02 - 4:59:28 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 15:45:04 - 4:59:29 - (8275/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:45:04 - 4:59:30 - check hypothesis
+INFO - 08/29/20 15:46:16 - 5:00:41 - get results
+INFO - 08/29/20 15:46:16 - 5:00:41 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 15:46:17 - 5:00:42 - (8307/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:46:17 - 5:00:43 - check hypothesis
+INFO - 08/29/20 15:47:24 - 5:01:50 - get results
+INFO - 08/29/20 15:47:24 - 5:01:50 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 15:47:25 - 5:01:51 - (8339/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:47:25 - 5:01:51 - check hypothesis
+INFO - 08/29/20 15:48:34 - 5:03:00 - get results
+INFO - 08/29/20 15:48:34 - 5:03:00 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 15:48:36 - 5:03:01 - (8367/8941) Found 0/28 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:48:36 - 5:03:02 - check hypothesis
+INFO - 08/29/20 15:49:49 - 5:04:15 - get results
+INFO - 08/29/20 15:49:49 - 5:04:15 - 	  Found 0/28 solutions in beam hypotheses.
+INFO - 08/29/20 15:49:50 - 5:04:16 - (8399/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:49:50 - 5:04:16 - check hypothesis
+INFO - 08/29/20 15:50:51 - 5:05:17 - get results
+INFO - 08/29/20 15:50:51 - 5:05:17 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 15:50:52 - 5:05:18 - (8430/8941) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:50:53 - 5:05:18 - check hypothesis
+INFO - 08/29/20 15:51:52 - 5:06:18 - get results
+INFO - 08/29/20 15:51:52 - 5:06:18 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 15:51:53 - 5:06:19 - (8462/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:51:53 - 5:06:19 - check hypothesis
+INFO - 08/29/20 15:53:04 - 5:07:29 - get results
+INFO - 08/29/20 15:53:04 - 5:07:29 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 15:53:04 - 5:07:30 - (8492/8941) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:53:05 - 5:07:31 - check hypothesis
+INFO - 08/29/20 15:54:16 - 5:08:42 - get results
+INFO - 08/29/20 15:54:16 - 5:08:42 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 15:54:17 - 5:08:43 - (8524/8941) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:54:18 - 5:08:43 - check hypothesis
+INFO - 08/29/20 15:55:31 - 5:09:56 - get results
+INFO - 08/29/20 15:55:31 - 5:09:56 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 15:55:31 - 5:09:57 - (8537/8941) Found 0/13 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:55:32 - 5:09:57 - check hypothesis
+INFO - 08/29/20 15:56:01 - 5:10:27 - get results
+INFO - 08/29/20 15:56:01 - 5:10:27 - 	  Found 0/13 solutions in beam hypotheses.
+INFO - 08/29/20 15:56:02 - 5:10:27 - Evaluation results written in ./dumped/treelstm_noparaminit_eval/11111075/eval.ode2.0
+INFO - 08/29/20 15:56:02 - 5:10:27 - 12/8537 (0.14056460114794425%) equations were evaluated correctly.
+INFO - 08/29/20 15:56:02 - 5:10:27 - tensor([[0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [1, 0],
+                                             [0, 1],
+                                             [0, 0],
+                                             [0, 1],
+                                             [0, 1],
+                                             [0, 1],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 1],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [1, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [2, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 1],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 1],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 0],
+                                             [0, 1]])
+INFO - 08/29/20 15:56:02 - 5:10:27 - 3: 0 / 2 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 4: 0 / 4 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 5: 0 / 14 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 6: 0 / 22 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 7: 1 / 33 (3.0303030303030303%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 8: 1 / 34 (2.9411764705882355%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 9: 0 / 36 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 10: 1 / 60 (1.6666666666666667%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 11: 1 / 54 (1.8518518518518519%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 12: 1 / 53 (1.8867924528301887%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 13: 0 / 83 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 14: 0 / 85 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 15: 0 / 88 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 16: 0 / 67 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 17: 1 / 74 (1.3513513513513513%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 18: 0 / 84 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 19: 0 / 66 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 20: 0 / 72 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 21: 0 / 81 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 22: 0 / 82 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 23: 0 / 85 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 24: 0 / 107 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 25: 0 / 73 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 26: 0 / 81 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 27: 0 / 84 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 28: 0 / 81 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 29: 0 / 82 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 30: 0 / 88 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 31: 0 / 95 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 32: 0 / 85 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 33: 0 / 81 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 34: 0 / 80 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 35: 0 / 101 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 36: 0 / 77 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 37: 0 / 76 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 38: 0 / 77 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 39: 0 / 91 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 40: 1 / 72 (1.3888888888888888%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 41: 0 / 76 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 42: 0 / 88 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 43: 0 / 74 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 44: 0 / 71 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 45: 0 / 79 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 46: 2 / 78 (2.5641025641025643%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 47: 0 / 77 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 48: 0 / 70 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 49: 0 / 75 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 50: 0 / 71 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 51: 0 / 55 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 52: 0 / 73 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 53: 0 / 57 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 54: 0 / 70 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 55: 0 / 78 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 56: 0 / 62 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 57: 0 / 63 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 58: 0 / 74 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 59: 0 / 58 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 60: 0 / 66 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 61: 0 / 57 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 62: 0 / 59 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 63: 1 / 65 (1.5384615384615385%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 64: 0 / 60 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 65: 0 / 65 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 66: 0 / 64 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 67: 0 / 63 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 68: 0 / 82 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 69: 0 / 65 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 70: 0 / 52 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 71: 0 / 50 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 72: 0 / 49 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 73: 0 / 42 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 74: 0 / 55 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 75: 0 / 52 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 76: 0 / 50 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 77: 0 / 49 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 78: 0 / 45 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 79: 0 / 40 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 80: 0 / 50 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 81: 0 / 50 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 82: 0 / 53 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 83: 0 / 37 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 84: 0 / 56 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 85: 0 / 47 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 86: 0 / 52 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 87: 0 / 41 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 88: 0 / 40 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 89: 0 / 49 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 90: 0 / 42 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 91: 0 / 37 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 92: 0 / 46 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 93: 0 / 40 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 94: 0 / 42 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 95: 0 / 45 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 96: 0 / 30 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 97: 0 / 39 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 98: 0 / 44 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 99: 0 / 34 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 100: 0 / 50 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 101: 0 / 34 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 102: 0 / 29 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 103: 0 / 36 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 104: 0 / 37 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 105: 0 / 34 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 106: 0 / 39 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 107: 0 / 29 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 108: 0 / 45 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 109: 0 / 40 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 110: 1 / 40 (2.5%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 111: 0 / 36 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 112: 0 / 37 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 113: 0 / 37 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 114: 0 / 24 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 115: 0 / 28 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 116: 0 / 23 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 117: 0 / 29 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 118: 0 / 42 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 119: 0 / 35 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 120: 0 / 33 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 121: 0 / 32 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 122: 0 / 34 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 123: 0 / 31 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 124: 0 / 22 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 125: 0 / 32 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 126: 0 / 33 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 127: 0 / 31 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 128: 0 / 22 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 129: 0 / 15 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 130: 0 / 22 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 131: 0 / 21 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 132: 0 / 21 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 133: 0 / 27 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 134: 0 / 30 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 135: 0 / 18 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 136: 0 / 24 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 137: 0 / 25 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 138: 0 / 19 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 139: 0 / 24 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 140: 0 / 21 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 141: 0 / 23 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 142: 0 / 25 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 143: 0 / 14 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 144: 0 / 17 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 145: 0 / 20 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 146: 0 / 14 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 147: 0 / 17 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 148: 0 / 25 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 149: 0 / 20 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 150: 0 / 18 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 151: 0 / 28 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 152: 0 / 29 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 153: 0 / 23 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 154: 0 / 23 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 155: 0 / 18 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 156: 0 / 16 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 157: 0 / 23 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 158: 1 / 21 (4.761904761904762%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 159: 0 / 15 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 160: 0 / 16 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 161: 0 / 22 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 162: 0 / 18 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 163: 0 / 19 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 164: 0 / 15 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 165: 0 / 17 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 166: 0 / 14 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 167: 0 / 14 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 168: 0 / 12 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 169: 0 / 10 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 170: 0 / 20 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 171: 0 / 15 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 172: 0 / 17 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 173: 0 / 18 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 174: 0 / 14 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 175: 0 / 17 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 176: 0 / 20 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 177: 0 / 17 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 178: 0 / 17 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 179: 0 / 21 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 180: 0 / 14 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 181: 0 / 17 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 182: 0 / 12 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 183: 0 / 8 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 184: 0 / 21 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 185: 0 / 16 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 186: 0 / 11 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 187: 0 / 19 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 188: 0 / 10 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 189: 0 / 12 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 190: 0 / 15 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 191: 0 / 11 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 192: 0 / 10 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 193: 0 / 17 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 194: 0 / 14 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 195: 0 / 8 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 196: 0 / 8 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 197: 0 / 14 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 198: 0 / 16 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 199: 0 / 13 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 200: 0 / 10 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 201: 0 / 9 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 202: 0 / 11 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 203: 0 / 14 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 204: 0 / 11 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 205: 0 / 12 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 206: 0 / 13 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 207: 0 / 9 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 208: 0 / 12 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 209: 0 / 8 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 210: 0 / 10 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 211: 0 / 5 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 212: 0 / 14 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 213: 0 / 12 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 214: 0 / 17 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 215: 0 / 5 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 216: 0 / 10 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 217: 0 / 9 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 218: 0 / 8 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 219: 0 / 10 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 220: 0 / 7 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 221: 0 / 8 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 222: 0 / 7 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 223: 0 / 6 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 224: 0 / 9 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 225: 0 / 9 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 226: 0 / 5 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 227: 0 / 3 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 228: 0 / 2 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 229: 0 / 4 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 230: 0 / 5 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 231: 0 / 1 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 232: 0 / 5 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 233: 0 / 5 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 234: 0 / 10 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 235: 0 / 4 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 236: 0 / 1 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 238: 0 / 3 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 239: 0 / 3 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 240: 0 / 1 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 241: 0 / 3 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 242: 0 / 1 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 244: 0 / 2 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 245: 0 / 1 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 246: 0 / 1 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 247: 0 / 3 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 248: 0 / 4 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 249: 0 / 1 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 250: 0 / 1 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 251: 0 / 3 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 252: 0 / 5 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 254: 0 / 1 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 255: 0 / 1 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 256: 0 / 1 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 257: 0 / 1 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 258: 0 / 2 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 263: 0 / 1 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 264: 0 / 1 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 265: 0 / 1 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 269: 0 / 1 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 270: 0 / 1 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 273: 0 / 1 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - 302: 0 / 1 (0.0%)
+INFO - 08/29/20 15:56:02 - 5:10:27 - Writing evaluation results in ./dumped/treelstm_noparaminit_eval/11111075/eval.ode2.0 ...
+INFO - 08/29/20 15:56:02 - 5:10:27 - Creating test iterator for ode2 ...
+INFO - 08/29/20 15:56:02 - 5:10:27 - Loading data from ode2.test ...
+INFO - 08/29/20 15:56:02 - 5:10:27 - Loaded 9014 equations from the disk.
+INFO - 08/29/20 15:56:03 - 5:10:29 - (32/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:56:03 - 5:10:29 - check hypothesis
+INFO - 08/29/20 15:57:05 - 5:11:31 - get results
+INFO - 08/29/20 15:57:05 - 5:11:31 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 15:57:06 - 5:11:32 - (63/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:57:06 - 5:11:32 - check hypothesis
+INFO - 08/29/20 15:58:09 - 5:12:35 - get results
+INFO - 08/29/20 15:58:09 - 5:12:35 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 15:58:10 - 5:12:36 - (95/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:58:11 - 5:12:37 - check hypothesis
+INFO - 08/29/20 15:59:10 - 5:13:35 - get results
+INFO - 08/29/20 15:59:10 - 5:13:35 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 15:59:11 - 5:13:36 - (127/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 15:59:11 - 5:13:37 - check hypothesis
+INFO - 08/29/20 16:00:13 - 5:14:39 - get results
+INFO - 08/29/20 16:00:13 - 5:14:39 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 16:00:14 - 5:14:40 - (158/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:00:14 - 5:14:40 - check hypothesis
+INFO - 08/29/20 16:01:20 - 5:15:46 - get results
+INFO - 08/29/20 16:01:20 - 5:15:46 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 16:01:21 - 5:15:46 - (190/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:01:21 - 5:15:47 - check hypothesis
+INFO - 08/29/20 16:02:25 - 5:16:50 - get results
+INFO - 08/29/20 16:02:25 - 5:16:50 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 16:02:26 - 5:16:51 - (222/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:02:26 - 5:16:52 - check hypothesis
+INFO - 08/29/20 16:03:25 - 5:17:51 - get results
+INFO - 08/29/20 16:03:25 - 5:17:51 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 16:03:26 - 5:17:52 - (254/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:03:27 - 5:17:52 - check hypothesis
+INFO - 08/29/20 16:04:31 - 5:18:56 - get results
+INFO - 08/29/20 16:04:31 - 5:18:56 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 16:04:32 - 5:18:57 - (284/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:04:32 - 5:18:58 - check hypothesis
+INFO - 08/29/20 16:05:37 - 5:20:03 - get results
+INFO - 08/29/20 16:05:37 - 5:20:03 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 16:05:38 - 5:20:04 - (315/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:05:39 - 5:20:04 - check hypothesis
+INFO - 08/29/20 16:06:39 - 5:21:05 - get results
+INFO - 08/29/20 16:06:39 - 5:21:05 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 16:06:40 - 5:21:06 - (346/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:06:41 - 5:21:07 - check hypothesis
+INFO - 08/29/20 16:07:53 - 5:22:18 - get results
+INFO - 08/29/20 16:07:53 - 5:22:18 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 16:07:53 - 5:22:19 - (377/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:07:54 - 5:22:20 - check hypothesis
+INFO - 08/29/20 16:08:55 - 5:23:21 - get results
+INFO - 08/29/20 16:08:55 - 5:23:21 - 	  Found 1/31 solutions in beam hypotheses.
+INFO - 08/29/20 16:08:56 - 5:23:21 - (407/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:08:56 - 5:23:22 - check hypothesis
+INFO - 08/29/20 16:09:57 - 5:24:23 - get results
+INFO - 08/29/20 16:09:57 - 5:24:23 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 16:09:58 - 5:24:24 - (438/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:09:59 - 5:24:24 - check hypothesis
+INFO - 08/29/20 16:11:02 - 5:25:27 - get results
+INFO - 08/29/20 16:11:02 - 5:25:27 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 16:11:03 - 5:25:28 - (468/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:11:03 - 5:25:29 - check hypothesis
+INFO - 08/29/20 16:12:03 - 5:26:29 - get results
+INFO - 08/29/20 16:12:03 - 5:26:29 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 16:12:04 - 5:26:30 - (498/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:12:05 - 5:26:30 - check hypothesis
+INFO - 08/29/20 16:13:09 - 5:27:35 - get results
+INFO - 08/29/20 16:13:09 - 5:27:35 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 16:13:10 - 5:27:36 - (527/9014) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:13:11 - 5:27:36 - check hypothesis
+INFO - 08/29/20 16:14:14 - 5:28:40 - get results
+INFO - 08/29/20 16:14:14 - 5:28:40 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 16:14:15 - 5:28:41 - (557/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:14:16 - 5:28:42 - check hypothesis
+INFO - 08/29/20 16:15:24 - 5:29:50 - get results
+INFO - 08/29/20 16:15:24 - 5:29:50 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 16:15:26 - 5:29:51 - (588/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:15:26 - 5:29:52 - check hypothesis
+INFO - 08/29/20 16:16:19 - 5:30:45 - get results
+INFO - 08/29/20 16:16:19 - 5:30:45 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 16:16:20 - 5:30:46 - (617/9014) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:16:20 - 5:30:46 - check hypothesis
+INFO - 08/29/20 16:17:27 - 5:31:52 - get results
+INFO - 08/29/20 16:17:27 - 5:31:52 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 16:17:28 - 5:31:53 - (647/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:17:28 - 5:31:54 - check hypothesis
+INFO - 08/29/20 16:18:21 - 5:32:47 - get results
+INFO - 08/29/20 16:18:21 - 5:32:47 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 16:18:22 - 5:32:48 - (678/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:18:23 - 5:32:48 - check hypothesis
+INFO - 08/29/20 16:19:31 - 5:33:57 - get results
+INFO - 08/29/20 16:19:31 - 5:33:57 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 16:19:32 - 5:33:58 - (710/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:19:33 - 5:33:59 - check hypothesis
+INFO - 08/29/20 16:20:31 - 5:34:56 - get results
+INFO - 08/29/20 16:20:31 - 5:34:56 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 16:20:32 - 5:34:58 - (742/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:20:32 - 5:34:58 - check hypothesis
+INFO - 08/29/20 16:21:43 - 5:36:09 - get results
+INFO - 08/29/20 16:21:43 - 5:36:09 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 16:21:45 - 5:36:10 - (774/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:21:45 - 5:36:11 - check hypothesis
+INFO - 08/29/20 16:22:52 - 5:37:18 - get results
+INFO - 08/29/20 16:22:52 - 5:37:18 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 16:22:54 - 5:37:19 - (804/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:22:54 - 5:37:20 - check hypothesis
+INFO - 08/29/20 16:24:03 - 5:38:28 - get results
+INFO - 08/29/20 16:24:03 - 5:38:28 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 16:24:04 - 5:38:30 - (834/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:24:04 - 5:38:30 - check hypothesis
+INFO - 08/29/20 16:25:19 - 5:39:44 - get results
+INFO - 08/29/20 16:25:19 - 5:39:44 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 16:25:20 - 5:39:46 - (865/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:25:20 - 5:39:46 - check hypothesis
+INFO - 08/29/20 16:26:25 - 5:40:51 - get results
+INFO - 08/29/20 16:26:25 - 5:40:51 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 16:26:26 - 5:40:52 - (895/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:26:27 - 5:40:52 - check hypothesis
+INFO - 08/29/20 16:27:29 - 5:41:55 - get results
+INFO - 08/29/20 16:27:29 - 5:41:55 - 	  Found 1/30 solutions in beam hypotheses.
+INFO - 08/29/20 16:27:30 - 5:41:56 - (924/9014) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:27:30 - 5:41:56 - check hypothesis
+INFO - 08/29/20 16:28:31 - 5:42:57 - get results
+INFO - 08/29/20 16:28:31 - 5:42:57 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 16:28:32 - 5:42:58 - (954/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:28:32 - 5:42:58 - check hypothesis
+INFO - 08/29/20 16:29:36 - 5:44:02 - get results
+INFO - 08/29/20 16:29:36 - 5:44:02 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 16:29:37 - 5:44:02 - (985/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:29:37 - 5:44:03 - check hypothesis
+INFO - 08/29/20 16:30:27 - 5:44:52 - get results
+INFO - 08/29/20 16:30:27 - 5:44:52 - 	  Found 1/31 solutions in beam hypotheses.
+INFO - 08/29/20 16:30:28 - 5:44:54 - (1015/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:30:28 - 5:44:54 - check hypothesis
+INFO - 08/29/20 16:31:47 - 5:46:13 - get results
+INFO - 08/29/20 16:31:47 - 5:46:13 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 16:31:48 - 5:46:14 - (1046/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:31:49 - 5:46:15 - check hypothesis
+INFO - 08/29/20 16:32:44 - 5:47:09 - get results
+INFO - 08/29/20 16:32:44 - 5:47:09 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 16:32:45 - 5:47:11 - (1077/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:32:45 - 5:47:11 - check hypothesis
+INFO - 08/29/20 16:33:57 - 5:48:22 - get results
+INFO - 08/29/20 16:33:57 - 5:48:22 - 	  Found 1/31 solutions in beam hypotheses.
+INFO - 08/29/20 16:33:58 - 5:48:23 - (1109/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:33:58 - 5:48:24 - check hypothesis
+INFO - 08/29/20 16:35:09 - 5:49:35 - get results
+INFO - 08/29/20 16:35:09 - 5:49:35 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 16:35:10 - 5:49:36 - (1140/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:35:10 - 5:49:36 - check hypothesis
+INFO - 08/29/20 16:36:10 - 5:50:35 - get results
+INFO - 08/29/20 16:36:10 - 5:50:35 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 16:36:11 - 5:50:36 - (1172/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:36:11 - 5:50:37 - check hypothesis
+INFO - 08/29/20 16:37:20 - 5:51:46 - get results
+INFO - 08/29/20 16:37:20 - 5:51:46 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 16:37:21 - 5:51:47 - (1204/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:37:21 - 5:51:47 - check hypothesis
+INFO - 08/29/20 16:38:38 - 5:53:04 - get results
+INFO - 08/29/20 16:38:38 - 5:53:04 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 16:38:39 - 5:53:05 - (1235/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:38:39 - 5:53:05 - check hypothesis
+INFO - 08/29/20 16:39:34 - 5:53:59 - get results
+INFO - 08/29/20 16:39:34 - 5:53:59 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 16:39:35 - 5:54:00 - (1266/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:39:35 - 5:54:01 - check hypothesis
+INFO - 08/29/20 16:40:47 - 5:55:13 - get results
+INFO - 08/29/20 16:40:47 - 5:55:13 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 16:40:48 - 5:55:14 - (1297/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:40:48 - 5:55:14 - check hypothesis
+INFO - 08/29/20 16:41:54 - 5:56:19 - get results
+INFO - 08/29/20 16:41:54 - 5:56:19 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 16:41:55 - 5:56:21 - (1327/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:41:55 - 5:56:21 - check hypothesis
+INFO - 08/29/20 16:43:04 - 5:57:29 - get results
+INFO - 08/29/20 16:43:04 - 5:57:29 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 16:43:05 - 5:57:31 - (1359/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:43:05 - 5:57:31 - check hypothesis
+INFO - 08/29/20 16:44:19 - 5:58:44 - get results
+INFO - 08/29/20 16:44:19 - 5:58:44 - 	  Found 1/32 solutions in beam hypotheses.
+INFO - 08/29/20 16:44:20 - 5:58:45 - (1389/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:44:20 - 5:58:46 - check hypothesis
+INFO - 08/29/20 16:45:26 - 5:59:52 - get results
+INFO - 08/29/20 16:45:26 - 5:59:52 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 16:45:27 - 5:59:53 - (1418/9014) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:45:27 - 5:59:53 - check hypothesis
+INFO - 08/29/20 16:46:32 - 6:00:58 - get results
+INFO - 08/29/20 16:46:32 - 6:00:58 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 16:46:33 - 6:00:59 - (1444/9014) Found 0/26 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:46:34 - 6:00:59 - check hypothesis
+INFO - 08/29/20 16:47:29 - 6:01:55 - get results
+INFO - 08/29/20 16:47:29 - 6:01:55 - 	  Found 0/26 solutions in beam hypotheses.
+INFO - 08/29/20 16:47:30 - 6:01:56 - (1475/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:47:31 - 6:01:57 - check hypothesis
+INFO - 08/29/20 16:48:37 - 6:03:03 - get results
+INFO - 08/29/20 16:48:37 - 6:03:03 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 16:48:38 - 6:03:04 - (1505/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:48:38 - 6:03:04 - check hypothesis
+INFO - 08/29/20 16:49:49 - 6:04:15 - get results
+INFO - 08/29/20 16:49:49 - 6:04:15 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 16:49:50 - 6:04:16 - (1536/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:49:51 - 6:04:17 - check hypothesis
+INFO - 08/29/20 16:50:59 - 6:05:24 - get results
+INFO - 08/29/20 16:50:59 - 6:05:24 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 16:51:00 - 6:05:25 - (1566/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:51:00 - 6:05:26 - check hypothesis
+INFO - 08/29/20 16:52:06 - 6:06:31 - get results
+INFO - 08/29/20 16:52:06 - 6:06:31 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 16:52:06 - 6:06:32 - (1596/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:52:07 - 6:06:33 - check hypothesis
+INFO - 08/29/20 16:53:03 - 6:07:29 - get results
+INFO - 08/29/20 16:53:03 - 6:07:29 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 16:53:04 - 6:07:30 - (1627/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:53:05 - 6:07:30 - check hypothesis
+INFO - 08/29/20 16:54:00 - 6:08:26 - get results
+INFO - 08/29/20 16:54:00 - 6:08:26 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 16:54:01 - 6:08:27 - (1657/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:54:02 - 6:08:27 - check hypothesis
+INFO - 08/29/20 16:55:08 - 6:09:33 - get results
+INFO - 08/29/20 16:55:08 - 6:09:33 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 16:55:09 - 6:09:34 - (1687/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:55:09 - 6:09:35 - check hypothesis
+INFO - 08/29/20 16:56:26 - 6:10:52 - get results
+INFO - 08/29/20 16:56:26 - 6:10:52 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 16:56:27 - 6:10:53 - (1718/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:56:27 - 6:10:53 - check hypothesis
+INFO - 08/29/20 16:57:40 - 6:12:06 - get results
+INFO - 08/29/20 16:57:40 - 6:12:06 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 16:57:41 - 6:12:07 - (1750/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:57:41 - 6:12:07 - check hypothesis
+INFO - 08/29/20 16:58:52 - 6:13:18 - get results
+INFO - 08/29/20 16:58:52 - 6:13:18 - 	  Found 1/32 solutions in beam hypotheses.
+INFO - 08/29/20 16:58:53 - 6:13:19 - (1781/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:58:54 - 6:13:19 - check hypothesis
+INFO - 08/29/20 16:59:51 - 6:14:16 - get results
+INFO - 08/29/20 16:59:51 - 6:14:16 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 16:59:52 - 6:14:17 - (1812/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 16:59:52 - 6:14:18 - check hypothesis
+INFO - 08/29/20 17:00:48 - 6:15:14 - get results
+INFO - 08/29/20 17:00:48 - 6:15:14 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 17:00:49 - 6:15:15 - (1843/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:00:49 - 6:15:15 - check hypothesis
+INFO - 08/29/20 17:02:04 - 6:16:30 - get results
+INFO - 08/29/20 17:02:04 - 6:16:30 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 17:02:05 - 6:16:31 - (1874/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:02:06 - 6:16:31 - check hypothesis
+INFO - 08/29/20 17:03:14 - 6:17:40 - get results
+INFO - 08/29/20 17:03:14 - 6:17:40 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 17:03:15 - 6:17:41 - (1905/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:03:16 - 6:17:41 - check hypothesis
+INFO - 08/29/20 17:04:20 - 6:18:46 - get results
+INFO - 08/29/20 17:04:20 - 6:18:46 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 17:04:21 - 6:18:47 - (1936/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:04:21 - 6:18:47 - check hypothesis
+INFO - 08/29/20 17:05:20 - 6:19:46 - get results
+INFO - 08/29/20 17:05:20 - 6:19:46 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 17:05:21 - 6:19:47 - (1966/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:05:22 - 6:19:47 - check hypothesis
+INFO - 08/29/20 17:06:26 - 6:20:51 - get results
+INFO - 08/29/20 17:06:26 - 6:20:51 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 17:06:27 - 6:20:52 - (1995/9014) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:06:27 - 6:20:53 - check hypothesis
+INFO - 08/29/20 17:07:23 - 6:21:49 - get results
+INFO - 08/29/20 17:07:23 - 6:21:49 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 17:07:24 - 6:21:50 - (2025/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:07:25 - 6:21:51 - check hypothesis
+INFO - 08/29/20 17:08:32 - 6:22:58 - get results
+INFO - 08/29/20 17:08:32 - 6:22:58 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 17:08:33 - 6:22:59 - (2057/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:08:34 - 6:23:00 - check hypothesis
+INFO - 08/29/20 17:09:42 - 6:24:08 - get results
+INFO - 08/29/20 17:09:42 - 6:24:08 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 17:09:44 - 6:24:09 - (2089/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:09:44 - 6:24:10 - check hypothesis
+INFO - 08/29/20 17:11:02 - 6:25:28 - get results
+INFO - 08/29/20 17:11:02 - 6:25:28 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 17:11:03 - 6:25:29 - (2120/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:11:04 - 6:25:29 - check hypothesis
+INFO - 08/29/20 17:12:04 - 6:26:30 - get results
+INFO - 08/29/20 17:12:04 - 6:26:30 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 17:12:05 - 6:26:31 - (2151/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:12:06 - 6:26:31 - check hypothesis
+INFO - 08/29/20 17:12:56 - 6:27:21 - get results
+INFO - 08/29/20 17:12:56 - 6:27:21 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 17:12:56 - 6:27:22 - (2182/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:12:57 - 6:27:23 - check hypothesis
+INFO - 08/29/20 17:13:54 - 6:28:19 - get results
+INFO - 08/29/20 17:13:54 - 6:28:19 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 17:13:55 - 6:28:21 - (2210/9014) Found 0/28 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:13:55 - 6:28:21 - check hypothesis
+INFO - 08/29/20 17:14:58 - 6:29:24 - get results
+INFO - 08/29/20 17:14:58 - 6:29:24 - 	  Found 1/28 solutions in beam hypotheses.
+INFO - 08/29/20 17:14:59 - 6:29:25 - (2242/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:15:00 - 6:29:25 - check hypothesis
+INFO - 08/29/20 17:16:08 - 6:30:34 - get results
+INFO - 08/29/20 17:16:08 - 6:30:34 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 17:16:09 - 6:30:35 - (2274/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:16:09 - 6:30:35 - check hypothesis
+INFO - 08/29/20 17:17:09 - 6:31:35 - get results
+INFO - 08/29/20 17:17:09 - 6:31:35 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 17:17:11 - 6:31:36 - (2306/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:17:11 - 6:31:37 - check hypothesis
+INFO - 08/29/20 17:18:29 - 6:32:55 - get results
+INFO - 08/29/20 17:18:29 - 6:32:55 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 17:18:30 - 6:32:56 - (2333/9014) Found 0/27 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:18:31 - 6:32:56 - check hypothesis
+INFO - 08/29/20 17:19:28 - 6:33:54 - get results
+INFO - 08/29/20 17:19:28 - 6:33:54 - 	  Found 1/27 solutions in beam hypotheses.
+INFO - 08/29/20 17:19:29 - 6:33:55 - (2363/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:19:30 - 6:33:56 - check hypothesis
+INFO - 08/29/20 17:20:32 - 6:34:58 - get results
+INFO - 08/29/20 17:20:32 - 6:34:58 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 17:20:33 - 6:34:59 - (2391/9014) Found 0/28 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:20:33 - 6:34:59 - check hypothesis
+INFO - 08/29/20 17:21:43 - 6:36:09 - get results
+INFO - 08/29/20 17:21:43 - 6:36:09 - 	  Found 0/28 solutions in beam hypotheses.
+INFO - 08/29/20 17:21:44 - 6:36:10 - (2420/9014) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:21:45 - 6:36:10 - check hypothesis
+INFO - 08/29/20 17:22:53 - 6:37:19 - get results
+INFO - 08/29/20 17:22:53 - 6:37:19 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 17:22:54 - 6:37:20 - (2452/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:22:54 - 6:37:20 - check hypothesis
+INFO - 08/29/20 17:24:11 - 6:38:37 - get results
+INFO - 08/29/20 17:24:11 - 6:38:37 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 17:24:12 - 6:38:38 - (2483/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:24:13 - 6:38:38 - check hypothesis
+INFO - 08/29/20 17:25:15 - 6:39:41 - get results
+INFO - 08/29/20 17:25:15 - 6:39:41 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 17:25:16 - 6:39:42 - (2513/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:25:16 - 6:39:42 - check hypothesis
+INFO - 08/29/20 17:26:23 - 6:40:49 - get results
+INFO - 08/29/20 17:26:23 - 6:40:49 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 17:26:24 - 6:40:50 - (2543/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:26:25 - 6:40:51 - check hypothesis
+INFO - 08/29/20 17:27:31 - 6:41:57 - get results
+INFO - 08/29/20 17:27:31 - 6:41:57 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 17:27:32 - 6:41:58 - (2574/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:27:33 - 6:41:58 - check hypothesis
+INFO - 08/29/20 17:28:33 - 6:42:59 - get results
+INFO - 08/29/20 17:28:33 - 6:42:59 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 17:28:34 - 6:43:00 - (2605/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:28:35 - 6:43:00 - check hypothesis
+INFO - 08/29/20 17:29:34 - 6:44:00 - get results
+INFO - 08/29/20 17:29:34 - 6:44:00 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 17:29:35 - 6:44:01 - (2634/9014) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:29:35 - 6:44:01 - check hypothesis
+INFO - 08/29/20 17:30:37 - 6:45:03 - get results
+INFO - 08/29/20 17:30:37 - 6:45:03 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 17:30:38 - 6:45:04 - (2663/9014) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:30:39 - 6:45:05 - check hypothesis
+INFO - 08/29/20 17:31:39 - 6:46:05 - get results
+INFO - 08/29/20 17:31:39 - 6:46:05 - 	  Found 1/29 solutions in beam hypotheses.
+INFO - 08/29/20 17:31:40 - 6:46:06 - (2694/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:31:40 - 6:46:06 - check hypothesis
+INFO - 08/29/20 17:32:45 - 6:47:10 - get results
+INFO - 08/29/20 17:32:45 - 6:47:10 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 17:32:46 - 6:47:11 - (2726/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:32:46 - 6:47:12 - check hypothesis
+INFO - 08/29/20 17:34:00 - 6:48:26 - get results
+INFO - 08/29/20 17:34:00 - 6:48:26 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 17:34:01 - 6:48:27 - (2756/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:34:01 - 6:48:27 - check hypothesis
+INFO - 08/29/20 17:35:04 - 6:49:29 - get results
+INFO - 08/29/20 17:35:04 - 6:49:30 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 17:35:05 - 6:49:31 - (2787/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:35:05 - 6:49:31 - check hypothesis
+INFO - 08/29/20 17:36:11 - 6:50:37 - get results
+INFO - 08/29/20 17:36:11 - 6:50:37 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 17:36:12 - 6:50:38 - (2818/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:36:13 - 6:50:38 - check hypothesis
+INFO - 08/29/20 17:37:14 - 6:51:40 - get results
+INFO - 08/29/20 17:37:14 - 6:51:40 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 17:37:15 - 6:51:41 - (2849/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:37:15 - 6:51:41 - check hypothesis
+INFO - 08/29/20 17:38:17 - 6:52:43 - get results
+INFO - 08/29/20 17:38:17 - 6:52:43 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 17:38:19 - 6:52:44 - (2879/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:38:19 - 6:52:45 - check hypothesis
+INFO - 08/29/20 17:39:25 - 6:53:50 - get results
+INFO - 08/29/20 17:39:25 - 6:53:50 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 17:39:26 - 6:53:51 - (2909/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:39:26 - 6:53:52 - check hypothesis
+INFO - 08/29/20 17:40:35 - 6:55:00 - get results
+INFO - 08/29/20 17:40:35 - 6:55:00 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 17:40:36 - 6:55:01 - (2940/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:40:36 - 6:55:02 - check hypothesis
+INFO - 08/29/20 17:41:49 - 6:56:15 - get results
+INFO - 08/29/20 17:41:49 - 6:56:15 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 17:41:51 - 6:56:16 - (2970/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:41:51 - 6:56:17 - check hypothesis
+INFO - 08/29/20 17:42:50 - 6:57:16 - get results
+INFO - 08/29/20 17:42:50 - 6:57:16 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 17:42:52 - 6:57:17 - (3000/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:42:52 - 6:57:18 - check hypothesis
+INFO - 08/29/20 17:43:56 - 6:58:22 - get results
+INFO - 08/29/20 17:43:56 - 6:58:22 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 17:43:57 - 6:58:23 - (3030/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:43:58 - 6:58:24 - check hypothesis
+INFO - 08/29/20 17:45:02 - 6:59:28 - get results
+INFO - 08/29/20 17:45:02 - 6:59:28 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 17:45:03 - 6:59:29 - (3061/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:45:04 - 6:59:30 - check hypothesis
+INFO - 08/29/20 17:46:08 - 7:00:34 - get results
+INFO - 08/29/20 17:46:08 - 7:00:34 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 17:46:09 - 7:00:35 - (3091/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:46:10 - 7:00:36 - check hypothesis
+INFO - 08/29/20 17:47:21 - 7:01:47 - get results
+INFO - 08/29/20 17:47:21 - 7:01:47 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 17:47:22 - 7:01:48 - (3122/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:47:23 - 7:01:49 - check hypothesis
+INFO - 08/29/20 17:48:33 - 7:02:59 - get results
+INFO - 08/29/20 17:48:33 - 7:02:59 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 17:48:34 - 7:03:00 - (3152/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:48:35 - 7:03:01 - check hypothesis
+INFO - 08/29/20 17:49:35 - 7:04:01 - get results
+INFO - 08/29/20 17:49:35 - 7:04:01 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 17:49:36 - 7:04:02 - (3183/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:49:37 - 7:04:03 - check hypothesis
+INFO - 08/29/20 17:50:43 - 7:05:08 - get results
+INFO - 08/29/20 17:50:43 - 7:05:08 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 17:50:44 - 7:05:09 - (3214/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:50:44 - 7:05:10 - check hypothesis
+INFO - 08/29/20 17:51:39 - 7:06:04 - get results
+INFO - 08/29/20 17:51:39 - 7:06:04 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 17:51:40 - 7:06:05 - (3246/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:51:40 - 7:06:06 - check hypothesis
+INFO - 08/29/20 17:52:48 - 7:07:14 - get results
+INFO - 08/29/20 17:52:48 - 7:07:14 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 17:52:49 - 7:07:15 - (3278/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:52:50 - 7:07:16 - check hypothesis
+INFO - 08/29/20 17:54:03 - 7:08:29 - get results
+INFO - 08/29/20 17:54:03 - 7:08:29 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 17:54:04 - 7:08:30 - (3307/9014) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:54:05 - 7:08:30 - check hypothesis
+INFO - 08/29/20 17:55:04 - 7:09:30 - get results
+INFO - 08/29/20 17:55:04 - 7:09:30 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 17:55:05 - 7:09:31 - (3335/9014) Found 0/28 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:55:05 - 7:09:31 - check hypothesis
+INFO - 08/29/20 17:56:19 - 7:10:45 - get results
+INFO - 08/29/20 17:56:19 - 7:10:45 - 	  Found 0/28 solutions in beam hypotheses.
+INFO - 08/29/20 17:56:20 - 7:10:46 - (3367/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:56:21 - 7:10:46 - check hypothesis
+INFO - 08/29/20 17:57:38 - 7:12:04 - get results
+INFO - 08/29/20 17:57:38 - 7:12:04 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 17:57:39 - 7:12:05 - (3398/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:57:40 - 7:12:05 - check hypothesis
+INFO - 08/29/20 17:58:51 - 7:13:17 - get results
+INFO - 08/29/20 17:58:51 - 7:13:17 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 17:58:52 - 7:13:18 - (3428/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:58:53 - 7:13:18 - check hypothesis
+INFO - 08/29/20 17:59:52 - 7:14:18 - get results
+INFO - 08/29/20 17:59:52 - 7:14:18 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 17:59:53 - 7:14:19 - (3459/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 17:59:54 - 7:14:20 - check hypothesis
+INFO - 08/29/20 18:00:57 - 7:15:23 - get results
+INFO - 08/29/20 18:00:57 - 7:15:23 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 18:00:58 - 7:15:24 - (3490/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:00:58 - 7:15:24 - check hypothesis
+INFO - 08/29/20 18:01:57 - 7:16:23 - get results
+INFO - 08/29/20 18:01:57 - 7:16:23 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 18:01:58 - 7:16:24 - (3520/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:01:58 - 7:16:24 - check hypothesis
+INFO - 08/29/20 18:03:04 - 7:17:30 - get results
+INFO - 08/29/20 18:03:04 - 7:17:30 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 18:03:05 - 7:17:31 - (3551/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:03:05 - 7:17:31 - check hypothesis
+INFO - 08/29/20 18:04:24 - 7:18:49 - get results
+INFO - 08/29/20 18:04:24 - 7:18:49 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 18:04:25 - 7:18:50 - (3579/9014) Found 0/28 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:04:25 - 7:18:51 - check hypothesis
+INFO - 08/29/20 18:05:32 - 7:19:57 - get results
+INFO - 08/29/20 18:05:32 - 7:19:57 - 	  Found 0/28 solutions in beam hypotheses.
+INFO - 08/29/20 18:05:32 - 7:19:58 - (3610/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:05:33 - 7:19:59 - check hypothesis
+INFO - 08/29/20 18:06:27 - 7:20:52 - get results
+INFO - 08/29/20 18:06:27 - 7:20:52 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 18:06:28 - 7:20:53 - (3639/9014) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:06:28 - 7:20:54 - check hypothesis
+INFO - 08/29/20 18:07:27 - 7:21:52 - get results
+INFO - 08/29/20 18:07:27 - 7:21:52 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 18:07:28 - 7:21:54 - (3670/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:07:28 - 7:21:54 - check hypothesis
+WARNING - 08/29/20 18:08:12 - 7:22:37 - InconsistentAssumptions exception when simplifying -3*x**2 + 3*x + sqrt(a8 + x) + 3*sqrt(log(a8*x + x*exp(sqrt(sin(5)))))
+INFO - 08/29/20 18:08:40 - 7:23:06 - get results
+INFO - 08/29/20 18:08:40 - 7:23:06 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 18:08:41 - 7:23:06 - (3699/9014) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:08:41 - 7:23:07 - check hypothesis
+INFO - 08/29/20 18:09:21 - 7:23:47 - get results
+INFO - 08/29/20 18:09:21 - 7:23:47 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 18:09:22 - 7:23:48 - (3731/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:09:23 - 7:23:49 - check hypothesis
+INFO - 08/29/20 18:10:33 - 7:24:58 - get results
+INFO - 08/29/20 18:10:33 - 7:24:58 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 18:10:34 - 7:25:00 - (3763/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:10:34 - 7:25:00 - check hypothesis
+INFO - 08/29/20 18:11:50 - 7:26:16 - get results
+INFO - 08/29/20 18:11:50 - 7:26:16 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 18:11:51 - 7:26:17 - (3792/9014) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:11:51 - 7:26:17 - check hypothesis
+INFO - 08/29/20 18:13:03 - 7:27:29 - get results
+INFO - 08/29/20 18:13:03 - 7:27:29 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 18:13:05 - 7:27:30 - (3821/9014) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:13:05 - 7:27:31 - check hypothesis
+INFO - 08/29/20 18:14:03 - 7:28:29 - get results
+INFO - 08/29/20 18:14:03 - 7:28:29 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 18:14:04 - 7:28:30 - (3851/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:14:05 - 7:28:31 - check hypothesis
+INFO - 08/29/20 18:15:08 - 7:29:34 - get results
+INFO - 08/29/20 18:15:08 - 7:29:34 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 18:15:10 - 7:29:35 - (3883/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:15:10 - 7:29:36 - check hypothesis
+INFO - 08/29/20 18:16:25 - 7:30:51 - get results
+INFO - 08/29/20 18:16:25 - 7:30:51 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 18:16:26 - 7:30:52 - (3913/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:16:26 - 7:30:52 - check hypothesis
+INFO - 08/29/20 18:17:21 - 7:31:47 - get results
+INFO - 08/29/20 18:17:21 - 7:31:47 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 18:17:22 - 7:31:48 - (3943/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:17:22 - 7:31:48 - check hypothesis
+INFO - 08/29/20 18:18:27 - 7:32:53 - get results
+INFO - 08/29/20 18:18:27 - 7:32:53 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 18:18:28 - 7:32:54 - (3973/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:18:29 - 7:32:54 - check hypothesis
+INFO - 08/29/20 18:19:31 - 7:33:57 - get results
+INFO - 08/29/20 18:19:31 - 7:33:57 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 18:19:32 - 7:33:58 - (4004/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:19:33 - 7:33:59 - check hypothesis
+INFO - 08/29/20 18:20:47 - 7:35:13 - get results
+INFO - 08/29/20 18:20:47 - 7:35:13 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 18:20:48 - 7:35:14 - (4033/9014) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:20:49 - 7:35:14 - check hypothesis
+INFO - 08/29/20 18:21:44 - 7:36:09 - get results
+INFO - 08/29/20 18:21:44 - 7:36:09 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 18:21:44 - 7:36:10 - (4064/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:21:45 - 7:36:11 - check hypothesis
+INFO - 08/29/20 18:22:52 - 7:37:17 - get results
+INFO - 08/29/20 18:22:52 - 7:37:17 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 18:22:53 - 7:37:19 - (4092/9014) Found 0/28 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:22:53 - 7:37:19 - check hypothesis
+INFO - 08/29/20 18:23:57 - 7:38:23 - get results
+INFO - 08/29/20 18:23:57 - 7:38:23 - 	  Found 0/28 solutions in beam hypotheses.
+INFO - 08/29/20 18:23:58 - 7:38:24 - (4118/9014) Found 0/26 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:23:59 - 7:38:24 - check hypothesis
+INFO - 08/29/20 18:25:02 - 7:39:28 - get results
+INFO - 08/29/20 18:25:02 - 7:39:28 - 	  Found 0/26 solutions in beam hypotheses.
+INFO - 08/29/20 18:25:03 - 7:39:28 - (4150/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:25:03 - 7:39:29 - check hypothesis
+INFO - 08/29/20 18:26:07 - 7:40:32 - get results
+INFO - 08/29/20 18:26:07 - 7:40:32 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 18:26:08 - 7:40:33 - (4180/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:26:08 - 7:40:34 - check hypothesis
+INFO - 08/29/20 18:27:19 - 7:41:45 - get results
+INFO - 08/29/20 18:27:19 - 7:41:45 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 18:27:20 - 7:41:46 - (4210/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:27:21 - 7:41:47 - check hypothesis
+INFO - 08/29/20 18:28:23 - 7:42:49 - get results
+INFO - 08/29/20 18:28:23 - 7:42:49 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 18:28:25 - 7:42:50 - (4241/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:28:25 - 7:42:51 - check hypothesis
+INFO - 08/29/20 18:29:25 - 7:43:51 - get results
+INFO - 08/29/20 18:29:25 - 7:43:51 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 18:29:26 - 7:43:52 - (4272/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:29:27 - 7:43:53 - check hypothesis
+INFO - 08/29/20 18:30:29 - 7:44:54 - get results
+INFO - 08/29/20 18:30:29 - 7:44:54 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 18:30:30 - 7:44:55 - (4302/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:30:30 - 7:44:56 - check hypothesis
+INFO - 08/29/20 18:31:38 - 7:46:04 - get results
+INFO - 08/29/20 18:31:38 - 7:46:04 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 18:31:39 - 7:46:05 - (4334/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:31:40 - 7:46:05 - check hypothesis
+INFO - 08/29/20 18:32:53 - 7:47:19 - get results
+INFO - 08/29/20 18:32:53 - 7:47:19 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 18:32:54 - 7:47:20 - (4365/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:32:54 - 7:47:20 - check hypothesis
+INFO - 08/29/20 18:33:58 - 7:48:24 - get results
+INFO - 08/29/20 18:33:58 - 7:48:24 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 18:33:59 - 7:48:25 - (4395/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:33:59 - 7:48:25 - check hypothesis
+INFO - 08/29/20 18:35:00 - 7:49:25 - get results
+INFO - 08/29/20 18:35:00 - 7:49:25 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 18:35:01 - 7:49:27 - (4427/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:35:01 - 7:49:27 - check hypothesis
+INFO - 08/29/20 18:36:20 - 7:50:46 - get results
+INFO - 08/29/20 18:36:20 - 7:50:46 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 18:36:21 - 7:50:47 - (4458/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:36:22 - 7:50:47 - check hypothesis
+INFO - 08/29/20 18:37:24 - 7:51:50 - get results
+INFO - 08/29/20 18:37:24 - 7:51:50 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 18:37:25 - 7:51:51 - (4489/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:37:25 - 7:51:51 - check hypothesis
+INFO - 08/29/20 18:38:20 - 7:52:46 - get results
+INFO - 08/29/20 18:38:20 - 7:52:46 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 18:38:21 - 7:52:47 - (4520/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:38:21 - 7:52:47 - check hypothesis
+INFO - 08/29/20 18:39:28 - 7:53:54 - get results
+INFO - 08/29/20 18:39:28 - 7:53:54 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 18:39:29 - 7:53:55 - (4550/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:39:30 - 7:53:55 - check hypothesis
+INFO - 08/29/20 18:40:35 - 7:55:01 - get results
+INFO - 08/29/20 18:40:35 - 7:55:01 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 18:40:36 - 7:55:02 - (4582/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:40:36 - 7:55:02 - check hypothesis
+INFO - 08/29/20 18:41:47 - 7:56:12 - get results
+INFO - 08/29/20 18:41:47 - 7:56:12 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 18:41:48 - 7:56:14 - (4613/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:41:48 - 7:56:14 - check hypothesis
+INFO - 08/29/20 18:42:59 - 7:57:25 - get results
+INFO - 08/29/20 18:42:59 - 7:57:25 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 18:43:00 - 7:57:26 - (4645/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:43:01 - 7:57:26 - check hypothesis
+INFO - 08/29/20 18:44:14 - 7:58:40 - get results
+INFO - 08/29/20 18:44:14 - 7:58:40 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 18:44:15 - 7:58:41 - (4675/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:44:16 - 7:58:41 - check hypothesis
+INFO - 08/29/20 18:45:22 - 7:59:48 - get results
+INFO - 08/29/20 18:45:22 - 7:59:48 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 18:45:23 - 7:59:49 - (4706/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:45:23 - 7:59:49 - check hypothesis
+INFO - 08/29/20 18:46:28 - 8:00:54 - get results
+INFO - 08/29/20 18:46:28 - 8:00:54 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 18:46:29 - 8:00:55 - (4737/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:46:30 - 8:00:56 - check hypothesis
+INFO - 08/29/20 18:47:33 - 8:01:59 - get results
+INFO - 08/29/20 18:47:33 - 8:01:59 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 18:47:34 - 8:02:00 - (4765/9014) Found 0/28 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:47:34 - 8:02:00 - check hypothesis
+INFO - 08/29/20 18:48:31 - 8:02:57 - get results
+INFO - 08/29/20 18:48:31 - 8:02:57 - 	  Found 0/28 solutions in beam hypotheses.
+INFO - 08/29/20 18:48:32 - 8:02:58 - (4796/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:48:32 - 8:02:58 - check hypothesis
+INFO - 08/29/20 18:49:31 - 8:03:57 - get results
+INFO - 08/29/20 18:49:31 - 8:03:57 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 18:49:32 - 8:03:58 - (4828/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:49:33 - 8:03:58 - check hypothesis
+INFO - 08/29/20 18:50:42 - 8:05:08 - get results
+INFO - 08/29/20 18:50:42 - 8:05:08 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 18:50:43 - 8:05:09 - (4860/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:50:44 - 8:05:09 - check hypothesis
+INFO - 08/29/20 18:51:50 - 8:06:15 - get results
+INFO - 08/29/20 18:51:50 - 8:06:15 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 18:51:50 - 8:06:16 - (4888/9014) Found 0/28 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:51:51 - 8:06:17 - check hypothesis
+INFO - 08/29/20 18:52:43 - 8:07:09 - get results
+INFO - 08/29/20 18:52:43 - 8:07:09 - 	  Found 0/28 solutions in beam hypotheses.
+INFO - 08/29/20 18:52:44 - 8:07:10 - (4918/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:52:44 - 8:07:10 - check hypothesis
+INFO - 08/29/20 18:53:45 - 8:08:10 - get results
+INFO - 08/29/20 18:53:45 - 8:08:10 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 18:53:46 - 8:08:11 - (4948/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:53:46 - 8:08:12 - check hypothesis
+INFO - 08/29/20 18:54:55 - 8:09:21 - get results
+INFO - 08/29/20 18:54:55 - 8:09:21 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 18:54:56 - 8:09:22 - (4980/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:54:57 - 8:09:23 - check hypothesis
+INFO - 08/29/20 18:56:05 - 8:10:31 - get results
+INFO - 08/29/20 18:56:05 - 8:10:31 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 18:56:06 - 8:10:32 - (5010/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:56:07 - 8:10:33 - check hypothesis
+INFO - 08/29/20 18:57:02 - 8:11:28 - get results
+INFO - 08/29/20 18:57:02 - 8:11:28 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 18:57:03 - 8:11:29 - (5040/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:57:03 - 8:11:29 - check hypothesis
+INFO - 08/29/20 18:58:02 - 8:12:28 - get results
+INFO - 08/29/20 18:58:02 - 8:12:28 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 18:58:03 - 8:12:29 - (5069/9014) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:58:04 - 8:12:30 - check hypothesis
+INFO - 08/29/20 18:59:10 - 8:13:36 - get results
+INFO - 08/29/20 18:59:10 - 8:13:36 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 18:59:11 - 8:13:37 - (5099/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 18:59:11 - 8:13:37 - check hypothesis
+INFO - 08/29/20 19:00:12 - 8:14:38 - get results
+INFO - 08/29/20 19:00:12 - 8:14:38 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 19:00:13 - 8:14:39 - (5131/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:00:13 - 8:14:39 - check hypothesis
+INFO - 08/29/20 19:01:24 - 8:15:49 - get results
+INFO - 08/29/20 19:01:24 - 8:15:49 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 19:01:25 - 8:15:50 - (5162/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:01:25 - 8:15:51 - check hypothesis
+INFO - 08/29/20 19:02:34 - 8:16:59 - get results
+INFO - 08/29/20 19:02:34 - 8:16:59 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 19:02:35 - 8:17:01 - (5192/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:02:35 - 8:17:01 - check hypothesis
+INFO - 08/29/20 19:03:38 - 8:18:04 - get results
+INFO - 08/29/20 19:03:38 - 8:18:04 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 19:03:39 - 8:18:05 - (5222/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:03:39 - 8:18:05 - check hypothesis
+INFO - 08/29/20 19:04:33 - 8:18:59 - get results
+INFO - 08/29/20 19:04:33 - 8:18:59 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 19:04:35 - 8:19:00 - (5253/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:04:35 - 8:19:01 - check hypothesis
+INFO - 08/29/20 19:05:45 - 8:20:11 - get results
+INFO - 08/29/20 19:05:45 - 8:20:11 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 19:05:46 - 8:20:12 - (5284/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:05:47 - 8:20:12 - check hypothesis
+INFO - 08/29/20 19:06:59 - 8:21:25 - get results
+INFO - 08/29/20 19:06:59 - 8:21:25 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 19:07:00 - 8:21:26 - (5313/9014) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:07:00 - 8:21:26 - check hypothesis
+INFO - 08/29/20 19:07:59 - 8:22:25 - get results
+INFO - 08/29/20 19:07:59 - 8:22:25 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 19:08:00 - 8:22:25 - (5343/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:08:00 - 8:22:26 - check hypothesis
+INFO - 08/29/20 19:08:58 - 8:23:24 - get results
+INFO - 08/29/20 19:08:58 - 8:23:24 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 19:08:59 - 8:23:25 - (5372/9014) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:09:00 - 8:23:25 - check hypothesis
+INFO - 08/29/20 19:09:59 - 8:24:25 - get results
+INFO - 08/29/20 19:09:59 - 8:24:25 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 19:10:00 - 8:24:26 - (5402/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:10:01 - 8:24:27 - check hypothesis
+INFO - 08/29/20 19:11:11 - 8:25:37 - get results
+INFO - 08/29/20 19:11:11 - 8:25:37 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 19:11:13 - 8:25:38 - (5434/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:11:13 - 8:25:39 - check hypothesis
+INFO - 08/29/20 19:12:25 - 8:26:50 - get results
+INFO - 08/29/20 19:12:25 - 8:26:51 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 19:12:26 - 8:26:51 - (5465/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:12:26 - 8:26:52 - check hypothesis
+INFO - 08/29/20 19:13:29 - 8:27:55 - get results
+INFO - 08/29/20 19:13:29 - 8:27:55 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 19:13:30 - 8:27:56 - (5497/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:13:31 - 8:27:56 - check hypothesis
+INFO - 08/29/20 19:14:42 - 8:29:08 - get results
+INFO - 08/29/20 19:14:42 - 8:29:08 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 19:14:43 - 8:29:09 - (5526/9014) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:14:43 - 8:29:09 - check hypothesis
+INFO - 08/29/20 19:15:46 - 8:30:11 - get results
+INFO - 08/29/20 19:15:46 - 8:30:11 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 19:15:46 - 8:30:12 - (5555/9014) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:15:47 - 8:30:13 - check hypothesis
+INFO - 08/29/20 19:16:39 - 8:31:04 - get results
+INFO - 08/29/20 19:16:39 - 8:31:04 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 19:16:40 - 8:31:06 - (5587/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:16:40 - 8:31:06 - check hypothesis
+INFO - 08/29/20 19:17:48 - 8:32:13 - get results
+INFO - 08/29/20 19:17:48 - 8:32:13 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 19:17:49 - 8:32:15 - (5618/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:17:49 - 8:32:15 - check hypothesis
+INFO - 08/29/20 19:18:49 - 8:33:15 - get results
+INFO - 08/29/20 19:18:49 - 8:33:15 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 19:18:50 - 8:33:16 - (5647/9014) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:18:50 - 8:33:16 - check hypothesis
+INFO - 08/29/20 19:19:47 - 8:34:13 - get results
+INFO - 08/29/20 19:19:47 - 8:34:13 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 19:19:48 - 8:34:14 - (5674/9014) Found 0/27 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:19:49 - 8:34:15 - check hypothesis
+INFO - 08/29/20 19:20:43 - 8:35:09 - get results
+INFO - 08/29/20 19:20:43 - 8:35:09 - 	  Found 0/27 solutions in beam hypotheses.
+INFO - 08/29/20 19:20:44 - 8:35:10 - (5705/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:20:44 - 8:35:10 - check hypothesis
+INFO - 08/29/20 19:21:53 - 8:36:18 - get results
+INFO - 08/29/20 19:21:53 - 8:36:18 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 19:21:54 - 8:36:20 - (5735/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:21:54 - 8:36:20 - check hypothesis
+INFO - 08/29/20 19:23:01 - 8:37:26 - get results
+INFO - 08/29/20 19:23:01 - 8:37:26 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 19:23:02 - 8:37:27 - (5767/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:23:02 - 8:37:28 - check hypothesis
+INFO - 08/29/20 19:24:12 - 8:38:38 - get results
+INFO - 08/29/20 19:24:12 - 8:38:38 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 19:24:13 - 8:38:39 - (5797/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:24:13 - 8:38:39 - check hypothesis
+INFO - 08/29/20 19:25:10 - 8:39:36 - get results
+INFO - 08/29/20 19:25:10 - 8:39:36 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 19:25:11 - 8:39:37 - (5826/9014) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:25:11 - 8:39:37 - check hypothesis
+INFO - 08/29/20 19:26:05 - 8:40:31 - get results
+INFO - 08/29/20 19:26:05 - 8:40:31 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 19:26:06 - 8:40:32 - (5854/9014) Found 0/28 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:26:06 - 8:40:32 - check hypothesis
+INFO - 08/29/20 19:27:12 - 8:41:38 - get results
+INFO - 08/29/20 19:27:12 - 8:41:38 - 	  Found 0/28 solutions in beam hypotheses.
+INFO - 08/29/20 19:27:13 - 8:41:39 - (5884/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:27:14 - 8:41:39 - check hypothesis
+INFO - 08/29/20 19:28:21 - 8:42:47 - get results
+INFO - 08/29/20 19:28:21 - 8:42:47 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 19:28:22 - 8:42:48 - (5914/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:28:22 - 8:42:48 - check hypothesis
+INFO - 08/29/20 19:29:17 - 8:43:43 - get results
+INFO - 08/29/20 19:29:17 - 8:43:43 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 19:29:19 - 8:43:44 - (5946/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:29:19 - 8:43:45 - check hypothesis
+INFO - 08/29/20 19:30:22 - 8:44:48 - get results
+INFO - 08/29/20 19:30:22 - 8:44:48 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 19:30:23 - 8:44:49 - (5978/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:30:24 - 8:44:50 - check hypothesis
+INFO - 08/29/20 19:31:32 - 8:45:58 - get results
+INFO - 08/29/20 19:31:32 - 8:45:58 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 19:31:33 - 8:45:59 - (6009/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:31:33 - 8:45:59 - check hypothesis
+INFO - 08/29/20 19:32:36 - 8:47:02 - get results
+INFO - 08/29/20 19:32:36 - 8:47:02 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 19:32:37 - 8:47:03 - (6040/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:32:38 - 8:47:03 - check hypothesis
+INFO - 08/29/20 19:33:45 - 8:48:10 - get results
+INFO - 08/29/20 19:33:45 - 8:48:10 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 19:33:46 - 8:48:11 - (6071/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:33:46 - 8:48:12 - check hypothesis
+INFO - 08/29/20 19:35:00 - 8:49:26 - get results
+INFO - 08/29/20 19:35:00 - 8:49:26 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 19:35:01 - 8:49:27 - (6103/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:35:01 - 8:49:27 - check hypothesis
+INFO - 08/29/20 19:36:03 - 8:50:29 - get results
+INFO - 08/29/20 19:36:03 - 8:50:29 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 19:36:04 - 8:50:30 - (6133/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:36:05 - 8:50:30 - check hypothesis
+INFO - 08/29/20 19:37:08 - 8:51:34 - get results
+INFO - 08/29/20 19:37:08 - 8:51:34 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 19:37:10 - 8:51:35 - (6164/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:37:10 - 8:51:36 - check hypothesis
+INFO - 08/29/20 19:38:14 - 8:52:40 - get results
+INFO - 08/29/20 19:38:14 - 8:52:40 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 19:38:15 - 8:52:41 - (6195/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:38:16 - 8:52:42 - check hypothesis
+INFO - 08/29/20 19:39:26 - 8:53:52 - get results
+INFO - 08/29/20 19:39:26 - 8:53:52 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 19:39:27 - 8:53:53 - (6226/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:39:28 - 8:53:53 - check hypothesis
+INFO - 08/29/20 19:40:25 - 8:54:51 - get results
+INFO - 08/29/20 19:40:25 - 8:54:51 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 19:40:26 - 8:54:52 - (6257/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:40:26 - 8:54:52 - check hypothesis
+INFO - 08/29/20 19:41:44 - 8:56:09 - get results
+INFO - 08/29/20 19:41:44 - 8:56:09 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 19:41:45 - 8:56:10 - (6288/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:41:45 - 8:56:11 - check hypothesis
+INFO - 08/29/20 19:42:56 - 8:57:22 - get results
+INFO - 08/29/20 19:42:56 - 8:57:22 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 19:42:57 - 8:57:23 - (6318/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:42:58 - 8:57:24 - check hypothesis
+INFO - 08/29/20 19:43:59 - 8:58:25 - get results
+INFO - 08/29/20 19:43:59 - 8:58:25 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 19:44:00 - 8:58:26 - (6349/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:44:01 - 8:58:27 - check hypothesis
+INFO - 08/29/20 19:45:15 - 8:59:40 - get results
+INFO - 08/29/20 19:45:15 - 8:59:40 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 19:45:16 - 8:59:42 - (6381/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:45:16 - 8:59:42 - check hypothesis
+INFO - 08/29/20 19:46:15 - 9:00:41 - get results
+INFO - 08/29/20 19:46:15 - 9:00:41 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 19:46:17 - 9:00:42 - (6412/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:46:17 - 9:00:43 - check hypothesis
+INFO - 08/29/20 19:47:17 - 9:01:43 - get results
+INFO - 08/29/20 19:47:17 - 9:01:43 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 19:47:18 - 9:01:44 - (6443/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:47:18 - 9:01:44 - check hypothesis
+INFO - 08/29/20 19:48:21 - 9:02:47 - get results
+INFO - 08/29/20 19:48:21 - 9:02:47 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 19:48:22 - 9:02:48 - (6475/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:48:22 - 9:02:48 - check hypothesis
+INFO - 08/29/20 19:49:31 - 9:03:56 - get results
+INFO - 08/29/20 19:49:31 - 9:03:56 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 19:49:31 - 9:03:57 - (6505/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:49:32 - 9:03:58 - check hypothesis
+INFO - 08/29/20 19:50:34 - 9:05:00 - get results
+INFO - 08/29/20 19:50:34 - 9:05:00 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 19:50:35 - 9:05:01 - (6534/9014) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:50:35 - 9:05:01 - check hypothesis
+INFO - 08/29/20 19:51:33 - 9:05:58 - get results
+INFO - 08/29/20 19:51:33 - 9:05:58 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 19:51:34 - 9:05:59 - (6563/9014) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:51:34 - 9:06:00 - check hypothesis
+INFO - 08/29/20 19:52:43 - 9:07:09 - get results
+INFO - 08/29/20 19:52:43 - 9:07:09 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 19:52:44 - 9:07:10 - (6595/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:52:45 - 9:07:10 - check hypothesis
+INFO - 08/29/20 19:54:03 - 9:08:29 - get results
+INFO - 08/29/20 19:54:03 - 9:08:29 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 19:54:04 - 9:08:30 - (6624/9014) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:54:04 - 9:08:30 - check hypothesis
+INFO - 08/29/20 19:55:16 - 9:09:41 - get results
+INFO - 08/29/20 19:55:16 - 9:09:41 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 19:55:17 - 9:09:42 - (6653/9014) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:55:17 - 9:09:43 - check hypothesis
+INFO - 08/29/20 19:56:21 - 9:10:47 - get results
+INFO - 08/29/20 19:56:21 - 9:10:47 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 19:56:22 - 9:10:48 - (6685/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:56:23 - 9:10:49 - check hypothesis
+INFO - 08/29/20 19:57:33 - 9:11:59 - get results
+INFO - 08/29/20 19:57:33 - 9:11:59 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 19:57:34 - 9:12:00 - (6717/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:57:34 - 9:12:00 - check hypothesis
+INFO - 08/29/20 19:58:40 - 9:13:05 - get results
+INFO - 08/29/20 19:58:40 - 9:13:05 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 19:58:41 - 9:13:06 - (6748/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:58:41 - 9:13:07 - check hypothesis
+INFO - 08/29/20 19:59:43 - 9:14:09 - get results
+INFO - 08/29/20 19:59:43 - 9:14:09 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 19:59:44 - 9:14:10 - (6779/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 19:59:45 - 9:14:10 - check hypothesis
+INFO - 08/29/20 20:01:05 - 9:15:31 - get results
+INFO - 08/29/20 20:01:05 - 9:15:31 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 20:01:06 - 9:15:32 - (6811/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:01:07 - 9:15:32 - check hypothesis
+INFO - 08/29/20 20:02:05 - 9:16:31 - get results
+INFO - 08/29/20 20:02:05 - 9:16:31 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 20:02:06 - 9:16:32 - (6842/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:02:07 - 9:16:33 - check hypothesis
+INFO - 08/29/20 20:03:19 - 9:17:45 - get results
+INFO - 08/29/20 20:03:19 - 9:17:45 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 20:03:21 - 9:17:46 - (6874/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:03:21 - 9:17:47 - check hypothesis
+INFO - 08/29/20 20:04:14 - 9:18:39 - get results
+INFO - 08/29/20 20:04:14 - 9:18:39 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 20:04:15 - 9:18:40 - (6905/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:04:15 - 9:18:41 - check hypothesis
+INFO - 08/29/20 20:05:28 - 9:19:54 - get results
+INFO - 08/29/20 20:05:28 - 9:19:54 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 20:05:29 - 9:19:55 - (6937/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:05:29 - 9:19:55 - check hypothesis
+INFO - 08/29/20 20:06:35 - 9:21:00 - get results
+INFO - 08/29/20 20:06:35 - 9:21:00 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 20:06:36 - 9:21:01 - (6967/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:06:36 - 9:21:02 - check hypothesis
+INFO - 08/29/20 20:07:41 - 9:22:07 - get results
+INFO - 08/29/20 20:07:41 - 9:22:07 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 20:07:42 - 9:22:08 - (6997/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:07:43 - 9:22:08 - check hypothesis
+INFO - 08/29/20 20:08:46 - 9:23:12 - get results
+INFO - 08/29/20 20:08:46 - 9:23:12 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 20:08:47 - 9:23:13 - (7026/9014) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:08:48 - 9:23:14 - check hypothesis
+INFO - 08/29/20 20:09:47 - 9:24:13 - get results
+INFO - 08/29/20 20:09:47 - 9:24:13 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 20:09:48 - 9:24:14 - (7058/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:09:49 - 9:24:15 - check hypothesis
+INFO - 08/29/20 20:11:06 - 9:25:32 - get results
+INFO - 08/29/20 20:11:06 - 9:25:32 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 20:11:07 - 9:25:33 - (7090/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:11:07 - 9:25:33 - check hypothesis
+INFO - 08/29/20 20:12:15 - 9:26:41 - get results
+INFO - 08/29/20 20:12:15 - 9:26:41 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 20:12:16 - 9:26:42 - (7121/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:12:17 - 9:26:42 - check hypothesis
+INFO - 08/29/20 20:13:21 - 9:27:47 - get results
+INFO - 08/29/20 20:13:21 - 9:27:47 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 20:13:22 - 9:27:48 - (7150/9014) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:13:22 - 9:27:48 - check hypothesis
+INFO - 08/29/20 20:14:26 - 9:28:52 - get results
+INFO - 08/29/20 20:14:26 - 9:28:52 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 20:14:27 - 9:28:53 - (7180/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:14:27 - 9:28:53 - check hypothesis
+INFO - 08/29/20 20:15:36 - 9:30:02 - get results
+INFO - 08/29/20 20:15:36 - 9:30:02 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 20:15:37 - 9:30:03 - (7212/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:15:38 - 9:30:04 - check hypothesis
+INFO - 08/29/20 20:16:41 - 9:31:07 - get results
+INFO - 08/29/20 20:16:41 - 9:31:07 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 20:16:42 - 9:31:08 - (7244/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:16:43 - 9:31:09 - check hypothesis
+INFO - 08/29/20 20:17:55 - 9:32:21 - get results
+INFO - 08/29/20 20:17:55 - 9:32:21 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 20:17:56 - 9:32:22 - (7275/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:17:57 - 9:32:23 - check hypothesis
+INFO - 08/29/20 20:19:04 - 9:33:30 - get results
+INFO - 08/29/20 20:19:04 - 9:33:30 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 20:19:05 - 9:33:31 - (7307/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:19:05 - 9:33:31 - check hypothesis
+INFO - 08/29/20 20:20:37 - 9:35:03 - get results
+INFO - 08/29/20 20:20:37 - 9:35:03 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 20:20:38 - 9:35:04 - (7337/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:20:39 - 9:35:04 - check hypothesis
+INFO - 08/29/20 20:21:46 - 9:36:12 - get results
+INFO - 08/29/20 20:21:46 - 9:36:12 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 20:21:47 - 9:36:13 - (7367/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:21:48 - 9:36:13 - check hypothesis
+INFO - 08/29/20 20:22:51 - 9:37:17 - get results
+INFO - 08/29/20 20:22:51 - 9:37:17 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 20:22:52 - 9:37:18 - (7397/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:22:52 - 9:37:18 - check hypothesis
+INFO - 08/29/20 20:23:52 - 9:38:18 - get results
+INFO - 08/29/20 20:23:52 - 9:38:18 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 20:23:53 - 9:38:19 - (7428/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:23:54 - 9:38:20 - check hypothesis
+INFO - 08/29/20 20:25:06 - 9:39:31 - get results
+INFO - 08/29/20 20:25:06 - 9:39:32 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 20:25:07 - 9:39:33 - (7459/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:25:07 - 9:39:33 - check hypothesis
+INFO - 08/29/20 20:26:10 - 9:40:36 - get results
+INFO - 08/29/20 20:26:10 - 9:40:36 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 20:26:11 - 9:40:37 - (7491/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:26:11 - 9:40:37 - check hypothesis
+INFO - 08/29/20 20:27:29 - 9:41:55 - get results
+INFO - 08/29/20 20:27:29 - 9:41:55 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 20:27:30 - 9:41:56 - (7523/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:27:31 - 9:41:56 - check hypothesis
+INFO - 08/29/20 20:28:38 - 9:43:04 - get results
+INFO - 08/29/20 20:28:38 - 9:43:04 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 20:28:39 - 9:43:05 - (7552/9014) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:28:39 - 9:43:05 - check hypothesis
+INFO - 08/29/20 20:29:32 - 9:43:58 - get results
+INFO - 08/29/20 20:29:32 - 9:43:58 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 20:29:33 - 9:43:59 - (7582/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:29:34 - 9:43:59 - check hypothesis
+INFO - 08/29/20 20:30:42 - 9:45:07 - get results
+INFO - 08/29/20 20:30:42 - 9:45:07 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 20:30:42 - 9:45:08 - (7613/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:30:43 - 9:45:09 - check hypothesis
+INFO - 08/29/20 20:31:47 - 9:46:13 - get results
+INFO - 08/29/20 20:31:47 - 9:46:13 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 20:31:48 - 9:46:14 - (7643/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:31:49 - 9:46:14 - check hypothesis
+INFO - 08/29/20 20:33:04 - 9:47:30 - get results
+INFO - 08/29/20 20:33:04 - 9:47:30 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 20:33:05 - 9:47:31 - (7673/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:33:06 - 9:47:32 - check hypothesis
+INFO - 08/29/20 20:33:56 - 9:48:22 - get results
+INFO - 08/29/20 20:33:56 - 9:48:22 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 20:33:57 - 9:48:23 - (7704/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:33:58 - 9:48:23 - check hypothesis
+INFO - 08/29/20 20:34:58 - 9:49:24 - get results
+INFO - 08/29/20 20:34:58 - 9:49:24 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 20:34:59 - 9:49:25 - (7735/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:35:00 - 9:49:25 - check hypothesis
+INFO - 08/29/20 20:36:01 - 9:50:26 - get results
+INFO - 08/29/20 20:36:01 - 9:50:26 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 20:36:02 - 9:50:28 - (7765/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:36:02 - 9:50:28 - check hypothesis
+INFO - 08/29/20 20:37:18 - 9:51:43 - get results
+INFO - 08/29/20 20:37:18 - 9:51:43 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 20:37:19 - 9:51:45 - (7794/9014) Found 0/29 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:37:19 - 9:51:45 - check hypothesis
+INFO - 08/29/20 20:38:23 - 9:52:48 - get results
+INFO - 08/29/20 20:38:23 - 9:52:48 - 	  Found 0/29 solutions in beam hypotheses.
+INFO - 08/29/20 20:38:24 - 9:52:49 - (7825/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:38:24 - 9:52:50 - check hypothesis
+INFO - 08/29/20 20:39:27 - 9:53:53 - get results
+INFO - 08/29/20 20:39:27 - 9:53:53 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 20:39:28 - 9:53:54 - (7857/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:39:29 - 9:53:55 - check hypothesis
+INFO - 08/29/20 20:40:36 - 9:55:02 - get results
+INFO - 08/29/20 20:40:36 - 9:55:02 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 20:40:37 - 9:55:03 - (7888/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:40:37 - 9:55:03 - check hypothesis
+INFO - 08/29/20 20:41:41 - 9:56:07 - get results
+INFO - 08/29/20 20:41:41 - 9:56:07 - 	  Found 0/31 solutions in beam hypotheses.
+INFO - 08/29/20 20:41:42 - 9:56:08 - (7920/9014) Found 0/32 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:41:43 - 9:56:09 - check hypothesis
+INFO - 08/29/20 20:43:04 - 9:57:30 - get results
+INFO - 08/29/20 20:43:04 - 9:57:30 - 	  Found 0/32 solutions in beam hypotheses.
+INFO - 08/29/20 20:43:05 - 9:57:31 - (7950/9014) Found 0/30 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:43:06 - 9:57:31 - check hypothesis
+INFO - 08/29/20 20:44:10 - 9:58:36 - get results
+INFO - 08/29/20 20:44:10 - 9:58:36 - 	  Found 0/30 solutions in beam hypotheses.
+INFO - 08/29/20 20:44:11 - 9:58:37 - (7981/9014) Found 0/31 valid top-1 predictions. Generating solutions ...
+INFO - 08/29/20 20:44:12 - 9:58:37 - check hypothesis
+slurmstepd: error: *** JOB 11111075 ON hpc-25-17 CANCELLED AT 2020-08-29T20:45:14 DUE TO TIME LIMIT ***

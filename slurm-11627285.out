@@ -1,0 +1,1652 @@
+add:2,sub:1
+0 - SLURM_JOB_ID: 11627285
+0 - SLURM_JOB_NODELIST: hpc-25-17
+0 - SLURM_JOB_NUM_NODES: 1
+0 - SLURM_NTASKS: 1
+0 - SLURM_TASKS_PER_NODE: 1
+0 - SLURM_MEM_PER_NODE: None
+0 - SLURM_MEM_PER_CPU: 4096
+0 - SLURM_NODEID: 0
+0 - SLURM_PROCID: 0
+0 - SLURM_LOCALID: 0
+0 - SLURM_TASK_PID: 12927
+add:2,sub:1
+0 - SLURM_JOB_ID: 11627285
+0 - SLURM_JOB_NODELIST: hpc-25-17
+0 - SLURM_JOB_NUM_NODES: 1
+0 - SLURM_NTASKS: 1
+0 - SLURM_TASKS_PER_NODE: 1
+0 - SLURM_MEM_PER_NODE: None
+0 - SLURM_MEM_PER_CPU: 4096
+0 - SLURM_NODEID: 0
+0 - SLURM_PROCID: 0
+0 - SLURM_LOCALID: 0
+0 - SLURM_TASK_PID: 12927
+add:2,sub:1
+0 - SLURM_JOB_ID: 11627285
+0 - SLURM_JOB_NODELIST: hpc-25-17
+0 - SLURM_JOB_NUM_NODES: 1
+0 - SLURM_NTASKS: 1
+0 - SLURM_TASKS_PER_NODE: 1
+0 - SLURM_MEM_PER_NODE: None
+0 - SLURM_MEM_PER_CPU: 4096
+0 - SLURM_NODEID: 0
+0 - SLURM_PROCID: 0
+0 - SLURM_LOCALID: 0
+0 - SLURM_TASK_PID: 12927
+add:2,sub:1
+0 - SLURM_JOB_ID: 11627285
+0 - SLURM_JOB_NODELIST: hpc-25-17
+0 - SLURM_JOB_NUM_NODES: 1
+0 - SLURM_NTASKS: 1
+0 - SLURM_TASKS_PER_NODE: 1
+0 - SLURM_MEM_PER_NODE: None
+0 - SLURM_MEM_PER_CPU: 4096
+0 - SLURM_NODEID: 0
+0 - SLURM_PROCID: 0
+0 - SLURM_LOCALID: 0
+0 - SLURM_TASK_PID: 12927
+0 - Master address: 127.0.0.1
+0 - Master port   : 29500
+1 - Number of nodes: 1
+1 - Node ID					   : 0
+1 - Local rank				   : 1
+1 - Global rank    : 1
+1 - World size				   : 4
+1 - GPUs per node  : 4
+1 - Master					   : False
+1 - Multi-node				   : False
+1 - Multi-GPU				   : True
+1 - Hostname				   : hpc-25-17.cm.cluster
+Initializing PyTorch distributed ...
+0 - Master address: 127.0.0.1
+0 - Master port   : 29500
+2 - Number of nodes: 1
+2 - Node ID					   : 0
+2 - Local rank				   : 2
+2 - Global rank    : 2
+2 - World size				   : 4
+2 - GPUs per node  : 4
+2 - Master					   : False
+2 - Multi-node				   : False
+2 - Multi-GPU				   : True
+2 - Hostname				   : hpc-25-17.cm.cluster
+Initializing PyTorch distributed ...
+0 - Master address: 127.0.0.1
+0 - Master port   : 29500
+0 - Number of nodes: 1
+0 - Node ID					   : 0
+0 - Local rank				   : 0
+0 - Global rank    : 0
+0 - World size				   : 4
+0 - GPUs per node  : 4
+0 - Master					   : True
+0 - Multi-node				   : False
+0 - Multi-GPU				   : True
+0 - Hostname				   : hpc-25-17.cm.cluster
+Initializing PyTorch distributed ...
+0 - Master address: 127.0.0.1
+0 - Master port   : 29500
+3 - Number of nodes: 1
+3 - Node ID					   : 0
+3 - Local rank				   : 3
+3 - Global rank    : 3
+3 - World size				   : 4
+3 - GPUs per node  : 4
+3 - Master					   : False
+3 - Multi-node				   : False
+3 - Multi-GPU				   : True
+3 - Hostname				   : hpc-25-17.cm.cluster
+Initializing PyTorch distributed ...
+INFO - 09/21/20 14:10:42 - 0:00:00 - ============ Initialized logger ============
+INFO - 09/21/20 14:10:42 - 0:00:00 - accumulate_gradients: 1
+                                     amp: -1
+                                     attention_dropout: 0
+                                     balanced: False
+                                     batch_size: 64
+                                     beam_early_stopping: True
+                                     beam_eval: False
+                                     beam_length_penalty: 1
+                                     beam_size: 1
+                                     character_rnn: True
+                                     clean_prefix_expr: True
+                                     clip_grad_norm: 5
+                                     command: python main.py --local_rank=3 --exp_name treelstm_50k_numenc --emb_dim 128 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --symmetric --treelstm --character_rnn --optimizer 'adam,lr=0.0001' --batch_size 64 --tasks prim_fwd --reload_data 'prim_fwd,fwd_small/fwd_small.train,fwd_small/fwd_small.valid,fwd_small/fwd_small.test' --reload_size 50000 --epoch_size 50000 --max_epoch 50 --exp_id "11627285"
+                                     cpu: False
+                                     debug: False
+                                     debug_slurm: False
+                                     dropout: 0.1
+                                     dump_path: ./dumped/treelstm_50k_numenc/11627285
+                                     emb_dim: 128
+                                     env_base_seed: 0
+                                     env_name: char_sp
+                                     epoch_size: 50000
+                                     eval_only: False
+                                     eval_verbose: 0
+                                     eval_verbose_print: False
+                                     exp_id: 11627285
+                                     exp_name: treelstm_50k_numenc
+                                     export_data: False
+                                     fp16: False
+                                     global_rank: 3
+                                     int_base: 10
+                                     is_master: False
+                                     is_slurm_job: True
+                                     leaf_probs: 0.75,0,0.25,0
+                                     local_rank: 3
+                                     master_addr: 127.0.0.1
+                                     master_port: 29500
+                                     max_epoch: 50
+                                     max_int: 10000
+                                     max_len: 512
+                                     max_ops: 10
+                                     max_ops_G: 4
+                                     multi_gpu: True
+                                     multi_node: False
+                                     n_coefficients: 0
+                                     n_dec_layers: 6
+                                     n_enc_layers: 4
+                                     n_gpu_per_node: 4
+                                     n_heads: 8
+                                     n_nodes: 1
+                                     n_variables: 1
+                                     node_id: 0
+                                     num_bit: 10
+                                     num_workers: 10
+                                     operators: add:2,sub:1
+                                     optimizer: adam,lr=0.0001
+                                     order: 1
+                                     positive: False
+                                     precision: 10
+                                     reload_checkpoint: 
+                                     reload_data: prim_fwd,fwd_small/fwd_small.train,fwd_small/fwd_small.valid,fwd_small/fwd_small.test
+                                     reload_model: 
+                                     reload_size: 50000
+                                     rewrite_functions: 
+                                     same_nb_ops_per_batch: False
+                                     save_periodic: 0
+                                     share_inout_emb: True
+                                     sinusoidal_embeddings: False
+                                     stopping_criterion: 
+                                     symmetric: True
+                                     tasks: prim_fwd
+                                     treelstm: True
+                                     treesmu: False
+                                     validation_metrics: 
+                                     vars: 1
+                                     world_size: 4
+INFO - 09/21/20 14:10:42 - 0:00:00 - The experiment will be stored in ./dumped/treelstm_50k_numenc/11627285
+                                     
+INFO - 09/21/20 14:10:42 - 0:00:00 - Running command: python main.py --local_rank=3 --exp_name treelstm_50k_numenc --emb_dim 128 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --symmetric --treelstm --character_rnn --optimizer 'adam,lr=0.0001' --batch_size 64 --tasks prim_fwd --reload_data 'prim_fwd,fwd_small/fwd_small.train,fwd_small/fwd_small.valid,fwd_small/fwd_small.test' --reload_size 50000 --epoch_size 50000 --max_epoch 50
+
+WARNING - 09/21/20 14:10:42 - 0:00:00 - Signal handler installed.
+dict_items([('add', 2), ('sub', 2), ('mul', 2), ('div', 2), ('pow', 2), ('rac', 2), ('inv', 1), ('pow2', 1), ('pow3', 1), ('pow4', 1), ('pow5', 1), ('sqrt', 1), ('exp', 1), ('ln', 1), ('abs', 1), ('sign', 1), ('sin', 1), ('cos', 1), ('tan', 1), ('cot', 1), ('sec', 1), ('csc', 1), ('asin', 1), ('acos', 1), ('atan', 1), ('acot', 1), ('asec', 1), ('acsc', 1), ('sinh', 1), ('cosh', 1), ('tanh', 1), ('coth', 1), ('sech', 1), ('csch', 1), ('asinh', 1), ('acosh', 1), ('atanh', 1), ('acoth', 1), ('asech', 1), ('acsch', 1), ('derivative', 2), ('f', 1), ('g', 2)])
+INFO - 09/21/20 14:10:42 - 0:00:00 - Unary operators: ['inv', 'pow2', 'pow3', 'pow4', 'pow5', 'sqrt', 'exp', 'ln', 'abs', 'sign', 'sin', 'cos', 'tan', 'cot', 'sec', 'csc', 'asin', 'acos', 'atan', 'acot', 'asec', 'acsc', 'sinh', 'cosh', 'tanh', 'coth', 'sech', 'csch', 'asinh', 'acosh', 'atanh', 'acoth', 'asech', 'acsch', 'f']
+INFO - 09/21/20 14:10:42 - 0:00:00 - Binary operators: ['add', 'sub', 'mul', 'div', 'pow', 'rac', 'derivative', 'g']
+INFO - 09/21/20 14:10:42 - 0:00:00 - words: {'<s>': 0, '</s>': 1, '<pad>': 2, '(': 3, ')': 4, '<SPECIAL_5>': 5, '<SPECIAL_6>': 6, '<SPECIAL_7>': 7, '<SPECIAL_8>': 8, '<SPECIAL_9>': 9, 'pi': 10, 'E': 11, 'x': 12, 'y': 13, 'z': 14, 't': 15, 'a0': 16, 'a1': 17, 'a2': 18, 'a3': 19, 'a4': 20, 'a5': 21, 'a6': 22, 'a7': 23, 'a8': 24, 'a9': 25, 'abs': 26, 'acos': 27, 'acosh': 28, 'acot': 29, 'acoth': 30, 'acsc': 31, 'acsch': 32, 'add': 33, 'asec': 34, 'asech': 35, 'asin': 36, 'asinh': 37, 'atan': 38, 'atanh': 39, 'cos': 40, 'cosh': 41, 'cot': 42, 'coth': 43, 'csc': 44, 'csch': 45, 'derivative': 46, 'div': 47, 'exp': 48, 'f': 49, 'g': 50, 'inv': 51, 'ln': 52, 'mul': 53, 'pow': 54, 'pow2': 55, 'pow3': 56, 'pow4': 57, 'pow5': 58, 'rac': 59, 'sec': 60, 'sech': 61, 'sign': 62, 'sin': 63, 'sinh': 64, 'sqrt': 65, 'sub': 66, 'tan': 67, 'tanh': 68, 'I': 69, 'INT+': 70, 'INT-': 71, 'INT': 72, 'FLOAT': 73, '-': 74, '.': 75, '10^': 76, 'Y': 77, "Y'": 78, "Y''": 79, '0': 80, '1': 81, '2': 82, '3': 83, '4': 84, '5': 85, '6': 86, '7': 87, '8': 88, '9': 89}
+INFO - 09/21/20 14:10:42 - 0:00:00 - 20001 possible leaves.
+INFO - 09/21/20 14:10:42 - 0:00:00 - Checking expressions in [0.01, 0.1, 0.3, 0.5, 0.7, 0.9, 1.1, 2.1, 3.1, -0.01, -0.1, -0.3, -0.5, -0.7, -0.9, -1.1, -2.1, -3.1]
+INFO - 09/21/20 14:10:42 - 0:00:00 - Training tasks: prim_fwd
+/home/aypan/miniconda3/lib/python3.7/site-packages/torch/nn/modules/rnn.py:50: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.1 and num_layers=1
+  "num_layers={}".format(dropout, num_layers))
+INFO - 09/21/20 14:10:42 - 0:00:00 - Number of parameters (encoder): 3688832
+INFO - 09/21/20 14:10:42 - 0:00:00 - Number of parameters (decoder): 2123610
+INFO - 09/21/20 14:10:43 - 0:00:00 - ============ Initialized logger ============
+INFO - 09/21/20 14:10:43 - 0:00:00 - accumulate_gradients: 1
+                                     amp: -1
+                                     attention_dropout: 0
+                                     balanced: False
+                                     batch_size: 64
+                                     beam_early_stopping: True
+                                     beam_eval: False
+                                     beam_length_penalty: 1
+                                     beam_size: 1
+                                     character_rnn: True
+                                     clean_prefix_expr: True
+                                     clip_grad_norm: 5
+                                     command: python main.py --local_rank=1 --exp_name treelstm_50k_numenc --emb_dim 128 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --symmetric --treelstm --character_rnn --optimizer 'adam,lr=0.0001' --batch_size 64 --tasks prim_fwd --reload_data 'prim_fwd,fwd_small/fwd_small.train,fwd_small/fwd_small.valid,fwd_small/fwd_small.test' --reload_size 50000 --epoch_size 50000 --max_epoch 50 --exp_id "11627285"
+                                     cpu: False
+                                     debug: False
+                                     debug_slurm: False
+                                     dropout: 0.1
+                                     dump_path: ./dumped/treelstm_50k_numenc/11627285
+                                     emb_dim: 128
+                                     env_base_seed: 0
+                                     env_name: char_sp
+                                     epoch_size: 50000
+                                     eval_only: False
+                                     eval_verbose: 0
+                                     eval_verbose_print: False
+                                     exp_id: 11627285
+                                     exp_name: treelstm_50k_numenc
+                                     export_data: False
+                                     fp16: False
+                                     global_rank: 1
+                                     int_base: 10
+                                     is_master: False
+                                     is_slurm_job: True
+                                     leaf_probs: 0.75,0,0.25,0
+                                     local_rank: 1
+                                     master_addr: 127.0.0.1
+                                     master_port: 29500
+                                     max_epoch: 50
+                                     max_int: 10000
+                                     max_len: 512
+                                     max_ops: 10
+                                     max_ops_G: 4
+                                     multi_gpu: True
+                                     multi_node: False
+                                     n_coefficients: 0
+                                     n_dec_layers: 6
+                                     n_enc_layers: 4
+                                     n_gpu_per_node: 4
+                                     n_heads: 8
+                                     n_nodes: 1
+                                     n_variables: 1
+                                     node_id: 0
+                                     num_bit: 10
+                                     num_workers: 10
+                                     operators: add:2,sub:1
+                                     optimizer: adam,lr=0.0001
+                                     order: 1
+                                     positive: False
+                                     precision: 10
+                                     reload_checkpoint: 
+                                     reload_data: prim_fwd,fwd_small/fwd_small.train,fwd_small/fwd_small.valid,fwd_small/fwd_small.test
+                                     reload_model: 
+                                     reload_size: 50000
+                                     rewrite_functions: 
+                                     same_nb_ops_per_batch: False
+                                     save_periodic: 0
+                                     share_inout_emb: True
+                                     sinusoidal_embeddings: False
+                                     stopping_criterion: 
+                                     symmetric: True
+                                     tasks: prim_fwd
+                                     treelstm: True
+                                     treesmu: False
+                                     validation_metrics: 
+                                     vars: 1
+                                     world_size: 4
+INFO - 09/21/20 14:10:43 - 0:00:00 - The experiment will be stored in ./dumped/treelstm_50k_numenc/11627285
+                                     
+INFO - 09/21/20 14:10:43 - 0:00:00 - Running command: python main.py --local_rank=1 --exp_name treelstm_50k_numenc --emb_dim 128 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --symmetric --treelstm --character_rnn --optimizer 'adam,lr=0.0001' --batch_size 64 --tasks prim_fwd --reload_data 'prim_fwd,fwd_small/fwd_small.train,fwd_small/fwd_small.valid,fwd_small/fwd_small.test' --reload_size 50000 --epoch_size 50000 --max_epoch 50
+
+WARNING - 09/21/20 14:10:43 - 0:00:00 - Signal handler installed.
+dict_items([('add', 2), ('sub', 2), ('mul', 2), ('div', 2), ('pow', 2), ('rac', 2), ('inv', 1), ('pow2', 1), ('pow3', 1), ('pow4', 1), ('pow5', 1), ('sqrt', 1), ('exp', 1), ('ln', 1), ('abs', 1), ('sign', 1), ('sin', 1), ('cos', 1), ('tan', 1), ('cot', 1), ('sec', 1), ('csc', 1), ('asin', 1), ('acos', 1), ('atan', 1), ('acot', 1), ('asec', 1), ('acsc', 1), ('sinh', 1), ('cosh', 1), ('tanh', 1), ('coth', 1), ('sech', 1), ('csch', 1), ('asinh', 1), ('acosh', 1), ('atanh', 1), ('acoth', 1), ('asech', 1), ('acsch', 1), ('derivative', 2), ('f', 1), ('g', 2)])
+INFO - 09/21/20 14:10:43 - 0:00:00 - Unary operators: ['inv', 'pow2', 'pow3', 'pow4', 'pow5', 'sqrt', 'exp', 'ln', 'abs', 'sign', 'sin', 'cos', 'tan', 'cot', 'sec', 'csc', 'asin', 'acos', 'atan', 'acot', 'asec', 'acsc', 'sinh', 'cosh', 'tanh', 'coth', 'sech', 'csch', 'asinh', 'acosh', 'atanh', 'acoth', 'asech', 'acsch', 'f']
+INFO - 09/21/20 14:10:43 - 0:00:00 - Binary operators: ['add', 'sub', 'mul', 'div', 'pow', 'rac', 'derivative', 'g']
+INFO - 09/21/20 14:10:43 - 0:00:00 - words: {'<s>': 0, '</s>': 1, '<pad>': 2, '(': 3, ')': 4, '<SPECIAL_5>': 5, '<SPECIAL_6>': 6, '<SPECIAL_7>': 7, '<SPECIAL_8>': 8, '<SPECIAL_9>': 9, 'pi': 10, 'E': 11, 'x': 12, 'y': 13, 'z': 14, 't': 15, 'a0': 16, 'a1': 17, 'a2': 18, 'a3': 19, 'a4': 20, 'a5': 21, 'a6': 22, 'a7': 23, 'a8': 24, 'a9': 25, 'abs': 26, 'acos': 27, 'acosh': 28, 'acot': 29, 'acoth': 30, 'acsc': 31, 'acsch': 32, 'add': 33, 'asec': 34, 'asech': 35, 'asin': 36, 'asinh': 37, 'atan': 38, 'atanh': 39, 'cos': 40, 'cosh': 41, 'cot': 42, 'coth': 43, 'csc': 44, 'csch': 45, 'derivative': 46, 'div': 47, 'exp': 48, 'f': 49, 'g': 50, 'inv': 51, 'ln': 52, 'mul': 53, 'pow': 54, 'pow2': 55, 'pow3': 56, 'pow4': 57, 'pow5': 58, 'rac': 59, 'sec': 60, 'sech': 61, 'sign': 62, 'sin': 63, 'sinh': 64, 'sqrt': 65, 'sub': 66, 'tan': 67, 'tanh': 68, 'I': 69, 'INT+': 70, 'INT-': 71, 'INT': 72, 'FLOAT': 73, '-': 74, '.': 75, '10^': 76, 'Y': 77, "Y'": 78, "Y''": 79, '0': 80, '1': 81, '2': 82, '3': 83, '4': 84, '5': 85, '6': 86, '7': 87, '8': 88, '9': 89}
+INFO - 09/21/20 14:10:43 - 0:00:00 - 20001 possible leaves.
+INFO - 09/21/20 14:10:43 - 0:00:00 - Checking expressions in [0.01, 0.1, 0.3, 0.5, 0.7, 0.9, 1.1, 2.1, 3.1, -0.01, -0.1, -0.3, -0.5, -0.7, -0.9, -1.1, -2.1, -3.1]
+INFO - 09/21/20 14:10:43 - 0:00:00 - Training tasks: prim_fwd
+INFO - 09/21/20 14:10:43 - 0:00:00 - ============ Initialized logger ============
+INFO - 09/21/20 14:10:43 - 0:00:00 - ============ Initialized logger ============
+INFO - 09/21/20 14:10:43 - 0:00:00 - accumulate_gradients: 1
+                                     amp: -1
+                                     attention_dropout: 0
+                                     balanced: False
+                                     batch_size: 64
+                                     beam_early_stopping: True
+                                     beam_eval: False
+                                     beam_length_penalty: 1
+                                     beam_size: 1
+                                     character_rnn: True
+                                     clean_prefix_expr: True
+                                     clip_grad_norm: 5
+                                     command: python main.py --local_rank=2 --exp_name treelstm_50k_numenc --emb_dim 128 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --symmetric --treelstm --character_rnn --optimizer 'adam,lr=0.0001' --batch_size 64 --tasks prim_fwd --reload_data 'prim_fwd,fwd_small/fwd_small.train,fwd_small/fwd_small.valid,fwd_small/fwd_small.test' --reload_size 50000 --epoch_size 50000 --max_epoch 50 --exp_id "11627285"
+                                     cpu: False
+                                     debug: False
+                                     debug_slurm: False
+                                     dropout: 0.1
+                                     dump_path: ./dumped/treelstm_50k_numenc/11627285
+                                     emb_dim: 128
+                                     env_base_seed: 0
+                                     env_name: char_sp
+                                     epoch_size: 50000
+                                     eval_only: False
+                                     eval_verbose: 0
+                                     eval_verbose_print: False
+                                     exp_id: 11627285
+                                     exp_name: treelstm_50k_numenc
+                                     export_data: False
+                                     fp16: False
+                                     global_rank: 2
+                                     int_base: 10
+                                     is_master: False
+                                     is_slurm_job: True
+                                     leaf_probs: 0.75,0,0.25,0
+                                     local_rank: 2
+                                     master_addr: 127.0.0.1
+                                     master_port: 29500
+                                     max_epoch: 50
+                                     max_int: 10000
+                                     max_len: 512
+                                     max_ops: 10
+                                     max_ops_G: 4
+                                     multi_gpu: True
+                                     multi_node: False
+                                     n_coefficients: 0
+                                     n_dec_layers: 6
+                                     n_enc_layers: 4
+                                     n_gpu_per_node: 4
+                                     n_heads: 8
+                                     n_nodes: 1
+                                     n_variables: 1
+                                     node_id: 0
+                                     num_bit: 10
+                                     num_workers: 10
+                                     operators: add:2,sub:1
+                                     optimizer: adam,lr=0.0001
+                                     order: 1
+                                     positive: False
+                                     precision: 10
+                                     reload_checkpoint: 
+                                     reload_data: prim_fwd,fwd_small/fwd_small.train,fwd_small/fwd_small.valid,fwd_small/fwd_small.test
+                                     reload_model: 
+                                     reload_size: 50000
+                                     rewrite_functions: 
+                                     same_nb_ops_per_batch: False
+                                     save_periodic: 0
+                                     share_inout_emb: True
+                                     sinusoidal_embeddings: False
+                                     stopping_criterion: 
+                                     symmetric: True
+                                     tasks: prim_fwd
+                                     treelstm: True
+                                     treesmu: False
+                                     validation_metrics: 
+                                     vars: 1
+                                     world_size: 4
+INFO - 09/21/20 14:10:43 - 0:00:00 - The experiment will be stored in ./dumped/treelstm_50k_numenc/11627285
+                                     
+INFO - 09/21/20 14:10:43 - 0:00:00 - Running command: python main.py --local_rank=2 --exp_name treelstm_50k_numenc --emb_dim 128 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --symmetric --treelstm --character_rnn --optimizer 'adam,lr=0.0001' --batch_size 64 --tasks prim_fwd --reload_data 'prim_fwd,fwd_small/fwd_small.train,fwd_small/fwd_small.valid,fwd_small/fwd_small.test' --reload_size 50000 --epoch_size 50000 --max_epoch 50
+
+WARNING - 09/21/20 14:10:43 - 0:00:00 - Signal handler installed.
+dict_items([('add', 2), ('sub', 2), ('mul', 2), ('div', 2), ('pow', 2), ('rac', 2), ('inv', 1), ('pow2', 1), ('pow3', 1), ('pow4', 1), ('pow5', 1), ('sqrt', 1), ('exp', 1), ('ln', 1), ('abs', 1), ('sign', 1), ('sin', 1), ('cos', 1), ('tan', 1), ('cot', 1), ('sec', 1), ('csc', 1), ('asin', 1), ('acos', 1), ('atan', 1), ('acot', 1), ('asec', 1), ('acsc', 1), ('sinh', 1), ('cosh', 1), ('tanh', 1), ('coth', 1), ('sech', 1), ('csch', 1), ('asinh', 1), ('acosh', 1), ('atanh', 1), ('acoth', 1), ('asech', 1), ('acsch', 1), ('derivative', 2), ('f', 1), ('g', 2)])
+INFO - 09/21/20 14:10:43 - 0:00:00 - Unary operators: ['inv', 'pow2', 'pow3', 'pow4', 'pow5', 'sqrt', 'exp', 'ln', 'abs', 'sign', 'sin', 'cos', 'tan', 'cot', 'sec', 'csc', 'asin', 'acos', 'atan', 'acot', 'asec', 'acsc', 'sinh', 'cosh', 'tanh', 'coth', 'sech', 'csch', 'asinh', 'acosh', 'atanh', 'acoth', 'asech', 'acsch', 'f']
+INFO - 09/21/20 14:10:43 - 0:00:00 - Binary operators: ['add', 'sub', 'mul', 'div', 'pow', 'rac', 'derivative', 'g']
+INFO - 09/21/20 14:10:43 - 0:00:00 - words: {'<s>': 0, '</s>': 1, '<pad>': 2, '(': 3, ')': 4, '<SPECIAL_5>': 5, '<SPECIAL_6>': 6, '<SPECIAL_7>': 7, '<SPECIAL_8>': 8, '<SPECIAL_9>': 9, 'pi': 10, 'E': 11, 'x': 12, 'y': 13, 'z': 14, 't': 15, 'a0': 16, 'a1': 17, 'a2': 18, 'a3': 19, 'a4': 20, 'a5': 21, 'a6': 22, 'a7': 23, 'a8': 24, 'a9': 25, 'abs': 26, 'acos': 27, 'acosh': 28, 'acot': 29, 'acoth': 30, 'acsc': 31, 'acsch': 32, 'add': 33, 'asec': 34, 'asech': 35, 'asin': 36, 'asinh': 37, 'atan': 38, 'atanh': 39, 'cos': 40, 'cosh': 41, 'cot': 42, 'coth': 43, 'csc': 44, 'csch': 45, 'derivative': 46, 'div': 47, 'exp': 48, 'f': 49, 'g': 50, 'inv': 51, 'ln': 52, 'mul': 53, 'pow': 54, 'pow2': 55, 'pow3': 56, 'pow4': 57, 'pow5': 58, 'rac': 59, 'sec': 60, 'sech': 61, 'sign': 62, 'sin': 63, 'sinh': 64, 'sqrt': 65, 'sub': 66, 'tan': 67, 'tanh': 68, 'I': 69, 'INT+': 70, 'INT-': 71, 'INT': 72, 'FLOAT': 73, '-': 74, '.': 75, '10^': 76, 'Y': 77, "Y'": 78, "Y''": 79, '0': 80, '1': 81, '2': 82, '3': 83, '4': 84, '5': 85, '6': 86, '7': 87, '8': 88, '9': 89}
+INFO - 09/21/20 14:10:43 - 0:00:00 - 20001 possible leaves.
+INFO - 09/21/20 14:10:43 - 0:00:00 - Checking expressions in [0.01, 0.1, 0.3, 0.5, 0.7, 0.9, 1.1, 2.1, 3.1, -0.01, -0.1, -0.3, -0.5, -0.7, -0.9, -1.1, -2.1, -3.1]
+INFO - 09/21/20 14:10:43 - 0:00:00 - Training tasks: prim_fwd
+INFO - 09/21/20 14:10:43 - 0:00:00 - accumulate_gradients: 1
+                                     amp: -1
+                                     attention_dropout: 0
+                                     balanced: False
+                                     batch_size: 64
+                                     beam_early_stopping: True
+                                     beam_eval: False
+                                     beam_length_penalty: 1
+                                     beam_size: 1
+                                     character_rnn: True
+                                     clean_prefix_expr: True
+                                     clip_grad_norm: 5
+                                     command: python main.py --local_rank=0 --exp_name treelstm_50k_numenc --emb_dim 128 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --symmetric --treelstm --character_rnn --optimizer 'adam,lr=0.0001' --batch_size 64 --tasks prim_fwd --reload_data 'prim_fwd,fwd_small/fwd_small.train,fwd_small/fwd_small.valid,fwd_small/fwd_small.test' --reload_size 50000 --epoch_size 50000 --max_epoch 50 --exp_id "11627285"
+                                     cpu: False
+                                     debug: False
+                                     debug_slurm: False
+                                     dropout: 0.1
+                                     dump_path: ./dumped/treelstm_50k_numenc/11627285
+                                     emb_dim: 128
+                                     env_base_seed: 0
+                                     env_name: char_sp
+                                     epoch_size: 50000
+                                     eval_only: False
+                                     eval_verbose: 0
+                                     eval_verbose_print: False
+                                     exp_id: 11627285
+                                     exp_name: treelstm_50k_numenc
+                                     export_data: False
+                                     fp16: False
+                                     global_rank: 0
+                                     int_base: 10
+                                     is_master: True
+                                     is_slurm_job: True
+                                     leaf_probs: 0.75,0,0.25,0
+                                     local_rank: 0
+                                     master_addr: 127.0.0.1
+                                     master_port: 29500
+                                     max_epoch: 50
+                                     max_int: 10000
+                                     max_len: 512
+                                     max_ops: 10
+                                     max_ops_G: 4
+                                     multi_gpu: True
+                                     multi_node: False
+                                     n_coefficients: 0
+                                     n_dec_layers: 6
+                                     n_enc_layers: 4
+                                     n_gpu_per_node: 4
+                                     n_heads: 8
+                                     n_nodes: 1
+                                     n_variables: 1
+                                     node_id: 0
+                                     num_bit: 10
+                                     num_workers: 10
+                                     operators: add:2,sub:1
+                                     optimizer: adam,lr=0.0001
+                                     order: 1
+                                     positive: False
+                                     precision: 10
+                                     reload_checkpoint: 
+                                     reload_data: prim_fwd,fwd_small/fwd_small.train,fwd_small/fwd_small.valid,fwd_small/fwd_small.test
+                                     reload_model: 
+                                     reload_size: 50000
+                                     rewrite_functions: 
+                                     same_nb_ops_per_batch: False
+                                     save_periodic: 0
+                                     share_inout_emb: True
+                                     sinusoidal_embeddings: False
+                                     stopping_criterion: 
+                                     symmetric: True
+                                     tasks: prim_fwd
+                                     treelstm: True
+                                     treesmu: False
+                                     validation_metrics: 
+                                     vars: 1
+                                     world_size: 4
+INFO - 09/21/20 14:10:43 - 0:00:00 - The experiment will be stored in ./dumped/treelstm_50k_numenc/11627285
+                                     
+INFO - 09/21/20 14:10:43 - 0:00:00 - Running command: python main.py --local_rank=0 --exp_name treelstm_50k_numenc --emb_dim 128 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --symmetric --treelstm --character_rnn --optimizer 'adam,lr=0.0001' --batch_size 64 --tasks prim_fwd --reload_data 'prim_fwd,fwd_small/fwd_small.train,fwd_small/fwd_small.valid,fwd_small/fwd_small.test' --reload_size 50000 --epoch_size 50000 --max_epoch 50
+
+WARNING - 09/21/20 14:10:43 - 0:00:00 - Signal handler installed.
+dict_items([('add', 2), ('sub', 2), ('mul', 2), ('div', 2), ('pow', 2), ('rac', 2), ('inv', 1), ('pow2', 1), ('pow3', 1), ('pow4', 1), ('pow5', 1), ('sqrt', 1), ('exp', 1), ('ln', 1), ('abs', 1), ('sign', 1), ('sin', 1), ('cos', 1), ('tan', 1), ('cot', 1), ('sec', 1), ('csc', 1), ('asin', 1), ('acos', 1), ('atan', 1), ('acot', 1), ('asec', 1), ('acsc', 1), ('sinh', 1), ('cosh', 1), ('tanh', 1), ('coth', 1), ('sech', 1), ('csch', 1), ('asinh', 1), ('acosh', 1), ('atanh', 1), ('acoth', 1), ('asech', 1), ('acsch', 1), ('derivative', 2), ('f', 1), ('g', 2)])
+INFO - 09/21/20 14:10:43 - 0:00:00 - Unary operators: ['inv', 'pow2', 'pow3', 'pow4', 'pow5', 'sqrt', 'exp', 'ln', 'abs', 'sign', 'sin', 'cos', 'tan', 'cot', 'sec', 'csc', 'asin', 'acos', 'atan', 'acot', 'asec', 'acsc', 'sinh', 'cosh', 'tanh', 'coth', 'sech', 'csch', 'asinh', 'acosh', 'atanh', 'acoth', 'asech', 'acsch', 'f']
+INFO - 09/21/20 14:10:43 - 0:00:00 - Binary operators: ['add', 'sub', 'mul', 'div', 'pow', 'rac', 'derivative', 'g']
+INFO - 09/21/20 14:10:43 - 0:00:00 - words: {'<s>': 0, '</s>': 1, '<pad>': 2, '(': 3, ')': 4, '<SPECIAL_5>': 5, '<SPECIAL_6>': 6, '<SPECIAL_7>': 7, '<SPECIAL_8>': 8, '<SPECIAL_9>': 9, 'pi': 10, 'E': 11, 'x': 12, 'y': 13, 'z': 14, 't': 15, 'a0': 16, 'a1': 17, 'a2': 18, 'a3': 19, 'a4': 20, 'a5': 21, 'a6': 22, 'a7': 23, 'a8': 24, 'a9': 25, 'abs': 26, 'acos': 27, 'acosh': 28, 'acot': 29, 'acoth': 30, 'acsc': 31, 'acsch': 32, 'add': 33, 'asec': 34, 'asech': 35, 'asin': 36, 'asinh': 37, 'atan': 38, 'atanh': 39, 'cos': 40, 'cosh': 41, 'cot': 42, 'coth': 43, 'csc': 44, 'csch': 45, 'derivative': 46, 'div': 47, 'exp': 48, 'f': 49, 'g': 50, 'inv': 51, 'ln': 52, 'mul': 53, 'pow': 54, 'pow2': 55, 'pow3': 56, 'pow4': 57, 'pow5': 58, 'rac': 59, 'sec': 60, 'sech': 61, 'sign': 62, 'sin': 63, 'sinh': 64, 'sqrt': 65, 'sub': 66, 'tan': 67, 'tanh': 68, 'I': 69, 'INT+': 70, 'INT-': 71, 'INT': 72, 'FLOAT': 73, '-': 74, '.': 75, '10^': 76, 'Y': 77, "Y'": 78, "Y''": 79, '0': 80, '1': 81, '2': 82, '3': 83, '4': 84, '5': 85, '6': 86, '7': 87, '8': 88, '9': 89}
+INFO - 09/21/20 14:10:43 - 0:00:00 - 20001 possible leaves.
+INFO - 09/21/20 14:10:43 - 0:00:00 - Checking expressions in [0.01, 0.1, 0.3, 0.5, 0.7, 0.9, 1.1, 2.1, 3.1, -0.01, -0.1, -0.3, -0.5, -0.7, -0.9, -1.1, -2.1, -3.1]
+INFO - 09/21/20 14:10:43 - 0:00:00 - Training tasks: prim_fwd
+/home/aypan/miniconda3/lib/python3.7/site-packages/torch/nn/modules/rnn.py:50: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.1 and num_layers=1
+  "num_layers={}".format(dropout, num_layers))
+/home/aypan/miniconda3/lib/python3.7/site-packages/torch/nn/modules/rnn.py:50: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.1 and num_layers=1
+  "num_layers={}".format(dropout, num_layers))
+/home/aypan/miniconda3/lib/python3.7/site-packages/torch/nn/modules/rnn.py:50: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.1 and num_layers=1
+  "num_layers={}".format(dropout, num_layers))
+INFO - 09/21/20 14:10:43 - 0:00:00 - Number of parameters (encoder): 3688832
+INFO - 09/21/20 14:10:43 - 0:00:00 - Number of parameters (decoder): 2123610
+INFO - 09/21/20 14:10:43 - 0:00:00 - Number of parameters (encoder): 3688832
+INFO - 09/21/20 14:10:43 - 0:00:00 - Number of parameters (decoder): 2123610
+INFO - 09/21/20 14:10:43 - 0:00:00 - Number of parameters (encoder): 3688832
+INFO - 09/21/20 14:10:43 - 0:00:00 - Number of parameters (decoder): 2123610
+INFO - 09/21/20 14:10:46 - 0:00:04 - Found 570 parameters in model.
+INFO - 09/21/20 14:10:46 - 0:00:04 - Using nn.parallel.DistributedDataParallel ...
+INFO - 09/21/20 14:10:50 - 0:00:06 - Found 570 parameters in model.
+INFO - 09/21/20 14:10:50 - 0:00:07 - Using nn.parallel.DistributedDataParallel ...
+INFO - 09/21/20 14:10:50 - 0:00:06 - Found 570 parameters in model.
+INFO - 09/21/20 14:10:50 - 0:00:06 - Using nn.parallel.DistributedDataParallel ...
+INFO - 09/21/20 14:10:50 - 0:00:07 - Found 570 parameters in model.
+INFO - 09/21/20 14:10:50 - 0:00:07 - Using nn.parallel.DistributedDataParallel ...
+INFO - 09/21/20 14:10:50 - 0:00:07 - Optimizers: model
+INFO - 09/21/20 14:10:50 - 0:00:07 - Creating train iterator for prim_fwd ...
+['abs', 'acos', 'acosh', 'acot', 'acoth', 'acsc', 'acsch', 'add', 'asec', 'asech', 'asin', 'asinh', 'atan', 'atanh', 'cos', 'cosh', 'cot', 'coth', 'csc', 'csch', 'derivative', 'div', 'exp', 'f', 'g', 'inv', 'ln', 'mul', 'pow', 'pow2', 'pow3', 'pow4', 'pow5', 'rac', 'sec', 'sech', 'sign', 'sin', 'sinh', 'sqrt', 'sub', 'tan', 'tanh']
+INFO - 09/21/20 14:10:50 - 0:00:07 - Loading data from fwd_small/fwd_small.train ...
+INFO - 09/21/20 14:10:50 - 0:00:07 - Optimizers: model
+INFO - 09/21/20 14:10:50 - 0:00:07 - Optimizers: model
+INFO - 09/21/20 14:10:50 - 0:00:07 - Creating train iterator for prim_fwd ...
+['abs', 'acos', 'acosh', 'acot', 'acoth', 'acsc', 'acsch', 'add', 'asec', 'asech', 'asin', 'asinh', 'atan', 'atanh', 'cos', 'cosh', 'cot', 'coth', 'csc', 'csch', 'derivative', 'div', 'exp', 'f', 'g', 'inv', 'ln', 'mul', 'pow', 'pow2', 'pow3', 'pow4', 'pow5', 'rac', 'sec', 'sech', 'sign', 'sin', 'sinh', 'sqrt', 'sub', 'tan', 'tanh']
+INFO - 09/21/20 14:10:50 - 0:00:07 - Creating train iterator for prim_fwd ...
+['abs', 'acos', 'acosh', 'acot', 'acoth', 'acsc', 'acsch', 'add', 'asec', 'asech', 'asin', 'asinh', 'atan', 'atanh', 'cos', 'cosh', 'cot', 'coth', 'csc', 'csch', 'derivative', 'div', 'exp', 'f', 'g', 'inv', 'ln', 'mul', 'pow', 'pow2', 'pow3', 'pow4', 'pow5', 'rac', 'sec', 'sech', 'sign', 'sin', 'sinh', 'sqrt', 'sub', 'tan', 'tanh']INFO - 09/21/20 14:10:50 - 0:00:07 - Loading data from fwd_small/fwd_small.train ...
+
+INFO - 09/21/20 14:10:50 - 0:00:07 - Loading data from fwd_small/fwd_small.train ...
+INFO - 09/21/20 14:10:50 - 0:00:07 - Loaded 12500 equations from the disk.
+INFO - 09/21/20 14:10:50 - 0:00:07 - Loaded 12500 equations from the disk.
+INFO - 09/21/20 14:10:50 - 0:00:07 - Loaded 12500 equations from the disk.
+INFO - 09/21/20 14:10:50 - 0:00:08 - Optimizers: model
+INFO - 09/21/20 14:10:50 - 0:00:08 - Creating train iterator for prim_fwd ...
+['abs', 'acos', 'acosh', 'acot', 'acoth', 'acsc', 'acsch', 'add', 'asec', 'asech', 'asin', 'asinh', 'atan', 'atanh', 'cos', 'cosh', 'cot', 'coth', 'csc', 'csch', 'derivative', 'div', 'exp', 'f', 'g', 'inv', 'ln', 'mul', 'pow', 'pow2', 'pow3', 'pow4', 'pow5', 'rac', 'sec', 'sech', 'sign', 'sin', 'sinh', 'sqrt', 'sub', 'tan', 'tanh']
+INFO - 09/21/20 14:10:50 - 0:00:08 - Loading data from fwd_small/fwd_small.train ...
+INFO - 09/21/20 14:10:50 - 0:00:07 - ============ Starting epoch 0 ... ============
+INFO - 09/21/20 14:10:50 - 0:00:07 - ============ Starting epoch 0 ... ============
+INFO - 09/21/20 14:10:50 - 0:00:07 - ============ Starting epoch 0 ... ============
+INFO - 09/21/20 14:10:50 - 0:00:08 - Loaded 12500 equations from the disk.
+INFO - 09/21/20 14:10:50 - 0:00:07 - Initialized random generator for worker 0, with seed [0, 0, 0] (base seed=0).
+INFO - 09/21/20 14:10:51 - 0:00:07 - Initialized random generator for worker 0, with seed [0, 2, 0] (base seed=0).
+INFO - 09/21/20 14:10:51 - 0:00:07 - Initialized random generator for worker 0, with seed [0, 1, 0] (base seed=0).
+INFO - 09/21/20 14:10:51 - 0:00:09 - ============ Starting epoch 0 ... ============
+INFO - 09/21/20 14:10:51 - 0:00:09 - Initialized random generator for worker 0, with seed [0, 3, 0] (base seed=0).
+/opt/conda/conda-bld/pytorch_1587428266983/work/torch/csrc/utils/python_arg_parser.cpp:756: UserWarning: This overload of add_ is deprecated:
+	add_(Number alpha, Tensor other)
+Consider using one of the following signatures instead:
+	add_(Tensor other, *, Number alpha)
+/opt/conda/conda-bld/pytorch_1587428266983/work/torch/csrc/utils/python_arg_parser.cpp:756: UserWarning: This overload of add_ is deprecated:
+	add_(Number alpha, Tensor other)
+Consider using one of the following signatures instead:
+	add_(Tensor other, *, Number alpha)
+/opt/conda/conda-bld/pytorch_1587428266983/work/torch/csrc/utils/python_arg_parser.cpp:756: UserWarning: This overload of add_ is deprecated:
+	add_(Number alpha, Tensor other)
+Consider using one of the following signatures instead:
+	add_(Tensor other, *, Number alpha)
+/opt/conda/conda-bld/pytorch_1587428266983/work/torch/csrc/utils/python_arg_parser.cpp:756: UserWarning: This overload of add_ is deprecated:
+	add_(Number alpha, Tensor other)
+Consider using one of the following signatures instead:
+	add_(Tensor other, *, Number alpha)
+INFO - 09/21/20 14:11:32 - 0:00:49 -      20 -   30.69 equations/s -  1241.90 words/s - PRIM-FWD:  3.9291 - model LR: 1.0000e-04
+INFO - 09/21/20 14:11:32 - 0:00:49 -      20 -   30.64 equations/s -  1206.42 words/s - PRIM-FWD:  3.9329 - model LR: 1.0000e-04
+INFO - 09/21/20 14:11:32 - 0:00:49 -      20 -   30.69 equations/s -  1218.83 words/s - PRIM-FWD:  3.9312 - model LR: 1.0000e-04
+INFO - 09/21/20 14:11:32 - 0:00:50 -      20 -   30.80 equations/s -  1233.92 words/s - PRIM-FWD:  3.9354 - model LR: 1.0000e-04
+INFO - 09/21/20 14:12:12 - 0:01:29 -      40 -   31.70 equations/s -  1223.08 words/s - PRIM-FWD:  2.7999 - model LR: 1.0000e-04
+INFO - 09/21/20 14:12:12 - 0:01:29 -      40 -   31.70 equations/s -  1261.54 words/s - PRIM-FWD:  2.8136 - model LR: 1.0000e-04
+INFO - 09/21/20 14:12:12 - 0:01:30 -      40 -   31.69 equations/s -  1264.82 words/s - PRIM-FWD:  2.8263 - model LR: 1.0000e-04
+INFO - 09/21/20 14:12:12 - 0:01:29 -      40 -   31.69 equations/s -  1286.93 words/s - PRIM-FWD:  2.8171 - model LR: 1.0000e-04
+INFO - 09/21/20 14:12:52 - 0:02:09 -      60 -   32.07 equations/s -  1275.86 words/s - PRIM-FWD:  2.4876 - model LR: 1.0000e-04
+INFO - 09/21/20 14:12:52 - 0:02:09 -      60 -   32.07 equations/s -  1248.32 words/s - PRIM-FWD:  2.4739 - model LR: 1.0000e-04
+INFO - 09/21/20 14:12:52 - 0:02:09 -      60 -   32.06 equations/s -  1270.37 words/s - PRIM-FWD:  2.4849 - model LR: 1.0000e-04
+INFO - 09/21/20 14:12:52 - 0:02:10 -      60 -   32.06 equations/s -  1268.93 words/s - PRIM-FWD:  2.4870 - model LR: 1.0000e-04
+INFO - 09/21/20 14:13:32 - 0:02:49 -      80 -   32.41 equations/s -  1305.36 words/s - PRIM-FWD:  2.0472 - model LR: 1.0000e-04
+INFO - 09/21/20 14:13:32 - 0:02:49 -      80 -   32.40 equations/s -  1253.08 words/s - PRIM-FWD:  2.0186 - model LR: 1.0000e-04
+INFO - 09/21/20 14:13:32 - 0:02:49 -      80 -   32.40 equations/s -  1268.16 words/s - PRIM-FWD:  2.0325 - model LR: 1.0000e-04
+INFO - 09/21/20 14:13:32 - 0:02:49 -      80 -   32.41 equations/s -  1281.64 words/s - PRIM-FWD:  2.0246 - model LR: 1.0000e-04
+INFO - 09/21/20 14:14:12 - 0:03:29 -     100 -   31.87 equations/s -  1287.39 words/s - PRIM-FWD:  1.7872 - model LR: 1.0000e-04
+INFO - 09/21/20 14:14:12 - 0:03:29 -     100 -   31.86 equations/s -  1277.28 words/s - PRIM-FWD:  1.7892 - model LR: 1.0000e-04
+INFO - 09/21/20 14:14:12 - 0:03:29 -     100 -   31.86 equations/s -  1240.33 words/s - PRIM-FWD:  1.7660 - model LR: 1.0000e-04
+INFO - 09/21/20 14:14:12 - 0:03:30 -     100 -   31.87 equations/s -  1245.93 words/s - PRIM-FWD:  1.7781 - model LR: 1.0000e-04
+INFO - 09/21/20 14:14:51 - 0:04:08 -     120 -   32.30 equations/s -  1248.34 words/s - PRIM-FWD:  1.6744 - model LR: 1.0000e-04
+INFO - 09/21/20 14:14:51 - 0:04:08 -     120 -   32.31 equations/s -  1298.90 words/s - PRIM-FWD:  1.6914 - model LR: 1.0000e-04
+INFO - 09/21/20 14:14:51 - 0:04:09 -     120 -   32.32 equations/s -  1311.13 words/s - PRIM-FWD:  1.7257 - model LR: 1.0000e-04
+INFO - 09/21/20 14:14:51 - 0:04:08 -     120 -   32.30 equations/s -  1293.84 words/s - PRIM-FWD:  1.6613 - model LR: 1.0000e-04
+INFO - 09/21/20 14:15:32 - 0:04:49 -     140 -   31.64 equations/s -  1276.18 words/s - PRIM-FWD:  1.6477 - model LR: 1.0000e-04
+INFO - 09/21/20 14:15:32 - 0:04:49 -     140 -   31.64 equations/s -  1250.64 words/s - PRIM-FWD:  1.6340 - model LR: 1.0000e-04
+INFO - 09/21/20 14:15:32 - 0:04:49 -     140 -   31.63 equations/s -  1251.53 words/s - PRIM-FWD:  1.6328 - model LR: 1.0000e-04
+INFO - 09/21/20 14:15:32 - 0:04:50 -     140 -   31.61 equations/s -  1253.07 words/s - PRIM-FWD:  1.6476 - model LR: 1.0000e-04
+INFO - 09/21/20 14:16:12 - 0:05:30 -     160 -   32.01 equations/s -  1257.87 words/s - PRIM-FWD:  1.5790 - model LR: 1.0000e-04
+INFO - 09/21/20 14:16:12 - 0:05:29 -     160 -   32.00 equations/s -  1259.36 words/s - PRIM-FWD:  1.5737 - model LR: 1.0000e-04
+INFO - 09/21/20 14:16:12 - 0:05:29 -     160 -   32.00 equations/s -  1260.01 words/s - PRIM-FWD:  1.5957 - model LR: 1.0000e-04
+INFO - 09/21/20 14:16:12 - 0:05:29 -     160 -   31.99 equations/s -  1240.24 words/s - PRIM-FWD:  1.5941 - model LR: 1.0000e-04
+INFO - 09/21/20 14:16:52 - 0:06:09 -     180 -   32.15 equations/s -  1278.73 words/s - PRIM-FWD:  1.5442 - model LR: 1.0000e-04
+INFO - 09/21/20 14:16:52 - 0:06:09 -     180 -   32.15 equations/s -  1293.10 words/s - PRIM-FWD:  1.5517 - model LR: 1.0000e-04
+INFO - 09/21/20 14:16:52 - 0:06:10 -     180 -   32.14 equations/s -  1282.68 words/s - PRIM-FWD:  1.5920 - model LR: 1.0000e-04
+INFO - 09/21/20 14:16:52 - 0:06:09 -     180 -   32.15 equations/s -  1254.99 words/s - PRIM-FWD:  1.5393 - model LR: 1.0000e-04
+INFO - 09/21/20 14:17:32 - 0:06:50 -     200 -   31.57 equations/s -  1223.17 words/s - PRIM-FWD:  1.5127 - model LR: 1.0000e-04
+INFO - 09/21/20 14:17:32 - 0:06:49 -     200 -   31.56 equations/s -  1253.82 words/s - PRIM-FWD:  1.5105 - model LR: 1.0000e-04
+INFO - 09/21/20 14:17:32 - 0:06:49 -     200 -   31.56 equations/s -  1265.82 words/s - PRIM-FWD:  1.5107 - model LR: 1.0000e-04
+INFO - 09/21/20 14:17:32 - 0:06:49 -     200 -   31.55 equations/s -  1245.25 words/s - PRIM-FWD:  1.5217 - model LR: 1.0000e-04
+INFO - 09/21/20 14:18:13 - 0:07:31 -     220 -   31.62 equations/s -  1246.09 words/s - PRIM-FWD:  1.4584 - model LR: 1.0000e-04
+INFO - 09/21/20 14:18:13 - 0:07:30 -     220 -   31.62 equations/s -  1260.43 words/s - PRIM-FWD:  1.4747 - model LR: 1.0000e-04
+INFO - 09/21/20 14:18:13 - 0:07:30 -     220 -   31.63 equations/s -  1254.40 words/s - PRIM-FWD:  1.4773 - model LR: 1.0000e-04
+INFO - 09/21/20 14:18:13 - 0:07:30 -     220 -   31.62 equations/s -  1271.18 words/s - PRIM-FWD:  1.4851 - model LR: 1.0000e-04
+INFO - 09/21/20 14:18:54 - 0:08:11 -     240 -   31.33 equations/s -  1253.69 words/s - PRIM-FWD:  1.4470 - model LR: 1.0000e-04
+INFO - 09/21/20 14:18:54 - 0:08:10 -     240 -   31.33 equations/s -  1250.01 words/s - PRIM-FWD:  1.4304 - model LR: 1.0000e-04
+INFO - 09/21/20 14:18:54 - 0:08:10 -     240 -   31.31 equations/s -  1274.93 words/s - PRIM-FWD:  1.4584 - model LR: 1.0000e-04
+INFO - 09/21/20 14:18:54 - 0:08:10 -     240 -   31.32 equations/s -  1251.18 words/s - PRIM-FWD:  1.4002 - model LR: 1.0000e-04
+INFO - 09/21/20 14:19:33 - 0:08:50 -     260 -   32.15 equations/s -  1301.34 words/s - PRIM-FWD:  1.4077 - model LR: 1.0000e-04
+INFO - 09/21/20 14:19:33 - 0:08:50 -     260 -   32.15 equations/s -  1300.31 words/s - PRIM-FWD:  1.4078 - model LR: 1.0000e-04
+INFO - 09/21/20 14:19:33 - 0:08:51 -     260 -   32.14 equations/s -  1305.70 words/s - PRIM-FWD:  1.3954 - model LR: 1.0000e-04
+INFO - 09/21/20 14:19:33 - 0:08:50 -     260 -   32.15 equations/s -  1282.11 words/s - PRIM-FWD:  1.3768 - model LR: 1.0000e-04
+INFO - 09/21/20 14:20:14 - 0:09:32 -     280 -   31.77 equations/s -  1267.30 words/s - PRIM-FWD:  1.4040 - model LR: 1.0000e-04
+INFO - 09/21/20 14:20:14 - 0:09:31 -     280 -   31.77 equations/s -  1283.06 words/s - PRIM-FWD:  1.3637 - model LR: 1.0000e-04
+INFO - 09/21/20 14:20:14 - 0:09:31 -     280 -   31.77 equations/s -  1256.11 words/s - PRIM-FWD:  1.3647 - model LR: 1.0000e-04
+INFO - 09/21/20 14:20:14 - 0:09:31 -     280 -   31.76 equations/s -  1258.22 words/s - PRIM-FWD:  1.3841 - model LR: 1.0000e-04
+INFO - 09/21/20 14:20:54 - 0:10:11 -     300 -   31.53 equations/s -  1233.64 words/s - PRIM-FWD:  1.3032 - model LR: 1.0000e-04
+INFO - 09/21/20 14:20:54 - 0:10:11 -     300 -   31.53 equations/s -  1258.11 words/s - PRIM-FWD:  1.3521 - model LR: 1.0000e-04
+INFO - 09/21/20 14:20:54 - 0:10:11 -     300 -   31.53 equations/s -  1247.16 words/s - PRIM-FWD:  1.3246 - model LR: 1.0000e-04
+INFO - 09/21/20 14:20:54 - 0:10:12 -     300 -   31.45 equations/s -  1225.12 words/s - PRIM-FWD:  1.3186 - model LR: 1.0000e-04
+INFO - 09/21/20 14:21:34 - 0:10:51 -     320 -   32.15 equations/s -  1278.13 words/s - PRIM-FWD:  1.2846 - model LR: 1.0000e-04
+INFO - 09/21/20 14:21:34 - 0:10:51 -     320 -   32.15 equations/s -  1287.42 words/s - PRIM-FWD:  1.2975 - model LR: 1.0000e-04
+INFO - 09/21/20 14:21:34 - 0:10:52 -     320 -   32.22 equations/s -  1231.59 words/s - PRIM-FWD:  1.3077 - model LR: 1.0000e-04
+INFO - 09/21/20 14:21:34 - 0:10:51 -     320 -   32.14 equations/s -  1276.43 words/s - PRIM-FWD:  1.3164 - model LR: 1.0000e-04
+INFO - 09/21/20 14:22:14 - 0:11:31 -     340 -   32.10 equations/s -  1297.01 words/s - PRIM-FWD:  1.2890 - model LR: 1.0000e-04
+INFO - 09/21/20 14:22:14 - 0:11:32 -     340 -   32.10 equations/s -  1246.46 words/s - PRIM-FWD:  1.2668 - model LR: 1.0000e-04
+INFO - 09/21/20 14:22:14 - 0:11:31 -     340 -   32.10 equations/s -  1238.53 words/s - PRIM-FWD:  1.2430 - model LR: 1.0000e-04
+INFO - 09/21/20 14:22:14 - 0:11:31 -     340 -   32.10 equations/s -  1267.99 words/s - PRIM-FWD:  1.2564 - model LR: 1.0000e-04
+INFO - 09/21/20 14:22:53 - 0:12:10 -     360 -   32.42 equations/s -  1307.02 words/s - PRIM-FWD:  1.2591 - model LR: 1.0000e-04
+INFO - 09/21/20 14:22:54 - 0:12:10 -     360 -   32.41 equations/s -  1284.63 words/s - PRIM-FWD:  1.2386 - model LR: 1.0000e-04
+INFO - 09/21/20 14:22:54 - 0:12:10 -     360 -   32.40 equations/s -  1276.42 words/s - PRIM-FWD:  1.2577 - model LR: 1.0000e-04
+INFO - 09/21/20 14:22:53 - 0:12:11 -     360 -   32.41 equations/s -  1281.78 words/s - PRIM-FWD:  1.2939 - model LR: 1.0000e-04
+INFO - 09/21/20 14:23:34 - 0:12:51 -     380 -   31.57 equations/s -  1265.65 words/s - PRIM-FWD:  1.2557 - model LR: 1.0000e-04
+INFO - 09/21/20 14:23:34 - 0:12:51 -     380 -   31.58 equations/s -  1227.90 words/s - PRIM-FWD:  1.2120 - model LR: 1.0000e-04
+INFO - 09/21/20 14:23:34 - 0:12:51 -     380 -   31.55 equations/s -  1264.13 words/s - PRIM-FWD:  1.2404 - model LR: 1.0000e-04
+INFO - 09/21/20 14:23:34 - 0:12:52 -     380 -   31.57 equations/s -  1267.69 words/s - PRIM-FWD:  1.2252 - model LR: 1.0000e-04
+INFO - 09/21/20 14:24:14 - 0:13:31 -     400 -   32.18 equations/s -  1275.36 words/s - PRIM-FWD:  1.2140 - model LR: 1.0000e-04
+INFO - 09/21/20 14:24:14 - 0:13:32 -     400 -   32.17 equations/s -  1280.57 words/s - PRIM-FWD:  1.2315 - model LR: 1.0000e-04
+INFO - 09/21/20 14:24:14 - 0:13:31 -     400 -   32.16 equations/s -  1296.47 words/s - PRIM-FWD:  1.2374 - model LR: 1.0000e-04
+INFO - 09/21/20 14:24:14 - 0:13:31 -     400 -   32.18 equations/s -  1304.35 words/s - PRIM-FWD:  1.2208 - model LR: 1.0000e-04
+INFO - 09/21/20 14:24:54 - 0:14:11 -     420 -   31.51 equations/s -  1244.92 words/s - PRIM-FWD:  1.2024 - model LR: 1.0000e-04
+INFO - 09/21/20 14:24:54 - 0:14:11 -     420 -   31.50 equations/s -  1243.49 words/s - PRIM-FWD:  1.1890 - model LR: 1.0000e-04
+INFO - 09/21/20 14:24:54 - 0:14:11 -     420 -   31.52 equations/s -  1260.93 words/s - PRIM-FWD:  1.1970 - model LR: 1.0000e-04
+INFO - 09/21/20 14:24:54 - 0:14:12 -     420 -   31.50 equations/s -  1286.12 words/s - PRIM-FWD:  1.2404 - model LR: 1.0000e-04
+INFO - 09/21/20 14:25:34 - 0:14:51 -     440 -   32.54 equations/s -  1281.67 words/s - PRIM-FWD:  1.1694 - model LR: 1.0000e-04
+INFO - 09/21/20 14:25:34 - 0:14:52 -     440 -   32.54 equations/s -  1282.05 words/s - PRIM-FWD:  1.1914 - model LR: 1.0000e-04
+INFO - 09/21/20 14:25:34 - 0:14:51 -     440 -   32.53 equations/s -  1261.74 words/s - PRIM-FWD:  1.1766 - model LR: 1.0000e-04
+INFO - 09/21/20 14:25:34 - 0:14:51 -     440 -   32.52 equations/s -  1295.83 words/s - PRIM-FWD:  1.1953 - model LR: 1.0000e-04
+INFO - 09/21/20 14:26:14 - 0:15:31 -     460 -   31.95 equations/s -  1262.46 words/s - PRIM-FWD:  1.1660 - model LR: 1.0000e-04
+INFO - 09/21/20 14:26:14 - 0:15:31 -     460 -   31.95 equations/s -  1274.83 words/s - PRIM-FWD:  1.1586 - model LR: 1.0000e-04
+INFO - 09/21/20 14:26:14 - 0:15:31 -     460 -   31.95 equations/s -  1243.64 words/s - PRIM-FWD:  1.1408 - model LR: 1.0000e-04
+INFO - 09/21/20 14:26:14 - 0:15:32 -     460 -   31.91 equations/s -  1254.35 words/s - PRIM-FWD:  1.1478 - model LR: 1.0000e-04
+INFO - 09/21/20 14:26:54 - 0:16:11 -     480 -   32.16 equations/s -  1300.27 words/s - PRIM-FWD:  1.1685 - model LR: 1.0000e-04
+INFO - 09/21/20 14:26:54 - 0:16:12 -     480 -   32.20 equations/s -  1259.51 words/s - PRIM-FWD:  1.1431 - model LR: 1.0000e-04
+INFO - 09/21/20 14:26:54 - 0:16:11 -     480 -   32.16 equations/s -  1268.16 words/s - PRIM-FWD:  1.1128 - model LR: 1.0000e-04
+INFO - 09/21/20 14:26:54 - 0:16:11 -     480 -   32.18 equations/s -  1289.19 words/s - PRIM-FWD:  1.1581 - model LR: 1.0000e-04
+INFO - 09/21/20 14:27:33 - 0:16:51 -     500 -   32.22 equations/s -  1263.22 words/s - PRIM-FWD:  1.1037 - model LR: 1.0000e-04
+INFO - 09/21/20 14:27:33 - 0:16:50 -     500 -   32.20 equations/s -  1283.00 words/s - PRIM-FWD:  1.1270 - model LR: 1.0000e-04
+INFO - 09/21/20 14:27:33 - 0:16:50 -     500 -   32.21 equations/s -  1284.36 words/s - PRIM-FWD:  1.1122 - model LR: 1.0000e-04
+INFO - 09/21/20 14:27:33 - 0:16:50 -     500 -   32.20 equations/s -  1270.86 words/s - PRIM-FWD:  1.1208 - model LR: 1.0000e-04
+INFO - 09/21/20 14:28:14 - 0:17:30 -     520 -   31.87 equations/s -  1256.36 words/s - PRIM-FWD:  1.1134 - model LR: 1.0000e-04
+INFO - 09/21/20 14:28:14 - 0:17:30 -     520 -   31.86 equations/s -  1293.82 words/s - PRIM-FWD:  1.1090 - model LR: 1.0000e-04
+INFO - 09/21/20 14:28:14 - 0:17:31 -     520 -   31.85 equations/s -  1281.71 words/s - PRIM-FWD:  1.1477 - model LR: 1.0000e-04
+INFO - 09/21/20 14:28:14 - 0:17:30 -     520 -   31.86 equations/s -  1241.76 words/s - PRIM-FWD:  1.0964 - model LR: 1.0000e-04
+INFO - 09/21/20 14:28:54 - 0:18:11 -     540 -   31.79 equations/s -  1257.64 words/s - PRIM-FWD:  1.0609 - model LR: 1.0000e-04
+INFO - 09/21/20 14:28:54 - 0:18:11 -     540 -   31.79 equations/s -  1268.39 words/s - PRIM-FWD:  1.0811 - model LR: 1.0000e-04
+INFO - 09/21/20 14:28:54 - 0:18:12 -     540 -   31.79 equations/s -  1253.88 words/s - PRIM-FWD:  1.0813 - model LR: 1.0000e-04
+INFO - 09/21/20 14:28:54 - 0:18:11 -     540 -   31.77 equations/s -  1272.56 words/s - PRIM-FWD:  1.0979 - model LR: 1.0000e-04
+INFO - 09/21/20 14:29:34 - 0:18:51 -     560 -   32.04 equations/s -  1243.55 words/s - PRIM-FWD:  1.1173 - model LR: 1.0000e-04
+INFO - 09/21/20 14:29:34 - 0:18:51 -     560 -   32.04 equations/s -  1253.42 words/s - PRIM-FWD:  1.0672 - model LR: 1.0000e-04
+INFO - 09/21/20 14:29:34 - 0:18:51 -     560 -   32.04 equations/s -  1251.40 words/s - PRIM-FWD:  1.0522 - model LR: 1.0000e-04
+INFO - 09/21/20 14:29:34 - 0:18:52 -     560 -   32.03 equations/s -  1262.40 words/s - PRIM-FWD:  1.0970 - model LR: 1.0000e-04
+INFO - 09/21/20 14:30:14 - 0:19:31 -     580 -   32.07 equations/s -  1297.15 words/s - PRIM-FWD:  1.0751 - model LR: 1.0000e-04
+INFO - 09/21/20 14:30:14 - 0:19:32 -     580 -   32.08 equations/s -  1252.67 words/s - PRIM-FWD:  1.0747 - model LR: 1.0000e-04
+INFO - 09/21/20 14:30:14 - 0:19:31 -     580 -   32.08 equations/s -  1306.79 words/s - PRIM-FWD:  1.0828 - model LR: 1.0000e-04
+INFO - 09/21/20 14:30:14 - 0:19:31 -     580 -   32.07 equations/s -  1261.70 words/s - PRIM-FWD:  1.0569 - model LR: 1.0000e-04
+INFO - 09/21/20 14:30:53 - 0:20:10 -     600 -   32.29 equations/s -  1284.87 words/s - PRIM-FWD:  1.0594 - model LR: 1.0000e-04
+INFO - 09/21/20 14:30:53 - 0:20:10 -     600 -   32.28 equations/s -  1253.26 words/s - PRIM-FWD:  1.0336 - model LR: 1.0000e-04
+INFO - 09/21/20 14:30:53 - 0:20:11 -     600 -   32.28 equations/s -  1277.68 words/s - PRIM-FWD:  1.0617 - model LR: 1.0000e-04
+INFO - 09/21/20 14:30:53 - 0:20:10 -     600 -   32.26 equations/s -  1311.77 words/s - PRIM-FWD:  1.0664 - model LR: 1.0000e-04
+INFO - 09/21/20 14:31:34 - 0:20:52 -     620 -   31.54 equations/s -  1252.23 words/s - PRIM-FWD:  1.0626 - model LR: 1.0000e-04
+INFO - 09/21/20 14:31:34 - 0:20:51 -     620 -   31.53 equations/s -  1282.92 words/s - PRIM-FWD:  1.0615 - model LR: 1.0000e-04
+INFO - 09/21/20 14:31:34 - 0:20:51 -     620 -   31.53 equations/s -  1245.35 words/s - PRIM-FWD:  1.0736 - model LR: 1.0000e-04
+INFO - 09/21/20 14:31:34 - 0:20:51 -     620 -   31.52 equations/s -  1253.04 words/s - PRIM-FWD:  1.0372 - model LR: 1.0000e-04
+INFO - 09/21/20 14:32:14 - 0:21:31 -     640 -   31.94 equations/s -  1247.77 words/s - PRIM-FWD:  1.0255 - model LR: 1.0000e-04
+INFO - 09/21/20 14:32:14 - 0:21:31 -     640 -   31.94 equations/s -  1246.07 words/s - PRIM-FWD:  1.0213 - model LR: 1.0000e-04
+INFO - 09/21/20 14:32:14 - 0:21:31 -     640 -   31.93 equations/s -  1265.26 words/s - PRIM-FWD:  1.0323 - model LR: 1.0000e-04
+INFO - 09/21/20 14:32:14 - 0:21:32 -     640 -   31.92 equations/s -  1243.86 words/s - PRIM-FWD:  1.0628 - model LR: 1.0000e-04
+INFO - 09/21/20 14:32:54 - 0:22:11 -     660 -   32.06 equations/s -  1259.85 words/s - PRIM-FWD:  1.0062 - model LR: 1.0000e-04
+INFO - 09/21/20 14:32:54 - 0:22:12 -     660 -   32.06 equations/s -  1268.74 words/s - PRIM-FWD:  1.0553 - model LR: 1.0000e-04
+INFO - 09/21/20 14:32:54 - 0:22:11 -     660 -   32.06 equations/s -  1269.21 words/s - PRIM-FWD:  1.0077 - model LR: 1.0000e-04
+INFO - 09/21/20 14:32:54 - 0:22:11 -     660 -   32.05 equations/s -  1244.59 words/s - PRIM-FWD:  1.0260 - model LR: 1.0000e-04
+INFO - 09/21/20 14:33:35 - 0:22:52 -     680 -   31.49 equations/s -  1218.85 words/s - PRIM-FWD:  1.0236 - model LR: 1.0000e-04
+INFO - 09/21/20 14:33:35 - 0:22:52 -     680 -   31.49 equations/s -  1235.02 words/s - PRIM-FWD:  1.0125 - model LR: 1.0000e-04
+INFO - 09/21/20 14:33:35 - 0:22:52 -     680 -   31.47 equations/s -  1252.47 words/s - PRIM-FWD:  1.0178 - model LR: 1.0000e-04
+INFO - 09/21/20 14:33:35 - 0:22:52 -     680 -   31.43 equations/s -  1224.98 words/s - PRIM-FWD:  0.9972 - model LR: 1.0000e-04
+INFO - 09/21/20 14:34:15 - 0:23:32 -     700 -   31.59 equations/s -  1267.81 words/s - PRIM-FWD:  1.0003 - model LR: 1.0000e-04
+INFO - 09/21/20 14:34:15 - 0:23:32 -     700 -   31.58 equations/s -  1267.39 words/s - PRIM-FWD:  1.0141 - model LR: 1.0000e-04
+INFO - 09/21/20 14:34:15 - 0:23:32 -     700 -   31.63 equations/s -  1290.51 words/s - PRIM-FWD:  1.0061 - model LR: 1.0000e-04
+INFO - 09/21/20 14:34:15 - 0:23:33 -     700 -   31.56 equations/s -  1247.22 words/s - PRIM-FWD:  1.0082 - model LR: 1.0000e-04
+INFO - 09/21/20 14:34:55 - 0:24:12 -     720 -   31.94 equations/s -  1272.60 words/s - PRIM-FWD:  0.9943 - model LR: 1.0000e-04
+INFO - 09/21/20 14:34:55 - 0:24:12 -     720 -   31.93 equations/s -  1239.52 words/s - PRIM-FWD:  0.9673 - model LR: 1.0000e-04
+INFO - 09/21/20 14:34:55 - 0:24:13 -     720 -   31.94 equations/s -  1250.08 words/s - PRIM-FWD:  0.9875 - model LR: 1.0000e-04
+INFO - 09/21/20 14:34:55 - 0:24:12 -     720 -   31.93 equations/s -  1255.02 words/s - PRIM-FWD:  0.9871 - model LR: 1.0000e-04
+INFO - 09/21/20 14:35:35 - 0:24:52 -     740 -   31.93 equations/s -  1255.06 words/s - PRIM-FWD:  0.9776 - model LR: 1.0000e-04
+INFO - 09/21/20 14:35:35 - 0:24:52 -     740 -   31.93 equations/s -  1270.98 words/s - PRIM-FWD:  0.9579 - model LR: 1.0000e-04
+INFO - 09/21/20 14:35:35 - 0:24:52 -     740 -   31.92 equations/s -  1251.53 words/s - PRIM-FWD:  0.9599 - model LR: 1.0000e-04
+INFO - 09/21/20 14:35:35 - 0:24:53 -     740 -   31.92 equations/s -  1233.53 words/s - PRIM-FWD:  0.9910 - model LR: 1.0000e-04
+INFO - 09/21/20 14:36:16 - 0:25:32 -     760 -   31.87 equations/s -  1252.33 words/s - PRIM-FWD:  0.9674 - model LR: 1.0000e-04
+INFO - 09/21/20 14:36:16 - 0:25:32 -     760 -   31.87 equations/s -  1228.90 words/s - PRIM-FWD:  0.9654 - model LR: 1.0000e-04
+INFO - 09/21/20 14:36:16 - 0:25:33 -     760 -   31.87 equations/s -  1255.91 words/s - PRIM-FWD:  0.9856 - model LR: 1.0000e-04
+INFO - 09/21/20 14:36:16 - 0:25:32 -     760 -   31.85 equations/s -  1244.49 words/s - PRIM-FWD:  0.9847 - model LR: 1.0000e-04
+INFO - 09/21/20 14:36:55 - 0:26:12 -     780 -   32.23 equations/s -  1263.51 words/s - PRIM-FWD:  0.9723 - model LR: 1.0000e-04
+INFO - 09/21/20 14:36:55 - 0:26:12 -     780 -   32.24 equations/s -  1253.72 words/s - PRIM-FWD:  0.9424 - model LR: 1.0000e-04
+INFO - 09/21/20 14:36:55 - 0:26:12 -     780 -   32.23 equations/s -  1305.11 words/s - PRIM-FWD:  0.9694 - model LR: 1.0000e-04
+INFO - 09/21/20 14:36:55 - 0:26:13 -     780 -   32.23 equations/s -  1285.48 words/s - PRIM-FWD:  1.0034 - model LR: 1.0000e-04
+INFO - 09/21/20 14:36:59 - 0:26:16 - ============ End of epoch 0 ============
+INFO - 09/21/20 14:36:59 - 0:26:16 - Creating valid iterator for prim_fwd ...
+INFO - 09/21/20 14:36:59 - 0:26:16 - Loading data from fwd_small/fwd_small.valid ...
+INFO - 09/21/20 14:36:59 - 0:26:16 - ============ End of epoch 0 ============
+INFO - 09/21/20 14:36:59 - 0:26:16 - Creating valid iterator for prim_fwd ...
+INFO - 09/21/20 14:36:59 - 0:26:16 - Loading data from fwd_small/fwd_small.valid ...
+INFO - 09/21/20 14:36:59 - 0:26:16 - ============ End of epoch 0 ============
+INFO - 09/21/20 14:36:59 - 0:26:16 - Creating valid iterator for prim_fwd ...
+INFO - 09/21/20 14:36:59 - 0:26:16 - Loading data from fwd_small/fwd_small.valid ...
+INFO - 09/21/20 14:36:59 - 0:26:16 - Loaded 500 equations from the disk.
+INFO - 09/21/20 14:36:59 - 0:26:17 - ============ End of epoch 0 ============
+INFO - 09/21/20 14:36:59 - 0:26:17 - Creating valid iterator for prim_fwd ...
+INFO - 09/21/20 14:36:59 - 0:26:17 - Loading data from fwd_small/fwd_small.valid ...
+INFO - 09/21/20 14:36:59 - 0:26:16 - Loaded 500 equations from the disk.
+INFO - 09/21/20 14:36:59 - 0:26:16 - Loaded 500 equations from the disk.
+INFO - 09/21/20 14:36:59 - 0:26:17 - Loaded 500 equations from the disk.
+INFO - 09/21/20 14:37:00 - 0:26:17 - 0/500
+INFO - 09/21/20 14:37:00 - 0:26:17 - 0/500
+INFO - 09/21/20 14:37:00 - 0:26:18 - 0/500
+INFO - 09/21/20 14:37:00 - 0:26:17 - 0/500
+INFO - 09/21/20 14:37:02 - 0:26:20 - 128/500
+INFO - 09/21/20 14:37:02 - 0:26:19 - 128/500
+INFO - 09/21/20 14:37:02 - 0:26:19 - 128/500
+INFO - 09/21/20 14:37:02 - 0:26:19 - 128/500
+INFO - 09/21/20 14:37:04 - 0:26:22 - 256/500
+INFO - 09/21/20 14:37:04 - 0:26:21 - 256/500
+INFO - 09/21/20 14:37:04 - 0:26:21 - 256/500
+INFO - 09/21/20 14:37:04 - 0:26:21 - 256/500
+INFO - 09/21/20 14:37:05 - 0:26:23 - 320/500
+INFO - 09/21/20 14:37:05 - 0:26:22 - 320/500
+INFO - 09/21/20 14:37:05 - 0:26:22 - 320/500
+INFO - 09/21/20 14:37:06 - 0:26:22 - 320/500
+INFO - 09/21/20 14:37:07 - 0:26:24 - 448/500
+INFO - 09/21/20 14:37:07 - 0:26:23 - 448/500
+INFO - 09/21/20 14:37:07 - 0:26:23 - 448/500
+INFO - 09/21/20 14:37:07 - 0:26:24 - 448/500
+INFO - 09/21/20 14:37:07 - 0:26:25 - 0/500 (0.0%) equations were evaluated correctly.
+INFO - 09/21/20 14:37:07 - 0:26:25 - Creating test iterator for prim_fwd ...
+INFO - 09/21/20 14:37:07 - 0:26:25 - Loading data from fwd_small/fwd_small.test ...
+INFO - 09/21/20 14:37:07 - 0:26:25 - Loaded 1000 equations from the disk.
+INFO - 09/21/20 14:37:07 - 0:26:24 - 0/500 (0.0%) equations were evaluated correctly.
+INFO - 09/21/20 14:37:07 - 0:26:24 - Creating test iterator for prim_fwd ...
+INFO - 09/21/20 14:37:07 - 0:26:24 - Loading data from fwd_small/fwd_small.test ...
+INFO - 09/21/20 14:37:07 - 0:26:24 - Loaded 1000 equations from the disk.
+INFO - 09/21/20 14:37:07 - 0:26:24 - 0/500 (0.0%) equations were evaluated correctly.
+INFO - 09/21/20 14:37:07 - 0:26:24 - Creating test iterator for prim_fwd ...
+INFO - 09/21/20 14:37:07 - 0:26:24 - Loading data from fwd_small/fwd_small.test ...
+INFO - 09/21/20 14:37:07 - 0:26:24 - Loaded 1000 equations from the disk.
+INFO - 09/21/20 14:37:08 - 0:26:26 - 0/1000
+INFO - 09/21/20 14:37:08 - 0:26:25 - 0/1000
+INFO - 09/21/20 14:37:08 - 0:26:25 - 0/1000
+INFO - 09/21/20 14:37:08 - 0:26:25 - 0/500 (0.0%) equations were evaluated correctly.
+INFO - 09/21/20 14:37:08 - 0:26:25 - Creating test iterator for prim_fwd ...
+INFO - 09/21/20 14:37:08 - 0:26:25 - Loading data from fwd_small/fwd_small.test ...
+INFO - 09/21/20 14:37:08 - 0:26:25 - Loaded 1000 equations from the disk.
+INFO - 09/21/20 14:37:09 - 0:26:26 - 0/1000
+INFO - 09/21/20 14:37:10 - 0:26:27 - 128/1000
+INFO - 09/21/20 14:37:10 - 0:26:27 - 128/1000
+INFO - 09/21/20 14:37:10 - 0:26:27 - 128/1000
+INFO - 09/21/20 14:37:11 - 0:26:28 - 128/1000
+INFO - 09/21/20 14:37:12 - 0:26:30 - 256/1000
+INFO - 09/21/20 14:37:12 - 0:26:29 - 256/1000
+INFO - 09/21/20 14:37:12 - 0:26:29 - 256/1000
+INFO - 09/21/20 14:37:13 - 0:26:31 - 320/1000
+INFO - 09/21/20 14:37:13 - 0:26:30 - 320/1000
+INFO - 09/21/20 14:37:13 - 0:26:30 - 320/1000
+INFO - 09/21/20 14:37:13 - 0:26:30 - 256/1000
+INFO - 09/21/20 14:37:14 - 0:26:31 - 320/1000
+INFO - 09/21/20 14:37:15 - 0:26:33 - 448/1000
+INFO - 09/21/20 14:37:15 - 0:26:32 - 448/1000
+INFO - 09/21/20 14:37:15 - 0:26:32 - 448/1000
+INFO - 09/21/20 14:37:16 - 0:26:34 - 512/1000
+INFO - 09/21/20 14:37:16 - 0:26:33 - 512/1000
+INFO - 09/21/20 14:37:16 - 0:26:33 - 512/1000
+INFO - 09/21/20 14:37:17 - 0:26:34 - 448/1000
+INFO - 09/21/20 14:37:18 - 0:26:35 - 512/1000
+INFO - 09/21/20 14:37:18 - 0:26:36 - 640/1000
+INFO - 09/21/20 14:37:18 - 0:26:35 - 640/1000
+INFO - 09/21/20 14:37:18 - 0:26:35 - 640/1000
+INFO - 09/21/20 14:37:19 - 0:26:37 - 704/1000
+INFO - 09/21/20 14:37:20 - 0:26:36 - 704/1000
+INFO - 09/21/20 14:37:20 - 0:26:36 - 704/1000
+INFO - 09/21/20 14:37:20 - 0:26:37 - 640/1000
+INFO - 09/21/20 14:37:22 - 0:26:39 - 832/1000
+INFO - 09/21/20 14:37:22 - 0:26:39 - 704/1000
+INFO - 09/21/20 14:37:22 - 0:26:39 - 832/1000
+INFO - 09/21/20 14:37:22 - 0:26:39 - 832/1000
+INFO - 09/21/20 14:37:23 - 0:26:41 - 960/1000
+INFO - 09/21/20 14:37:23 - 0:26:40 - 960/1000
+INFO - 09/21/20 14:37:24 - 0:26:40 - 832/1000
+INFO - 09/21/20 14:37:24 - 0:26:40 - 960/1000
+INFO - 09/21/20 14:37:24 - 0:26:42 - 0/1000 (0.0%) equations were evaluated correctly.
+INFO - 09/21/20 14:37:24 - 0:26:42 - epoch -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:42 - valid_prim_fwd_xe_loss -> 26.450936
+INFO - 09/21/20 14:37:24 - 0:26:42 - valid_prim_fwd_acc -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:42 - valid_prim_fwd_acc_2 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:42 - valid_prim_fwd_acc_3 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:42 - valid_prim_fwd_acc_4 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:42 - valid_prim_fwd_acc_5 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:42 - valid_prim_fwd_acc_6 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:42 - valid_prim_fwd_acc_7 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:42 - valid_prim_fwd_acc_8 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:42 - valid_prim_fwd_acc_9 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:42 - test_prim_fwd_xe_loss -> 31.982004
+INFO - 09/21/20 14:37:24 - 0:26:42 - test_prim_fwd_acc -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:42 - test_prim_fwd_acc_2 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:42 - test_prim_fwd_acc_3 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:42 - test_prim_fwd_acc_4 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:42 - test_prim_fwd_acc_5 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:42 - test_prim_fwd_acc_6 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:42 - test_prim_fwd_acc_7 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:42 - test_prim_fwd_acc_8 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:42 - test_prim_fwd_acc_9 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:42 - ============ Starting epoch 1 ... ============
+INFO - 09/21/20 14:37:24 - 0:26:41 - 0/1000 (0.0%) equations were evaluated correctly.
+INFO - 09/21/20 14:37:24 - 0:26:41 - epoch -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - valid_prim_fwd_xe_loss -> 26.330362
+INFO - 09/21/20 14:37:24 - 0:26:41 - valid_prim_fwd_acc -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - valid_prim_fwd_acc_2 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - valid_prim_fwd_acc_3 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - valid_prim_fwd_acc_4 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - valid_prim_fwd_acc_5 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - valid_prim_fwd_acc_6 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - valid_prim_fwd_acc_7 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - valid_prim_fwd_acc_8 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - valid_prim_fwd_acc_9 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - test_prim_fwd_xe_loss -> 31.810395
+INFO - 09/21/20 14:37:24 - 0:26:41 - test_prim_fwd_acc -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - test_prim_fwd_acc_2 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - test_prim_fwd_acc_3 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - test_prim_fwd_acc_4 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - test_prim_fwd_acc_5 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - test_prim_fwd_acc_6 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - test_prim_fwd_acc_7 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - test_prim_fwd_acc_8 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - test_prim_fwd_acc_9 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - ============ Starting epoch 1 ... ============
+INFO - 09/21/20 14:37:24 - 0:26:41 - 0/1000 (0.0%) equations were evaluated correctly.
+INFO - 09/21/20 14:37:24 - 0:26:41 - epoch -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - valid_prim_fwd_xe_loss -> 26.339559
+INFO - 09/21/20 14:37:24 - 0:26:41 - valid_prim_fwd_acc -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - valid_prim_fwd_acc_2 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - valid_prim_fwd_acc_3 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - valid_prim_fwd_acc_4 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - valid_prim_fwd_acc_5 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - valid_prim_fwd_acc_6 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - valid_prim_fwd_acc_7 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - valid_prim_fwd_acc_8 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - valid_prim_fwd_acc_9 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - test_prim_fwd_xe_loss -> 31.843359
+INFO - 09/21/20 14:37:24 - 0:26:41 - test_prim_fwd_acc -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - test_prim_fwd_acc_2 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - test_prim_fwd_acc_3 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - test_prim_fwd_acc_4 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - test_prim_fwd_acc_5 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - test_prim_fwd_acc_6 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - test_prim_fwd_acc_7 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - test_prim_fwd_acc_8 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - test_prim_fwd_acc_9 -> 0.000000
+INFO - 09/21/20 14:37:24 - 0:26:41 - __log__:{"epoch": 0, "valid_prim_fwd_xe_loss": 26.33955876636505, "valid_prim_fwd_acc": 0.0, "valid_prim_fwd_acc_2": 0.0, "valid_prim_fwd_acc_3": 0.0, "valid_prim_fwd_acc_4": 0.0, "valid_prim_fwd_acc_5": 0.0, "valid_prim_fwd_acc_6": 0.0, "valid_prim_fwd_acc_7": 0.0, "valid_prim_fwd_acc_8": 0.0, "valid_prim_fwd_acc_9": 0.0, "test_prim_fwd_xe_loss": 31.843359454751013, "test_prim_fwd_acc": 0.0, "test_prim_fwd_acc_2": 0.0, "test_prim_fwd_acc_3": 0.0, "test_prim_fwd_acc_4": 0.0, "test_prim_fwd_acc_5": 0.0, "test_prim_fwd_acc_6": 0.0, "test_prim_fwd_acc_7": 0.0, "test_prim_fwd_acc_8": 0.0, "test_prim_fwd_acc_9": 0.0}
+INFO - 09/21/20 14:37:24 - 0:26:41 - Saving checkpoint to ./dumped/treelstm_50k_numenc/11627285/checkpoint.pth ...
+WARNING - 09/21/20 14:37:24 - 0:26:41 - Saving encoder parameters ...
+WARNING - 09/21/20 14:37:24 - 0:26:41 - Saving decoder parameters ...
+WARNING - 09/21/20 14:37:24 - 0:26:41 - Saving model optimizer ...
+INFO - 09/21/20 14:37:25 - 0:26:42 - ============ Starting epoch 1 ... ============
+INFO - 09/21/20 14:37:25 - 0:26:42 - 960/1000
+INFO - 09/21/20 14:37:26 - 0:26:43 - 0/1000 (0.0%) equations were evaluated correctly.
+INFO - 09/21/20 14:37:26 - 0:26:43 - epoch -> 0.000000
+INFO - 09/21/20 14:37:26 - 0:26:43 - valid_prim_fwd_xe_loss -> 26.409393
+INFO - 09/21/20 14:37:26 - 0:26:43 - valid_prim_fwd_acc -> 0.000000
+INFO - 09/21/20 14:37:26 - 0:26:43 - valid_prim_fwd_acc_2 -> 0.000000
+INFO - 09/21/20 14:37:26 - 0:26:43 - valid_prim_fwd_acc_3 -> 0.000000
+INFO - 09/21/20 14:37:26 - 0:26:43 - valid_prim_fwd_acc_4 -> 0.000000
+INFO - 09/21/20 14:37:26 - 0:26:43 - valid_prim_fwd_acc_5 -> 0.000000
+INFO - 09/21/20 14:37:26 - 0:26:43 - valid_prim_fwd_acc_6 -> 0.000000
+INFO - 09/21/20 14:37:26 - 0:26:43 - valid_prim_fwd_acc_7 -> 0.000000
+INFO - 09/21/20 14:37:26 - 0:26:43 - valid_prim_fwd_acc_8 -> 0.000000
+INFO - 09/21/20 14:37:26 - 0:26:43 - valid_prim_fwd_acc_9 -> 0.000000
+INFO - 09/21/20 14:37:26 - 0:26:43 - test_prim_fwd_xe_loss -> 31.956206
+INFO - 09/21/20 14:37:26 - 0:26:43 - test_prim_fwd_acc -> 0.000000
+INFO - 09/21/20 14:37:26 - 0:26:43 - test_prim_fwd_acc_2 -> 0.000000
+INFO - 09/21/20 14:37:26 - 0:26:43 - test_prim_fwd_acc_3 -> 0.000000
+INFO - 09/21/20 14:37:26 - 0:26:43 - test_prim_fwd_acc_4 -> 0.000000
+INFO - 09/21/20 14:37:26 - 0:26:43 - test_prim_fwd_acc_5 -> 0.000000
+INFO - 09/21/20 14:37:26 - 0:26:43 - test_prim_fwd_acc_6 -> 0.000000
+INFO - 09/21/20 14:37:26 - 0:26:43 - test_prim_fwd_acc_7 -> 0.000000
+INFO - 09/21/20 14:37:26 - 0:26:43 - test_prim_fwd_acc_8 -> 0.000000
+INFO - 09/21/20 14:37:26 - 0:26:43 - test_prim_fwd_acc_9 -> 0.000000
+INFO - 09/21/20 14:37:26 - 0:26:43 - ============ Starting epoch 1 ... ============
+INFO - 09/21/20 14:38:02 - 0:27:19 -     800 -   19.28 equations/s -   757.56 words/s - PRIM-FWD:  0.9341 - model LR: 1.0000e-04
+INFO - 09/21/20 14:38:02 - 0:27:18 -     800 -   19.28 equations/s -   748.22 words/s - PRIM-FWD:  0.9238 - model LR: 1.0000e-04
+INFO - 09/21/20 14:38:02 - 0:27:18 -     800 -   19.28 equations/s -   742.60 words/s - PRIM-FWD:  0.9453 - model LR: 1.0000e-04
+INFO - 09/21/20 14:38:02 - 0:27:19 -     800 -   19.28 equations/s -   762.11 words/s - PRIM-FWD:  0.9396 - model LR: 1.0000e-04
+INFO - 09/21/20 14:38:42 - 0:27:59 -     820 -   31.83 equations/s -  1274.19 words/s - PRIM-FWD:  0.9738 - model LR: 1.0000e-04
+INFO - 09/21/20 14:38:42 - 0:28:00 -     820 -   31.82 equations/s -  1267.19 words/s - PRIM-FWD:  0.9445 - model LR: 1.0000e-04
+INFO - 09/21/20 14:38:42 - 0:27:59 -     820 -   31.83 equations/s -  1290.17 words/s - PRIM-FWD:  0.9497 - model LR: 1.0000e-04
+INFO - 09/21/20 14:38:42 - 0:27:59 -     820 -   31.83 equations/s -  1234.54 words/s - PRIM-FWD:  0.9389 - model LR: 1.0000e-04
+INFO - 09/21/20 14:39:22 - 0:28:39 -     840 -   31.57 equations/s -  1285.41 words/s - PRIM-FWD:  0.9589 - model LR: 1.0000e-04
+INFO - 09/21/20 14:39:22 - 0:28:39 -     840 -   31.56 equations/s -  1242.76 words/s - PRIM-FWD:  0.9068 - model LR: 1.0000e-04
+INFO - 09/21/20 14:39:22 - 0:28:40 -     840 -   31.56 equations/s -  1234.03 words/s - PRIM-FWD:  0.9385 - model LR: 1.0000e-04
+INFO - 09/21/20 14:39:22 - 0:28:39 -     840 -   31.56 equations/s -  1258.42 words/s - PRIM-FWD:  0.9385 - model LR: 1.0000e-04
+INFO - 09/21/20 14:40:02 - 0:29:19 -     860 -   31.92 equations/s -  1267.93 words/s - PRIM-FWD:  0.9362 - model LR: 1.0000e-04
+INFO - 09/21/20 14:40:03 - 0:29:19 -     860 -   31.90 equations/s -  1268.17 words/s - PRIM-FWD:  0.9247 - model LR: 1.0000e-04
+INFO - 09/21/20 14:40:03 - 0:29:20 -     860 -   31.90 equations/s -  1264.84 words/s - PRIM-FWD:  0.9573 - model LR: 1.0000e-04
+INFO - 09/21/20 14:40:03 - 0:29:19 -     860 -   31.89 equations/s -  1262.77 words/s - PRIM-FWD:  0.9095 - model LR: 1.0000e-04
+INFO - 09/21/20 14:40:42 - 0:29:59 -     880 -   32.11 equations/s -  1287.61 words/s - PRIM-FWD:  0.9292 - model LR: 1.0000e-04
+INFO - 09/21/20 14:40:42 - 0:29:59 -     880 -   32.12 equations/s -  1260.69 words/s - PRIM-FWD:  0.9027 - model LR: 1.0000e-04
+INFO - 09/21/20 14:40:42 - 0:30:00 -     880 -   32.12 equations/s -  1249.33 words/s - PRIM-FWD:  0.9126 - model LR: 1.0000e-04
+INFO - 09/21/20 14:40:42 - 0:29:59 -     880 -   32.12 equations/s -  1286.11 words/s - PRIM-FWD:  0.9178 - model LR: 1.0000e-04
+INFO - 09/21/20 14:41:22 - 0:30:40 -     900 -   32.02 equations/s -  1263.15 words/s - PRIM-FWD:  0.9171 - model LR: 1.0000e-04
+INFO - 09/21/20 14:41:22 - 0:30:39 -     900 -   32.01 equations/s -  1248.91 words/s - PRIM-FWD:  0.8867 - model LR: 1.0000e-04
+INFO - 09/21/20 14:41:22 - 0:30:39 -     900 -   32.02 equations/s -  1287.77 words/s - PRIM-FWD:  0.9052 - model LR: 1.0000e-04
+INFO - 09/21/20 14:41:22 - 0:30:39 -     900 -   32.00 equations/s -  1263.89 words/s - PRIM-FWD:  0.9290 - model LR: 1.0000e-04
+INFO - 09/21/20 14:42:02 - 0:31:19 -     920 -   32.28 equations/s -  1297.94 words/s - PRIM-FWD:  0.8959 - model LR: 1.0000e-04
+INFO - 09/21/20 14:42:02 - 0:31:19 -     920 -   32.27 equations/s -  1269.99 words/s - PRIM-FWD:  0.9030 - model LR: 1.0000e-04
+INFO - 09/21/20 14:42:02 - 0:31:19 -     920 -   32.26 equations/s -  1248.51 words/s - PRIM-FWD:  0.8979 - model LR: 1.0000e-04
+INFO - 09/21/20 14:42:02 - 0:31:20 -     920 -   32.27 equations/s -  1252.51 words/s - PRIM-FWD:  0.8945 - model LR: 1.0000e-04
+INFO - 09/21/20 14:42:42 - 0:32:00 -     940 -   32.11 equations/s -  1261.76 words/s - PRIM-FWD:  0.8812 - model LR: 1.0000e-04
+INFO - 09/21/20 14:42:42 - 0:31:59 -     940 -   32.12 equations/s -  1270.92 words/s - PRIM-FWD:  0.8805 - model LR: 1.0000e-04
+INFO - 09/21/20 14:42:42 - 0:31:59 -     940 -   32.11 equations/s -  1246.99 words/s - PRIM-FWD:  0.9275 - model LR: 1.0000e-04
+INFO - 09/21/20 14:42:42 - 0:31:59 -     940 -   32.11 equations/s -  1293.94 words/s - PRIM-FWD:  0.8943 - model LR: 1.0000e-04
+INFO - 09/21/20 14:43:22 - 0:32:39 -     960 -   32.20 equations/s -  1274.17 words/s - PRIM-FWD:  0.8665 - model LR: 1.0000e-04
+INFO - 09/21/20 14:43:22 - 0:32:39 -     960 -   32.19 equations/s -  1236.90 words/s - PRIM-FWD:  0.8376 - model LR: 1.0000e-04
+INFO - 09/21/20 14:43:22 - 0:32:39 -     960 -   32.19 equations/s -  1269.38 words/s - PRIM-FWD:  0.8863 - model LR: 1.0000e-04
+INFO - 09/21/20 14:43:22 - 0:32:39 -     960 -   32.17 equations/s -  1287.40 words/s - PRIM-FWD:  0.8882 - model LR: 1.0000e-04
+INFO - 09/21/20 14:44:02 - 0:33:19 -     980 -   32.04 equations/s -  1273.37 words/s - PRIM-FWD:  0.8459 - model LR: 1.0000e-04
+INFO - 09/21/20 14:44:02 - 0:33:18 -     980 -   32.01 equations/s -  1248.12 words/s - PRIM-FWD:  0.8633 - model LR: 1.0000e-04
+INFO - 09/21/20 14:44:02 - 0:33:18 -     980 -   32.02 equations/s -  1306.18 words/s - PRIM-FWD:  0.9160 - model LR: 1.0000e-04
+INFO - 09/21/20 14:44:02 - 0:33:19 -     980 -   32.00 equations/s -  1262.48 words/s - PRIM-FWD:  0.8621 - model LR: 1.0000e-04
+INFO - 09/21/20 14:44:41 - 0:33:58 -    1000 -   32.12 equations/s -  1311.48 words/s - PRIM-FWD:  0.8801 - model LR: 1.0000e-04
+INFO - 09/21/20 14:44:41 - 0:33:58 -    1000 -   32.12 equations/s -  1261.76 words/s - PRIM-FWD:  0.8688 - model LR: 1.0000e-04
+INFO - 09/21/20 14:44:41 - 0:33:59 -    1000 -   32.12 equations/s -  1287.16 words/s - PRIM-FWD:  0.8786 - model LR: 1.0000e-04
+INFO - 09/21/20 14:44:41 - 0:33:58 -    1000 -   32.11 equations/s -  1268.20 words/s - PRIM-FWD:  0.8424 - model LR: 1.0000e-04
+INFO - 09/21/20 14:45:21 - 0:34:39 -    1020 -   32.32 equations/s -  1279.89 words/s - PRIM-FWD:  0.8907 - model LR: 1.0000e-04
+INFO - 09/21/20 14:45:21 - 0:34:38 -    1020 -   32.32 equations/s -  1295.79 words/s - PRIM-FWD:  0.8701 - model LR: 1.0000e-04
+INFO - 09/21/20 14:45:21 - 0:34:38 -    1020 -   32.30 equations/s -  1300.30 words/s - PRIM-FWD:  0.8784 - model LR: 1.0000e-04
+INFO - 09/21/20 14:45:21 - 0:34:38 -    1020 -   32.31 equations/s -  1285.90 words/s - PRIM-FWD:  0.8574 - model LR: 1.0000e-04
+INFO - 09/21/20 14:46:01 - 0:35:18 -    1040 -   31.93 equations/s -  1269.64 words/s - PRIM-FWD:  0.8510 - model LR: 1.0000e-04
+INFO - 09/21/20 14:46:01 - 0:35:18 -    1040 -   31.93 equations/s -  1278.53 words/s - PRIM-FWD:  0.8574 - model LR: 1.0000e-04
+INFO - 09/21/20 14:46:01 - 0:35:18 -    1040 -   31.92 equations/s -  1262.98 words/s - PRIM-FWD:  0.8354 - model LR: 1.0000e-04
+INFO - 09/21/20 14:46:01 - 0:35:19 -    1040 -   31.92 equations/s -  1267.95 words/s - PRIM-FWD:  0.8700 - model LR: 1.0000e-04
+INFO - 09/21/20 14:46:42 - 0:35:59 -    1060 -   31.61 equations/s -  1274.89 words/s - PRIM-FWD:  0.8476 - model LR: 1.0000e-04
+INFO - 09/21/20 14:46:42 - 0:36:00 -    1060 -   31.60 equations/s -  1279.52 words/s - PRIM-FWD:  0.8503 - model LR: 1.0000e-04
+INFO - 09/21/20 14:46:42 - 0:35:59 -    1060 -   31.59 equations/s -  1264.35 words/s - PRIM-FWD:  0.8360 - model LR: 1.0000e-04
+INFO - 09/21/20 14:46:42 - 0:35:59 -    1060 -   31.60 equations/s -  1269.48 words/s - PRIM-FWD:  0.8380 - model LR: 1.0000e-04
+INFO - 09/21/20 14:47:22 - 0:36:39 -    1080 -   32.02 equations/s -  1293.14 words/s - PRIM-FWD:  0.8664 - model LR: 1.0000e-04
+INFO - 09/21/20 14:47:22 - 0:36:40 -    1080 -   32.01 equations/s -  1267.62 words/s - PRIM-FWD:  0.8429 - model LR: 1.0000e-04
+INFO - 09/21/20 14:47:22 - 0:36:39 -    1080 -   32.01 equations/s -  1272.06 words/s - PRIM-FWD:  0.8151 - model LR: 1.0000e-04
+INFO - 09/21/20 14:47:22 - 0:36:39 -    1080 -   31.99 equations/s -  1259.81 words/s - PRIM-FWD:  0.8428 - model LR: 1.0000e-04
+INFO - 09/21/20 14:48:01 - 0:37:18 -    1100 -   32.43 equations/s -  1315.39 words/s - PRIM-FWD:  0.8498 - model LR: 1.0000e-04
+INFO - 09/21/20 14:48:01 - 0:37:18 -    1100 -   32.43 equations/s -  1287.82 words/s - PRIM-FWD:  0.8105 - model LR: 1.0000e-04
+INFO - 09/21/20 14:48:01 - 0:37:18 -    1100 -   32.43 equations/s -  1348.33 words/s - PRIM-FWD:  0.8548 - model LR: 1.0000e-04
+INFO - 09/21/20 14:48:01 - 0:37:19 -    1100 -   32.40 equations/s -  1319.33 words/s - PRIM-FWD:  0.8543 - model LR: 1.0000e-04
+INFO - 09/21/20 14:48:41 - 0:37:58 -    1120 -   32.11 equations/s -  1271.26 words/s - PRIM-FWD:  0.8219 - model LR: 1.0000e-04
+INFO - 09/21/20 14:48:41 - 0:37:58 -    1120 -   32.10 equations/s -  1276.94 words/s - PRIM-FWD:  0.8217 - model LR: 1.0000e-04
+INFO - 09/21/20 14:48:41 - 0:37:58 -    1120 -   32.08 equations/s -  1279.44 words/s - PRIM-FWD:  0.8411 - model LR: 1.0000e-04
+INFO - 09/21/20 14:48:41 - 0:37:59 -    1120 -   32.05 equations/s -  1270.22 words/s - PRIM-FWD:  0.8412 - model LR: 1.0000e-04
+INFO - 09/21/20 14:49:21 - 0:38:38 -    1140 -   31.78 equations/s -  1239.68 words/s - PRIM-FWD:  0.7957 - model LR: 1.0000e-04
+INFO - 09/21/20 14:49:21 - 0:38:38 -    1140 -   31.78 equations/s -  1280.00 words/s - PRIM-FWD:  0.8044 - model LR: 1.0000e-04
+INFO - 09/21/20 14:49:21 - 0:38:38 -    1140 -   31.79 equations/s -  1228.05 words/s - PRIM-FWD:  0.7885 - model LR: 1.0000e-04
+INFO - 09/21/20 14:49:21 - 0:38:39 -    1140 -   31.85 equations/s -  1272.21 words/s - PRIM-FWD:  0.8273 - model LR: 1.0000e-04
+INFO - 09/21/20 14:50:01 - 0:39:18 -    1160 -   32.54 equations/s -  1290.86 words/s - PRIM-FWD:  0.7866 - model LR: 1.0000e-04
+INFO - 09/21/20 14:50:01 - 0:39:18 -    1160 -   32.54 equations/s -  1320.39 words/s - PRIM-FWD:  0.8116 - model LR: 1.0000e-04
+INFO - 09/21/20 14:50:01 - 0:39:19 -    1160 -   32.54 equations/s -  1313.59 words/s - PRIM-FWD:  0.8227 - model LR: 1.0000e-04
+INFO - 09/21/20 14:50:01 - 0:39:18 -    1160 -   32.53 equations/s -  1284.43 words/s - PRIM-FWD:  0.7817 - model LR: 1.0000e-04
+INFO - 09/21/20 14:50:41 - 0:39:57 -    1180 -   32.04 equations/s -  1278.69 words/s - PRIM-FWD:  0.8047 - model LR: 1.0000e-04
+INFO - 09/21/20 14:50:41 - 0:39:57 -    1180 -   32.04 equations/s -  1238.61 words/s - PRIM-FWD:  0.7942 - model LR: 1.0000e-04
+INFO - 09/21/20 14:50:41 - 0:39:57 -    1180 -   32.03 equations/s -  1260.69 words/s - PRIM-FWD:  0.7918 - model LR: 1.0000e-04
+INFO - 09/21/20 14:50:41 - 0:39:58 -    1180 -   32.02 equations/s -  1297.14 words/s - PRIM-FWD:  0.8301 - model LR: 1.0000e-04
+INFO - 09/21/20 14:51:21 - 0:40:37 -    1200 -   31.98 equations/s -  1259.99 words/s - PRIM-FWD:  0.7917 - model LR: 1.0000e-04
+INFO - 09/21/20 14:51:21 - 0:40:38 -    1200 -   31.99 equations/s -  1299.39 words/s - PRIM-FWD:  0.8126 - model LR: 1.0000e-04
+INFO - 09/21/20 14:51:21 - 0:40:38 -    1200 -   31.98 equations/s -  1265.92 words/s - PRIM-FWD:  0.7776 - model LR: 1.0000e-04
+INFO - 09/21/20 14:51:21 - 0:40:38 -    1200 -   31.96 equations/s -  1260.88 words/s - PRIM-FWD:  0.7986 - model LR: 1.0000e-04
+INFO - 09/21/20 14:52:01 - 0:41:18 -    1220 -   31.83 equations/s -  1259.07 words/s - PRIM-FWD:  0.7693 - model LR: 1.0000e-04
+INFO - 09/21/20 14:52:01 - 0:41:18 -    1220 -   31.84 equations/s -  1268.53 words/s - PRIM-FWD:  0.7588 - model LR: 1.0000e-04
+INFO - 09/21/20 14:52:01 - 0:41:18 -    1220 -   31.84 equations/s -  1256.47 words/s - PRIM-FWD:  0.7698 - model LR: 1.0000e-04
+INFO - 09/21/20 14:52:01 - 0:41:19 -    1220 -   31.83 equations/s -  1269.01 words/s - PRIM-FWD:  0.7947 - model LR: 1.0000e-04
+INFO - 09/21/20 14:52:41 - 0:41:58 -    1240 -   31.87 equations/s -  1251.35 words/s - PRIM-FWD:  0.7769 - model LR: 1.0000e-04
+INFO - 09/21/20 14:52:41 - 0:41:58 -    1240 -   31.86 equations/s -  1281.92 words/s - PRIM-FWD:  0.7942 - model LR: 1.0000e-04
+INFO - 09/21/20 14:52:41 - 0:41:58 -    1240 -   31.86 equations/s -  1273.32 words/s - PRIM-FWD:  0.7771 - model LR: 1.0000e-04
+INFO - 09/21/20 14:52:41 - 0:41:59 -    1240 -   31.86 equations/s -  1284.38 words/s - PRIM-FWD:  0.7783 - model LR: 1.0000e-04
+INFO - 09/21/20 14:53:21 - 0:42:38 -    1260 -   32.07 equations/s -  1282.34 words/s - PRIM-FWD:  0.7841 - model LR: 1.0000e-04
+INFO - 09/21/20 14:53:21 - 0:42:38 -    1260 -   32.08 equations/s -  1268.27 words/s - PRIM-FWD:  0.7573 - model LR: 1.0000e-04
+INFO - 09/21/20 14:53:21 - 0:42:39 -    1260 -   32.08 equations/s -  1303.55 words/s - PRIM-FWD:  0.8091 - model LR: 1.0000e-04
+INFO - 09/21/20 14:53:21 - 0:42:38 -    1260 -   32.07 equations/s -  1247.05 words/s - PRIM-FWD:  0.7517 - model LR: 1.0000e-04
+INFO - 09/21/20 14:54:01 - 0:43:18 -    1280 -   31.76 equations/s -  1279.86 words/s - PRIM-FWD:  0.7354 - model LR: 1.0000e-04
+INFO - 09/21/20 14:54:01 - 0:43:19 -    1280 -   31.76 equations/s -  1262.69 words/s - PRIM-FWD:  0.7591 - model LR: 1.0000e-04
+INFO - 09/21/20 14:54:01 - 0:43:18 -    1280 -   31.77 equations/s -  1258.73 words/s - PRIM-FWD:  0.7859 - model LR: 1.0000e-04
+INFO - 09/21/20 14:54:01 - 0:43:18 -    1280 -   31.73 equations/s -  1251.80 words/s - PRIM-FWD:  0.7837 - model LR: 1.0000e-04
+INFO - 09/21/20 14:54:41 - 0:43:58 -    1300 -   31.87 equations/s -  1288.88 words/s - PRIM-FWD:  0.7587 - model LR: 1.0000e-04
+INFO - 09/21/20 14:54:41 - 0:43:58 -    1300 -   31.86 equations/s -  1273.58 words/s - PRIM-FWD:  0.7717 - model LR: 1.0000e-04
+INFO - 09/21/20 14:54:41 - 0:43:59 -    1300 -   31.86 equations/s -  1238.75 words/s - PRIM-FWD:  0.7812 - model LR: 1.0000e-04
+INFO - 09/21/20 14:54:41 - 0:43:58 -    1300 -   31.89 equations/s -  1244.91 words/s - PRIM-FWD:  0.7426 - model LR: 1.0000e-04
+INFO - 09/21/20 14:55:21 - 0:44:38 -    1320 -   32.02 equations/s -  1272.04 words/s - PRIM-FWD:  0.7691 - model LR: 1.0000e-04
+INFO - 09/21/20 14:55:21 - 0:44:38 -    1320 -   32.00 equations/s -  1261.12 words/s - PRIM-FWD:  0.7159 - model LR: 1.0000e-04
+INFO - 09/21/20 14:55:21 - 0:44:39 -    1320 -   32.00 equations/s -  1257.55 words/s - PRIM-FWD:  0.7353 - model LR: 1.0000e-04
+INFO - 09/21/20 14:55:21 - 0:44:38 -    1320 -   31.97 equations/s -  1247.42 words/s - PRIM-FWD:  0.7274 - model LR: 1.0000e-04
+INFO - 09/21/20 14:56:02 - 0:45:19 -    1340 -   31.71 equations/s -  1276.84 words/s - PRIM-FWD:  0.7631 - model LR: 1.0000e-04
+INFO - 09/21/20 14:56:02 - 0:45:19 -    1340 -   31.75 equations/s -  1250.64 words/s - PRIM-FWD:  0.7160 - model LR: 1.0000e-04
+INFO - 09/21/20 14:56:02 - 0:45:20 -    1340 -   31.71 equations/s -  1261.26 words/s - PRIM-FWD:  0.7400 - model LR: 1.0000e-04
+INFO - 09/21/20 14:56:02 - 0:45:19 -    1340 -   31.70 equations/s -  1274.42 words/s - PRIM-FWD:  0.7602 - model LR: 1.0000e-04
+INFO - 09/21/20 14:56:41 - 0:45:58 -    1360 -   32.21 equations/s -  1261.46 words/s - PRIM-FWD:  0.7206 - model LR: 1.0000e-04
+INFO - 09/21/20 14:56:42 - 0:45:58 -    1360 -   32.19 equations/s -  1281.57 words/s - PRIM-FWD:  0.7504 - model LR: 1.0000e-04
+INFO - 09/21/20 14:56:42 - 0:45:59 -    1360 -   32.19 equations/s -  1300.70 words/s - PRIM-FWD:  0.7642 - model LR: 1.0000e-04
+INFO - 09/21/20 14:56:42 - 0:45:58 -    1360 -   32.18 equations/s -  1281.20 words/s - PRIM-FWD:  0.7167 - model LR: 1.0000e-04
+INFO - 09/21/20 14:57:21 - 0:46:38 -    1380 -   32.05 equations/s -  1252.10 words/s - PRIM-FWD:  0.7241 - model LR: 1.0000e-04
+INFO - 09/21/20 14:57:21 - 0:46:38 -    1380 -   32.03 equations/s -  1285.30 words/s - PRIM-FWD:  0.7391 - model LR: 1.0000e-04
+INFO - 09/21/20 14:57:21 - 0:46:38 -    1380 -   32.02 equations/s -  1251.26 words/s - PRIM-FWD:  0.7340 - model LR: 1.0000e-04
+INFO - 09/21/20 14:57:21 - 0:46:39 -    1380 -   32.03 equations/s -  1303.81 words/s - PRIM-FWD:  0.7329 - model LR: 1.0000e-04
+INFO - 09/21/20 14:58:02 - 0:47:20 -    1400 -   31.42 equations/s -  1275.47 words/s - PRIM-FWD:  0.7986 - model LR: 1.0000e-04
+INFO - 09/21/20 14:58:02 - 0:47:19 -    1400 -   31.41 equations/s -  1254.27 words/s - PRIM-FWD:  0.7222 - model LR: 1.0000e-04
+INFO - 09/21/20 14:58:02 - 0:47:19 -    1400 -   31.41 equations/s -  1255.59 words/s - PRIM-FWD:  0.7043 - model LR: 1.0000e-04
+INFO - 09/21/20 14:58:02 - 0:47:19 -    1400 -   31.41 equations/s -  1259.97 words/s - PRIM-FWD:  0.7402 - model LR: 1.0000e-04
+INFO - 09/21/20 14:58:42 - 0:47:59 -    1420 -   31.95 equations/s -  1275.00 words/s - PRIM-FWD:  0.7331 - model LR: 1.0000e-04
+INFO - 09/21/20 14:58:42 - 0:47:59 -    1420 -   31.95 equations/s -  1299.32 words/s - PRIM-FWD:  0.7720 - model LR: 1.0000e-04
+INFO - 09/21/20 14:58:42 - 0:47:59 -    1420 -   31.95 equations/s -  1260.79 words/s - PRIM-FWD:  0.7086 - model LR: 1.0000e-04
+INFO - 09/21/20 14:58:42 - 0:48:00 -    1420 -   31.94 equations/s -  1261.48 words/s - PRIM-FWD:  0.7271 - model LR: 1.0000e-04
+INFO - 09/21/20 14:59:22 - 0:48:39 -    1440 -   31.89 equations/s -  1261.97 words/s - PRIM-FWD:  0.7327 - model LR: 1.0000e-04
+INFO - 09/21/20 14:59:22 - 0:48:40 -    1440 -   31.89 equations/s -  1255.25 words/s - PRIM-FWD:  0.7109 - model LR: 1.0000e-04
+INFO - 09/21/20 14:59:22 - 0:48:39 -    1440 -   31.88 equations/s -  1261.06 words/s - PRIM-FWD:  0.7293 - model LR: 1.0000e-04
+INFO - 09/21/20 14:59:22 - 0:48:39 -    1440 -   31.88 equations/s -  1257.54 words/s - PRIM-FWD:  0.7186 - model LR: 1.0000e-04
+INFO - 09/21/20 15:00:03 - 0:49:20 -    1460 -   31.85 equations/s -  1251.38 words/s - PRIM-FWD:  0.6985 - model LR: 1.0000e-04
+INFO - 09/21/20 15:00:03 - 0:49:19 -    1460 -   31.84 equations/s -  1243.55 words/s - PRIM-FWD:  0.6835 - model LR: 1.0000e-04
+INFO - 09/21/20 15:00:03 - 0:49:20 -    1460 -   31.84 equations/s -  1271.38 words/s - PRIM-FWD:  0.7172 - model LR: 1.0000e-04
+INFO - 09/21/20 15:00:03 - 0:49:20 -    1460 -   31.85 equations/s -  1267.43 words/s - PRIM-FWD:  0.7525 - model LR: 1.0000e-04
+INFO - 09/21/20 15:00:43 - 0:50:00 -    1480 -   31.75 equations/s -  1263.66 words/s - PRIM-FWD:  0.7136 - model LR: 1.0000e-04
+INFO - 09/21/20 15:00:43 - 0:50:00 -    1480 -   31.74 equations/s -  1268.30 words/s - PRIM-FWD:  0.7050 - model LR: 1.0000e-04
+INFO - 09/21/20 15:00:43 - 0:50:00 -    1480 -   31.74 equations/s -  1261.29 words/s - PRIM-FWD:  0.7002 - model LR: 1.0000e-04
+INFO - 09/21/20 15:00:43 - 0:50:01 -    1480 -   31.73 equations/s -  1254.35 words/s - PRIM-FWD:  0.7370 - model LR: 1.0000e-04
+INFO - 09/21/20 15:01:23 - 0:50:40 -    1500 -   31.87 equations/s -  1257.02 words/s - PRIM-FWD:  0.6896 - model LR: 1.0000e-04
+INFO - 09/21/20 15:01:23 - 0:50:40 -    1500 -   31.87 equations/s -  1263.56 words/s - PRIM-FWD:  0.7137 - model LR: 1.0000e-04
+INFO - 09/21/20 15:01:23 - 0:50:41 -    1500 -   31.88 equations/s -  1261.45 words/s - PRIM-FWD:  0.7140 - model LR: 1.0000e-04
+INFO - 09/21/20 15:01:23 - 0:50:40 -    1500 -   31.86 equations/s -  1269.80 words/s - PRIM-FWD:  0.7600 - model LR: 1.0000e-04
+INFO - 09/21/20 15:02:03 - 0:51:20 -    1520 -   32.19 equations/s -  1296.58 words/s - PRIM-FWD:  0.6971 - model LR: 1.0000e-04
+INFO - 09/21/20 15:02:03 - 0:51:20 -    1520 -   32.19 equations/s -  1255.18 words/s - PRIM-FWD:  0.7243 - model LR: 1.0000e-04
+INFO - 09/21/20 15:02:03 - 0:51:20 -    1520 -   32.18 equations/s -  1252.03 words/s - PRIM-FWD:  0.6855 - model LR: 1.0000e-04
+INFO - 09/21/20 15:02:03 - 0:51:21 -    1520 -   32.17 equations/s -  1248.52 words/s - PRIM-FWD:  0.6984 - model LR: 1.0000e-04
+INFO - 09/21/20 15:02:43 - 0:52:00 -    1540 -   31.77 equations/s -  1255.61 words/s - PRIM-FWD:  0.6820 - model LR: 1.0000e-04
+INFO - 09/21/20 15:02:43 - 0:52:00 -    1540 -   31.76 equations/s -  1252.44 words/s - PRIM-FWD:  0.6861 - model LR: 1.0000e-04
+INFO - 09/21/20 15:02:43 - 0:52:00 -    1540 -   31.77 equations/s -  1269.61 words/s - PRIM-FWD:  0.6757 - model LR: 1.0000e-04
+INFO - 09/21/20 15:02:43 - 0:52:01 -    1540 -   31.77 equations/s -  1289.11 words/s - PRIM-FWD:  0.7042 - model LR: 1.0000e-04
+INFO - 09/21/20 15:03:23 - 0:52:40 -    1560 -   32.22 equations/s -  1282.01 words/s - PRIM-FWD:  0.6998 - model LR: 1.0000e-04
+INFO - 09/21/20 15:03:23 - 0:52:40 -    1560 -   32.21 equations/s -  1308.11 words/s - PRIM-FWD:  0.7038 - model LR: 1.0000e-04
+INFO - 09/21/20 15:03:23 - 0:52:41 -    1560 -   32.21 equations/s -  1256.56 words/s - PRIM-FWD:  0.6927 - model LR: 1.0000e-04
+INFO - 09/21/20 15:03:23 - 0:52:40 -    1560 -   32.20 equations/s -  1296.81 words/s - PRIM-FWD:  0.7000 - model LR: 1.0000e-04
+INFO - 09/21/20 15:03:31 - 0:52:48 - ============ End of epoch 1 ============
+INFO - 09/21/20 15:03:31 - 0:52:48 - ============ End of epoch 1 ============
+INFO - 09/21/20 15:03:31 - 0:52:48 - Creating valid iterator for prim_fwd ...
+INFO - 09/21/20 15:03:31 - 0:52:48 - Loading data from fwd_small/fwd_small.valid ...
+INFO - 09/21/20 15:03:31 - 0:52:48 - ============ End of epoch 1 ============
+INFO - 09/21/20 15:03:31 - 0:52:48 - Creating valid iterator for prim_fwd ...
+INFO - 09/21/20 15:03:31 - 0:52:48 - Loading data from fwd_small/fwd_small.valid ...
+INFO - 09/21/20 15:03:31 - 0:52:48 - Loaded 500 equations from the disk.
+INFO - 09/21/20 15:03:31 - 0:52:48 - Creating valid iterator for prim_fwd ...
+INFO - 09/21/20 15:03:31 - 0:52:48 - Loading data from fwd_small/fwd_small.valid ...
+INFO - 09/21/20 15:03:31 - 0:52:49 - ============ End of epoch 1 ============
+INFO - 09/21/20 15:03:31 - 0:52:49 - Creating valid iterator for prim_fwd ...
+INFO - 09/21/20 15:03:31 - 0:52:49 - Loading data from fwd_small/fwd_small.valid ...
+INFO - 09/21/20 15:03:31 - 0:52:48 - Loaded 500 equations from the disk.
+INFO - 09/21/20 15:03:31 - 0:52:48 - Loaded 500 equations from the disk.
+INFO - 09/21/20 15:03:31 - 0:52:49 - Loaded 500 equations from the disk.
+INFO - 09/21/20 15:03:31 - 0:52:48 - 0/500
+INFO - 09/21/20 15:03:31 - 0:52:48 - 0/500
+INFO - 09/21/20 15:03:31 - 0:52:49 - 0/500
+INFO - 09/21/20 15:03:32 - 0:52:48 - 0/500
+INFO - 09/21/20 15:03:33 - 0:52:51 - 128/500
+INFO - 09/21/20 15:03:34 - 0:52:50 - 128/500
+INFO - 09/21/20 15:03:34 - 0:52:50 - 128/500
+INFO - 09/21/20 15:03:34 - 0:52:51 - 128/500
+INFO - 09/21/20 15:03:36 - 0:52:53 - 256/500
+INFO - 09/21/20 15:03:36 - 0:52:53 - 256/500
+INFO - 09/21/20 15:03:36 - 0:52:53 - 256/500
+INFO - 09/21/20 15:03:36 - 0:52:53 - 256/500
+INFO - 09/21/20 15:03:37 - 0:52:54 - 320/500
+INFO - 09/21/20 15:03:37 - 0:52:54 - 320/500
+INFO - 09/21/20 15:03:37 - 0:52:54 - 320/500
+INFO - 09/21/20 15:03:37 - 0:52:54 - 320/500
+INFO - 09/21/20 15:03:38 - 0:52:56 - 448/500
+INFO - 09/21/20 15:03:38 - 0:52:55 - 448/500
+INFO - 09/21/20 15:03:38 - 0:52:55 - 448/500
+INFO - 09/21/20 15:03:39 - 0:52:56 - 448/500
+INFO - 09/21/20 15:03:39 - 0:52:57 - 1/500 (0.2%) equations were evaluated correctly.
+INFO - 09/21/20 15:03:39 - 0:52:57 - Creating test iterator for prim_fwd ...
+INFO - 09/21/20 15:03:39 - 0:52:57 - Loading data from fwd_small/fwd_small.test ...
+INFO - 09/21/20 15:03:39 - 0:52:57 - Loaded 1000 equations from the disk.
+INFO - 09/21/20 15:03:39 - 0:52:56 - 1/500 (0.2%) equations were evaluated correctly.
+INFO - 09/21/20 15:03:39 - 0:52:56 - Creating test iterator for prim_fwd ...
+INFO - 09/21/20 15:03:39 - 0:52:56 - Loading data from fwd_small/fwd_small.test ...
+INFO - 09/21/20 15:03:39 - 0:52:56 - 1/500 (0.2%) equations were evaluated correctly.
+INFO - 09/21/20 15:03:39 - 0:52:56 - Creating test iterator for prim_fwd ...
+INFO - 09/21/20 15:03:39 - 0:52:56 - Loading data from fwd_small/fwd_small.test ...
+INFO - 09/21/20 15:03:39 - 0:52:56 - Loaded 1000 equations from the disk.
+INFO - 09/21/20 15:03:39 - 0:52:56 - Loaded 1000 equations from the disk.
+INFO - 09/21/20 15:03:39 - 0:52:57 - 0/1000
+INFO - 09/21/20 15:03:39 - 0:52:56 - 0/1000
+INFO - 09/21/20 15:03:40 - 0:52:56 - 1/500 (0.2%) equations were evaluated correctly.
+INFO - 09/21/20 15:03:40 - 0:52:56 - Creating test iterator for prim_fwd ...
+INFO - 09/21/20 15:03:40 - 0:52:56 - Loading data from fwd_small/fwd_small.test ...
+INFO - 09/21/20 15:03:40 - 0:52:56 - Loaded 1000 equations from the disk.
+INFO - 09/21/20 15:03:40 - 0:52:56 - 0/1000
+INFO - 09/21/20 15:03:40 - 0:52:57 - 0/1000
+INFO - 09/21/20 15:03:41 - 0:52:59 - 128/1000
+INFO - 09/21/20 15:03:41 - 0:52:58 - 128/1000
+INFO - 09/21/20 15:03:41 - 0:52:58 - 128/1000
+INFO - 09/21/20 15:03:43 - 0:53:00 - 128/1000
+INFO - 09/21/20 15:03:44 - 0:53:01 - 256/1000
+INFO - 09/21/20 15:03:44 - 0:53:00 - 256/1000
+INFO - 09/21/20 15:03:44 - 0:53:01 - 256/1000
+INFO - 09/21/20 15:03:45 - 0:53:02 - 320/1000
+INFO - 09/21/20 15:03:45 - 0:53:02 - 320/1000
+INFO - 09/21/20 15:03:45 - 0:53:02 - 320/1000
+INFO - 09/21/20 15:03:45 - 0:53:02 - 256/1000
+INFO - 09/21/20 15:03:46 - 0:53:03 - 320/1000
+INFO - 09/21/20 15:03:47 - 0:53:05 - 448/1000
+INFO - 09/21/20 15:03:47 - 0:53:04 - 448/1000
+INFO - 09/21/20 15:03:47 - 0:53:04 - 448/1000
+INFO - 09/21/20 15:03:48 - 0:53:06 - 512/1000
+INFO - 09/21/20 15:03:48 - 0:53:05 - 512/1000
+INFO - 09/21/20 15:03:48 - 0:53:05 - 512/1000
+INFO - 09/21/20 15:03:48 - 0:53:05 - 448/1000
+INFO - 09/21/20 15:03:50 - 0:53:06 - 512/1000
+INFO - 09/21/20 15:03:50 - 0:53:08 - 640/1000
+INFO - 09/21/20 15:03:50 - 0:53:07 - 640/1000
+INFO - 09/21/20 15:03:50 - 0:53:07 - 640/1000
+INFO - 09/21/20 15:03:51 - 0:53:09 - 704/1000
+INFO - 09/21/20 15:03:51 - 0:53:08 - 704/1000
+INFO - 09/21/20 15:03:51 - 0:53:08 - 704/1000
+INFO - 09/21/20 15:03:52 - 0:53:09 - 640/1000
+INFO - 09/21/20 15:03:53 - 0:53:10 - 704/1000
+INFO - 09/21/20 15:03:53 - 0:53:11 - 832/1000
+INFO - 09/21/20 15:03:54 - 0:53:10 - 832/1000
+INFO - 09/21/20 15:03:54 - 0:53:10 - 832/1000
+INFO - 09/21/20 15:03:55 - 0:53:13 - 960/1000
+INFO - 09/21/20 15:03:55 - 0:53:12 - 832/1000
+INFO - 09/21/20 15:03:55 - 0:53:12 - 960/1000
+INFO - 09/21/20 15:03:55 - 0:53:12 - 960/1000
+INFO - 09/21/20 15:03:56 - 0:53:14 - 6/1000 (0.6%) equations were evaluated correctly.
+INFO - 09/21/20 15:03:56 - 0:53:14 - epoch -> 1.000000
+INFO - 09/21/20 15:03:56 - 0:53:14 - valid_prim_fwd_xe_loss -> 19.523272
+INFO - 09/21/20 15:03:56 - 0:53:14 - valid_prim_fwd_acc -> 0.200000
+INFO - 09/21/20 15:03:56 - 0:53:14 - valid_prim_fwd_acc_2 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:14 - valid_prim_fwd_acc_3 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:14 - valid_prim_fwd_acc_4 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:14 - valid_prim_fwd_acc_5 -> 0.564972
+INFO - 09/21/20 15:03:56 - 0:53:14 - valid_prim_fwd_acc_6 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:14 - valid_prim_fwd_acc_7 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:14 - valid_prim_fwd_acc_8 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:14 - valid_prim_fwd_acc_9 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:14 - test_prim_fwd_xe_loss -> 24.666452
+INFO - 09/21/20 15:03:56 - 0:53:14 - test_prim_fwd_acc -> 0.600000
+INFO - 09/21/20 15:03:56 - 0:53:14 - test_prim_fwd_acc_2 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:14 - test_prim_fwd_acc_3 -> 6.060606
+INFO - 09/21/20 15:03:56 - 0:53:14 - test_prim_fwd_acc_4 -> 1.418440
+INFO - 09/21/20 15:03:56 - 0:53:14 - test_prim_fwd_acc_5 -> 0.714286
+INFO - 09/21/20 15:03:56 - 0:53:14 - test_prim_fwd_acc_6 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:14 - test_prim_fwd_acc_7 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:14 - test_prim_fwd_acc_8 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:14 - test_prim_fwd_acc_9 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:14 - ============ Starting epoch 2 ... ============
+INFO - 09/21/20 15:03:56 - 0:53:13 - 6/1000 (0.6%) equations were evaluated correctly.
+INFO - 09/21/20 15:03:56 - 0:53:13 - epoch -> 1.000000
+INFO - 09/21/20 15:03:56 - 0:53:13 - valid_prim_fwd_xe_loss -> 19.465261
+INFO - 09/21/20 15:03:56 - 0:53:13 - valid_prim_fwd_acc -> 0.200000
+INFO - 09/21/20 15:03:56 - 0:53:13 - valid_prim_fwd_acc_2 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:13 - valid_prim_fwd_acc_3 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:13 - valid_prim_fwd_acc_4 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:13 - valid_prim_fwd_acc_5 -> 0.564972
+INFO - 09/21/20 15:03:56 - 0:53:13 - valid_prim_fwd_acc_6 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:13 - valid_prim_fwd_acc_7 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:13 - valid_prim_fwd_acc_8 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:13 - valid_prim_fwd_acc_9 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:13 - test_prim_fwd_xe_loss -> 24.548292
+INFO - 09/21/20 15:03:56 - 0:53:13 - test_prim_fwd_acc -> 0.600000
+INFO - 09/21/20 15:03:56 - 0:53:13 - test_prim_fwd_acc_2 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:13 - test_prim_fwd_acc_3 -> 6.060606
+INFO - 09/21/20 15:03:56 - 0:53:13 - test_prim_fwd_acc_4 -> 1.418440
+INFO - 09/21/20 15:03:56 - 0:53:13 - test_prim_fwd_acc_5 -> 0.714286
+INFO - 09/21/20 15:03:56 - 0:53:13 - test_prim_fwd_acc_6 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:13 - test_prim_fwd_acc_7 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:13 - test_prim_fwd_acc_8 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:13 - test_prim_fwd_acc_9 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:13 - ============ Starting epoch 2 ... ============
+INFO - 09/21/20 15:03:56 - 0:53:13 - 6/1000 (0.6%) equations were evaluated correctly.
+INFO - 09/21/20 15:03:56 - 0:53:13 - epoch -> 1.000000
+INFO - 09/21/20 15:03:56 - 0:53:13 - valid_prim_fwd_xe_loss -> 19.476790
+INFO - 09/21/20 15:03:56 - 0:53:13 - valid_prim_fwd_acc -> 0.200000
+INFO - 09/21/20 15:03:56 - 0:53:13 - valid_prim_fwd_acc_2 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:13 - valid_prim_fwd_acc_3 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:13 - valid_prim_fwd_acc_4 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:13 - valid_prim_fwd_acc_5 -> 0.564972
+INFO - 09/21/20 15:03:56 - 0:53:13 - valid_prim_fwd_acc_6 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:13 - valid_prim_fwd_acc_7 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:13 - valid_prim_fwd_acc_8 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:13 - valid_prim_fwd_acc_9 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:13 - test_prim_fwd_xe_loss -> 24.564366
+INFO - 09/21/20 15:03:56 - 0:53:13 - test_prim_fwd_acc -> 0.600000
+INFO - 09/21/20 15:03:56 - 0:53:13 - test_prim_fwd_acc_2 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:13 - test_prim_fwd_acc_3 -> 9.090909
+INFO - 09/21/20 15:03:56 - 0:53:13 - test_prim_fwd_acc_4 -> 0.709220
+INFO - 09/21/20 15:03:56 - 0:53:13 - test_prim_fwd_acc_5 -> 0.714286
+INFO - 09/21/20 15:03:56 - 0:53:13 - test_prim_fwd_acc_6 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:13 - test_prim_fwd_acc_7 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:13 - test_prim_fwd_acc_8 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:13 - test_prim_fwd_acc_9 -> 0.000000
+INFO - 09/21/20 15:03:56 - 0:53:13 - __log__:{"epoch": 1, "valid_prim_fwd_xe_loss": 19.476790260910988, "valid_prim_fwd_acc": 0.2, "valid_prim_fwd_acc_2": 0.0, "valid_prim_fwd_acc_3": 0.0, "valid_prim_fwd_acc_4": 0.0, "valid_prim_fwd_acc_5": 0.5649717514124294, "valid_prim_fwd_acc_6": 0.0, "valid_prim_fwd_acc_7": 0.0, "valid_prim_fwd_acc_8": 0.0, "valid_prim_fwd_acc_9": 0.0, "test_prim_fwd_xe_loss": 24.564365661263466, "test_prim_fwd_acc": 0.6, "test_prim_fwd_acc_2": 0.0, "test_prim_fwd_acc_3": 9.090909090909092, "test_prim_fwd_acc_4": 0.7092198581560284, "test_prim_fwd_acc_5": 0.7142857142857143, "test_prim_fwd_acc_6": 0.0, "test_prim_fwd_acc_7": 0.0, "test_prim_fwd_acc_8": 0.0, "test_prim_fwd_acc_9": 0.0}
+INFO - 09/21/20 15:03:56 - 0:53:13 - Saving checkpoint to ./dumped/treelstm_50k_numenc/11627285/checkpoint.pth ...
+WARNING - 09/21/20 15:03:56 - 0:53:13 - Saving encoder parameters ...
+WARNING - 09/21/20 15:03:56 - 0:53:13 - Saving decoder parameters ...
+WARNING - 09/21/20 15:03:56 - 0:53:13 - Saving model optimizer ...
+INFO - 09/21/20 15:03:57 - 0:53:14 - ============ Starting epoch 2 ... ============
+INFO - 09/21/20 15:03:57 - 0:53:14 - 960/1000
+INFO - 09/21/20 15:03:58 - 0:53:15 - 7/1000 (0.7%) equations were evaluated correctly.
+INFO - 09/21/20 15:03:58 - 0:53:15 - epoch -> 1.000000
+INFO - 09/21/20 15:03:58 - 0:53:15 - valid_prim_fwd_xe_loss -> 19.475639
+INFO - 09/21/20 15:03:58 - 0:53:15 - valid_prim_fwd_acc -> 0.200000
+INFO - 09/21/20 15:03:58 - 0:53:15 - valid_prim_fwd_acc_2 -> 0.000000
+INFO - 09/21/20 15:03:58 - 0:53:15 - valid_prim_fwd_acc_3 -> 0.000000
+INFO - 09/21/20 15:03:58 - 0:53:15 - valid_prim_fwd_acc_4 -> 0.000000
+INFO - 09/21/20 15:03:58 - 0:53:15 - valid_prim_fwd_acc_5 -> 0.564972
+INFO - 09/21/20 15:03:58 - 0:53:15 - valid_prim_fwd_acc_6 -> 0.000000
+INFO - 09/21/20 15:03:58 - 0:53:15 - valid_prim_fwd_acc_7 -> 0.000000
+INFO - 09/21/20 15:03:58 - 0:53:15 - valid_prim_fwd_acc_8 -> 0.000000
+INFO - 09/21/20 15:03:58 - 0:53:15 - valid_prim_fwd_acc_9 -> 0.000000
+INFO - 09/21/20 15:03:58 - 0:53:15 - test_prim_fwd_xe_loss -> 24.590352
+INFO - 09/21/20 15:03:58 - 0:53:15 - test_prim_fwd_acc -> 0.700000
+INFO - 09/21/20 15:03:58 - 0:53:15 - test_prim_fwd_acc_2 -> 0.000000
+INFO - 09/21/20 15:03:58 - 0:53:15 - test_prim_fwd_acc_3 -> 9.090909
+INFO - 09/21/20 15:03:58 - 0:53:15 - test_prim_fwd_acc_4 -> 1.418440
+INFO - 09/21/20 15:03:58 - 0:53:15 - test_prim_fwd_acc_5 -> 0.714286
+INFO - 09/21/20 15:03:58 - 0:53:15 - test_prim_fwd_acc_6 -> 0.000000
+INFO - 09/21/20 15:03:58 - 0:53:15 - test_prim_fwd_acc_7 -> 0.000000
+INFO - 09/21/20 15:03:58 - 0:53:15 - test_prim_fwd_acc_8 -> 0.000000
+INFO - 09/21/20 15:03:58 - 0:53:15 - test_prim_fwd_acc_9 -> 0.000000
+INFO - 09/21/20 15:03:58 - 0:53:15 - ============ Starting epoch 2 ... ============
+INFO - 09/21/20 15:04:29 - 0:53:47 -    1580 -   19.24 equations/s -   772.80 words/s - PRIM-FWD:  0.7129 - model LR: 1.0000e-04
+INFO - 09/21/20 15:04:29 - 0:53:46 -    1580 -   19.24 equations/s -   755.16 words/s - PRIM-FWD:  0.6691 - model LR: 1.0000e-04
+INFO - 09/21/20 15:04:29 - 0:53:46 -    1580 -   19.24 equations/s -   778.14 words/s - PRIM-FWD:  0.6989 - model LR: 1.0000e-04
+INFO - 09/21/20 15:04:29 - 0:53:46 -    1580 -   19.24 equations/s -   757.95 words/s - PRIM-FWD:  0.6855 - model LR: 1.0000e-04
+INFO - 09/21/20 15:05:09 - 0:54:26 -    1600 -   32.23 equations/s -  1269.27 words/s - PRIM-FWD:  0.6957 - model LR: 1.0000e-04
+INFO - 09/21/20 15:05:09 - 0:54:26 -    1600 -   32.21 equations/s -  1265.21 words/s - PRIM-FWD:  0.6680 - model LR: 1.0000e-04
+INFO - 09/21/20 15:05:09 - 0:54:27 -    1600 -   32.20 equations/s -  1258.93 words/s - PRIM-FWD:  0.6880 - model LR: 1.0000e-04
+INFO - 09/21/20 15:05:09 - 0:54:26 -    1600 -   32.20 equations/s -  1267.72 words/s - PRIM-FWD:  0.6718 - model LR: 1.0000e-04
+INFO - 09/21/20 15:05:49 - 0:55:07 -    1620 -   32.33 equations/s -  1295.12 words/s - PRIM-FWD:  0.6857 - model LR: 1.0000e-04
+INFO - 09/21/20 15:05:49 - 0:55:06 -    1620 -   32.33 equations/s -  1312.22 words/s - PRIM-FWD:  0.6887 - model LR: 1.0000e-04
+INFO - 09/21/20 15:05:49 - 0:55:06 -    1620 -   32.31 equations/s -  1306.64 words/s - PRIM-FWD:  0.6972 - model LR: 1.0000e-04
+INFO - 09/21/20 15:05:49 - 0:55:06 -    1620 -   32.32 equations/s -  1283.36 words/s - PRIM-FWD:  0.6810 - model LR: 1.0000e-04
+INFO - 09/21/20 15:06:29 - 0:55:46 -    1640 -   32.02 equations/s -  1265.38 words/s - PRIM-FWD:  0.6713 - model LR: 1.0000e-04
+INFO - 09/21/20 15:06:29 - 0:55:46 -    1640 -   32.02 equations/s -  1267.01 words/s - PRIM-FWD:  0.6621 - model LR: 1.0000e-04
+INFO - 09/21/20 15:06:29 - 0:55:46 -    1640 -   32.01 equations/s -  1262.79 words/s - PRIM-FWD:  0.6931 - model LR: 1.0000e-04
+INFO - 09/21/20 15:06:29 - 0:55:47 -    1640 -   32.00 equations/s -  1275.49 words/s - PRIM-FWD:  0.6986 - model LR: 1.0000e-04
+INFO - 09/21/20 15:07:09 - 0:56:26 -    1660 -   32.02 equations/s -  1241.99 words/s - PRIM-FWD:  0.6495 - model LR: 1.0000e-04
+INFO - 09/21/20 15:07:09 - 0:56:26 -    1660 -   32.01 equations/s -  1260.29 words/s - PRIM-FWD:  0.6671 - model LR: 1.0000e-04
+INFO - 09/21/20 15:07:09 - 0:56:26 -    1660 -   32.03 equations/s -  1282.42 words/s - PRIM-FWD:  0.6993 - model LR: 1.0000e-04
+INFO - 09/21/20 15:07:09 - 0:56:27 -    1660 -   32.00 equations/s -  1269.52 words/s - PRIM-FWD:  0.6609 - model LR: 1.0000e-04
+INFO - 09/21/20 15:07:48 - 0:57:05 -    1680 -   32.20 equations/s -  1263.09 words/s - PRIM-FWD:  0.6637 - model LR: 1.0000e-04
+INFO - 09/21/20 15:07:49 - 0:57:06 -    1680 -   32.22 equations/s -  1253.59 words/s - PRIM-FWD:  0.6716 - model LR: 1.0000e-04
+INFO - 09/21/20 15:07:49 - 0:57:05 -    1680 -   32.18 equations/s -  1256.79 words/s - PRIM-FWD:  0.6650 - model LR: 1.0000e-04
+INFO - 09/21/20 15:07:49 - 0:57:05 -    1680 -   32.19 equations/s -  1299.26 words/s - PRIM-FWD:  0.6813 - model LR: 1.0000e-04
+INFO - 09/21/20 15:08:29 - 0:57:45 -    1700 -   31.95 equations/s -  1247.85 words/s - PRIM-FWD:  0.6493 - model LR: 1.0000e-04
+INFO - 09/21/20 15:08:29 - 0:57:45 -    1700 -   31.94 equations/s -  1270.67 words/s - PRIM-FWD:  0.6607 - model LR: 1.0000e-04
+INFO - 09/21/20 15:08:29 - 0:57:46 -    1700 -   31.95 equations/s -  1240.74 words/s - PRIM-FWD:  0.6583 - model LR: 1.0000e-04
+INFO - 09/21/20 15:08:29 - 0:57:46 -    1700 -   31.90 equations/s -  1249.68 words/s - PRIM-FWD:  0.6453 - model LR: 1.0000e-04
+INFO - 09/21/20 15:09:09 - 0:58:25 -    1720 -   31.97 equations/s -  1304.54 words/s - PRIM-FWD:  0.6828 - model LR: 1.0000e-04
+INFO - 09/21/20 15:09:09 - 0:58:26 -    1720 -   32.00 equations/s -  1277.38 words/s - PRIM-FWD:  0.6649 - model LR: 1.0000e-04
+INFO - 09/21/20 15:09:09 - 0:58:26 -    1720 -   31.95 equations/s -  1250.31 words/s - PRIM-FWD:  0.6589 - model LR: 1.0000e-04
+INFO - 09/21/20 15:09:09 - 0:58:27 -    1720 -   31.93 equations/s -  1264.35 words/s - PRIM-FWD:  0.6759 - model LR: 1.0000e-04
+INFO - 09/21/20 15:09:49 - 0:59:06 -    1740 -   31.62 equations/s -  1289.47 words/s - PRIM-FWD:  0.6879 - model LR: 1.0000e-04
+INFO - 09/21/20 15:09:49 - 0:59:06 -    1740 -   31.62 equations/s -  1267.88 words/s - PRIM-FWD:  0.6501 - model LR: 1.0000e-04
+INFO - 09/21/20 15:09:49 - 0:59:07 -    1740 -   31.63 equations/s -  1241.05 words/s - PRIM-FWD:  0.6513 - model LR: 1.0000e-04
+INFO - 09/21/20 15:09:49 - 0:59:06 -    1740 -   31.62 equations/s -  1250.00 words/s - PRIM-FWD:  0.6506 - model LR: 1.0000e-04
+INFO - 09/21/20 15:10:29 - 0:59:46 -    1760 -   32.21 equations/s -  1259.59 words/s - PRIM-FWD:  0.6304 - model LR: 1.0000e-04
+INFO - 09/21/20 15:10:29 - 0:59:46 -    1760 -   32.18 equations/s -  1258.23 words/s - PRIM-FWD:  0.6648 - model LR: 1.0000e-04
+INFO - 09/21/20 15:10:29 - 0:59:46 -    1760 -   32.19 equations/s -  1263.54 words/s - PRIM-FWD:  0.6377 - model LR: 1.0000e-04
+INFO - 09/21/20 15:10:29 - 0:59:47 -    1760 -   32.19 equations/s -  1299.84 words/s - PRIM-FWD:  0.6834 - model LR: 1.0000e-04
+INFO - 09/21/20 15:11:09 - 1:00:26 -    1780 -   31.90 equations/s -  1237.10 words/s - PRIM-FWD:  0.6196 - model LR: 1.0000e-04
+INFO - 09/21/20 15:11:09 - 1:00:26 -    1780 -   31.90 equations/s -  1239.27 words/s - PRIM-FWD:  0.6229 - model LR: 1.0000e-04
+INFO - 09/21/20 15:11:09 - 1:00:27 -    1780 -   31.90 equations/s -  1270.02 words/s - PRIM-FWD:  0.6667 - model LR: 1.0000e-04
+INFO - 09/21/20 15:11:09 - 1:00:26 -    1780 -   31.87 equations/s -  1266.35 words/s - PRIM-FWD:  0.6487 - model LR: 1.0000e-04
+INFO - 09/21/20 15:11:49 - 1:01:06 -    1800 -   31.86 equations/s -  1262.06 words/s - PRIM-FWD:  0.6613 - model LR: 1.0000e-04
+INFO - 09/21/20 15:11:49 - 1:01:06 -    1800 -   31.88 equations/s -  1272.59 words/s - PRIM-FWD:  0.6287 - model LR: 1.0000e-04
+INFO - 09/21/20 15:11:49 - 1:01:06 -    1800 -   31.83 equations/s -  1290.56 words/s - PRIM-FWD:  0.6631 - model LR: 1.0000e-04
+INFO - 09/21/20 15:11:49 - 1:01:07 -    1800 -   31.84 equations/s -  1257.34 words/s - PRIM-FWD:  0.6478 - model LR: 1.0000e-04
+INFO - 09/21/20 15:12:30 - 1:01:47 -    1820 -   31.59 equations/s -  1256.57 words/s - PRIM-FWD:  0.6326 - model LR: 1.0000e-04
+INFO - 09/21/20 15:12:30 - 1:01:47 -    1820 -   31.59 equations/s -  1249.63 words/s - PRIM-FWD:  0.6118 - model LR: 1.0000e-04
+INFO - 09/21/20 15:12:30 - 1:01:47 -    1820 -   31.58 equations/s -  1247.02 words/s - PRIM-FWD:  0.6604 - model LR: 1.0000e-04
+INFO - 09/21/20 15:12:30 - 1:01:48 -    1820 -   31.60 equations/s -  1281.54 words/s - PRIM-FWD:  0.6655 - model LR: 1.0000e-04
+INFO - 09/21/20 15:13:10 - 1:02:27 -    1840 -   31.64 equations/s -  1272.87 words/s - PRIM-FWD:  0.6541 - model LR: 1.0000e-04
+INFO - 09/21/20 15:13:10 - 1:02:27 -    1840 -   31.63 equations/s -  1224.15 words/s - PRIM-FWD:  0.6429 - model LR: 1.0000e-04
+INFO - 09/21/20 15:13:10 - 1:02:27 -    1840 -   31.63 equations/s -  1263.01 words/s - PRIM-FWD:  0.6513 - model LR: 1.0000e-04
+INFO - 09/21/20 15:13:10 - 1:02:28 -    1840 -   31.60 equations/s -  1242.36 words/s - PRIM-FWD:  0.6384 - model LR: 1.0000e-04
+INFO - 09/21/20 15:13:50 - 1:03:07 -    1860 -   32.14 equations/s -  1296.42 words/s - PRIM-FWD:  0.6505 - model LR: 1.0000e-04
+INFO - 09/21/20 15:13:50 - 1:03:08 -    1860 -   32.17 equations/s -  1272.16 words/s - PRIM-FWD:  0.6260 - model LR: 1.0000e-04
+INFO - 09/21/20 15:13:50 - 1:03:07 -    1860 -   32.13 equations/s -  1284.92 words/s - PRIM-FWD:  0.6629 - model LR: 1.0000e-04
+INFO - 09/21/20 15:13:50 - 1:03:07 -    1860 -   32.13 equations/s -  1303.08 words/s - PRIM-FWD:  0.6414 - model LR: 1.0000e-04
+INFO - 09/21/20 15:14:31 - 1:03:47 -    1880 -   31.56 equations/s -  1235.81 words/s - PRIM-FWD:  0.5975 - model LR: 1.0000e-04
+INFO - 09/21/20 15:14:31 - 1:03:47 -    1880 -   31.56 equations/s -  1227.24 words/s - PRIM-FWD:  0.5887 - model LR: 1.0000e-04
+INFO - 09/21/20 15:14:31 - 1:03:48 -    1880 -   31.55 equations/s -  1218.04 words/s - PRIM-FWD:  0.6259 - model LR: 1.0000e-04
+INFO - 09/21/20 15:14:31 - 1:03:47 -    1880 -   31.54 equations/s -  1255.34 words/s - PRIM-FWD:  0.6243 - model LR: 1.0000e-04
+INFO - 09/21/20 15:15:11 - 1:04:28 -    1900 -   31.66 equations/s -  1260.59 words/s - PRIM-FWD:  0.6373 - model LR: 1.0000e-04
+INFO - 09/21/20 15:15:11 - 1:04:28 -    1900 -   31.65 equations/s -  1250.34 words/s - PRIM-FWD:  0.6194 - model LR: 1.0000e-04
+INFO - 09/21/20 15:15:11 - 1:04:28 -    1900 -   31.65 equations/s -  1243.07 words/s - PRIM-FWD:  0.6263 - model LR: 1.0000e-04
+INFO - 09/21/20 15:15:11 - 1:04:29 -    1900 -   31.65 equations/s -  1232.27 words/s - PRIM-FWD:  0.6270 - model LR: 1.0000e-04
+INFO - 09/21/20 15:15:51 - 1:05:08 -    1920 -   32.11 equations/s -  1266.94 words/s - PRIM-FWD:  0.6098 - model LR: 1.0000e-04
+INFO - 09/21/20 15:15:51 - 1:05:09 -    1920 -   32.10 equations/s -  1278.37 words/s - PRIM-FWD:  0.6219 - model LR: 1.0000e-04
+INFO - 09/21/20 15:15:51 - 1:05:08 -    1920 -   32.09 equations/s -  1273.49 words/s - PRIM-FWD:  0.6278 - model LR: 1.0000e-04
+INFO - 09/21/20 15:15:51 - 1:05:08 -    1920 -   32.08 equations/s -  1248.03 words/s - PRIM-FWD:  0.6411 - model LR: 1.0000e-04
+INFO - 09/21/20 15:16:30 - 1:05:47 -    1940 -   32.37 equations/s -  1281.69 words/s - PRIM-FWD:  0.6369 - model LR: 1.0000e-04
+INFO - 09/21/20 15:16:30 - 1:05:48 -    1940 -   32.38 equations/s -  1282.56 words/s - PRIM-FWD:  0.6128 - model LR: 1.0000e-04
+INFO - 09/21/20 15:16:30 - 1:05:47 -    1940 -   32.38 equations/s -  1237.30 words/s - PRIM-FWD:  0.5996 - model LR: 1.0000e-04
+INFO - 09/21/20 15:16:30 - 1:05:47 -    1940 -   32.37 equations/s -  1287.88 words/s - PRIM-FWD:  0.6112 - model LR: 1.0000e-04
+INFO - 09/21/20 15:17:11 - 1:06:28 -    1960 -   31.74 equations/s -  1263.29 words/s - PRIM-FWD:  0.6355 - model LR: 1.0000e-04
+INFO - 09/21/20 15:17:11 - 1:06:29 -    1960 -   31.74 equations/s -  1280.30 words/s - PRIM-FWD:  0.6098 - model LR: 1.0000e-04
+INFO - 09/21/20 15:17:11 - 1:06:28 -    1960 -   31.74 equations/s -  1249.65 words/s - PRIM-FWD:  0.6089 - model LR: 1.0000e-04
+INFO - 09/21/20 15:17:11 - 1:06:28 -    1960 -   31.74 equations/s -  1253.34 words/s - PRIM-FWD:  0.6211 - model LR: 1.0000e-04
+INFO - 09/21/20 15:17:51 - 1:07:08 -    1980 -   31.93 equations/s -  1285.35 words/s - PRIM-FWD:  0.6087 - model LR: 1.0000e-04
+INFO - 09/21/20 15:17:51 - 1:07:08 -    1980 -   31.91 equations/s -  1260.66 words/s - PRIM-FWD:  0.5918 - model LR: 1.0000e-04
+INFO - 09/21/20 15:17:51 - 1:07:09 -    1980 -   31.91 equations/s -  1241.26 words/s - PRIM-FWD:  0.6031 - model LR: 1.0000e-04
+INFO - 09/21/20 15:17:51 - 1:07:08 -    1980 -   31.86 equations/s -  1293.09 words/s - PRIM-FWD:  0.6308 - model LR: 1.0000e-04
+INFO - 09/21/20 15:18:31 - 1:07:48 -    2000 -   31.92 equations/s -  1279.96 words/s - PRIM-FWD:  0.6165 - model LR: 1.0000e-04
+INFO - 09/21/20 15:18:31 - 1:07:48 -    2000 -   31.85 equations/s -  1264.19 words/s - PRIM-FWD:  0.5931 - model LR: 1.0000e-04
+INFO - 09/21/20 15:18:31 - 1:07:48 -    2000 -   31.85 equations/s -  1277.70 words/s - PRIM-FWD:  0.6381 - model LR: 1.0000e-04
+INFO - 09/21/20 15:18:31 - 1:07:49 -    2000 -   31.81 equations/s -  1280.99 words/s - PRIM-FWD:  0.6242 - model LR: 1.0000e-04
+INFO - 09/21/20 15:19:11 - 1:08:28 -    2020 -   32.12 equations/s -  1251.01 words/s - PRIM-FWD:  0.5890 - model LR: 1.0000e-04
+INFO - 09/21/20 15:19:11 - 1:08:28 -    2020 -   32.14 equations/s -  1284.73 words/s - PRIM-FWD:  0.6289 - model LR: 1.0000e-04
+INFO - 09/21/20 15:19:11 - 1:08:29 -    2020 -   32.18 equations/s -  1265.15 words/s - PRIM-FWD:  0.6114 - model LR: 1.0000e-04
+INFO - 09/21/20 15:19:11 - 1:08:28 -    2020 -   32.12 equations/s -  1261.38 words/s - PRIM-FWD:  0.6027 - model LR: 1.0000e-04
+INFO - 09/21/20 15:19:51 - 1:09:09 -    2040 -   31.91 equations/s -  1263.71 words/s - PRIM-FWD:  0.5800 - model LR: 1.0000e-04
+INFO - 09/21/20 15:19:51 - 1:09:08 -    2040 -   31.89 equations/s -  1249.49 words/s - PRIM-FWD:  0.5887 - model LR: 1.0000e-04
+INFO - 09/21/20 15:19:51 - 1:09:08 -    2040 -   31.90 equations/s -  1265.25 words/s - PRIM-FWD:  0.5964 - model LR: 1.0000e-04
+INFO - 09/21/20 15:19:51 - 1:09:08 -    2040 -   31.90 equations/s -  1253.48 words/s - PRIM-FWD:  0.5983 - model LR: 1.0000e-04
+INFO - 09/21/20 15:20:31 - 1:09:48 -    2060 -   32.25 equations/s -  1249.38 words/s - PRIM-FWD:  0.5716 - model LR: 1.0000e-04
+INFO - 09/21/20 15:20:31 - 1:09:48 -    2060 -   32.23 equations/s -  1277.91 words/s - PRIM-FWD:  0.5771 - model LR: 1.0000e-04
+INFO - 09/21/20 15:20:31 - 1:09:48 -    2060 -   32.23 equations/s -  1271.27 words/s - PRIM-FWD:  0.6208 - model LR: 1.0000e-04
+INFO - 09/21/20 15:20:31 - 1:09:49 -    2060 -   32.19 equations/s -  1279.18 words/s - PRIM-FWD:  0.6003 - model LR: 1.0000e-04
+INFO - 09/21/20 15:21:11 - 1:10:27 -    2080 -   32.10 equations/s -  1291.33 words/s - PRIM-FWD:  0.6488 - model LR: 1.0000e-04
+INFO - 09/21/20 15:21:11 - 1:10:28 -    2080 -   32.12 equations/s -  1263.26 words/s - PRIM-FWD:  0.6196 - model LR: 1.0000e-04
+INFO - 09/21/20 15:21:11 - 1:10:28 -    2080 -   32.09 equations/s -  1248.09 words/s - PRIM-FWD:  0.5841 - model LR: 1.0000e-04
+INFO - 09/21/20 15:21:11 - 1:10:27 -    2080 -   32.08 equations/s -  1256.58 words/s - PRIM-FWD:  0.5725 - model LR: 1.0000e-04
+INFO - 09/21/20 15:21:51 - 1:11:08 -    2100 -   31.85 equations/s -  1271.55 words/s - PRIM-FWD:  0.6122 - model LR: 1.0000e-04
+INFO - 09/21/20 15:21:51 - 1:11:08 -    2100 -   31.86 equations/s -  1258.26 words/s - PRIM-FWD:  0.5931 - model LR: 1.0000e-04
+INFO - 09/21/20 15:21:51 - 1:11:08 -    2100 -   31.86 equations/s -  1262.80 words/s - PRIM-FWD:  0.6014 - model LR: 1.0000e-04
+INFO - 09/21/20 15:21:51 - 1:11:09 -    2100 -   31.85 equations/s -  1251.78 words/s - PRIM-FWD:  0.6003 - model LR: 1.0000e-04
+INFO - 09/21/20 15:22:31 - 1:11:48 -    2120 -   31.89 equations/s -  1284.79 words/s - PRIM-FWD:  0.6064 - model LR: 1.0000e-04
+INFO - 09/21/20 15:22:31 - 1:11:48 -    2120 -   31.89 equations/s -  1253.12 words/s - PRIM-FWD:  0.5968 - model LR: 1.0000e-04
+INFO - 09/21/20 15:22:31 - 1:11:49 -    2120 -   31.89 equations/s -  1240.78 words/s - PRIM-FWD:  0.5874 - model LR: 1.0000e-04
+INFO - 09/21/20 15:22:31 - 1:11:48 -    2120 -   31.85 equations/s -  1249.90 words/s - PRIM-FWD:  0.6106 - model LR: 1.0000e-04
+INFO - 09/21/20 15:23:11 - 1:12:29 -    2140 -   31.84 equations/s -  1256.88 words/s - PRIM-FWD:  0.5916 - model LR: 1.0000e-04
+INFO - 09/21/20 15:23:11 - 1:12:28 -    2140 -   31.82 equations/s -  1252.20 words/s - PRIM-FWD:  0.5715 - model LR: 1.0000e-04
+INFO - 09/21/20 15:23:11 - 1:12:28 -    2140 -   31.86 equations/s -  1230.98 words/s - PRIM-FWD:  0.5974 - model LR: 1.0000e-04
+INFO - 09/21/20 15:23:11 - 1:12:28 -    2140 -   31.80 equations/s -  1256.95 words/s - PRIM-FWD:  0.5883 - model LR: 1.0000e-04
+INFO - 09/21/20 15:23:51 - 1:13:08 -    2160 -   32.38 equations/s -  1277.34 words/s - PRIM-FWD:  0.5799 - model LR: 1.0000e-04
+INFO - 09/21/20 15:23:51 - 1:13:08 -    2160 -   32.35 equations/s -  1278.58 words/s - PRIM-FWD:  0.5953 - model LR: 1.0000e-04
+INFO - 09/21/20 15:23:51 - 1:13:09 -    2160 -   32.36 equations/s -  1255.62 words/s - PRIM-FWD:  0.5734 - model LR: 1.0000e-04
+INFO - 09/21/20 15:23:51 - 1:13:08 -    2160 -   32.36 equations/s -  1300.15 words/s - PRIM-FWD:  0.5976 - model LR: 1.0000e-04
+INFO - 09/21/20 15:24:31 - 1:13:48 -    2180 -   31.76 equations/s -  1237.62 words/s - PRIM-FWD:  0.5868 - model LR: 1.0000e-04
+INFO - 09/21/20 15:24:31 - 1:13:48 -    2180 -   31.76 equations/s -  1258.96 words/s - PRIM-FWD:  0.5873 - model LR: 1.0000e-04
+INFO - 09/21/20 15:24:31 - 1:13:48 -    2180 -   31.75 equations/s -  1244.36 words/s - PRIM-FWD:  0.5716 - model LR: 1.0000e-04
+INFO - 09/21/20 15:24:31 - 1:13:49 -    2180 -   31.75 equations/s -  1256.19 words/s - PRIM-FWD:  0.6073 - model LR: 1.0000e-04
+INFO - 09/21/20 15:25:11 - 1:14:28 -    2200 -   31.91 equations/s -  1266.74 words/s - PRIM-FWD:  0.5778 - model LR: 1.0000e-04
+INFO - 09/21/20 15:25:11 - 1:14:29 -    2200 -   31.91 equations/s -  1252.39 words/s - PRIM-FWD:  0.5849 - model LR: 1.0000e-04
+INFO - 09/21/20 15:25:11 - 1:14:28 -    2200 -   31.91 equations/s -  1289.88 words/s - PRIM-FWD:  0.5745 - model LR: 1.0000e-04
+INFO - 09/21/20 15:25:11 - 1:14:28 -    2200 -   31.89 equations/s -  1291.37 words/s - PRIM-FWD:  0.5924 - model LR: 1.0000e-04
+INFO - 09/21/20 15:25:51 - 1:15:09 -    2220 -   32.26 equations/s -  1270.04 words/s - PRIM-FWD:  0.5884 - model LR: 1.0000e-04
+INFO - 09/21/20 15:25:51 - 1:15:08 -    2220 -   32.26 equations/s -  1289.81 words/s - PRIM-FWD:  0.6032 - model LR: 1.0000e-04
+INFO - 09/21/20 15:25:51 - 1:15:08 -    2220 -   32.25 equations/s -  1263.28 words/s - PRIM-FWD:  0.5652 - model LR: 1.0000e-04
+INFO - 09/21/20 15:25:51 - 1:15:08 -    2220 -   32.24 equations/s -  1295.88 words/s - PRIM-FWD:  0.6095 - model LR: 1.0000e-04
+INFO - 09/21/20 15:26:30 - 1:15:48 -    2240 -   32.29 equations/s -  1273.88 words/s - PRIM-FWD:  0.5864 - model LR: 1.0000e-04
+INFO - 09/21/20 15:26:30 - 1:15:47 -    2240 -   32.29 equations/s -  1277.24 words/s - PRIM-FWD:  0.5653 - model LR: 1.0000e-04
+INFO - 09/21/20 15:26:30 - 1:15:47 -    2240 -   32.29 equations/s -  1247.67 words/s - PRIM-FWD:  0.5775 - model LR: 1.0000e-04
+INFO - 09/21/20 15:26:30 - 1:15:47 -    2240 -   32.29 equations/s -  1266.14 words/s - PRIM-FWD:  0.5938 - model LR: 1.0000e-04
+INFO - 09/21/20 15:27:10 - 1:16:27 -    2260 -   31.98 equations/s -  1282.35 words/s - PRIM-FWD:  0.5958 - model LR: 1.0000e-04
+INFO - 09/21/20 15:27:10 - 1:16:27 -    2260 -   31.97 equations/s -  1288.59 words/s - PRIM-FWD:  0.5785 - model LR: 1.0000e-04
+INFO - 09/21/20 15:27:11 - 1:16:28 -    2260 -   31.97 equations/s -  1256.07 words/s - PRIM-FWD:  0.5939 - model LR: 1.0000e-04
+INFO - 09/21/20 15:27:11 - 1:16:27 -    2260 -   31.97 equations/s -  1286.59 words/s - PRIM-FWD:  0.5880 - model LR: 1.0000e-04
+INFO - 09/21/20 15:27:51 - 1:17:08 -    2280 -   31.38 equations/s -  1266.37 words/s - PRIM-FWD:  0.5884 - model LR: 1.0000e-04
+INFO - 09/21/20 15:27:51 - 1:17:08 -    2280 -   31.37 equations/s -  1243.11 words/s - PRIM-FWD:  0.5730 - model LR: 1.0000e-04
+INFO - 09/21/20 15:27:51 - 1:17:08 -    2280 -   31.37 equations/s -  1218.36 words/s - PRIM-FWD:  0.5679 - model LR: 1.0000e-04
+INFO - 09/21/20 15:27:51 - 1:17:09 -    2280 -   31.38 equations/s -  1238.46 words/s - PRIM-FWD:  0.5842 - model LR: 1.0000e-04
+INFO - 09/21/20 15:28:31 - 1:17:48 -    2300 -   32.31 equations/s -  1269.60 words/s - PRIM-FWD:  0.5557 - model LR: 1.0000e-04
+INFO - 09/21/20 15:28:31 - 1:17:48 -    2300 -   32.31 equations/s -  1286.98 words/s - PRIM-FWD:  0.5806 - model LR: 1.0000e-04
+INFO - 09/21/20 15:28:31 - 1:17:49 -    2300 -   32.30 equations/s -  1270.58 words/s - PRIM-FWD:  0.5730 - model LR: 1.0000e-04
+INFO - 09/21/20 15:28:31 - 1:17:48 -    2300 -   32.32 equations/s -  1269.10 words/s - PRIM-FWD:  0.5825 - model LR: 1.0000e-04
+INFO - 09/21/20 15:29:11 - 1:18:28 -    2320 -   31.71 equations/s -  1221.94 words/s - PRIM-FWD:  0.5571 - model LR: 1.0000e-04
+INFO - 09/21/20 15:29:11 - 1:18:28 -    2320 -   31.71 equations/s -  1259.96 words/s - PRIM-FWD:  0.5426 - model LR: 1.0000e-04
+INFO - 09/21/20 15:29:11 - 1:18:29 -    2320 -   31.71 equations/s -  1258.07 words/s - PRIM-FWD:  0.5886 - model LR: 1.0000e-04
+INFO - 09/21/20 15:29:11 - 1:18:28 -    2320 -   31.70 equations/s -  1236.44 words/s - PRIM-FWD:  0.5577 - model LR: 1.0000e-04
+INFO - 09/21/20 15:29:52 - 1:19:09 -    2340 -   31.80 equations/s -  1258.49 words/s - PRIM-FWD:  0.5753 - model LR: 1.0000e-04
+INFO - 09/21/20 15:29:52 - 1:19:08 -    2340 -   31.80 equations/s -  1267.90 words/s - PRIM-FWD:  0.5541 - model LR: 1.0000e-04
+INFO - 09/21/20 15:29:52 - 1:19:08 -    2340 -   31.80 equations/s -  1242.41 words/s - PRIM-FWD:  0.5538 - model LR: 1.0000e-04
+INFO - 09/21/20 15:29:52 - 1:19:08 -    2340 -   31.80 equations/s -  1271.12 words/s - PRIM-FWD:  0.5705 - model LR: 1.0000e-04
+INFO - 09/21/20 15:30:04 - 1:19:20 - ============ End of epoch 2 ============
+INFO - 09/21/20 15:30:04 - 1:19:20 - Creating valid iterator for prim_fwd ...
+INFO - 09/21/20 15:30:04 - 1:19:20 - Loading data from fwd_small/fwd_small.valid ...
+INFO - 09/21/20 15:30:04 - 1:19:20 - ============ End of epoch 2 ============
+INFO - 09/21/20 15:30:04 - 1:19:20 - Creating valid iterator for prim_fwd ...
+INFO - 09/21/20 15:30:04 - 1:19:20 - Loading data from fwd_small/fwd_small.valid ...
+INFO - 09/21/20 15:30:04 - 1:19:20 - ============ End of epoch 2 ============
+INFO - 09/21/20 15:30:04 - 1:19:20 - Creating valid iterator for prim_fwd ...
+INFO - 09/21/20 15:30:04 - 1:19:20 - Loading data from fwd_small/fwd_small.valid ...
+INFO - 09/21/20 15:30:04 - 1:19:21 - ============ End of epoch 2 ============
+INFO - 09/21/20 15:30:04 - 1:19:20 - Loaded 500 equations from the disk.
+INFO - 09/21/20 15:30:04 - 1:19:20 - Loaded 500 equations from the disk.
+INFO - 09/21/20 15:30:04 - 1:19:21 - Creating valid iterator for prim_fwd ...
+INFO - 09/21/20 15:30:04 - 1:19:21 - Loading data from fwd_small/fwd_small.valid ...
+INFO - 09/21/20 15:30:04 - 1:19:20 - Loaded 500 equations from the disk.
+INFO - 09/21/20 15:30:04 - 1:19:21 - Loaded 500 equations from the disk.
+INFO - 09/21/20 15:30:04 - 1:19:21 - 0/500
+INFO - 09/21/20 15:30:04 - 1:19:21 - 0/500
+INFO - 09/21/20 15:30:04 - 1:19:22 - 0/500
+INFO - 09/21/20 15:30:04 - 1:19:21 - 0/500
+INFO - 09/21/20 15:30:06 - 1:19:24 - 128/500
+INFO - 09/21/20 15:30:06 - 1:19:23 - 128/500
+INFO - 09/21/20 15:30:06 - 1:19:23 - 128/500
+INFO - 09/21/20 15:30:06 - 1:19:23 - 128/500
+INFO - 09/21/20 15:30:08 - 1:19:26 - 256/500
+INFO - 09/21/20 15:30:08 - 1:19:25 - 256/500
+INFO - 09/21/20 15:30:08 - 1:19:25 - 256/500
+INFO - 09/21/20 15:30:09 - 1:19:26 - 256/500
+INFO - 09/21/20 15:30:09 - 1:19:27 - 320/500
+INFO - 09/21/20 15:30:09 - 1:19:26 - 320/500
+INFO - 09/21/20 15:30:09 - 1:19:26 - 320/500
+INFO - 09/21/20 15:30:10 - 1:19:27 - 320/500
+INFO - 09/21/20 15:30:11 - 1:19:29 - 448/500
+INFO - 09/21/20 15:30:11 - 1:19:28 - 448/500
+INFO - 09/21/20 15:30:11 - 1:19:28 - 448/500
+INFO - 09/21/20 15:30:11 - 1:19:28 - 448/500
+INFO - 09/21/20 15:30:11 - 1:19:29 - 15/500 (3.0%) equations were evaluated correctly.
+INFO - 09/21/20 15:30:11 - 1:19:29 - Creating test iterator for prim_fwd ...
+INFO - 09/21/20 15:30:11 - 1:19:29 - Loading data from fwd_small/fwd_small.test ...
+INFO - 09/21/20 15:30:11 - 1:19:29 - Loaded 1000 equations from the disk.
+INFO - 09/21/20 15:30:12 - 1:19:28 - 13/500 (2.6%) equations were evaluated correctly.
+INFO - 09/21/20 15:30:12 - 1:19:28 - Creating test iterator for prim_fwd ...
+INFO - 09/21/20 15:30:12 - 1:19:28 - Loading data from fwd_small/fwd_small.test ...
+INFO - 09/21/20 15:30:12 - 1:19:28 - Loaded 1000 equations from the disk.
+INFO - 09/21/20 15:30:12 - 1:19:28 - 13/500 (2.6%) equations were evaluated correctly.
+INFO - 09/21/20 15:30:12 - 1:19:28 - Creating test iterator for prim_fwd ...
+INFO - 09/21/20 15:30:12 - 1:19:28 - Loading data from fwd_small/fwd_small.test ...
+INFO - 09/21/20 15:30:12 - 1:19:28 - Loaded 1000 equations from the disk.
+INFO - 09/21/20 15:30:12 - 1:19:30 - 0/1000
+INFO - 09/21/20 15:30:12 - 1:19:29 - 0/1000
+INFO - 09/21/20 15:30:12 - 1:19:29 - 13/500 (2.6%) equations were evaluated correctly.
+INFO - 09/21/20 15:30:12 - 1:19:29 - Creating test iterator for prim_fwd ...
+INFO - 09/21/20 15:30:12 - 1:19:29 - Loading data from fwd_small/fwd_small.test ...
+INFO - 09/21/20 15:30:12 - 1:19:29 - Loaded 1000 equations from the disk.
+INFO - 09/21/20 15:30:12 - 1:19:29 - 0/1000
+INFO - 09/21/20 15:30:13 - 1:19:30 - 0/1000
+INFO - 09/21/20 15:30:14 - 1:19:32 - 128/1000
+INFO - 09/21/20 15:30:14 - 1:19:31 - 128/1000
+INFO - 09/21/20 15:30:14 - 1:19:31 - 128/1000
+INFO - 09/21/20 15:30:15 - 1:19:32 - 128/1000
+INFO - 09/21/20 15:30:16 - 1:19:34 - 256/1000
+INFO - 09/21/20 15:30:16 - 1:19:33 - 256/1000
+INFO - 09/21/20 15:30:16 - 1:19:33 - 256/1000
+INFO - 09/21/20 15:30:17 - 1:19:35 - 320/1000
+INFO - 09/21/20 15:30:17 - 1:19:34 - 320/1000
+INFO - 09/21/20 15:30:17 - 1:19:34 - 320/1000
+INFO - 09/21/20 15:30:18 - 1:19:35 - 256/1000
+INFO - 09/21/20 15:30:19 - 1:19:36 - 320/1000
+INFO - 09/21/20 15:30:19 - 1:19:37 - 448/1000
+INFO - 09/21/20 15:30:19 - 1:19:36 - 448/1000
+INFO - 09/21/20 15:30:19 - 1:19:36 - 448/1000
+INFO - 09/21/20 15:30:20 - 1:19:38 - 512/1000
+INFO - 09/21/20 15:30:21 - 1:19:37 - 512/1000
+INFO - 09/21/20 15:30:21 - 1:19:37 - 512/1000
+INFO - 09/21/20 15:30:21 - 1:19:38 - 448/1000
+INFO - 09/21/20 15:30:22 - 1:19:39 - 512/1000
+INFO - 09/21/20 15:30:23 - 1:19:40 - 640/1000
+INFO - 09/21/20 15:30:23 - 1:19:40 - 640/1000
+INFO - 09/21/20 15:30:23 - 1:19:40 - 640/1000
+INFO - 09/21/20 15:30:24 - 1:19:42 - 704/1000
+INFO - 09/21/20 15:30:24 - 1:19:41 - 704/1000
+INFO - 09/21/20 15:30:24 - 1:19:41 - 704/1000
+INFO - 09/21/20 15:30:25 - 1:19:42 - 640/1000
+INFO - 09/21/20 15:30:26 - 1:19:44 - 832/1000
+INFO - 09/21/20 15:30:26 - 1:19:43 - 832/1000
+INFO - 09/21/20 15:30:26 - 1:19:43 - 832/1000
+INFO - 09/21/20 15:30:26 - 1:19:43 - 704/1000
+INFO - 09/21/20 15:30:28 - 1:19:46 - 960/1000
+INFO - 09/21/20 15:30:28 - 1:19:45 - 960/1000
+INFO - 09/21/20 15:30:28 - 1:19:45 - 960/1000
+INFO - 09/21/20 15:30:28 - 1:19:45 - 832/1000
+INFO - 09/21/20 15:30:28 - 1:19:46 - 18/1000 (1.8%) equations were evaluated correctly.
+INFO - 09/21/20 15:30:28 - 1:19:46 - epoch -> 2.000000
+INFO - 09/21/20 15:30:28 - 1:19:46 - valid_prim_fwd_xe_loss -> 16.629713
+INFO - 09/21/20 15:30:28 - 1:19:46 - valid_prim_fwd_acc -> 3.000000
+INFO - 09/21/20 15:30:28 - 1:19:46 - valid_prim_fwd_acc_2 -> 50.000000
+INFO - 09/21/20 15:30:28 - 1:19:46 - valid_prim_fwd_acc_3 -> 8.333333
+INFO - 09/21/20 15:30:28 - 1:19:46 - valid_prim_fwd_acc_4 -> 7.619048
+INFO - 09/21/20 15:30:28 - 1:19:46 - valid_prim_fwd_acc_5 -> 2.259887
+INFO - 09/21/20 15:30:28 - 1:19:46 - valid_prim_fwd_acc_6 -> 0.000000
+INFO - 09/21/20 15:30:28 - 1:19:46 - valid_prim_fwd_acc_7 -> 0.000000
+INFO - 09/21/20 15:30:28 - 1:19:46 - valid_prim_fwd_acc_8 -> 0.000000
+INFO - 09/21/20 15:30:28 - 1:19:46 - valid_prim_fwd_acc_9 -> 0.000000
+INFO - 09/21/20 15:30:28 - 1:19:46 - test_prim_fwd_xe_loss -> 21.268291
+INFO - 09/21/20 15:30:28 - 1:19:46 - test_prim_fwd_acc -> 1.800000
+INFO - 09/21/20 15:30:28 - 1:19:46 - test_prim_fwd_acc_2 -> 0.000000
+INFO - 09/21/20 15:30:28 - 1:19:46 - test_prim_fwd_acc_3 -> 18.181818
+INFO - 09/21/20 15:30:28 - 1:19:46 - test_prim_fwd_acc_4 -> 5.673759
+INFO - 09/21/20 15:30:28 - 1:19:46 - test_prim_fwd_acc_5 -> 1.428571
+INFO - 09/21/20 15:30:28 - 1:19:46 - test_prim_fwd_acc_6 -> 0.000000
+INFO - 09/21/20 15:30:28 - 1:19:46 - test_prim_fwd_acc_7 -> 0.000000
+INFO - 09/21/20 15:30:28 - 1:19:46 - test_prim_fwd_acc_8 -> 0.000000
+INFO - 09/21/20 15:30:28 - 1:19:46 - test_prim_fwd_acc_9 -> 0.000000
+INFO - 09/21/20 15:30:28 - 1:19:46 - ============ Starting epoch 3 ... ============
+INFO - 09/21/20 15:30:28 - 1:19:45 - 19/1000 (1.9%) equations were evaluated correctly.
+INFO - 09/21/20 15:30:29 - 1:19:45 - epoch -> 2.000000
+INFO - 09/21/20 15:30:29 - 1:19:45 - valid_prim_fwd_xe_loss -> 16.595372
+INFO - 09/21/20 15:30:29 - 1:19:45 - valid_prim_fwd_acc -> 2.600000
+INFO - 09/21/20 15:30:29 - 1:19:45 - valid_prim_fwd_acc_2 -> 50.000000
+INFO - 09/21/20 15:30:29 - 1:19:45 - valid_prim_fwd_acc_3 -> 8.333333
+INFO - 09/21/20 15:30:29 - 1:19:45 - valid_prim_fwd_acc_4 -> 6.666667
+INFO - 09/21/20 15:30:29 - 1:19:45 - valid_prim_fwd_acc_5 -> 1.694915
+INFO - 09/21/20 15:30:29 - 1:19:45 - valid_prim_fwd_acc_6 -> 0.000000
+INFO - 09/21/20 15:30:29 - 1:19:45 - valid_prim_fwd_acc_7 -> 0.000000
+INFO - 09/21/20 15:30:29 - 1:19:45 - valid_prim_fwd_acc_8 -> 0.000000
+INFO - 09/21/20 15:30:29 - 1:19:45 - valid_prim_fwd_acc_9 -> 0.000000
+INFO - 09/21/20 15:30:29 - 1:19:45 - test_prim_fwd_xe_loss -> 21.173286
+INFO - 09/21/20 15:30:29 - 1:19:45 - test_prim_fwd_acc -> 1.900000
+INFO - 09/21/20 15:30:29 - 1:19:45 - test_prim_fwd_acc_2 -> 50.000000
+INFO - 09/21/20 15:30:29 - 1:19:45 - test_prim_fwd_acc_3 -> 21.212121
+INFO - 09/21/20 15:30:29 - 1:19:45 - test_prim_fwd_acc_4 -> 5.673759
+INFO - 09/21/20 15:30:29 - 1:19:45 - test_prim_fwd_acc_5 -> 1.071429
+INFO - 09/21/20 15:30:29 - 1:19:45 - test_prim_fwd_acc_6 -> 0.000000
+INFO - 09/21/20 15:30:29 - 1:19:45 - test_prim_fwd_acc_7 -> 0.000000
+INFO - 09/21/20 15:30:29 - 1:19:45 - test_prim_fwd_acc_8 -> 0.000000
+INFO - 09/21/20 15:30:29 - 1:19:45 - test_prim_fwd_acc_9 -> 0.000000
+INFO - 09/21/20 15:30:29 - 1:19:45 - ============ Starting epoch 3 ... ============
+INFO - 09/21/20 15:30:29 - 1:19:45 - 19/1000 (1.9%) equations were evaluated correctly.
+INFO - 09/21/20 15:30:29 - 1:19:45 - epoch -> 2.000000
+INFO - 09/21/20 15:30:29 - 1:19:45 - valid_prim_fwd_xe_loss -> 16.580943
+INFO - 09/21/20 15:30:29 - 1:19:45 - valid_prim_fwd_acc -> 2.600000
+INFO - 09/21/20 15:30:29 - 1:19:45 - valid_prim_fwd_acc_2 -> 50.000000
+INFO - 09/21/20 15:30:29 - 1:19:45 - valid_prim_fwd_acc_3 -> 8.333333
+INFO - 09/21/20 15:30:29 - 1:19:45 - valid_prim_fwd_acc_4 -> 6.666667
+INFO - 09/21/20 15:30:29 - 1:19:45 - valid_prim_fwd_acc_5 -> 1.694915
+INFO - 09/21/20 15:30:29 - 1:19:45 - valid_prim_fwd_acc_6 -> 0.000000
+INFO - 09/21/20 15:30:29 - 1:19:45 - valid_prim_fwd_acc_7 -> 0.000000
+INFO - 09/21/20 15:30:29 - 1:19:45 - valid_prim_fwd_acc_8 -> 0.000000
+INFO - 09/21/20 15:30:29 - 1:19:45 - valid_prim_fwd_acc_9 -> 0.000000
+INFO - 09/21/20 15:30:29 - 1:19:45 - test_prim_fwd_xe_loss -> 21.173083
+INFO - 09/21/20 15:30:29 - 1:19:45 - test_prim_fwd_acc -> 1.900000
+INFO - 09/21/20 15:30:29 - 1:19:45 - test_prim_fwd_acc_2 -> 0.000000
+INFO - 09/21/20 15:30:29 - 1:19:45 - test_prim_fwd_acc_3 -> 24.242424
+INFO - 09/21/20 15:30:29 - 1:19:45 - test_prim_fwd_acc_4 -> 5.673759
+INFO - 09/21/20 15:30:29 - 1:19:45 - test_prim_fwd_acc_5 -> 1.071429
+INFO - 09/21/20 15:30:29 - 1:19:45 - test_prim_fwd_acc_6 -> 0.000000
+INFO - 09/21/20 15:30:29 - 1:19:45 - test_prim_fwd_acc_7 -> 0.000000
+INFO - 09/21/20 15:30:29 - 1:19:45 - test_prim_fwd_acc_8 -> 0.000000
+INFO - 09/21/20 15:30:29 - 1:19:45 - test_prim_fwd_acc_9 -> 0.000000
+INFO - 09/21/20 15:30:29 - 1:19:45 - __log__:{"epoch": 2, "valid_prim_fwd_xe_loss": 16.580943066835403, "valid_prim_fwd_acc": 2.6, "valid_prim_fwd_acc_2": 50.0, "valid_prim_fwd_acc_3": 8.333333333333334, "valid_prim_fwd_acc_4": 6.666666666666667, "valid_prim_fwd_acc_5": 1.694915254237288, "valid_prim_fwd_acc_6": 0.0, "valid_prim_fwd_acc_7": 0.0, "valid_prim_fwd_acc_8": 0.0, "valid_prim_fwd_acc_9": 0.0, "test_prim_fwd_xe_loss": 21.173082584917545, "test_prim_fwd_acc": 1.9, "test_prim_fwd_acc_2": 0.0, "test_prim_fwd_acc_3": 24.242424242424242, "test_prim_fwd_acc_4": 5.673758865248227, "test_prim_fwd_acc_5": 1.0714285714285714, "test_prim_fwd_acc_6": 0.0, "test_prim_fwd_acc_7": 0.0, "test_prim_fwd_acc_8": 0.0, "test_prim_fwd_acc_9": 0.0}
+INFO - 09/21/20 15:30:29 - 1:19:45 - Saving checkpoint to ./dumped/treelstm_50k_numenc/11627285/checkpoint.pth ...
+WARNING - 09/21/20 15:30:29 - 1:19:45 - Saving encoder parameters ...
+WARNING - 09/21/20 15:30:29 - 1:19:45 - Saving decoder parameters ...
+WARNING - 09/21/20 15:30:29 - 1:19:45 - Saving model optimizer ...
+INFO - 09/21/20 15:30:29 - 1:19:46 - ============ Starting epoch 3 ... ============
+INFO - 09/21/20 15:30:30 - 1:19:47 - 960/1000
+INFO - 09/21/20 15:30:31 - 1:19:47 - 18/1000 (1.8%) equations were evaluated correctly.
+INFO - 09/21/20 15:30:31 - 1:19:47 - epoch -> 2.000000
+INFO - 09/21/20 15:30:31 - 1:19:47 - valid_prim_fwd_xe_loss -> 16.557462
+INFO - 09/21/20 15:30:31 - 1:19:47 - valid_prim_fwd_acc -> 2.600000
+INFO - 09/21/20 15:30:31 - 1:19:47 - valid_prim_fwd_acc_2 -> 50.000000
+INFO - 09/21/20 15:30:31 - 1:19:47 - valid_prim_fwd_acc_3 -> 8.333333
+INFO - 09/21/20 15:30:31 - 1:19:47 - valid_prim_fwd_acc_4 -> 6.666667
+INFO - 09/21/20 15:30:31 - 1:19:47 - valid_prim_fwd_acc_5 -> 1.694915
+INFO - 09/21/20 15:30:31 - 1:19:47 - valid_prim_fwd_acc_6 -> 0.000000
+INFO - 09/21/20 15:30:31 - 1:19:47 - valid_prim_fwd_acc_7 -> 0.000000
+INFO - 09/21/20 15:30:31 - 1:19:47 - valid_prim_fwd_acc_8 -> 0.000000
+INFO - 09/21/20 15:30:31 - 1:19:47 - valid_prim_fwd_acc_9 -> 0.000000
+INFO - 09/21/20 15:30:31 - 1:19:47 - test_prim_fwd_xe_loss -> 21.164626
+INFO - 09/21/20 15:30:31 - 1:19:47 - test_prim_fwd_acc -> 1.800000
+INFO - 09/21/20 15:30:31 - 1:19:47 - test_prim_fwd_acc_2 -> 0.000000
+INFO - 09/21/20 15:30:31 - 1:19:47 - test_prim_fwd_acc_3 -> 21.212121
+INFO - 09/21/20 15:30:31 - 1:19:47 - test_prim_fwd_acc_4 -> 5.673759
+INFO - 09/21/20 15:30:31 - 1:19:47 - test_prim_fwd_acc_5 -> 1.071429
+INFO - 09/21/20 15:30:31 - 1:19:47 - test_prim_fwd_acc_6 -> 0.000000
+INFO - 09/21/20 15:30:31 - 1:19:47 - test_prim_fwd_acc_7 -> 0.000000
+INFO - 09/21/20 15:30:31 - 1:19:47 - test_prim_fwd_acc_8 -> 0.000000
+INFO - 09/21/20 15:30:31 - 1:19:47 - test_prim_fwd_acc_9 -> 0.000000
+INFO - 09/21/20 15:30:31 - 1:19:47 - ============ Starting epoch 3 ... ============
+INFO - 09/21/20 15:30:58 - 1:20:16 -    2360 -   19.15 equations/s -   768.14 words/s - PRIM-FWD:  0.5650 - model LR: 1.0000e-04
+INFO - 09/21/20 15:30:58 - 1:20:15 -    2360 -   19.15 equations/s -   750.12 words/s - PRIM-FWD:  0.5504 - model LR: 1.0000e-04
+INFO - 09/21/20 15:30:58 - 1:20:15 -    2360 -   19.15 equations/s -   749.08 words/s - PRIM-FWD:  0.5531 - model LR: 1.0000e-04
+INFO - 09/21/20 15:30:58 - 1:20:15 -    2360 -   19.15 equations/s -   757.42 words/s - PRIM-FWD:  0.5555 - model LR: 1.0000e-04
+INFO - 09/21/20 15:31:38 - 1:20:55 -    2380 -   32.01 equations/s -  1271.75 words/s - PRIM-FWD:  0.5709 - model LR: 1.0000e-04
+INFO - 09/21/20 15:31:38 - 1:20:55 -    2380 -   31.99 equations/s -  1235.56 words/s - PRIM-FWD:  0.5206 - model LR: 1.0000e-04
+INFO - 09/21/20 15:31:38 - 1:20:56 -    2380 -   31.98 equations/s -  1258.82 words/s - PRIM-FWD:  0.6093 - model LR: 1.0000e-04
+INFO - 09/21/20 15:31:38 - 1:20:55 -    2380 -   31.96 equations/s -  1270.03 words/s - PRIM-FWD:  0.5554 - model LR: 1.0000e-04
+INFO - 09/21/20 15:32:18 - 1:21:35 -    2400 -   32.01 equations/s -  1284.94 words/s - PRIM-FWD:  0.5762 - model LR: 1.0000e-04
+INFO - 09/21/20 15:32:18 - 1:21:35 -    2400 -   32.04 equations/s -  1286.39 words/s - PRIM-FWD:  0.5715 - model LR: 1.0000e-04
+INFO - 09/21/20 15:32:18 - 1:21:35 -    2400 -   32.01 equations/s -  1260.78 words/s - PRIM-FWD:  0.5613 - model LR: 1.0000e-04
+INFO - 09/21/20 15:32:18 - 1:21:36 -    2400 -   32.03 equations/s -  1264.46 words/s - PRIM-FWD:  0.5548 - model LR: 1.0000e-04
+INFO - 09/21/20 15:32:58 - 1:22:15 -    2420 -   31.93 equations/s -  1267.96 words/s - PRIM-FWD:  0.5740 - model LR: 1.0000e-04
+INFO - 09/21/20 15:32:58 - 1:22:15 -    2420 -   31.92 equations/s -  1236.66 words/s - PRIM-FWD:  0.5344 - model LR: 1.0000e-04
+INFO - 09/21/20 15:32:58 - 1:22:15 -    2420 -   31.92 equations/s -  1272.23 words/s - PRIM-FWD:  0.5597 - model LR: 1.0000e-04
+INFO - 09/21/20 15:32:58 - 1:22:16 -    2420 -   31.92 equations/s -  1258.31 words/s - PRIM-FWD:  0.5426 - model LR: 1.0000e-04
+INFO - 09/21/20 15:33:39 - 1:22:56 -    2440 -   31.38 equations/s -  1280.33 words/s - PRIM-FWD:  0.6011 - model LR: 1.0000e-04
+INFO - 09/21/20 15:33:39 - 1:22:56 -    2440 -   31.38 equations/s -  1249.09 words/s - PRIM-FWD:  0.5433 - model LR: 1.0000e-04
+INFO - 09/21/20 15:33:39 - 1:22:56 -    2440 -   31.38 equations/s -  1255.17 words/s - PRIM-FWD:  0.5414 - model LR: 1.0000e-04
+INFO - 09/21/20 15:33:39 - 1:22:57 -    2440 -   31.36 equations/s -  1220.23 words/s - PRIM-FWD:  0.5473 - model LR: 1.0000e-04
+INFO - 09/21/20 15:34:20 - 1:23:36 -    2460 -   31.75 equations/s -  1276.21 words/s - PRIM-FWD:  0.5762 - model LR: 1.0000e-04
+INFO - 09/21/20 15:34:20 - 1:23:36 -    2460 -   31.75 equations/s -  1244.03 words/s - PRIM-FWD:  0.5487 - model LR: 1.0000e-04
+INFO - 09/21/20 15:34:20 - 1:23:36 -    2460 -   31.75 equations/s -  1285.26 words/s - PRIM-FWD:  0.5801 - model LR: 1.0000e-04
+INFO - 09/21/20 15:34:20 - 1:23:37 -    2460 -   31.75 equations/s -  1232.99 words/s - PRIM-FWD:  0.5392 - model LR: 1.0000e-04
+INFO - 09/21/20 15:34:59 - 1:24:16 -    2480 -   32.28 equations/s -  1277.47 words/s - PRIM-FWD:  0.5650 - model LR: 1.0000e-04
+INFO - 09/21/20 15:34:59 - 1:24:16 -    2480 -   32.27 equations/s -  1312.96 words/s - PRIM-FWD:  0.6065 - model LR: 1.0000e-04
+INFO - 09/21/20 15:34:59 - 1:24:16 -    2480 -   32.27 equations/s -  1262.21 words/s - PRIM-FWD:  0.5464 - model LR: 1.0000e-04
+INFO - 09/21/20 15:34:59 - 1:24:17 -    2480 -   32.28 equations/s -  1307.28 words/s - PRIM-FWD:  0.5623 - model LR: 1.0000e-04
+INFO - 09/21/20 15:35:39 - 1:24:56 -    2500 -   31.97 equations/s -  1283.63 words/s - PRIM-FWD:  0.5517 - model LR: 1.0000e-04
+INFO - 09/21/20 15:35:39 - 1:24:56 -    2500 -   31.96 equations/s -  1254.38 words/s - PRIM-FWD:  0.5657 - model LR: 1.0000e-04
+INFO - 09/21/20 15:35:39 - 1:24:56 -    2500 -   31.98 equations/s -  1267.67 words/s - PRIM-FWD:  0.5621 - model LR: 1.0000e-04
+INFO - 09/21/20 15:35:39 - 1:24:57 -    2500 -   31.97 equations/s -  1282.53 words/s - PRIM-FWD:  0.5687 - model LR: 1.0000e-04
+INFO - 09/21/20 15:36:20 - 1:25:37 -    2520 -   31.72 equations/s -  1257.86 words/s - PRIM-FWD:  0.5536 - model LR: 1.0000e-04
+INFO - 09/21/20 15:36:20 - 1:25:37 -    2520 -   31.70 equations/s -  1258.76 words/s - PRIM-FWD:  0.5393 - model LR: 1.0000e-04
+INFO - 09/21/20 15:36:20 - 1:25:37 -    2520 -   31.70 equations/s -  1247.71 words/s - PRIM-FWD:  0.5271 - model LR: 1.0000e-04
+INFO - 09/21/20 15:36:20 - 1:25:37 -    2520 -   31.71 equations/s -  1235.96 words/s - PRIM-FWD:  0.5535 - model LR: 1.0000e-04
+INFO - 09/21/20 15:37:00 - 1:26:17 -    2540 -   31.95 equations/s -  1265.87 words/s - PRIM-FWD:  0.5168 - model LR: 1.0000e-04
+INFO - 09/21/20 15:37:00 - 1:26:17 -    2540 -   31.94 equations/s -  1298.10 words/s - PRIM-FWD:  0.5611 - model LR: 1.0000e-04
+INFO - 09/21/20 15:37:00 - 1:26:18 -    2540 -   31.95 equations/s -  1239.14 words/s - PRIM-FWD:  0.5250 - model LR: 1.0000e-04
+INFO - 09/21/20 15:37:00 - 1:26:17 -    2540 -   31.93 equations/s -  1260.30 words/s - PRIM-FWD:  0.5362 - model LR: 1.0000e-04
+INFO - 09/21/20 15:37:40 - 1:26:56 -    2560 -   32.07 equations/s -  1256.38 words/s - PRIM-FWD:  0.5138 - model LR: 1.0000e-04
+INFO - 09/21/20 15:37:40 - 1:26:56 -    2560 -   32.09 equations/s -  1254.41 words/s - PRIM-FWD:  0.5422 - model LR: 1.0000e-04
+INFO - 09/21/20 15:37:40 - 1:26:57 -    2560 -   32.08 equations/s -  1270.11 words/s - PRIM-FWD:  0.5478 - model LR: 1.0000e-04
+INFO - 09/21/20 15:37:40 - 1:26:57 -    2560 -   32.08 equations/s -  1261.49 words/s - PRIM-FWD:  0.5342 - model LR: 1.0000e-04
+INFO - 09/21/20 15:38:20 - 1:27:36 -    2580 -   32.06 equations/s -  1302.88 words/s - PRIM-FWD:  0.5360 - model LR: 1.0000e-04
+INFO - 09/21/20 15:38:20 - 1:27:36 -    2580 -   32.05 equations/s -  1292.82 words/s - PRIM-FWD:  0.5595 - model LR: 1.0000e-04
+INFO - 09/21/20 15:38:20 - 1:27:36 -    2580 -   32.04 equations/s -  1260.38 words/s - PRIM-FWD:  0.5151 - model LR: 1.0000e-04
+INFO - 09/21/20 15:38:20 - 1:27:37 -    2580 -   32.05 equations/s -  1275.53 words/s - PRIM-FWD:  0.5427 - model LR: 1.0000e-04
+INFO - 09/21/20 15:39:00 - 1:28:17 -    2600 -   31.58 equations/s -  1267.88 words/s - PRIM-FWD:  0.5412 - model LR: 1.0000e-04
+INFO - 09/21/20 15:39:00 - 1:28:17 -    2600 -   31.58 equations/s -  1242.48 words/s - PRIM-FWD:  0.5398 - model LR: 1.0000e-04
+INFO - 09/21/20 15:39:00 - 1:28:18 -    2600 -   31.59 equations/s -  1258.10 words/s - PRIM-FWD:  0.5516 - model LR: 1.0000e-04
+INFO - 09/21/20 15:39:00 - 1:28:17 -    2600 -   31.54 equations/s -  1265.44 words/s - PRIM-FWD:  0.5425 - model LR: 1.0000e-04
+INFO - 09/21/20 15:39:39 - 1:28:56 -    2620 -   32.48 equations/s -  1283.76 words/s - PRIM-FWD:  0.5480 - model LR: 1.0000e-04
+INFO - 09/21/20 15:39:39 - 1:28:56 -    2620 -   32.53 equations/s -  1300.07 words/s - PRIM-FWD:  0.5265 - model LR: 1.0000e-04
+INFO - 09/21/20 15:39:39 - 1:28:56 -    2620 -   32.47 equations/s -  1264.06 words/s - PRIM-FWD:  0.5378 - model LR: 1.0000e-04
+INFO - 09/21/20 15:39:39 - 1:28:57 -    2620 -   32.48 equations/s -  1261.85 words/s - PRIM-FWD:  0.5510 - model LR: 1.0000e-04
+INFO - 09/21/20 15:40:19 - 1:29:37 -    2640 -   32.25 equations/s -  1278.64 words/s - PRIM-FWD:  0.5430 - model LR: 1.0000e-04
+INFO - 09/21/20 15:40:19 - 1:29:36 -    2640 -   32.24 equations/s -  1257.81 words/s - PRIM-FWD:  0.5201 - model LR: 1.0000e-04
+INFO - 09/21/20 15:40:19 - 1:29:36 -    2640 -   32.24 equations/s -  1293.85 words/s - PRIM-FWD:  0.5474 - model LR: 1.0000e-04
+INFO - 09/21/20 15:40:19 - 1:29:36 -    2640 -   32.23 equations/s -  1284.92 words/s - PRIM-FWD:  0.5441 - model LR: 1.0000e-04
+INFO - 09/21/20 15:41:00 - 1:30:17 -    2660 -   31.61 equations/s -  1248.54 words/s - PRIM-FWD:  0.5548 - model LR: 1.0000e-04
+INFO - 09/21/20 15:41:00 - 1:30:17 -    2660 -   31.62 equations/s -  1255.43 words/s - PRIM-FWD:  0.5185 - model LR: 1.0000e-04
+INFO - 09/21/20 15:41:00 - 1:30:18 -    2660 -   31.62 equations/s -  1267.94 words/s - PRIM-FWD:  0.5407 - model LR: 1.0000e-04
+INFO - 09/21/20 15:41:00 - 1:30:17 -    2660 -   31.61 equations/s -  1241.04 words/s - PRIM-FWD:  0.5220 - model LR: 1.0000e-04
+INFO - 09/21/20 15:41:40 - 1:30:58 -    2680 -   32.00 equations/s -  1259.09 words/s - PRIM-FWD:  0.5280 - model LR: 1.0000e-04
+INFO - 09/21/20 15:41:40 - 1:30:57 -    2680 -   32.01 equations/s -  1270.49 words/s - PRIM-FWD:  0.5347 - model LR: 1.0000e-04
+INFO - 09/21/20 15:41:40 - 1:30:57 -    2680 -   32.00 equations/s -  1240.09 words/s - PRIM-FWD:  0.5156 - model LR: 1.0000e-04
+INFO - 09/21/20 15:41:40 - 1:30:57 -    2680 -   32.00 equations/s -  1267.76 words/s - PRIM-FWD:  0.5237 - model LR: 1.0000e-04
+INFO - 09/21/20 15:42:21 - 1:31:37 -    2700 -   31.30 equations/s -  1237.09 words/s - PRIM-FWD:  0.5342 - model LR: 1.0000e-04
+INFO - 09/21/20 15:42:21 - 1:31:38 -    2700 -   31.29 equations/s -  1251.35 words/s - PRIM-FWD:  0.5268 - model LR: 1.0000e-04
+INFO - 09/21/20 15:42:21 - 1:31:37 -    2700 -   31.30 equations/s -  1268.36 words/s - PRIM-FWD:  0.5594 - model LR: 1.0000e-04
+INFO - 09/21/20 15:42:21 - 1:31:37 -    2700 -   31.28 equations/s -  1250.60 words/s - PRIM-FWD:  0.5312 - model LR: 1.0000e-04
+INFO - 09/21/20 15:43:01 - 1:32:18 -    2720 -   31.98 equations/s -  1273.68 words/s - PRIM-FWD:  0.5291 - model LR: 1.0000e-04
+INFO - 09/21/20 15:43:01 - 1:32:17 -    2720 -   31.98 equations/s -  1263.63 words/s - PRIM-FWD:  0.5382 - model LR: 1.0000e-04
+INFO - 09/21/20 15:43:01 - 1:32:17 -    2720 -   32.00 equations/s -  1256.96 words/s - PRIM-FWD:  0.5306 - model LR: 1.0000e-04
+INFO - 09/21/20 15:43:01 - 1:32:17 -    2720 -   31.97 equations/s -  1285.89 words/s - PRIM-FWD:  0.5393 - model LR: 1.0000e-04
+INFO - 09/21/20 15:43:40 - 1:32:57 -    2740 -   32.42 equations/s -  1296.14 words/s - PRIM-FWD:  0.5562 - model LR: 1.0000e-04
+INFO - 09/21/20 15:43:40 - 1:32:57 -    2740 -   32.42 equations/s -  1286.50 words/s - PRIM-FWD:  0.5052 - model LR: 1.0000e-04
+INFO - 09/21/20 15:43:40 - 1:32:57 -    2740 -   32.42 equations/s -  1270.55 words/s - PRIM-FWD:  0.5201 - model LR: 1.0000e-04
+INFO - 09/21/20 15:43:40 - 1:32:58 -    2740 -   32.41 equations/s -  1285.06 words/s - PRIM-FWD:  0.5529 - model LR: 1.0000e-04
+INFO - 09/21/20 15:44:20 - 1:33:37 -    2760 -   31.91 equations/s -  1261.07 words/s - PRIM-FWD:  0.5112 - model LR: 1.0000e-04
+INFO - 09/21/20 15:44:20 - 1:33:37 -    2760 -   31.91 equations/s -  1283.97 words/s - PRIM-FWD:  0.5063 - model LR: 1.0000e-04
+INFO - 09/21/20 15:44:20 - 1:33:37 -    2760 -   31.89 equations/s -  1265.08 words/s - PRIM-FWD:  0.5306 - model LR: 1.0000e-04
+INFO - 09/21/20 15:44:20 - 1:33:38 -    2760 -   31.91 equations/s -  1259.72 words/s - PRIM-FWD:  0.5049 - model LR: 1.0000e-04
+INFO - 09/21/20 15:45:01 - 1:34:17 -    2780 -   31.72 equations/s -  1261.35 words/s - PRIM-FWD:  0.5036 - model LR: 1.0000e-04
+INFO - 09/21/20 15:45:01 - 1:34:17 -    2780 -   31.72 equations/s -  1249.41 words/s - PRIM-FWD:  0.5381 - model LR: 1.0000e-04
+INFO - 09/21/20 15:45:01 - 1:34:17 -    2780 -   31.71 equations/s -  1266.83 words/s - PRIM-FWD:  0.5265 - model LR: 1.0000e-04
+INFO - 09/21/20 15:45:01 - 1:34:18 -    2780 -   31.70 equations/s -  1248.23 words/s - PRIM-FWD:  0.5188 - model LR: 1.0000e-04
+INFO - 09/21/20 15:45:40 - 1:34:57 -    2800 -   32.06 equations/s -  1259.92 words/s - PRIM-FWD:  0.5307 - model LR: 1.0000e-04
+INFO - 09/21/20 15:45:40 - 1:34:57 -    2800 -   32.05 equations/s -  1280.00 words/s - PRIM-FWD:  0.5102 - model LR: 1.0000e-04
+INFO - 09/21/20 15:45:40 - 1:34:57 -    2800 -   32.05 equations/s -  1233.25 words/s - PRIM-FWD:  0.4979 - model LR: 1.0000e-04
+INFO - 09/21/20 15:45:40 - 1:34:58 -    2800 -   32.05 equations/s -  1273.31 words/s - PRIM-FWD:  0.5153 - model LR: 1.0000e-04
+slurmstepd: error: *** JOB 11627285 ON hpc-25-17 CANCELLED AT 2020-09-21T15:46:00 ***

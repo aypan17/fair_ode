@@ -1,0 +1,662 @@
+add:2,sub:1
+0 - SLURM_JOB_ID: 11603725
+0 - SLURM_JOB_NODELIST: hpc-25-17
+0 - SLURM_JOB_NUM_NODES: 1
+0 - SLURM_NTASKS: 1
+0 - SLURM_TASKS_PER_NODE: 1
+0 - SLURM_MEM_PER_NODE: None
+0 - SLURM_MEM_PER_CPU: 4096
+0 - SLURM_NODEID: 0
+0 - SLURM_PROCID: 0
+0 - SLURM_LOCALID: 0
+0 - SLURM_TASK_PID: 10567
+add:2,sub:1
+0 - SLURM_JOB_ID: 11603725
+0 - SLURM_JOB_NODELIST: hpc-25-17
+0 - SLURM_JOB_NUM_NODES: 1
+0 - SLURM_NTASKS: 1
+0 - SLURM_TASKS_PER_NODE: 1
+0 - SLURM_MEM_PER_NODE: None
+0 - SLURM_MEM_PER_CPU: 4096
+0 - SLURM_NODEID: 0
+0 - SLURM_PROCID: 0
+0 - SLURM_LOCALID: 0
+0 - SLURM_TASK_PID: 10567
+add:2,sub:1
+0 - SLURM_JOB_ID: 11603725
+0 - SLURM_JOB_NODELIST: hpc-25-17
+0 - SLURM_JOB_NUM_NODES: 1
+0 - SLURM_NTASKS: 1
+0 - SLURM_TASKS_PER_NODE: 1
+0 - SLURM_MEM_PER_NODE: None
+0 - SLURM_MEM_PER_CPU: 4096
+0 - SLURM_NODEID: 0
+0 - SLURM_PROCID: 0
+0 - SLURM_LOCALID: 0
+0 - SLURM_TASK_PID: 10567
+add:2,sub:1
+0 - SLURM_JOB_ID: 11603725
+0 - SLURM_JOB_NODELIST: hpc-25-17
+0 - SLURM_JOB_NUM_NODES: 1
+0 - SLURM_NTASKS: 1
+0 - SLURM_TASKS_PER_NODE: 1
+0 - SLURM_MEM_PER_NODE: None
+0 - SLURM_MEM_PER_CPU: 4096
+0 - SLURM_NODEID: 0
+0 - SLURM_PROCID: 0
+0 - SLURM_LOCALID: 0
+0 - SLURM_TASK_PID: 10567
+0 - Master address: 127.0.0.1
+0 - Master port   : 29500
+0 - Number of nodes: 1
+0 - Node ID					   : 0
+0 - Local rank				   : 0
+0 - Global rank    : 0
+0 - World size				   : 4
+0 - GPUs per node  : 4
+0 - Master					   : True
+0 - Multi-node				   : False
+0 - Multi-GPU				   : True
+0 - Hostname				   : hpc-25-17.cm.cluster
+Initializing PyTorch distributed ...
+0 - Master address: 127.0.0.1
+0 - Master port   : 29500
+2 - Number of nodes: 1
+2 - Node ID					   : 0
+2 - Local rank				   : 2
+2 - Global rank    : 2
+2 - World size				   : 4
+2 - GPUs per node  : 4
+2 - Master					   : False
+2 - Multi-node				   : False
+2 - Multi-GPU				   : True
+2 - Hostname				   : hpc-25-17.cm.cluster
+Initializing PyTorch distributed ...
+0 - Master address: 127.0.0.1
+0 - Master port   : 29500
+3 - Number of nodes: 1
+3 - Node ID					   : 0
+3 - Local rank				   : 3
+3 - Global rank    : 3
+3 - World size				   : 4
+3 - GPUs per node  : 4
+3 - Master					   : False
+3 - Multi-node				   : False
+3 - Multi-GPU				   : True
+3 - Hostname				   : hpc-25-17.cm.cluster
+Initializing PyTorch distributed ...
+0 - Master address: 127.0.0.1
+0 - Master port   : 29500
+1 - Number of nodes: 1
+1 - Node ID					   : 0
+1 - Local rank				   : 1
+1 - Global rank    : 1
+1 - World size				   : 4
+1 - GPUs per node  : 4
+1 - Master					   : False
+1 - Multi-node				   : False
+1 - Multi-GPU				   : True
+1 - Hostname				   : hpc-25-17.cm.cluster
+Initializing PyTorch distributed ...
+INFO - 09/17/20 19:33:55 - 0:00:00 - ============ Initialized logger ============
+INFO - 09/17/20 19:33:56 - 0:00:00 - accumulate_gradients: 1
+                                     amp: -1
+                                     attention_dropout: 0
+                                     balanced: False
+                                     batch_size: 256
+                                     beam_early_stopping: True
+                                     beam_eval: False
+                                     beam_length_penalty: 1
+                                     beam_size: 1
+                                     clean_prefix_expr: True
+                                     clip_grad_norm: 5
+                                     command: python main.py --local_rank=3 --exp_name treelstm_50k_numenc --emb_dim 128 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --symmetric --treelstm --optimizer 'adam,lr=0.0001' --batch_size 256 --tasks prim_fwd --reload_data 'prim_fwd,fwd_small/fwd_small.train,fwd_small/fwd_small.valid,fwd_small/fwd_small.test' --reload_size 50000 --epoch_size 50000 --max_epoch 100 --exp_id "11603725"
+                                     cpu: False
+                                     debug: False
+                                     debug_slurm: False
+                                     dropout: 0.1
+                                     dump_path: ./dumped/treelstm_50k_numenc/11603725
+                                     emb_dim: 128
+                                     env_base_seed: 0
+                                     env_name: char_sp
+                                     epoch_size: 50000
+                                     eval_only: False
+                                     eval_verbose: 0
+                                     eval_verbose_print: False
+                                     exp_id: 11603725
+                                     exp_name: treelstm_50k_numenc
+                                     export_data: False
+                                     fp16: False
+                                     global_rank: 3
+                                     int_base: 10
+                                     is_master: False
+                                     is_slurm_job: True
+                                     leaf_probs: 0.75,0,0.25,0
+                                     local_rank: 3
+                                     master_addr: 127.0.0.1
+                                     master_port: 29500
+                                     max_epoch: 100
+                                     max_int: 10000
+                                     max_len: 512
+                                     max_ops: 10
+                                     max_ops_G: 4
+                                     multi_gpu: True
+                                     multi_node: False
+                                     n_coefficients: 0
+                                     n_dec_layers: 6
+                                     n_enc_layers: 4
+                                     n_gpu_per_node: 4
+                                     n_heads: 8
+                                     n_nodes: 1
+                                     n_variables: 1
+                                     node_id: 0
+                                     num_bit: 10
+                                     num_workers: 10
+                                     operators: add:2,sub:1
+                                     optimizer: adam,lr=0.0001
+                                     order: 1
+                                     positive: False
+                                     precision: 10
+                                     reload_checkpoint: 
+                                     reload_data: prim_fwd,fwd_small/fwd_small.train,fwd_small/fwd_small.valid,fwd_small/fwd_small.test
+                                     reload_model: 
+                                     reload_size: 50000
+                                     rewrite_functions: 
+                                     same_nb_ops_per_batch: False
+                                     save_periodic: 0
+                                     share_inout_emb: True
+                                     sinusoidal_embeddings: False
+                                     stopping_criterion: 
+                                     symmetric: True
+                                     tasks: prim_fwd
+                                     treelstm: True
+                                     treesmu: False
+                                     validation_metrics: 
+                                     vars: 1
+                                     world_size: 4
+INFO - 09/17/20 19:33:56 - 0:00:00 - The experiment will be stored in ./dumped/treelstm_50k_numenc/11603725
+                                     
+INFO - 09/17/20 19:33:56 - 0:00:00 - Running command: python main.py --local_rank=3 --exp_name treelstm_50k_numenc --emb_dim 128 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --symmetric --treelstm --optimizer 'adam,lr=0.0001' --batch_size 256 --tasks prim_fwd --reload_data 'prim_fwd,fwd_small/fwd_small.train,fwd_small/fwd_small.valid,fwd_small/fwd_small.test' --reload_size 50000 --epoch_size 50000 --max_epoch 100
+
+WARNING - 09/17/20 19:33:56 - 0:00:00 - Signal handler installed.
+dict_items([('add', 2), ('sub', 2), ('mul', 2), ('div', 2), ('pow', 2), ('rac', 2), ('inv', 1), ('pow2', 1), ('pow3', 1), ('pow4', 1), ('pow5', 1), ('sqrt', 1), ('exp', 1), ('ln', 1), ('abs', 1), ('sign', 1), ('sin', 1), ('cos', 1), ('tan', 1), ('cot', 1), ('sec', 1), ('csc', 1), ('asin', 1), ('acos', 1), ('atan', 1), ('acot', 1), ('asec', 1), ('acsc', 1), ('sinh', 1), ('cosh', 1), ('tanh', 1), ('coth', 1), ('sech', 1), ('csch', 1), ('asinh', 1), ('acosh', 1), ('atanh', 1), ('acoth', 1), ('asech', 1), ('acsch', 1), ('derivative', 2), ('f', 1), ('g', 2)])
+INFO - 09/17/20 19:33:56 - 0:00:00 - Unary operators: ['inv', 'pow2', 'pow3', 'pow4', 'pow5', 'sqrt', 'exp', 'ln', 'abs', 'sign', 'sin', 'cos', 'tan', 'cot', 'sec', 'csc', 'asin', 'acos', 'atan', 'acot', 'asec', 'acsc', 'sinh', 'cosh', 'tanh', 'coth', 'sech', 'csch', 'asinh', 'acosh', 'atanh', 'acoth', 'asech', 'acsch', 'f']
+INFO - 09/17/20 19:33:56 - 0:00:00 - Binary operators: ['add', 'sub', 'mul', 'div', 'pow', 'rac', 'derivative', 'g']
+INFO - 09/17/20 19:33:56 - 0:00:00 - words: {'<s>': 0, '</s>': 1, '<pad>': 2, '(': 3, ')': 4, '<SPECIAL_5>': 5, '<SPECIAL_6>': 6, '<SPECIAL_7>': 7, '<SPECIAL_8>': 8, '<SPECIAL_9>': 9, 'pi': 10, 'E': 11, 'x': 12, 'y': 13, 'z': 14, 't': 15, 'a0': 16, 'a1': 17, 'a2': 18, 'a3': 19, 'a4': 20, 'a5': 21, 'a6': 22, 'a7': 23, 'a8': 24, 'a9': 25, 'abs': 26, 'acos': 27, 'acosh': 28, 'acot': 29, 'acoth': 30, 'acsc': 31, 'acsch': 32, 'add': 33, 'asec': 34, 'asech': 35, 'asin': 36, 'asinh': 37, 'atan': 38, 'atanh': 39, 'cos': 40, 'cosh': 41, 'cot': 42, 'coth': 43, 'csc': 44, 'csch': 45, 'derivative': 46, 'div': 47, 'exp': 48, 'f': 49, 'g': 50, 'inv': 51, 'ln': 52, 'mul': 53, 'pow': 54, 'pow2': 55, 'pow3': 56, 'pow4': 57, 'pow5': 58, 'rac': 59, 'sec': 60, 'sech': 61, 'sign': 62, 'sin': 63, 'sinh': 64, 'sqrt': 65, 'sub': 66, 'tan': 67, 'tanh': 68, 'I': 69, 'INT+': 70, 'INT-': 71, 'INT': 72, 'FLOAT': 73, '-': 74, '.': 75, '10^': 76, 'Y': 77, "Y'": 78, "Y''": 79, '0': 80, '1': 81, '2': 82, '3': 83, '4': 84, '5': 85, '6': 86, '7': 87, '8': 88, '9': 89}
+INFO - 09/17/20 19:33:56 - 0:00:00 - 20001 possible leaves.
+INFO - 09/17/20 19:33:56 - 0:00:00 - Checking expressions in [0.01, 0.1, 0.3, 0.5, 0.7, 0.9, 1.1, 2.1, 3.1, -0.01, -0.1, -0.3, -0.5, -0.7, -0.9, -1.1, -2.1, -3.1]
+INFO - 09/17/20 19:33:56 - 0:00:00 - Training tasks: prim_fwd
+INFO - 09/17/20 19:33:56 - 0:00:00 - ============ Initialized logger ============
+INFO - 09/17/20 19:33:56 - 0:00:00 - ============ Initialized logger ============
+INFO - 09/17/20 19:33:56 - 0:00:00 - accumulate_gradients: 1
+                                     amp: -1
+                                     attention_dropout: 0
+                                     balanced: False
+                                     batch_size: 256
+                                     beam_early_stopping: True
+                                     beam_eval: False
+                                     beam_length_penalty: 1
+                                     beam_size: 1
+                                     clean_prefix_expr: True
+                                     clip_grad_norm: 5
+                                     command: python main.py --local_rank=2 --exp_name treelstm_50k_numenc --emb_dim 128 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --symmetric --treelstm --optimizer 'adam,lr=0.0001' --batch_size 256 --tasks prim_fwd --reload_data 'prim_fwd,fwd_small/fwd_small.train,fwd_small/fwd_small.valid,fwd_small/fwd_small.test' --reload_size 50000 --epoch_size 50000 --max_epoch 100 --exp_id "11603725"
+                                     cpu: False
+                                     debug: False
+                                     debug_slurm: False
+                                     dropout: 0.1
+                                     dump_path: ./dumped/treelstm_50k_numenc/11603725
+                                     emb_dim: 128
+                                     env_base_seed: 0
+                                     env_name: char_sp
+                                     epoch_size: 50000
+                                     eval_only: False
+                                     eval_verbose: 0
+                                     eval_verbose_print: False
+                                     exp_id: 11603725
+                                     exp_name: treelstm_50k_numenc
+                                     export_data: False
+                                     fp16: False
+                                     global_rank: 2
+                                     int_base: 10
+                                     is_master: False
+                                     is_slurm_job: True
+                                     leaf_probs: 0.75,0,0.25,0
+                                     local_rank: 2
+                                     master_addr: 127.0.0.1
+                                     master_port: 29500
+                                     max_epoch: 100
+                                     max_int: 10000
+                                     max_len: 512
+                                     max_ops: 10
+                                     max_ops_G: 4
+                                     multi_gpu: True
+                                     multi_node: False
+                                     n_coefficients: 0
+                                     n_dec_layers: 6
+                                     n_enc_layers: 4
+                                     n_gpu_per_node: 4
+                                     n_heads: 8
+                                     n_nodes: 1
+                                     n_variables: 1
+                                     node_id: 0
+                                     num_bit: 10
+                                     num_workers: 10
+                                     operators: add:2,sub:1
+                                     optimizer: adam,lr=0.0001
+                                     order: 1
+                                     positive: False
+                                     precision: 10
+                                     reload_checkpoint: 
+                                     reload_data: prim_fwd,fwd_small/fwd_small.train,fwd_small/fwd_small.valid,fwd_small/fwd_small.test
+                                     reload_model: 
+                                     reload_size: 50000
+                                     rewrite_functions: 
+                                     same_nb_ops_per_batch: False
+                                     save_periodic: 0
+                                     share_inout_emb: True
+                                     sinusoidal_embeddings: False
+                                     stopping_criterion: 
+                                     symmetric: True
+                                     tasks: prim_fwd
+                                     treelstm: True
+                                     treesmu: False
+                                     validation_metrics: 
+                                     vars: 1
+                                     world_size: 4
+INFO - 09/17/20 19:33:56 - 0:00:00 - The experiment will be stored in ./dumped/treelstm_50k_numenc/11603725
+                                     
+INFO - 09/17/20 19:33:56 - 0:00:00 - Running command: python main.py --local_rank=2 --exp_name treelstm_50k_numenc --emb_dim 128 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --symmetric --treelstm --optimizer 'adam,lr=0.0001' --batch_size 256 --tasks prim_fwd --reload_data 'prim_fwd,fwd_small/fwd_small.train,fwd_small/fwd_small.valid,fwd_small/fwd_small.test' --reload_size 50000 --epoch_size 50000 --max_epoch 100
+
+WARNING - 09/17/20 19:33:56 - 0:00:00 - Signal handler installed.
+dict_items([('add', 2), ('sub', 2), ('mul', 2), ('div', 2), ('pow', 2), ('rac', 2), ('inv', 1), ('pow2', 1), ('pow3', 1), ('pow4', 1), ('pow5', 1), ('sqrt', 1), ('exp', 1), ('ln', 1), ('abs', 1), ('sign', 1), ('sin', 1), ('cos', 1), ('tan', 1), ('cot', 1), ('sec', 1), ('csc', 1), ('asin', 1), ('acos', 1), ('atan', 1), ('acot', 1), ('asec', 1), ('acsc', 1), ('sinh', 1), ('cosh', 1), ('tanh', 1), ('coth', 1), ('sech', 1), ('csch', 1), ('asinh', 1), ('acosh', 1), ('atanh', 1), ('acoth', 1), ('asech', 1), ('acsch', 1), ('derivative', 2), ('f', 1), ('g', 2)])
+INFO - 09/17/20 19:33:56 - 0:00:00 - Unary operators: ['inv', 'pow2', 'pow3', 'pow4', 'pow5', 'sqrt', 'exp', 'ln', 'abs', 'sign', 'sin', 'cos', 'tan', 'cot', 'sec', 'csc', 'asin', 'acos', 'atan', 'acot', 'asec', 'acsc', 'sinh', 'cosh', 'tanh', 'coth', 'sech', 'csch', 'asinh', 'acosh', 'atanh', 'acoth', 'asech', 'acsch', 'f']
+INFO - 09/17/20 19:33:56 - 0:00:00 - Binary operators: ['add', 'sub', 'mul', 'div', 'pow', 'rac', 'derivative', 'g']
+INFO - 09/17/20 19:33:56 - 0:00:00 - words: {'<s>': 0, '</s>': 1, '<pad>': 2, '(': 3, ')': 4, '<SPECIAL_5>': 5, '<SPECIAL_6>': 6, '<SPECIAL_7>': 7, '<SPECIAL_8>': 8, '<SPECIAL_9>': 9, 'pi': 10, 'E': 11, 'x': 12, 'y': 13, 'z': 14, 't': 15, 'a0': 16, 'a1': 17, 'a2': 18, 'a3': 19, 'a4': 20, 'a5': 21, 'a6': 22, 'a7': 23, 'a8': 24, 'a9': 25, 'abs': 26, 'acos': 27, 'acosh': 28, 'acot': 29, 'acoth': 30, 'acsc': 31, 'acsch': 32, 'add': 33, 'asec': 34, 'asech': 35, 'asin': 36, 'asinh': 37, 'atan': 38, 'atanh': 39, 'cos': 40, 'cosh': 41, 'cot': 42, 'coth': 43, 'csc': 44, 'csch': 45, 'derivative': 46, 'div': 47, 'exp': 48, 'f': 49, 'g': 50, 'inv': 51, 'ln': 52, 'mul': 53, 'pow': 54, 'pow2': 55, 'pow3': 56, 'pow4': 57, 'pow5': 58, 'rac': 59, 'sec': 60, 'sech': 61, 'sign': 62, 'sin': 63, 'sinh': 64, 'sqrt': 65, 'sub': 66, 'tan': 67, 'tanh': 68, 'I': 69, 'INT+': 70, 'INT-': 71, 'INT': 72, 'FLOAT': 73, '-': 74, '.': 75, '10^': 76, 'Y': 77, "Y'": 78, "Y''": 79, '0': 80, '1': 81, '2': 82, '3': 83, '4': 84, '5': 85, '6': 86, '7': 87, '8': 88, '9': 89}
+INFO - 09/17/20 19:33:56 - 0:00:00 - 20001 possible leaves.
+INFO - 09/17/20 19:33:56 - 0:00:00 - Checking expressions in [0.01, 0.1, 0.3, 0.5, 0.7, 0.9, 1.1, 2.1, 3.1, -0.01, -0.1, -0.3, -0.5, -0.7, -0.9, -1.1, -2.1, -3.1]
+INFO - 09/17/20 19:33:56 - 0:00:00 - Training tasks: prim_fwd
+INFO - 09/17/20 19:33:56 - 0:00:00 - accumulate_gradients: 1
+                                     amp: -1
+                                     attention_dropout: 0
+                                     balanced: False
+                                     batch_size: 256
+                                     beam_early_stopping: True
+                                     beam_eval: False
+                                     beam_length_penalty: 1
+                                     beam_size: 1
+                                     clean_prefix_expr: True
+                                     clip_grad_norm: 5
+                                     command: python main.py --local_rank=0 --exp_name treelstm_50k_numenc --emb_dim 128 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --symmetric --treelstm --optimizer 'adam,lr=0.0001' --batch_size 256 --tasks prim_fwd --reload_data 'prim_fwd,fwd_small/fwd_small.train,fwd_small/fwd_small.valid,fwd_small/fwd_small.test' --reload_size 50000 --epoch_size 50000 --max_epoch 100 --exp_id "11603725"
+                                     cpu: False
+                                     debug: False
+                                     debug_slurm: False
+                                     dropout: 0.1
+                                     dump_path: ./dumped/treelstm_50k_numenc/11603725
+                                     emb_dim: 128
+                                     env_base_seed: 0
+                                     env_name: char_sp
+                                     epoch_size: 50000
+                                     eval_only: False
+                                     eval_verbose: 0
+                                     eval_verbose_print: False
+                                     exp_id: 11603725
+                                     exp_name: treelstm_50k_numenc
+                                     export_data: False
+                                     fp16: False
+                                     global_rank: 0
+                                     int_base: 10
+                                     is_master: True
+                                     is_slurm_job: True
+                                     leaf_probs: 0.75,0,0.25,0
+                                     local_rank: 0
+                                     master_addr: 127.0.0.1
+                                     master_port: 29500
+                                     max_epoch: 100
+                                     max_int: 10000
+                                     max_len: 512
+                                     max_ops: 10
+                                     max_ops_G: 4
+                                     multi_gpu: True
+                                     multi_node: False
+                                     n_coefficients: 0
+                                     n_dec_layers: 6
+                                     n_enc_layers: 4
+                                     n_gpu_per_node: 4
+                                     n_heads: 8
+                                     n_nodes: 1
+                                     n_variables: 1
+                                     node_id: 0
+                                     num_bit: 10
+                                     num_workers: 10
+                                     operators: add:2,sub:1
+                                     optimizer: adam,lr=0.0001
+                                     order: 1
+                                     positive: False
+                                     precision: 10
+                                     reload_checkpoint: 
+                                     reload_data: prim_fwd,fwd_small/fwd_small.train,fwd_small/fwd_small.valid,fwd_small/fwd_small.test
+                                     reload_model: 
+                                     reload_size: 50000
+                                     rewrite_functions: 
+                                     same_nb_ops_per_batch: False
+                                     save_periodic: 0
+                                     share_inout_emb: True
+                                     sinusoidal_embeddings: False
+                                     stopping_criterion: 
+                                     symmetric: True
+                                     tasks: prim_fwd
+                                     treelstm: True
+                                     treesmu: False
+                                     validation_metrics: 
+                                     vars: 1
+                                     world_size: 4
+INFO - 09/17/20 19:33:56 - 0:00:00 - The experiment will be stored in ./dumped/treelstm_50k_numenc/11603725
+                                     
+INFO - 09/17/20 19:33:56 - 0:00:00 - Running command: python main.py --local_rank=0 --exp_name treelstm_50k_numenc --emb_dim 128 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --symmetric --treelstm --optimizer 'adam,lr=0.0001' --batch_size 256 --tasks prim_fwd --reload_data 'prim_fwd,fwd_small/fwd_small.train,fwd_small/fwd_small.valid,fwd_small/fwd_small.test' --reload_size 50000 --epoch_size 50000 --max_epoch 100
+
+WARNING - 09/17/20 19:33:56 - 0:00:00 - Signal handler installed.
+dict_items([('add', 2), ('sub', 2), ('mul', 2), ('div', 2), ('pow', 2), ('rac', 2), ('inv', 1), ('pow2', 1), ('pow3', 1), ('pow4', 1), ('pow5', 1), ('sqrt', 1), ('exp', 1), ('ln', 1), ('abs', 1), ('sign', 1), ('sin', 1), ('cos', 1), ('tan', 1), ('cot', 1), ('sec', 1), ('csc', 1), ('asin', 1), ('acos', 1), ('atan', 1), ('acot', 1), ('asec', 1), ('acsc', 1), ('sinh', 1), ('cosh', 1), ('tanh', 1), ('coth', 1), ('sech', 1), ('csch', 1), ('asinh', 1), ('acosh', 1), ('atanh', 1), ('acoth', 1), ('asech', 1), ('acsch', 1), ('derivative', 2), ('f', 1), ('g', 2)])
+INFO - 09/17/20 19:33:56 - 0:00:00 - Unary operators: ['inv', 'pow2', 'pow3', 'pow4', 'pow5', 'sqrt', 'exp', 'ln', 'abs', 'sign', 'sin', 'cos', 'tan', 'cot', 'sec', 'csc', 'asin', 'acos', 'atan', 'acot', 'asec', 'acsc', 'sinh', 'cosh', 'tanh', 'coth', 'sech', 'csch', 'asinh', 'acosh', 'atanh', 'acoth', 'asech', 'acsch', 'f']
+INFO - 09/17/20 19:33:56 - 0:00:00 - Binary operators: ['add', 'sub', 'mul', 'div', 'pow', 'rac', 'derivative', 'g']
+INFO - 09/17/20 19:33:56 - 0:00:00 - words: {'<s>': 0, '</s>': 1, '<pad>': 2, '(': 3, ')': 4, '<SPECIAL_5>': 5, '<SPECIAL_6>': 6, '<SPECIAL_7>': 7, '<SPECIAL_8>': 8, '<SPECIAL_9>': 9, 'pi': 10, 'E': 11, 'x': 12, 'y': 13, 'z': 14, 't': 15, 'a0': 16, 'a1': 17, 'a2': 18, 'a3': 19, 'a4': 20, 'a5': 21, 'a6': 22, 'a7': 23, 'a8': 24, 'a9': 25, 'abs': 26, 'acos': 27, 'acosh': 28, 'acot': 29, 'acoth': 30, 'acsc': 31, 'acsch': 32, 'add': 33, 'asec': 34, 'asech': 35, 'asin': 36, 'asinh': 37, 'atan': 38, 'atanh': 39, 'cos': 40, 'cosh': 41, 'cot': 42, 'coth': 43, 'csc': 44, 'csch': 45, 'derivative': 46, 'div': 47, 'exp': 48, 'f': 49, 'g': 50, 'inv': 51, 'ln': 52, 'mul': 53, 'pow': 54, 'pow2': 55, 'pow3': 56, 'pow4': 57, 'pow5': 58, 'rac': 59, 'sec': 60, 'sech': 61, 'sign': 62, 'sin': 63, 'sinh': 64, 'sqrt': 65, 'sub': 66, 'tan': 67, 'tanh': 68, 'I': 69, 'INT+': 70, 'INT-': 71, 'INT': 72, 'FLOAT': 73, '-': 74, '.': 75, '10^': 76, 'Y': 77, "Y'": 78, "Y''": 79, '0': 80, '1': 81, '2': 82, '3': 83, '4': 84, '5': 85, '6': 86, '7': 87, '8': 88, '9': 89}
+INFO - 09/17/20 19:33:56 - 0:00:00 - 20001 possible leaves.
+INFO - 09/17/20 19:33:56 - 0:00:00 - Checking expressions in [0.01, 0.1, 0.3, 0.5, 0.7, 0.9, 1.1, 2.1, 3.1, -0.01, -0.1, -0.3, -0.5, -0.7, -0.9, -1.1, -2.1, -3.1]
+INFO - 09/17/20 19:33:56 - 0:00:00 - Training tasks: prim_fwd
+INFO - 09/17/20 19:33:56 - 0:00:00 - ============ Initialized logger ============
+INFO - 09/17/20 19:33:56 - 0:00:00 - accumulate_gradients: 1
+                                     amp: -1
+                                     attention_dropout: 0
+                                     balanced: False
+                                     batch_size: 256
+                                     beam_early_stopping: True
+                                     beam_eval: False
+                                     beam_length_penalty: 1
+                                     beam_size: 1
+                                     clean_prefix_expr: True
+                                     clip_grad_norm: 5
+                                     command: python main.py --local_rank=1 --exp_name treelstm_50k_numenc --emb_dim 128 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --symmetric --treelstm --optimizer 'adam,lr=0.0001' --batch_size 256 --tasks prim_fwd --reload_data 'prim_fwd,fwd_small/fwd_small.train,fwd_small/fwd_small.valid,fwd_small/fwd_small.test' --reload_size 50000 --epoch_size 50000 --max_epoch 100 --exp_id "11603725"
+                                     cpu: False
+                                     debug: False
+                                     debug_slurm: False
+                                     dropout: 0.1
+                                     dump_path: ./dumped/treelstm_50k_numenc/11603725
+                                     emb_dim: 128
+                                     env_base_seed: 0
+                                     env_name: char_sp
+                                     epoch_size: 50000
+                                     eval_only: False
+                                     eval_verbose: 0
+                                     eval_verbose_print: False
+                                     exp_id: 11603725
+                                     exp_name: treelstm_50k_numenc
+                                     export_data: False
+                                     fp16: False
+                                     global_rank: 1
+                                     int_base: 10
+                                     is_master: False
+                                     is_slurm_job: True
+                                     leaf_probs: 0.75,0,0.25,0
+                                     local_rank: 1
+                                     master_addr: 127.0.0.1
+                                     master_port: 29500
+                                     max_epoch: 100
+                                     max_int: 10000
+                                     max_len: 512
+                                     max_ops: 10
+                                     max_ops_G: 4
+                                     multi_gpu: True
+                                     multi_node: False
+                                     n_coefficients: 0
+                                     n_dec_layers: 6
+                                     n_enc_layers: 4
+                                     n_gpu_per_node: 4
+                                     n_heads: 8
+                                     n_nodes: 1
+                                     n_variables: 1
+                                     node_id: 0
+                                     num_bit: 10
+                                     num_workers: 10
+                                     operators: add:2,sub:1
+                                     optimizer: adam,lr=0.0001
+                                     order: 1
+                                     positive: False
+                                     precision: 10
+                                     reload_checkpoint: 
+                                     reload_data: prim_fwd,fwd_small/fwd_small.train,fwd_small/fwd_small.valid,fwd_small/fwd_small.test
+                                     reload_model: 
+                                     reload_size: 50000
+                                     rewrite_functions: 
+                                     same_nb_ops_per_batch: False
+                                     save_periodic: 0
+                                     share_inout_emb: True
+                                     sinusoidal_embeddings: False
+                                     stopping_criterion: 
+                                     symmetric: True
+                                     tasks: prim_fwd
+                                     treelstm: True
+                                     treesmu: False
+                                     validation_metrics: 
+                                     vars: 1
+                                     world_size: 4
+INFO - 09/17/20 19:33:56 - 0:00:00 - The experiment will be stored in ./dumped/treelstm_50k_numenc/11603725
+                                     
+INFO - 09/17/20 19:33:56 - 0:00:00 - Running command: python main.py --local_rank=1 --exp_name treelstm_50k_numenc --emb_dim 128 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --symmetric --treelstm --optimizer 'adam,lr=0.0001' --batch_size 256 --tasks prim_fwd --reload_data 'prim_fwd,fwd_small/fwd_small.train,fwd_small/fwd_small.valid,fwd_small/fwd_small.test' --reload_size 50000 --epoch_size 50000 --max_epoch 100
+
+WARNING - 09/17/20 19:33:56 - 0:00:00 - Signal handler installed.
+dict_items([('add', 2), ('sub', 2), ('mul', 2), ('div', 2), ('pow', 2), ('rac', 2), ('inv', 1), ('pow2', 1), ('pow3', 1), ('pow4', 1), ('pow5', 1), ('sqrt', 1), ('exp', 1), ('ln', 1), ('abs', 1), ('sign', 1), ('sin', 1), ('cos', 1), ('tan', 1), ('cot', 1), ('sec', 1), ('csc', 1), ('asin', 1), ('acos', 1), ('atan', 1), ('acot', 1), ('asec', 1), ('acsc', 1), ('sinh', 1), ('cosh', 1), ('tanh', 1), ('coth', 1), ('sech', 1), ('csch', 1), ('asinh', 1), ('acosh', 1), ('atanh', 1), ('acoth', 1), ('asech', 1), ('acsch', 1), ('derivative', 2), ('f', 1), ('g', 2)])
+INFO - 09/17/20 19:33:56 - 0:00:00 - Unary operators: ['inv', 'pow2', 'pow3', 'pow4', 'pow5', 'sqrt', 'exp', 'ln', 'abs', 'sign', 'sin', 'cos', 'tan', 'cot', 'sec', 'csc', 'asin', 'acos', 'atan', 'acot', 'asec', 'acsc', 'sinh', 'cosh', 'tanh', 'coth', 'sech', 'csch', 'asinh', 'acosh', 'atanh', 'acoth', 'asech', 'acsch', 'f']
+INFO - 09/17/20 19:33:56 - 0:00:00 - Binary operators: ['add', 'sub', 'mul', 'div', 'pow', 'rac', 'derivative', 'g']
+INFO - 09/17/20 19:33:56 - 0:00:00 - words: {'<s>': 0, '</s>': 1, '<pad>': 2, '(': 3, ')': 4, '<SPECIAL_5>': 5, '<SPECIAL_6>': 6, '<SPECIAL_7>': 7, '<SPECIAL_8>': 8, '<SPECIAL_9>': 9, 'pi': 10, 'E': 11, 'x': 12, 'y': 13, 'z': 14, 't': 15, 'a0': 16, 'a1': 17, 'a2': 18, 'a3': 19, 'a4': 20, 'a5': 21, 'a6': 22, 'a7': 23, 'a8': 24, 'a9': 25, 'abs': 26, 'acos': 27, 'acosh': 28, 'acot': 29, 'acoth': 30, 'acsc': 31, 'acsch': 32, 'add': 33, 'asec': 34, 'asech': 35, 'asin': 36, 'asinh': 37, 'atan': 38, 'atanh': 39, 'cos': 40, 'cosh': 41, 'cot': 42, 'coth': 43, 'csc': 44, 'csch': 45, 'derivative': 46, 'div': 47, 'exp': 48, 'f': 49, 'g': 50, 'inv': 51, 'ln': 52, 'mul': 53, 'pow': 54, 'pow2': 55, 'pow3': 56, 'pow4': 57, 'pow5': 58, 'rac': 59, 'sec': 60, 'sech': 61, 'sign': 62, 'sin': 63, 'sinh': 64, 'sqrt': 65, 'sub': 66, 'tan': 67, 'tanh': 68, 'I': 69, 'INT+': 70, 'INT-': 71, 'INT': 72, 'FLOAT': 73, '-': 74, '.': 75, '10^': 76, 'Y': 77, "Y'": 78, "Y''": 79, '0': 80, '1': 81, '2': 82, '3': 83, '4': 84, '5': 85, '6': 86, '7': 87, '8': 88, '9': 89}
+INFO - 09/17/20 19:33:56 - 0:00:00 - 20001 possible leaves.
+INFO - 09/17/20 19:33:56 - 0:00:00 - Checking expressions in [0.01, 0.1, 0.3, 0.5, 0.7, 0.9, 1.1, 2.1, 3.1, -0.01, -0.1, -0.3, -0.5, -0.7, -0.9, -1.1, -2.1, -3.1]
+INFO - 09/17/20 19:33:56 - 0:00:00 - Training tasks: prim_fwd
+INFO - 09/17/20 19:33:56 - 0:00:00 - Number of parameters (encoder): 3655808
+INFO - 09/17/20 19:33:56 - 0:00:00 - Number of parameters (encoder): 3655808
+INFO - 09/17/20 19:33:56 - 0:00:00 - Number of parameters (decoder): 2123610
+INFO - 09/17/20 19:33:56 - 0:00:00 - Number of parameters (encoder): 3655808
+INFO - 09/17/20 19:33:56 - 0:00:00 - Number of parameters (decoder): 2123610
+INFO - 09/17/20 19:33:56 - 0:00:00 - Number of parameters (decoder): 2123610
+INFO - 09/17/20 19:33:56 - 0:00:00 - Number of parameters (encoder): 3655808
+INFO - 09/17/20 19:33:56 - 0:00:00 - Number of parameters (decoder): 2123610
+INFO - 09/17/20 19:34:02 - 0:00:07 - Found 566 parameters in model.
+INFO - 09/17/20 19:34:02 - 0:00:07 - Using nn.parallel.DistributedDataParallel ...
+INFO - 09/17/20 19:34:02 - 0:00:07 - Found 566 parameters in model.
+INFO - 09/17/20 19:34:02 - 0:00:07 - Using nn.parallel.DistributedDataParallel ...
+INFO - 09/17/20 19:34:02 - 0:00:07 - Found 566 parameters in model.
+INFO - 09/17/20 19:34:02 - 0:00:07 - Using nn.parallel.DistributedDataParallel ...
+INFO - 09/17/20 19:34:02 - 0:00:07 - Found 566 parameters in model.
+INFO - 09/17/20 19:34:02 - 0:00:07 - Using nn.parallel.DistributedDataParallel ...
+INFO - 09/17/20 19:34:03 - 0:00:07 - Optimizers: model
+INFO - 09/17/20 19:34:03 - 0:00:07 - Optimizers: model
+INFO - 09/17/20 19:34:03 - 0:00:07 - Optimizers: model
+INFO - 09/17/20 19:34:03 - 0:00:07 - Optimizers: model
+INFO - 09/17/20 19:34:03 - 0:00:07 - Creating train iterator for prim_fwd ...
+['abs', 'acos', 'acosh', 'acot', 'acoth', 'acsc', 'acsch', 'add', 'asec', 'asech', 'asin', 'asinh', 'atan', 'atanh', 'cos', 'cosh', 'cot', 'coth', 'csc', 'csch', 'derivative', 'div', 'exp', 'f', 'g', 'inv', 'ln', 'mul', 'pow', 'pow2', 'pow3', 'pow4', 'pow5', 'rac', 'sec', 'sech', 'sign', 'sin', 'sinh', 'sqrt', 'sub', 'tan', 'tanh']
+INFO - 09/17/20 19:34:03 - 0:00:07 - Creating train iterator for prim_fwd ...
+['abs', 'acos', 'acosh', 'acot', 'acoth', 'acsc', 'acsch', 'add', 'asec', 'asech', 'asin', 'asinh', 'atan', 'atanh', 'cos', 'cosh', 'cot', 'coth', 'csc', 'csch', 'derivative', 'div', 'exp', 'f', 'g', 'inv', 'ln', 'mul', 'pow', 'pow2', 'pow3', 'pow4', 'pow5', 'rac', 'sec', 'sech', 'sign', 'sin', 'sinh', 'sqrt', 'sub', 'tan', 'tanh']
+INFO - 09/17/20 19:34:03 - 0:00:07 - Loading data from fwd_small/fwd_small.train ...
+INFO - 09/17/20 19:34:03 - 0:00:07 - Creating train iterator for prim_fwd ...
+INFO - 09/17/20 19:34:03 - 0:00:07 - Loading data from fwd_small/fwd_small.train ...
+['abs', 'acos', 'acosh', 'acot', 'acoth', 'acsc', 'acsch', 'add', 'asec', 'asech', 'asin', 'asinh', 'atan', 'atanh', 'cos', 'cosh', 'cot', 'coth', 'csc', 'csch', 'derivative', 'div', 'exp', 'f', 'g', 'inv', 'ln', 'mul', 'pow', 'pow2', 'pow3', 'pow4', 'pow5', 'rac', 'sec', 'sech', 'sign', 'sin', 'sinh', 'sqrt', 'sub', 'tan', 'tanh']INFO - 09/17/20 19:34:03 - 0:00:07 - Creating train iterator for prim_fwd ...
+
+['abs', 'acos', 'acosh', 'acot', 'acoth', 'acsc', 'acsch', 'add', 'asec', 'asech', 'asin', 'asinh', 'atan', 'atanh', 'cos', 'cosh', 'cot', 'coth', 'csc', 'csch', 'derivative', 'div', 'exp', 'f', 'g', 'inv', 'ln', 'mul', 'pow', 'pow2', 'pow3', 'pow4', 'pow5', 'rac', 'sec', 'sech', 'sign', 'sin', 'sinh', 'sqrt', 'sub', 'tan', 'tanh']INFO - 09/17/20 19:34:03 - 0:00:07 - Loading data from fwd_small/fwd_small.train ...
+
+INFO - 09/17/20 19:34:03 - 0:00:07 - Loading data from fwd_small/fwd_small.train ...
+INFO - 09/17/20 19:34:03 - 0:00:07 - Loaded 12500 equations from the disk.
+INFO - 09/17/20 19:34:03 - 0:00:07 - Loaded 12500 equations from the disk.
+INFO - 09/17/20 19:34:03 - 0:00:07 - Loaded 12500 equations from the disk.
+INFO - 09/17/20 19:34:03 - 0:00:07 - Loaded 12500 equations from the disk.
+INFO - 09/17/20 19:34:03 - 0:00:07 - ============ Starting epoch 0 ... ============
+INFO - 09/17/20 19:34:03 - 0:00:07 - ============ Starting epoch 0 ... ============
+INFO - 09/17/20 19:34:03 - 0:00:07 - ============ Starting epoch 0 ... ============
+INFO - 09/17/20 19:34:03 - 0:00:07 - ============ Starting epoch 0 ... ============
+INFO - 09/17/20 19:34:03 - 0:00:08 - Initialized random generator for worker 0, with seed [0, 0, 0] (base seed=0).
+INFO - 09/17/20 19:34:03 - 0:00:08 - Initialized random generator for worker 0, with seed [0, 3, 0] (base seed=0).
+INFO - 09/17/20 19:34:03 - 0:00:08 - Initialized random generator for worker 0, with seed [0, 2, 0] (base seed=0).
+INFO - 09/17/20 19:34:03 - 0:00:08 - Initialized random generator for worker 0, with seed [0, 1, 0] (base seed=0).
+ERROR - 09/17/20 19:34:03 - 0:00:08 - An unknown exception of type RuntimeError occurred in line 396 when fetching batch. Arguments:('Caught RuntimeError in DataLoader worker process 0.\nOriginal Traceback (most recent call last):\n  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/utils/data/_utils/worker.py", line 178, in _worker_loop\n    data = fetcher.fetch(index)\n  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/utils/data/_utils/fetch.py", line 47, in fetch\n    return self.collate_fn(data)\n  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1972, in collate_fn\n    tensorized_batch = self.tensorize_tree_batch(trees)\n  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1890, in tensorize_tree_batch\n    ) = self.tensorize_tree(tree, torch.tensor([], dtype=torch.float))\n  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1746, in tensorize_tree\n    ) = self.tensorize_tree(tree.rchild, integers)\n  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1738, in tensorize_tree\n    ) = self.tensorize_tree(tree.lchild, integers)\n  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1746, in tensorize_tree\n    ) = self.tensorize_tree(tree.rchild, integers)\n  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1738, in tensorize_tree\n    ) = self.tensorize_tree(tree.lchild, integers)\n  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1697, in tensorize_tree\n    integers = torch.cat([integers, value])\nRuntimeError: Expected object of scalar type float but got scalar type long int for sequence element 1.\n',). Restarting ...
+WARNING - 09/17/20 19:34:03 - 0:00:08 - Requeuing job 11603725
+ERROR - 09/17/20 19:34:03 - 0:00:08 - An unknown exception of type RuntimeError occurred in line 396 when fetching batch. Arguments:('Caught RuntimeError in DataLoader worker process 0.\nOriginal Traceback (most recent call last):\n  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/utils/data/_utils/worker.py", line 178, in _worker_loop\n    data = fetcher.fetch(index)\n  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/utils/data/_utils/fetch.py", line 47, in fetch\n    return self.collate_fn(data)\n  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1972, in collate_fn\n    tensorized_batch = self.tensorize_tree_batch(trees)\n  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1890, in tensorize_tree_batch\n    ) = self.tensorize_tree(tree, torch.tensor([], dtype=torch.float))\n  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1746, in tensorize_tree\n    ) = self.tensorize_tree(tree.rchild, integers)\n  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1746, in tensorize_tree\n    ) = self.tensorize_tree(tree.rchild, integers)\n  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1716, in tensorize_tree\n    child_ops, child_tokens, child_left, child_right, digits, integers = self.tensorize_tree(child, integers)\n  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1738, in tensorize_tree\n    ) = self.tensorize_tree(tree.lchild, integers)\n  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1746, in tensorize_tree\n    ) = self.tensorize_tree(tree.rchild, integers)\n  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1697, in tensorize_tree\n    integers = torch.cat([integers, value])\nRuntimeError: Expected object of scalar type float but got scalar type long int for sequence element 1.\n',). Restarting ...
+WARNING - 09/17/20 19:34:03 - 0:00:08 - Requeuing job 11603725
+ERROR - 09/17/20 19:34:03 - 0:00:08 - An unknown exception of type RuntimeError occurred in line 396 when fetching batch. Arguments:('Caught RuntimeError in DataLoader worker process 0.\nOriginal Traceback (most recent call last):\n  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/utils/data/_utils/worker.py", line 178, in _worker_loop\n    data = fetcher.fetch(index)\n  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/utils/data/_utils/fetch.py", line 47, in fetch\n    return self.collate_fn(data)\n  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1972, in collate_fn\n    tensorized_batch = self.tensorize_tree_batch(trees)\n  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1890, in tensorize_tree_batch\n    ) = self.tensorize_tree(tree, torch.tensor([], dtype=torch.float))\n  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1746, in tensorize_tree\n    ) = self.tensorize_tree(tree.rchild, integers)\n  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1738, in tensorize_tree\n    ) = self.tensorize_tree(tree.lchild, integers)\n  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1746, in tensorize_tree\n    ) = self.tensorize_tree(tree.rchild, integers)\n  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1697, in tensorize_tree\n    integers = torch.cat([integers, value])\nRuntimeError: Expected object of scalar type float but got scalar type long int for sequence element 1.\n',). Restarting ...
+WARNING - 09/17/20 19:34:03 - 0:00:08 - Requeuing job 11603725
+ERROR - 09/17/20 19:34:03 - 0:00:08 - An unknown exception of type RuntimeError occurred in line 396 when fetching batch. Arguments:('Caught RuntimeError in DataLoader worker process 0.\nOriginal Traceback (most recent call last):\n  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/utils/data/_utils/worker.py", line 178, in _worker_loop\n    data = fetcher.fetch(index)\n  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/utils/data/_utils/fetch.py", line 47, in fetch\n    return self.collate_fn(data)\n  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1972, in collate_fn\n    tensorized_batch = self.tensorize_tree_batch(trees)\n  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1890, in tensorize_tree_batch\n    ) = self.tensorize_tree(tree, torch.tensor([], dtype=torch.float))\n  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1746, in tensorize_tree\n    ) = self.tensorize_tree(tree.rchild, integers)\n  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1738, in tensorize_tree\n    ) = self.tensorize_tree(tree.lchild, integers)\n  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1738, in tensorize_tree\n    ) = self.tensorize_tree(tree.lchild, integers)\n  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1697, in tensorize_tree\n    integers = torch.cat([integers, value])\nRuntimeError: Expected object of scalar type float but got scalar type long int for sequence element 1.\n',). Restarting ...
+WARNING - 09/17/20 19:34:03 - 0:00:08 - Requeuing job 11603725
+Job is pending execution for job 11603725
+Job is pending execution for job 11603725
+Traceback (most recent call last):
+  File "main.py", line 244, in <module>
+    main(params)
+  File "main.py", line 207, in main
+    trainer.enc_dec_step(task)
+  File "/central/home/aypan/enc_dec/src/trainer.py", line 498, in enc_dec_step
+    (x1, len1), (x2, len2), _, tensors = self.get_batch(task)
+  File "/central/home/aypan/enc_dec/src/trainer.py", line 396, in get_batch
+    batch = next(self.dataloader[task])
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 345, in __next__
+    data = self._next_data()
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 856, in _next_data
+    return self._process_data(data)
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 881, in _process_data
+    data.reraise()
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/_utils.py", line 395, in reraise
+    raise self.exc_type(msg)
+RuntimeError: Caught RuntimeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/utils/data/_utils/worker.py", line 178, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/utils/data/_utils/fetch.py", line 47, in fetch
+    return self.collate_fn(data)
+  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1972, in collate_fn
+    tensorized_batch = self.tensorize_tree_batch(trees)
+  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1890, in tensorize_tree_batch
+    ) = self.tensorize_tree(tree, torch.tensor([], dtype=torch.float))
+  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1746, in tensorize_tree
+    ) = self.tensorize_tree(tree.rchild, integers)
+  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1738, in tensorize_tree
+    ) = self.tensorize_tree(tree.lchild, integers)
+  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1746, in tensorize_tree
+    ) = self.tensorize_tree(tree.rchild, integers)
+  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1738, in tensorize_tree
+    ) = self.tensorize_tree(tree.lchild, integers)
+  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1697, in tensorize_tree
+    integers = torch.cat([integers, value])
+RuntimeError: Expected object of scalar type float but got scalar type long int for sequence element 1.
+
+Traceback (most recent call last):
+  File "main.py", line 244, in <module>
+Job is pending execution for job 11603725
+    main(params)
+  File "main.py", line 207, in main
+    trainer.enc_dec_step(task)
+  File "/central/home/aypan/enc_dec/src/trainer.py", line 498, in enc_dec_step
+    (x1, len1), (x2, len2), _, tensors = self.get_batch(task)
+  File "/central/home/aypan/enc_dec/src/trainer.py", line 396, in get_batch
+    batch = next(self.dataloader[task])
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 345, in __next__
+    data = self._next_data()
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 856, in _next_data
+    return self._process_data(data)
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 881, in _process_data
+    data.reraise()
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/_utils.py", line 395, in reraise
+    raise self.exc_type(msg)
+RuntimeError: Caught RuntimeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/utils/data/_utils/worker.py", line 178, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/utils/data/_utils/fetch.py", line 47, in fetch
+    return self.collate_fn(data)
+  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1972, in collate_fn
+    tensorized_batch = self.tensorize_tree_batch(trees)
+  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1890, in tensorize_tree_batch
+    ) = self.tensorize_tree(tree, torch.tensor([], dtype=torch.float))
+  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1746, in tensorize_tree
+    ) = self.tensorize_tree(tree.rchild, integers)
+  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1746, in tensorize_tree
+    ) = self.tensorize_tree(tree.rchild, integers)
+  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1716, in tensorize_tree
+    child_ops, child_tokens, child_left, child_right, digits, integers = self.tensorize_tree(child, integers)
+  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1738, in tensorize_tree
+    ) = self.tensorize_tree(tree.lchild, integers)
+  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1746, in tensorize_tree
+    ) = self.tensorize_tree(tree.rchild, integers)
+  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1697, in tensorize_tree
+    integers = torch.cat([integers, value])
+RuntimeError: Expected object of scalar type float but got scalar type long int for sequence element 1.
+
+Traceback (most recent call last):
+  File "main.py", line 244, in <module>
+    main(params)
+  File "main.py", line 207, in main
+    trainer.enc_dec_step(task)
+  File "/central/home/aypan/enc_dec/src/trainer.py", line 498, in enc_dec_step
+    (x1, len1), (x2, len2), _, tensors = self.get_batch(task)
+  File "/central/home/aypan/enc_dec/src/trainer.py", line 396, in get_batch
+    batch = next(self.dataloader[task])
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 345, in __next__
+    data = self._next_data()
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 856, in _next_data
+    return self._process_data(data)
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 881, in _process_data
+Traceback (most recent call last):
+  File "main.py", line 244, in <module>
+    data.reraise()
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/_utils.py", line 395, in reraise
+    main(params)
+  File "main.py", line 207, in main
+    trainer.enc_dec_step(task)
+  File "/central/home/aypan/enc_dec/src/trainer.py", line 498, in enc_dec_step
+    (x1, len1), (x2, len2), _, tensors = self.get_batch(task)
+  File "/central/home/aypan/enc_dec/src/trainer.py", line 396, in get_batch
+    batch = next(self.dataloader[task])
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 345, in __next__
+    data = self._next_data()
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 856, in _next_data
+    raise self.exc_type(msg)
+    return self._process_data(data)
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 881, in _process_data
+RuntimeError: Caught RuntimeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/utils/data/_utils/worker.py", line 178, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/utils/data/_utils/fetch.py", line 47, in fetch
+    return self.collate_fn(data)
+  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1972, in collate_fn
+    tensorized_batch = self.tensorize_tree_batch(trees)
+  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1890, in tensorize_tree_batch
+    ) = self.tensorize_tree(tree, torch.tensor([], dtype=torch.float))
+  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1746, in tensorize_tree
+    ) = self.tensorize_tree(tree.rchild, integers)
+  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1738, in tensorize_tree
+    ) = self.tensorize_tree(tree.lchild, integers)
+  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1746, in tensorize_tree
+    ) = self.tensorize_tree(tree.rchild, integers)
+  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1697, in tensorize_tree
+    integers = torch.cat([integers, value])
+RuntimeError: Expected object of scalar type float but got scalar type long int for sequence element 1.
+
+    data.reraise()
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/_utils.py", line 395, in reraise
+    raise self.exc_type(msg)
+RuntimeError: Caught RuntimeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/utils/data/_utils/worker.py", line 178, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/utils/data/_utils/fetch.py", line 47, in fetch
+    return self.collate_fn(data)
+  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1972, in collate_fn
+    tensorized_batch = self.tensorize_tree_batch(trees)
+  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1890, in tensorize_tree_batch
+    ) = self.tensorize_tree(tree, torch.tensor([], dtype=torch.float))
+  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1746, in tensorize_tree
+    ) = self.tensorize_tree(tree.rchild, integers)
+  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1738, in tensorize_tree
+    ) = self.tensorize_tree(tree.lchild, integers)
+  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1738, in tensorize_tree
+    ) = self.tensorize_tree(tree.lchild, integers)
+  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 1697, in tensorize_tree
+    integers = torch.cat([integers, value])
+RuntimeError: Expected object of scalar type float but got scalar type long int for sequence element 1.
+
+slurmstepd: error: *** JOB 11603725 ON hpc-25-17 CANCELLED AT 2020-09-17T19:34:04 DUE TO JOB REQUEUE ***

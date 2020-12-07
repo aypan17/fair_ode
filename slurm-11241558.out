@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "main.py", line 17, in <module>
+    from src.model import check_model_params, build_modules
+  File "/central/home/aypan/enc_dec/src/model/__init__.py", line 12, in <module>
+    from .transformer import TransformerModel, TreeLSTM_Encoder
+  File "/central/home/aypan/enc_dec/src/model/transformer.py", line 18, in <module>
+    from src.envs.char_sp import BinaryEqnTree, SYMBOL_ENCODER, EOS, LEAF, VOCAB, BINARY, UNARY, \
+  File "/central/home/aypan/enc_dec/src/envs/__init__.py", line 10, in <module>
+    from .char_sp import CharSPEnvironment
+  File "/central/home/aypan/enc_dec/src/envs/char_sp.py", line 870
+    '''
+      ^
+TabError: inconsistent use of tabs and spaces in indentation
+/var/spool/slurmd/job11241558/slurm_script: line 21: --batch_size: command not found
+/var/spool/slurmd/job11241558/slurm_script: line 28: --n_variables: command not found
+done

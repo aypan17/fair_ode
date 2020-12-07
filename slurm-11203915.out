@@ -1,0 +1,558 @@
+0 - SLURM_JOB_ID: 11203915
+0 - SLURM_JOB_NODELIST: hpc-25-17
+0 - SLURM_JOB_NUM_NODES: 1
+0 - SLURM_NTASKS: 1
+0 - SLURM_TASKS_PER_NODE: 4
+0 - SLURM_MEM_PER_NODE: None
+0 - SLURM_MEM_PER_CPU: 4096
+0 - SLURM_NODEID: 0
+0 - SLURM_PROCID: 0
+0 - SLURM_LOCALID: 0
+0 - SLURM_TASK_PID: 9355
+0 - Master address: 127.0.0.1
+0 - Master port   : 29500
+2 - Number of nodes: 1
+2 - Node ID					   : 0
+2 - Local rank				   : 2
+2 - Global rank    : 2
+2 - World size				   : 4
+2 - GPUs per node  : 4
+2 - Master					   : False
+2 - Multi-node				   : False
+2 - Multi-GPU				   : True
+2 - Hostname				   : hpc-25-17.cm.cluster
+Initializing PyTorch distributed ...
+0 - SLURM_JOB_ID: 11203915
+0 - SLURM_JOB_NODELIST: hpc-25-17
+0 - SLURM_JOB_NUM_NODES: 1
+0 - SLURM_NTASKS: 1
+0 - SLURM_TASKS_PER_NODE: 4
+0 - SLURM_MEM_PER_NODE: None
+0 - SLURM_MEM_PER_CPU: 4096
+0 - SLURM_NODEID: 0
+0 - SLURM_PROCID: 0
+0 - SLURM_LOCALID: 0
+0 - SLURM_TASK_PID: 9355
+0 - Master address: 127.0.0.1
+0 - Master port   : 29500
+3 - Number of nodes: 1
+3 - Node ID					   : 0
+3 - Local rank				   : 3
+3 - Global rank    : 3
+3 - World size				   : 4
+3 - GPUs per node  : 4
+3 - Master					   : False
+3 - Multi-node				   : False
+3 - Multi-GPU				   : True
+3 - Hostname				   : hpc-25-17.cm.cluster
+0 - SLURM_JOB_ID: 11203915
+0 - SLURM_JOB_NODELIST: hpc-25-17
+0 - SLURM_JOB_NUM_NODES: 1
+0 - SLURM_NTASKS: 1
+0 - SLURM_TASKS_PER_NODE: 4
+0 - SLURM_MEM_PER_NODE: None
+0 - SLURM_MEM_PER_CPU: 4096
+0 - SLURM_NODEID: 0
+0 - SLURM_PROCID: 0
+0 - SLURM_LOCALID: 0
+0 - SLURM_TASK_PID: 9355
+0 - SLURM_JOB_ID: 11203915
+0 - SLURM_JOB_NODELIST: hpc-25-17
+0 - SLURM_JOB_NUM_NODES: 1
+0 - SLURM_NTASKS: 1
+0 - SLURM_TASKS_PER_NODE: 4
+0 - SLURM_MEM_PER_NODE: None
+0 - SLURM_MEM_PER_CPU: 4096
+0 - SLURM_NODEID: 0
+0 - SLURM_PROCID: 0
+0 - SLURM_LOCALID: 0
+0 - SLURM_TASK_PID: 9355
+Initializing PyTorch distributed ...
+0 - Master address: 127.0.0.1
+0 - Master port   : 29500
+0 - Number of nodes: 1
+0 - Node ID					   : 0
+0 - Local rank				   : 0
+0 - Global rank    : 0
+0 - World size				   : 4
+0 - GPUs per node  : 4
+0 - Master					   : True
+0 - Multi-node				   : False
+0 - Multi-GPU				   : True
+0 - Hostname				   : hpc-25-17.cm.cluster
+0 - Master address: 127.0.0.1
+0 - Master port   : 29500
+1 - Number of nodes: 1
+1 - Node ID					   : 0
+1 - Local rank				   : 1
+1 - Global rank    : 1
+1 - World size				   : 4
+1 - GPUs per node  : 4
+1 - Master					   : False
+1 - Multi-node				   : False
+1 - Multi-GPU				   : True
+1 - Hostname				   : hpc-25-17.cm.cluster
+Initializing PyTorch distributed ...
+Initializing PyTorch distributed ...
+INFO - 09/10/20 16:54:53 - 0:00:00 - ============ Initialized logger ============
+INFO - 09/10/20 16:54:53 - 0:00:00 - accumulate_gradients: 1
+                                     amp: -1
+                                     attention_dropout: 0
+                                     balanced: False
+                                     batch_size: 32
+                                     beam_early_stopping: True
+                                     beam_eval: False
+                                     beam_length_penalty: 1
+                                     beam_size: 1
+                                     clean_prefix_expr: True
+                                     clip_grad_norm: 5
+                                     command: python main.py --local_rank=1 --exp_name transf_100k_noinit --fp16 false --amp '-1' --tasks ode2 --reload_data 'ode2,ode2.train,ode2.valid,ode2.test' --reload_size 1000 --emb_dim 256 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --treelstm --symmetric --num_bit 10 --optimizer 'adam,lr=0.0001' --batch_size 32 --epoch_size 1000 --max_epoch 50 --validation_metrics valid_ode2_acc --exp_id "11203915"
+                                     cpu: False
+                                     debug: False
+                                     debug_slurm: False
+                                     dropout: 0.1
+                                     dump_path: ./dumped/transf_100k_noinit/11203915
+                                     emb_dim: 256
+                                     env_base_seed: 0
+                                     env_name: char_sp
+                                     epoch_size: 1000
+                                     eval_only: False
+                                     eval_verbose: 0
+                                     eval_verbose_print: False
+                                     exp_id: 11203915
+                                     exp_name: transf_100k_noinit
+                                     export_data: False
+                                     fp16: False
+                                     global_rank: 1
+                                     int_base: 10
+                                     is_master: False
+                                     is_slurm_job: True
+                                     leaf_probs: 0.75,0,0.25,0
+                                     local_rank: 1
+                                     master_addr: 127.0.0.1
+                                     master_port: 29500
+                                     max_epoch: 50
+                                     max_int: 10000
+                                     max_len: 512
+                                     max_ops: 10
+                                     max_ops_G: 4
+                                     multi_gpu: True
+                                     multi_node: False
+                                     n_coefficients: 0
+                                     n_dec_layers: 6
+                                     n_enc_layers: 4
+                                     n_gpu_per_node: 4
+                                     n_heads: 8
+                                     n_nodes: 1
+                                     n_variables: 1
+                                     node_id: 0
+                                     num_bit: 10
+                                     num_workers: 10
+                                     operators: add:2,sub:1
+                                     optimizer: adam,lr=0.0001
+                                     order: 1
+                                     positive: False
+                                     precision: 10
+                                     reload_checkpoint: 
+                                     reload_data: ode2,ode2.train,ode2.valid,ode2.test
+                                     reload_model: 
+                                     reload_size: 1000
+                                     rewrite_functions: 
+                                     same_nb_ops_per_batch: False
+                                     save_periodic: 0
+                                     share_inout_emb: True
+                                     sinusoidal_embeddings: False
+                                     stopping_criterion: 
+                                     symmetric: True
+                                     tasks: ode2
+                                     treelstm: True
+                                     validation_metrics: valid_ode2_acc
+                                     vars: 1
+                                     world_size: 4
+INFO - 09/10/20 16:54:53 - 0:00:00 - The experiment will be stored in ./dumped/transf_100k_noinit/11203915
+                                     
+INFO - 09/10/20 16:54:53 - 0:00:00 - Running command: python main.py --local_rank=1 --exp_name transf_100k_noinit --fp16 false --amp '-1' --tasks ode2 --reload_data 'ode2,ode2.train,ode2.valid,ode2.test' --reload_size 1000 --emb_dim 256 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --treelstm --symmetric --num_bit 10 --optimizer 'adam,lr=0.0001' --batch_size 32 --epoch_size 1000 --max_epoch 50 --validation_metrics valid_ode2_acc
+
+WARNING - 09/10/20 16:54:53 - 0:00:00 - Signal handler installed.
+INFO - 09/10/20 16:54:53 - 0:00:00 - Unary operators: []
+INFO - 09/10/20 16:54:53 - 0:00:00 - Binary operators: ['add', 'sub']
+INFO - 09/10/20 16:54:53 - 0:00:00 - words: {'<s>': 0, '</s>': 1, '<pad>': 2, '(': 3, ')': 4, '<SPECIAL_5>': 5, '<SPECIAL_6>': 6, '<SPECIAL_7>': 7, '<SPECIAL_8>': 8, '<SPECIAL_9>': 9, 'pi': 10, 'E': 11, 'x': 12, 'y': 13, 'z': 14, 't': 15, 'a0': 16, 'a1': 17, 'a2': 18, 'a3': 19, 'a4': 20, 'a5': 21, 'a6': 22, 'a7': 23, 'a8': 24, 'a9': 25, 'abs': 26, 'acos': 27, 'acosh': 28, 'acot': 29, 'acoth': 30, 'acsc': 31, 'acsch': 32, 'add': 33, 'asec': 34, 'asech': 35, 'asin': 36, 'asinh': 37, 'atan': 38, 'atanh': 39, 'cos': 40, 'cosh': 41, 'cot': 42, 'coth': 43, 'csc': 44, 'csch': 45, 'derivative': 46, 'div': 47, 'exp': 48, 'f': 49, 'g': 50, 'h': 51, 'inv': 52, 'ln': 53, 'mul': 54, 'pow': 55, 'pow2': 56, 'pow3': 57, 'pow4': 58, 'pow5': 59, 'rac': 60, 'sec': 61, 'sech': 62, 'sign': 63, 'sin': 64, 'sinh': 65, 'sqrt': 66, 'sub': 67, 'tan': 68, 'tanh': 69, 'I': 70, 'INT+': 71, 'INT-': 72, 'INT': 73, 'FLOAT': 74, '-': 75, '.': 76, '10^': 77, 'Y': 78, "Y'": 79, "Y''": 80, '0': 81, '1': 82, '2': 83, '3': 84, '4': 85, '5': 86, '6': 87, '7': 88, '8': 89, '9': 90}
+INFO - 09/10/20 16:54:53 - 0:00:00 - 20001 possible leaves.
+INFO - 09/10/20 16:54:53 - 0:00:00 - Checking expressions in [0.01, 0.1, 0.3, 0.5, 0.7, 0.9, 1.1, 2.1, 3.1, -0.01, -0.1, -0.3, -0.5, -0.7, -0.9, -1.1, -2.1, -3.1]
+INFO - 09/10/20 16:54:53 - 0:00:00 - Training tasks: ode2
+INFO - 09/10/20 16:54:53 - 0:00:00 - Number of parameters (encoder): 14867712
+INFO - 09/10/20 16:54:53 - 0:00:00 - Number of parameters (decoder): 7393115
+INFO - 09/10/20 16:54:54 - 0:00:00 - ============ Initialized logger ============
+INFO - 09/10/20 16:54:54 - 0:00:00 - accumulate_gradients: 1
+                                     amp: -1
+                                     attention_dropout: 0
+                                     balanced: False
+                                     batch_size: 32
+                                     beam_early_stopping: True
+                                     beam_eval: False
+                                     beam_length_penalty: 1
+                                     beam_size: 1
+                                     clean_prefix_expr: True
+                                     clip_grad_norm: 5
+                                     command: python main.py --local_rank=2 --exp_name transf_100k_noinit --fp16 false --amp '-1' --tasks ode2 --reload_data 'ode2,ode2.train,ode2.valid,ode2.test' --reload_size 1000 --emb_dim 256 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --treelstm --symmetric --num_bit 10 --optimizer 'adam,lr=0.0001' --batch_size 32 --epoch_size 1000 --max_epoch 50 --validation_metrics valid_ode2_acc --exp_id "11203915"
+                                     cpu: False
+                                     debug: False
+                                     debug_slurm: False
+                                     dropout: 0.1
+                                     dump_path: ./dumped/transf_100k_noinit/11203915
+                                     emb_dim: 256
+                                     env_base_seed: 0
+                                     env_name: char_sp
+                                     epoch_size: 1000
+                                     eval_only: False
+                                     eval_verbose: 0
+                                     eval_verbose_print: False
+                                     exp_id: 11203915
+                                     exp_name: transf_100k_noinit
+                                     export_data: False
+                                     fp16: False
+                                     global_rank: 2
+                                     int_base: 10
+                                     is_master: False
+                                     is_slurm_job: True
+                                     leaf_probs: 0.75,0,0.25,0
+                                     local_rank: 2
+                                     master_addr: 127.0.0.1
+                                     master_port: 29500
+                                     max_epoch: 50
+                                     max_int: 10000
+                                     max_len: 512
+                                     max_ops: 10
+                                     max_ops_G: 4
+                                     multi_gpu: True
+                                     multi_node: False
+                                     n_coefficients: 0
+                                     n_dec_layers: 6
+                                     n_enc_layers: 4
+                                     n_gpu_per_node: 4
+                                     n_heads: 8
+                                     n_nodes: 1
+                                     n_variables: 1
+                                     node_id: 0
+                                     num_bit: 10
+                                     num_workers: 10
+                                     operators: add:2,sub:1
+                                     optimizer: adam,lr=0.0001
+                                     order: 1
+                                     positive: False
+                                     precision: 10
+                                     reload_checkpoint: 
+                                     reload_data: ode2,ode2.train,ode2.valid,ode2.test
+                                     reload_model: 
+                                     reload_size: 1000
+                                     rewrite_functions: 
+                                     same_nb_ops_per_batch: False
+                                     save_periodic: 0
+                                     share_inout_emb: True
+                                     sinusoidal_embeddings: False
+                                     stopping_criterion: 
+                                     symmetric: True
+                                     tasks: ode2
+                                     treelstm: True
+                                     validation_metrics: valid_ode2_acc
+                                     vars: 1
+                                     world_size: 4
+INFO - 09/10/20 16:54:54 - 0:00:00 - The experiment will be stored in ./dumped/transf_100k_noinit/11203915
+                                     
+INFO - 09/10/20 16:54:54 - 0:00:00 - Running command: python main.py --local_rank=2 --exp_name transf_100k_noinit --fp16 false --amp '-1' --tasks ode2 --reload_data 'ode2,ode2.train,ode2.valid,ode2.test' --reload_size 1000 --emb_dim 256 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --treelstm --symmetric --num_bit 10 --optimizer 'adam,lr=0.0001' --batch_size 32 --epoch_size 1000 --max_epoch 50 --validation_metrics valid_ode2_acc
+
+WARNING - 09/10/20 16:54:54 - 0:00:00 - Signal handler installed.
+INFO - 09/10/20 16:54:54 - 0:00:00 - Unary operators: []
+INFO - 09/10/20 16:54:54 - 0:00:00 - Binary operators: ['add', 'sub']
+INFO - 09/10/20 16:54:54 - 0:00:00 - words: {'<s>': 0, '</s>': 1, '<pad>': 2, '(': 3, ')': 4, '<SPECIAL_5>': 5, '<SPECIAL_6>': 6, '<SPECIAL_7>': 7, '<SPECIAL_8>': 8, '<SPECIAL_9>': 9, 'pi': 10, 'E': 11, 'x': 12, 'y': 13, 'z': 14, 't': 15, 'a0': 16, 'a1': 17, 'a2': 18, 'a3': 19, 'a4': 20, 'a5': 21, 'a6': 22, 'a7': 23, 'a8': 24, 'a9': 25, 'abs': 26, 'acos': 27, 'acosh': 28, 'acot': 29, 'acoth': 30, 'acsc': 31, 'acsch': 32, 'add': 33, 'asec': 34, 'asech': 35, 'asin': 36, 'asinh': 37, 'atan': 38, 'atanh': 39, 'cos': 40, 'cosh': 41, 'cot': 42, 'coth': 43, 'csc': 44, 'csch': 45, 'derivative': 46, 'div': 47, 'exp': 48, 'f': 49, 'g': 50, 'h': 51, 'inv': 52, 'ln': 53, 'mul': 54, 'pow': 55, 'pow2': 56, 'pow3': 57, 'pow4': 58, 'pow5': 59, 'rac': 60, 'sec': 61, 'sech': 62, 'sign': 63, 'sin': 64, 'sinh': 65, 'sqrt': 66, 'sub': 67, 'tan': 68, 'tanh': 69, 'I': 70, 'INT+': 71, 'INT-': 72, 'INT': 73, 'FLOAT': 74, '-': 75, '.': 76, '10^': 77, 'Y': 78, "Y'": 79, "Y''": 80, '0': 81, '1': 82, '2': 83, '3': 84, '4': 85, '5': 86, '6': 87, '7': 88, '8': 89, '9': 90}
+INFO - 09/10/20 16:54:54 - 0:00:00 - 20001 possible leaves.
+INFO - 09/10/20 16:54:54 - 0:00:00 - Checking expressions in [0.01, 0.1, 0.3, 0.5, 0.7, 0.9, 1.1, 2.1, 3.1, -0.01, -0.1, -0.3, -0.5, -0.7, -0.9, -1.1, -2.1, -3.1]
+INFO - 09/10/20 16:54:54 - 0:00:00 - Training tasks: ode2
+INFO - 09/10/20 16:54:54 - 0:00:00 - ============ Initialized logger ============
+INFO - 09/10/20 16:54:54 - 0:00:00 - accumulate_gradients: 1
+                                     amp: -1
+                                     attention_dropout: 0
+                                     balanced: False
+                                     batch_size: 32
+                                     beam_early_stopping: True
+                                     beam_eval: False
+                                     beam_length_penalty: 1
+                                     beam_size: 1
+                                     clean_prefix_expr: True
+                                     clip_grad_norm: 5
+                                     command: python main.py --local_rank=3 --exp_name transf_100k_noinit --fp16 false --amp '-1' --tasks ode2 --reload_data 'ode2,ode2.train,ode2.valid,ode2.test' --reload_size 1000 --emb_dim 256 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --treelstm --symmetric --num_bit 10 --optimizer 'adam,lr=0.0001' --batch_size 32 --epoch_size 1000 --max_epoch 50 --validation_metrics valid_ode2_acc --exp_id "11203915"
+                                     cpu: False
+                                     debug: False
+                                     debug_slurm: False
+                                     dropout: 0.1
+                                     dump_path: ./dumped/transf_100k_noinit/11203915
+                                     emb_dim: 256
+                                     env_base_seed: 0
+                                     env_name: char_sp
+                                     epoch_size: 1000
+                                     eval_only: False
+                                     eval_verbose: 0
+                                     eval_verbose_print: False
+                                     exp_id: 11203915
+                                     exp_name: transf_100k_noinit
+                                     export_data: False
+                                     fp16: False
+                                     global_rank: 3
+                                     int_base: 10
+                                     is_master: False
+                                     is_slurm_job: True
+                                     leaf_probs: 0.75,0,0.25,0
+                                     local_rank: 3
+                                     master_addr: 127.0.0.1
+                                     master_port: 29500
+                                     max_epoch: 50
+                                     max_int: 10000
+                                     max_len: 512
+                                     max_ops: 10
+                                     max_ops_G: 4
+                                     multi_gpu: True
+                                     multi_node: False
+                                     n_coefficients: 0
+                                     n_dec_layers: 6
+                                     n_enc_layers: 4
+                                     n_gpu_per_node: 4
+                                     n_heads: 8
+                                     n_nodes: 1
+                                     n_variables: 1
+                                     node_id: 0
+                                     num_bit: 10
+                                     num_workers: 10
+                                     operators: add:2,sub:1
+                                     optimizer: adam,lr=0.0001
+                                     order: 1
+                                     positive: False
+                                     precision: 10
+                                     reload_checkpoint: 
+                                     reload_data: ode2,ode2.train,ode2.valid,ode2.test
+                                     reload_model: 
+                                     reload_size: 1000
+                                     rewrite_functions: 
+                                     same_nb_ops_per_batch: False
+                                     save_periodic: 0
+                                     share_inout_emb: True
+                                     sinusoidal_embeddings: False
+                                     stopping_criterion: 
+                                     symmetric: True
+                                     tasks: ode2
+                                     treelstm: True
+                                     validation_metrics: valid_ode2_acc
+                                     vars: 1
+                                     world_size: 4
+INFO - 09/10/20 16:54:54 - 0:00:00 - The experiment will be stored in ./dumped/transf_100k_noinit/11203915
+                                     
+INFO - 09/10/20 16:54:54 - 0:00:00 - Running command: python main.py --local_rank=3 --exp_name transf_100k_noinit --fp16 false --amp '-1' --tasks ode2 --reload_data 'ode2,ode2.train,ode2.valid,ode2.test' --reload_size 1000 --emb_dim 256 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --treelstm --symmetric --num_bit 10 --optimizer 'adam,lr=0.0001' --batch_size 32 --epoch_size 1000 --max_epoch 50 --validation_metrics valid_ode2_acc
+
+WARNING - 09/10/20 16:54:54 - 0:00:00 - Signal handler installed.
+INFO - 09/10/20 16:54:54 - 0:00:00 - Unary operators: []
+INFO - 09/10/20 16:54:54 - 0:00:00 - Binary operators: ['add', 'sub']
+INFO - 09/10/20 16:54:54 - 0:00:00 - ============ Initialized logger ============
+INFO - 09/10/20 16:54:54 - 0:00:00 - words: {'<s>': 0, '</s>': 1, '<pad>': 2, '(': 3, ')': 4, '<SPECIAL_5>': 5, '<SPECIAL_6>': 6, '<SPECIAL_7>': 7, '<SPECIAL_8>': 8, '<SPECIAL_9>': 9, 'pi': 10, 'E': 11, 'x': 12, 'y': 13, 'z': 14, 't': 15, 'a0': 16, 'a1': 17, 'a2': 18, 'a3': 19, 'a4': 20, 'a5': 21, 'a6': 22, 'a7': 23, 'a8': 24, 'a9': 25, 'abs': 26, 'acos': 27, 'acosh': 28, 'acot': 29, 'acoth': 30, 'acsc': 31, 'acsch': 32, 'add': 33, 'asec': 34, 'asech': 35, 'asin': 36, 'asinh': 37, 'atan': 38, 'atanh': 39, 'cos': 40, 'cosh': 41, 'cot': 42, 'coth': 43, 'csc': 44, 'csch': 45, 'derivative': 46, 'div': 47, 'exp': 48, 'f': 49, 'g': 50, 'h': 51, 'inv': 52, 'ln': 53, 'mul': 54, 'pow': 55, 'pow2': 56, 'pow3': 57, 'pow4': 58, 'pow5': 59, 'rac': 60, 'sec': 61, 'sech': 62, 'sign': 63, 'sin': 64, 'sinh': 65, 'sqrt': 66, 'sub': 67, 'tan': 68, 'tanh': 69, 'I': 70, 'INT+': 71, 'INT-': 72, 'INT': 73, 'FLOAT': 74, '-': 75, '.': 76, '10^': 77, 'Y': 78, "Y'": 79, "Y''": 80, '0': 81, '1': 82, '2': 83, '3': 84, '4': 85, '5': 86, '6': 87, '7': 88, '8': 89, '9': 90}
+INFO - 09/10/20 16:54:54 - 0:00:00 - 20001 possible leaves.
+INFO - 09/10/20 16:54:54 - 0:00:00 - Checking expressions in [0.01, 0.1, 0.3, 0.5, 0.7, 0.9, 1.1, 2.1, 3.1, -0.01, -0.1, -0.3, -0.5, -0.7, -0.9, -1.1, -2.1, -3.1]
+INFO - 09/10/20 16:54:54 - 0:00:00 - Training tasks: ode2
+INFO - 09/10/20 16:54:54 - 0:00:00 - accumulate_gradients: 1
+                                     amp: -1
+                                     attention_dropout: 0
+                                     balanced: False
+                                     batch_size: 32
+                                     beam_early_stopping: True
+                                     beam_eval: False
+                                     beam_length_penalty: 1
+                                     beam_size: 1
+                                     clean_prefix_expr: True
+                                     clip_grad_norm: 5
+                                     command: python main.py --local_rank=0 --exp_name transf_100k_noinit --fp16 false --amp '-1' --tasks ode2 --reload_data 'ode2,ode2.train,ode2.valid,ode2.test' --reload_size 1000 --emb_dim 256 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --treelstm --symmetric --num_bit 10 --optimizer 'adam,lr=0.0001' --batch_size 32 --epoch_size 1000 --max_epoch 50 --validation_metrics valid_ode2_acc --exp_id "11203915"
+                                     cpu: False
+                                     debug: False
+                                     debug_slurm: False
+                                     dropout: 0.1
+                                     dump_path: ./dumped/transf_100k_noinit/11203915
+                                     emb_dim: 256
+                                     env_base_seed: 0
+                                     env_name: char_sp
+                                     epoch_size: 1000
+                                     eval_only: False
+                                     eval_verbose: 0
+                                     eval_verbose_print: False
+                                     exp_id: 11203915
+                                     exp_name: transf_100k_noinit
+                                     export_data: False
+                                     fp16: False
+                                     global_rank: 0
+                                     int_base: 10
+                                     is_master: True
+                                     is_slurm_job: True
+                                     leaf_probs: 0.75,0,0.25,0
+                                     local_rank: 0
+                                     master_addr: 127.0.0.1
+                                     master_port: 29500
+                                     max_epoch: 50
+                                     max_int: 10000
+                                     max_len: 512
+                                     max_ops: 10
+                                     max_ops_G: 4
+                                     multi_gpu: True
+                                     multi_node: False
+                                     n_coefficients: 0
+                                     n_dec_layers: 6
+                                     n_enc_layers: 4
+                                     n_gpu_per_node: 4
+                                     n_heads: 8
+                                     n_nodes: 1
+                                     n_variables: 1
+                                     node_id: 0
+                                     num_bit: 10
+                                     num_workers: 10
+                                     operators: add:2,sub:1
+                                     optimizer: adam,lr=0.0001
+                                     order: 1
+                                     positive: False
+                                     precision: 10
+                                     reload_checkpoint: 
+                                     reload_data: ode2,ode2.train,ode2.valid,ode2.test
+                                     reload_model: 
+                                     reload_size: 1000
+                                     rewrite_functions: 
+                                     same_nb_ops_per_batch: False
+                                     save_periodic: 0
+                                     share_inout_emb: True
+                                     sinusoidal_embeddings: False
+                                     stopping_criterion: 
+                                     symmetric: True
+                                     tasks: ode2
+                                     treelstm: True
+                                     validation_metrics: valid_ode2_acc
+                                     vars: 1
+                                     world_size: 4
+INFO - 09/10/20 16:54:54 - 0:00:00 - The experiment will be stored in ./dumped/transf_100k_noinit/11203915
+                                     
+INFO - 09/10/20 16:54:54 - 0:00:00 - Running command: python main.py --local_rank=0 --exp_name transf_100k_noinit --fp16 false --amp '-1' --tasks ode2 --reload_data 'ode2,ode2.train,ode2.valid,ode2.test' --reload_size 1000 --emb_dim 256 --n_dec_layers 6 --n_heads 8 --dropout '0.1' --treelstm --symmetric --num_bit 10 --optimizer 'adam,lr=0.0001' --batch_size 32 --epoch_size 1000 --max_epoch 50 --validation_metrics valid_ode2_acc
+
+WARNING - 09/10/20 16:54:54 - 0:00:00 - Signal handler installed.
+INFO - 09/10/20 16:54:54 - 0:00:00 - Unary operators: []
+INFO - 09/10/20 16:54:54 - 0:00:00 - Binary operators: ['add', 'sub']
+INFO - 09/10/20 16:54:54 - 0:00:00 - words: {'<s>': 0, '</s>': 1, '<pad>': 2, '(': 3, ')': 4, '<SPECIAL_5>': 5, '<SPECIAL_6>': 6, '<SPECIAL_7>': 7, '<SPECIAL_8>': 8, '<SPECIAL_9>': 9, 'pi': 10, 'E': 11, 'x': 12, 'y': 13, 'z': 14, 't': 15, 'a0': 16, 'a1': 17, 'a2': 18, 'a3': 19, 'a4': 20, 'a5': 21, 'a6': 22, 'a7': 23, 'a8': 24, 'a9': 25, 'abs': 26, 'acos': 27, 'acosh': 28, 'acot': 29, 'acoth': 30, 'acsc': 31, 'acsch': 32, 'add': 33, 'asec': 34, 'asech': 35, 'asin': 36, 'asinh': 37, 'atan': 38, 'atanh': 39, 'cos': 40, 'cosh': 41, 'cot': 42, 'coth': 43, 'csc': 44, 'csch': 45, 'derivative': 46, 'div': 47, 'exp': 48, 'f': 49, 'g': 50, 'h': 51, 'inv': 52, 'ln': 53, 'mul': 54, 'pow': 55, 'pow2': 56, 'pow3': 57, 'pow4': 58, 'pow5': 59, 'rac': 60, 'sec': 61, 'sech': 62, 'sign': 63, 'sin': 64, 'sinh': 65, 'sqrt': 66, 'sub': 67, 'tan': 68, 'tanh': 69, 'I': 70, 'INT+': 71, 'INT-': 72, 'INT': 73, 'FLOAT': 74, '-': 75, '.': 76, '10^': 77, 'Y': 78, "Y'": 79, "Y''": 80, '0': 81, '1': 82, '2': 83, '3': 84, '4': 85, '5': 86, '6': 87, '7': 88, '8': 89, '9': 90}
+INFO - 09/10/20 16:54:54 - 0:00:00 - 20001 possible leaves.
+INFO - 09/10/20 16:54:54 - 0:00:00 - Checking expressions in [0.01, 0.1, 0.3, 0.5, 0.7, 0.9, 1.1, 2.1, 3.1, -0.01, -0.1, -0.3, -0.5, -0.7, -0.9, -1.1, -2.1, -3.1]
+INFO - 09/10/20 16:54:54 - 0:00:00 - Training tasks: ode2
+INFO - 09/10/20 16:54:54 - 0:00:00 - Number of parameters (encoder): 14867712
+INFO - 09/10/20 16:54:54 - 0:00:00 - Number of parameters (decoder): 7393115
+INFO - 09/10/20 16:54:54 - 0:00:00 - Number of parameters (encoder): 14867712
+INFO - 09/10/20 16:54:54 - 0:00:00 - Number of parameters (decoder): 7393115
+INFO - 09/10/20 16:54:55 - 0:00:00 - Number of parameters (encoder): 14867712
+INFO - 09/10/20 16:54:55 - 0:00:00 - Number of parameters (decoder): 7393115
+INFO - 09/10/20 16:54:55 - 0:00:02 - Found 583 parameters in model.
+INFO - 09/10/20 16:54:55 - 0:00:02 - Using nn.parallel.DistributedDataParallel ...
+INFO - 09/10/20 16:54:56 - 0:00:02 - Found 583 parameters in model.
+INFO - 09/10/20 16:54:56 - 0:00:02 - Using nn.parallel.DistributedDataParallel ...
+INFO - 09/10/20 16:54:56 - 0:00:02 - Found 583 parameters in model.
+INFO - 09/10/20 16:54:56 - 0:00:02 - Using nn.parallel.DistributedDataParallel ...
+INFO - 09/10/20 16:54:56 - 0:00:02 - Found 583 parameters in model.
+INFO - 09/10/20 16:54:56 - 0:00:02 - Using nn.parallel.DistributedDataParallel ...
+INFO - 09/10/20 16:54:56 - 0:00:02 - Optimizers: model
+INFO - 09/10/20 16:54:56 - 0:00:02 - Creating train iterator for ode2 ...
+INFO - 09/10/20 16:54:56 - 0:00:02 - Loading data from ode2.train ...
+INFO - 09/10/20 16:54:56 - 0:00:02 - Optimizers: model
+INFO - 09/10/20 16:54:56 - 0:00:02 - Creating train iterator for ode2 ...
+INFO - 09/10/20 16:54:56 - 0:00:02 - Loading data from ode2.train ...
+INFO - 09/10/20 16:54:56 - 0:00:02 - Optimizers: model
+INFO - 09/10/20 16:54:56 - 0:00:02 - Creating train iterator for ode2 ...
+INFO - 09/10/20 16:54:56 - 0:00:02 - Loading data from ode2.train ...
+INFO - 09/10/20 16:54:56 - 0:00:03 - Optimizers: model
+INFO - 09/10/20 16:54:56 - 0:00:03 - Creating train iterator for ode2 ...
+INFO - 09/10/20 16:54:56 - 0:00:03 - Loading data from ode2.train ...
+INFO - 09/10/20 16:54:57 - 0:00:02 - Loaded 250 equations from the disk.
+INFO - 09/10/20 16:54:57 - 0:00:02 - Loaded 250 equations from the disk.
+INFO - 09/10/20 16:54:57 - 0:00:02 - Loaded 250 equations from the disk.
+INFO - 09/10/20 16:54:57 - 0:00:03 - Loaded 250 equations from the disk.
+INFO - 09/10/20 16:54:57 - 0:00:02 - ============ Starting epoch 0 ... ============
+INFO - 09/10/20 16:54:57 - 0:00:02 - ============ Starting epoch 0 ... ============
+INFO - 09/10/20 16:54:57 - 0:00:02 - ============ Starting epoch 0 ... ============
+INFO - 09/10/20 16:54:57 - 0:00:03 - ============ Starting epoch 0 ... ============
+INFO - 09/10/20 16:54:57 - 0:00:02 - Initialized random generator for worker 0, with seed [0, 3, 0] (base seed=0).
+INFO - 09/10/20 16:54:57 - 0:00:02 - Initialized random generator for worker 0, with seed [0, 2, 0] (base seed=0).
+INFO - 09/10/20 16:54:57 - 0:00:02 - Initialized random generator for worker 0, with seed [0, 0, 0] (base seed=0).
+INFO - 09/10/20 16:54:57 - 0:00:03 - Initialized random generator for worker 0, with seed [0, 1, 0] (base seed=0).
+/opt/conda/conda-bld/pytorch_1587428266983/work/torch/csrc/utils/python_arg_parser.cpp:756: UserWarning: This overload of add_ is deprecated:
+	add_(Number alpha, Tensor other)
+Consider using one of the following signatures instead:
+	add_(Tensor other, *, Number alpha)
+/opt/conda/conda-bld/pytorch_1587428266983/work/torch/csrc/utils/python_arg_parser.cpp:756: UserWarning: This overload of add_ is deprecated:
+	add_(Number alpha, Tensor other)
+Consider using one of the following signatures instead:
+	add_(Tensor other, *, Number alpha)
+/opt/conda/conda-bld/pytorch_1587428266983/work/torch/csrc/utils/python_arg_parser.cpp:756: UserWarning: This overload of add_ is deprecated:
+	add_(Number alpha, Tensor other)
+Consider using one of the following signatures instead:
+	add_(Tensor other, *, Number alpha)
+/opt/conda/conda-bld/pytorch_1587428266983/work/torch/csrc/utils/python_arg_parser.cpp:756: UserWarning: This overload of add_ is deprecated:
+	add_(Number alpha, Tensor other)
+Consider using one of the following signatures instead:
+	add_(Tensor other, *, Number alpha)
+Traceback (most recent call last):
+  File "main.py", line 242, in <module>
+    main(params)
+  File "main.py", line 205, in main
+    trainer.enc_dec_step(task)
+  File "/central/home/aypan/enc_dec/src/trainer.py", line 456, in enc_dec_step
+Traceback (most recent call last):
+  File "main.py", line 242, in <module>
+    main(params)
+  File "main.py", line 205, in main
+    trainer.enc_dec_step(task)
+  File "/central/home/aypan/enc_dec/src/trainer.py", line 456, in enc_dec_step
+    encoded, len1, valid = encoder(x=xword, causal=False)
+      File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/nn/modules/module.py", line 550, in __call__
+encoded, len1, valid = encoder(x=xword, causal=False)
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/nn/modules/module.py", line 550, in __call__
+Traceback (most recent call last):
+  File "main.py", line 242, in <module>
+    main(params)
+  File "main.py", line 205, in main
+    trainer.enc_dec_step(task)
+  File "/central/home/aypan/enc_dec/src/trainer.py", line 456, in enc_dec_step
+    encoded, len1, valid = encoder(x=xword, causal=False)
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/nn/modules/module.py", line 550, in __call__
+Traceback (most recent call last):
+  File "main.py", line 242, in <module>
+    main(params)
+  File "main.py", line 205, in main
+    trainer.enc_dec_step(task)
+  File "/central/home/aypan/enc_dec/src/trainer.py", line 456, in enc_dec_step
+    encoded, len1, valid = encoder(x=xword, causal=False)
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/nn/modules/module.py", line 550, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/nn/parallel/distributed.py", line 462, in forward
+    result = self.forward(*input, **kwargs)
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/nn/parallel/distributed.py", line 462, in forward
+        result = self.forward(*input, **kwargs)result = self.forward(*input, **kwargs)
+
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/nn/parallel/distributed.py", line 462, in forward
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/nn/parallel/distributed.py", line 462, in forward
+        self.reducer.prepare_for_backward([])    self.reducer.prepare_for_backward([])
+    self.reducer.prepare_for_backward([])
+self.reducer.prepare_for_backward([])RuntimeError
+
+RuntimeError: : RuntimeErrorExpected to have finished reduction in the prior iteration before starting a new one. This error indicates that your module has parameters that were not used in producing loss. You can enable unused parameter detection by (1) passing the keyword argument `find_unused_parameters=True` to `torch.nn.parallel.DistributedDataParallel`; (2) making sure all `forward` function outputs participate in calculating loss. If you already have done the above two steps, then the distributed data parallel module wasn't able to locate the output tensors in the return value of your module's `forward` function. Please include the loss function and the structure of the return value of `forward` of your module when reporting this issue (e.g. list, dict, iterable).Expected to have finished reduction in the prior iteration before starting a new one. This error indicates that your module has parameters that were not used in producing loss. You can enable unused parameter detection by (1) passing the keyword argument `find_unused_parameters=True` to `torch.nn.parallel.DistributedDataParallel`; (2) making sure all `forward` function outputs participate in calculating loss. If you already have done the above two steps, then the distributed data parallel module wasn't able to locate the output tensors in the return value of your module's `forward` function. Please include the loss function and the structure of the return value of `forward` of your module when reporting this issue (e.g. list, dict, iterable).RuntimeError: 
+
+: Expected to have finished reduction in the prior iteration before starting a new one. This error indicates that your module has parameters that were not used in producing loss. You can enable unused parameter detection by (1) passing the keyword argument `find_unused_parameters=True` to `torch.nn.parallel.DistributedDataParallel`; (2) making sure all `forward` function outputs participate in calculating loss. If you already have done the above two steps, then the distributed data parallel module wasn't able to locate the output tensors in the return value of your module's `forward` function. Please include the loss function and the structure of the return value of `forward` of your module when reporting this issue (e.g. list, dict, iterable).Expected to have finished reduction in the prior iteration before starting a new one. This error indicates that your module has parameters that were not used in producing loss. You can enable unused parameter detection by (1) passing the keyword argument `find_unused_parameters=True` to `torch.nn.parallel.DistributedDataParallel`; (2) making sure all `forward` function outputs participate in calculating loss. If you already have done the above two steps, then the distributed data parallel module wasn't able to locate the output tensors in the return value of your module's `forward` function. Please include the loss function and the structure of the return value of `forward` of your module when reporting this issue (e.g. list, dict, iterable).
+
+Traceback (most recent call last):
+  File "/home/aypan/miniconda3/lib/python3.7/runpy.py", line 193, in _run_module_as_main
+    "__main__", mod_spec)
+  File "/home/aypan/miniconda3/lib/python3.7/runpy.py", line 85, in _run_code
+    exec(code, run_globals)
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/distributed/launch.py", line 263, in <module>
+    main()
+  File "/home/aypan/miniconda3/lib/python3.7/site-packages/torch/distributed/launch.py", line 259, in main
+    cmd=cmd)
+subprocess.CalledProcessError: Command '['/home/aypan/miniconda3/bin/python3', '-u', 'main.py', '--local_rank=3', '--exp_name', 'transf_100k_noinit', '--fp16', 'false', '--amp', '-1', '--tasks', 'ode2', '--reload_data', 'ode2,ode2.train,ode2.valid,ode2.test', '--reload_size', '1000', '--emb_dim', '256', '--n_dec_layers', '6', '--n_heads', '8', '--dropout', '0.1', '--treelstm', '--symmetric', '--num_bit', '10', '--optimizer', 'adam,lr=0.0001', '--batch_size', '32', '--epoch_size', '1000', '--max_epoch', '50', '--validation_metrics', 'valid_ode2_acc']' returned non-zero exit status 1.
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+done

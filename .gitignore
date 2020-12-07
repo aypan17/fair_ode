@@ -140,6 +140,8 @@ ode2/
 
 fwd_small/
 
+*.out
+
 # End of https://www.gitignore.io/api/python
 
 # tools, data, and dumped models

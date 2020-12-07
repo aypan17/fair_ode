@@ -16,6 +16,34 @@ from .modules import FunctionModule, UnaryLSTM, BinaryLSTM, \
                     UnarySMU, BinarySMU, UnaryStack, BinaryStack
 import src.envs.char_sp as char_sp
 
+START_TOKEN = '<s>'
+END_TOKEN = '</s>'
+
+def pad_tokens(model, out):
+	"""
+	Pads the front and back of the string with embeddings for <s> and </s>
+	from the model
+
+	Parameters
+	----------
+	model
+		The encoder model calling this function.
+	out
+		The unpadded output of the encoder model.
+
+	Returns
+	-------
+		Output from the model padded with embeddings for <s> and </s>.
+	"""
+	batch_size = len(out)
+	# (batch_size, 1, d_model)
+	s = torch.tensor([model.token_vocab[START_TOKEN]], device=out[0].device)
+	e = torch.tensor([model.token_vocab[END_TOKEN]], device=out[0].device)
+	start = model.embedding(s)
+	end = model.embedding(e)
+	# This is slow! Looping is slow but not sure how to concatenated to variable length tensors.
+	return [torch.cat((start, o, end), dim=0) for o in out]
+
 
 class GraphClassifier(torch.nn.Module, abc.ABC):
     """
@@ -74,7 +102,7 @@ class RecursiveNN(GraphClassifier):
     def __init__(self, d_model, bin_ops, una_ops, function_vocab, token_vocab):
         super().__init__(bin_ops, una_ops, function_vocab, token_vocab)
 
-        self.token_embedding = torch.nn.Embedding(
+        self.embedding = torch.nn.Embedding(
             num_embeddings=len(token_vocab),
             embedding_dim=d_model,
             padding_idx=token_vocab[char_sp.NONLEAF_TOKEN],
@@ -83,7 +111,7 @@ class RecursiveNN(GraphClassifier):
         self.d_model = d_model
 
     @abc.abstractmethod
-    def _compute_output(self, inputs, lens):
+    def _compute_output(self, inputs, lens, pad):
         """
         Compute the outputs for this model.
 
@@ -95,6 +123,8 @@ class RecursiveNN(GraphClassifier):
         lens
             Number of embeddings/nodes of each graph in batch.
             Has shape [batch_size].
+        pad
+        	Whether to pad the output with start and end tokens.
 
         Returns
         -------
@@ -147,44 +177,44 @@ class RecursiveNN(GraphClassifier):
 
         return predecessors
 
-    def forward(self, forest, lengths):
+    def forward(self, graph, lengths, pad=False):
         """
-        Given a (possibly batched) forest and the number of nodes per tree, 
+        Given a (possibly batched) graph and the number of nodes per tree, 
         compute the outputs for each tree.
         """
-        num_nodes = forest.num_nodes()
+        num_nodes = graph.num_nodes()
         leaf_mask = (
-            forest.ndata[char_sp.FUNCTION_FIELD]
+            graph.ndata[char_sp.FUNCTION_FIELD]
             == self.function_vocab[char_sp.LEAF_FUNCTION]
         )
         # Our graphs do not currently have equality function.
         '''
         root_mask = (
-            forest.ndata[char_sp.FUNCTION_FIELD]
+            graph.ndata[char_sp.FUNCTION_FIELD]
             == self.function_vocab[char_sp.EQUALITY_FUNCTION]
         )
         '''
         internal_mask = ~leaf_mask
         internal_order = char_sp.typed_topological_nodes_generator(
-            forest, node_mask=internal_mask
+            graph, node_mask=internal_mask
         )
-        predecessor_index = char_sp.tensorize_predecessors(forest)
+        predecessor_index = char_sp.tensorize_predecessors(graph)
 
         # A buffer where the i-th row is the activations output from the i-th node
         # The buffer is repeatedly summed into to allow dense gradient computation;
         # this is valid because each position is summed to exactly once.
         activations = torch.zeros(
-            (num_nodes, self.d_model), device=forest.device
+            (num_nodes, self.d_model), device=graph.device
         )
 
         # A buffer where the i-th row is the memory output from the i-th node.
         memory = torch.zeros(
-            (num_nodes, self.memory_size, self.d_model), device=forest.device
+            (num_nodes, self.memory_size, self.d_model), device=graph.device
         )
 
         # Precompute all leaf nodes at once
-        tokens = forest.ndata[char_sp.TOKEN_FIELD][leaf_mask]
-        token_activations = self.token_embedding(tokens)
+        tokens = graph.ndata[char_sp.TOKEN_FIELD][leaf_mask]
+        token_activations = self.embedding(tokens)
         activations = activations.masked_scatter(
             leaf_mask.unsqueeze(1), token_activations
         )
@@ -192,7 +222,7 @@ class RecursiveNN(GraphClassifier):
         # Compute all internal nodes under the topological order
         for node_group in internal_order:
             # Look up the type of the first node, since they should all be the same
-            function_idx = forest.ndata[char_sp.FUNCTION_FIELD][node_group[0]].item()
+            function_idx = graph.ndata[char_sp.FUNCTION_FIELD][node_group[0]].item()
             function = self.function_vocab_inverse[function_idx]
 
             # Gather inputs, call the module polymorphically, and scatter to buffer
@@ -212,7 +242,7 @@ class RecursiveNN(GraphClassifier):
             memory = memory + memory_scatter
 
         # Reverse activations because nodes are listed in reverse pre-order.
-        return self._compute_output(torch.flip(activations, dims=[0]), lengths)
+        return self._compute_output(torch.flip(activations, dims=[0]), lengths, pad)
         
 
 class TreeRNN(RecursiveNN):
@@ -239,10 +269,10 @@ class TreeRNN(RecursiveNN):
         self.output_bias = torch.nn.parameter.Parameter(torch.zeros(1))
         self.memory_size = 1
 
-    def _compute_output(self, inputs, lens):
-        # TODO: add padding
+    def _compute_output(self, inputs, lens, pad):
         unpadded_batch = torch.split(inputs, lens.tolist()[::-1], dim=0)[::-1]
-        return pad_sequence(unpadded_batch, padding_value=0.0, batch_first=True).squeeze(2)
+        batch = pad_tokens(self, unpadded_batch) if pad else unpadded_batch
+        return pad_sequence(batch, padding_value=0.0, batch_first=True).squeeze(2)
 
     def _apply_function(self, function_name, inputs, memory):
         if function_name in (self.una_ops + ['INT+', 'INT-']):
@@ -280,9 +310,9 @@ class TreeLSTM(RecursiveNN):
         self.memory_size = 1
 
     def _compute_output(self, inputs, lens):
-        # TODO: add padding
         unpadded_batch = torch.split(inputs, lens.tolist()[::-1], dim=0)[::-1]
-        return pad_sequence(unpadded_batch, padding_value=0.0, batch_first=True).squeeze(2)
+        batch = pad_tokens(self, unpadded_batch) if pad else unpadded_batch
+        return pad_sequence(batch, padding_value=0.0, batch_first=True).squeeze(2)
 
     def _apply_function(self, function_name, inputs, memory):
         if function_name in (self.una_ops + ['INT+', 'INT-']):
@@ -330,9 +360,9 @@ class TreeSMU(RecursiveNN):
         self.memory_size = params.stack_size
 
     def _compute_output(self, inputs, lens):
-        # TODO: add padding
         unpadded_batch = torch.split(inputs, lens.tolist()[::-1], dim=0)[::-1]
-        return pad_sequence(unpadded_batch, padding_value=0.0, batch_first=True).squeeze(2)
+        batch = pad_tokens(self, unpadded_batch) if pad else unpadded_batch
+        return pad_sequence(batch, padding_value=0.0, batch_first=True).squeeze(2)
 
     def _apply_function(self, function_name, inputs, memory):
         if function_name in (self.una_ops + ['INT+', 'INT-']):
@@ -397,7 +427,7 @@ class GraphCNN(GraphClassifier):
         self.combined_vocab = {
             **token_vocab,
             **{
-                name: idx + self.hparams.min_function_idx
+                name: idx + self.min_function_idx
                 for name, idx in function_vocab.items()
             },
         }
@@ -473,12 +503,12 @@ class GraphCNN(GraphClassifier):
             clone the graph ahead of time and pass in the clone to modify in place.
         """
         # Remove Equality nodes, splitting examples into left and right expressions
-        root_mask = (
-            graph.ndata[char_sp.FUNCTION_FIELD]
-            == self.function_vocab[char_sp.EQUALITY_FUNCTION]
-        )
-        root_indices = torch.nonzero(root_mask, as_tuple=False)[:, 0]
-        graph.remove_nodes(root_indices)
+        #root_mask = (
+        #    graph.ndata[char_sp.FUNCTION_FIELD]
+        #    == self.function_vocab[char_sp.EQUALITY_FUNCTION]
+        #)
+        #root_indices = torch.nonzero(root_mask, as_tuple=False)[:, 0]
+        #graph.remove_nodes(root_indices)
 
         # Save the parent -> child edges for later
         parent_graph = graph.reverse()
@@ -491,11 +521,16 @@ class GraphCNN(GraphClassifier):
         ]
         graph.ndata["token"][pad_node_id] = self.token_vocab[char_sp.PAD_TOKEN]
 
+        # Grab node_ids of INT+ and INT- nodes
+        int_mask = (graph.ndata["function"] == self.function_vocab['INT+']) | \
+                    (graph.ndata["function"] == self.function_vocab['INT-'])
+
         # Add edges from the padding node to all nodes with less than 2 children
         pad_count = 2 - graph.in_degrees()  # Number of times to pad each node
+        pad_count[int_mask] = 2 # Add 2 to pad count of integer nodes
         pad_count[pad_node_id] = 0  # Never add input edges to the pad node
 
-        while not (pad_count == 0).all():
+        while not (pad_count <= 0).all():
             pad_mask = pad_count > 0
             pad_idx = torch.nonzero(pad_mask, as_tuple=False)[:, 0]
             graph.add_edges(pad_node_id, pad_idx)
@@ -511,6 +546,18 @@ class GraphCNN(GraphClassifier):
         # Add self-loops to all nodes except the pad node
         internal_indices = graph.nodes()[:-1]
         graph.add_edges(internal_indices, internal_indices)
+
+        # Grab all the node_ids of the digits (don't want to message pass over this graph)
+        int_ids = torch.nonzero(int_mask, as_tuple=True)[0]
+        # Child id mask of INT+ and INT- nodes
+        cid_mask = torch.zeros(graph.num_nodes(), dtype=torch.bool, device=graph.device)
+        cid_mask.scatter_(0, graph.in_edges(int_ids)[0], 1)
+        cid_mask &= (graph.ndata["function"] == self.function_vocab[char_sp.LEAF_FUNCTION])
+        # Negate and get the nondigit node ids to apply message passing
+        nondigit_ids = torch.nonzero(~cid_mask, as_tuple=True)[0]
+
+        return nondigit_ids
+
 
     def _embed_nodes(self, graph):
         """
@@ -587,7 +634,9 @@ class GraphCNN(GraphClassifier):
 
         return left_subgraph, right_subgraph
 
-    def forward(self, graph):
+
+    # Currently does not work with multiple children
+    def forward(self, graph, lengths, pad=False):
         """
         Compute the logits of equality holding for each equation in the (batched) graph.
 
@@ -603,24 +652,24 @@ class GraphCNN(GraphClassifier):
         Tensor
             For each equality in the input graph, the logit of positive classification.
         """
-        self._prepare_graph(graph)
+        nondigit_ids = self._prepare_graph(graph)
         graph.ndata["features"] = self._embed_nodes(graph)
-
+        subgraph = graph.subgraph(nondigit_ids)
         for layer in self.layers:
             reduce_udf = self._reduce_layer(layer)
-            graph.update_all(
+            subgraph.update_all(
                 message_func=dgl.function.copy_src("features", "features"),
                 reduce_func=reduce_udf,
             )
-
         pad_node_id = graph.num_nodes() - 1
         graph.remove_nodes(pad_node_id)
-        left_subgraph, right_subgraph = self._left_right_subgraphs(graph)
+        #left_subgraph, right_subgraph = self._left_right_subgraphs(graph)
 
         # TODO: try other readouts
-        encoding_left = dgl.readout_nodes(left_subgraph, "features", op="mean")
-        encoding_right = dgl.readout_nodes(right_subgraph, "features", op="mean")
 
-        # TODO: try other metrics like cosine similarity
-        logits = (encoding_left * encoding_right).sum(-1) + self.output_bias
-        return logits
+        lengths = lengths-2 if pad else lengths # Account for padding in the lengths
+
+        unpadded_batch = torch.split(graph.ndata["features"], lengths.tolist()[::-1], dim=0)[::-1]
+        batch = pad_tokens(self, unpadded_batch) if pad else unpadded_batch
+        return pad_sequence(batch, padding_value=0.0, batch_first=True).squeeze(2)
+

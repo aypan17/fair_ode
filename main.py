@@ -47,7 +47,7 @@ def get_parser():
     parser.add_argument("--amp", type=int, default=-1,
                         help="Use AMP wrapper for float16 / distributed / gradient accumulation. Level of optimization. -1 to disable.")
 
-    # model parameters
+    # transformer parameters
     parser.add_argument("--emb_dim", type=int, default=256,
                         help="Embedding layer size")
     parser.add_argument("--n_enc_layers", type=int, default=4,
@@ -64,20 +64,28 @@ def get_parser():
                         help="Share input and output embeddings")
     parser.add_argument("--sinusoidal_embeddings", type=bool_flag, default=False,
                         help="Use sinusoidal embeddings")
+
+    # encoder parameters
     parser.add_argument('--symmetric', action='store_true',
                         help='run the version with enforced symmetry on add and mul')
     parser.add_argument('--character_rnn', action='store_true',
                         help='use a character RNN to encode numbers')
+    parser.add_argument('--pad_tokens', type=bool, default=False,
+                        help='pad the output of the encoder with start and end token embeddings')
     parser.add_argument('--treernn', action='store_true',
                         help='use a TreeRNN encoder for the model')
-    parser.add_argument('--num_layers', type=int, default=1,
-                        help='number of layers in the RNN model')
     parser.add_argument('--treelstm', action='store_true',
                         help='use a TreeLSTM encoder for the model')
-    parser.add_argument('--treesmu', action='store_true',
-                        help='use a TreeSMU encoder for the model')
+    parser.add_argument('--gcnn', action='store_true',
+                        help='use a Graph CNN encoder for the model')
+    parser.add_argument('--num_module_layers', type=int, default=2,
+                        help='number of layers per module in the RNN/GCNN model')
+    parser.add_argument('--num_layers', type=int, default=2,
+                        help='number of message passing steps in the GCNN model')
 
     # smu parameters
+    parser.add_argument('--treesmu', action='store_true',
+                        help='use a TreeSMU encoder for the model')
     parser.add_argument('--stack_size', type=int, default=5,
                         help='max size of the stack/queue')
     parser.add_argument('--tree_activation', type=str, default='tanh',
@@ -269,5 +277,6 @@ if __name__ == '__main__':
 
     # check parameters
     check_model_params(params)
+    params.graph_enc = params.treernn or params.treelstm or params.treesmu or params.gcnn
     # run experiment
     main(params)

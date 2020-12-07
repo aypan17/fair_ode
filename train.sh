@@ -6,7 +6,8 @@ python3 main.py \
 	--n_heads 8 \
 	--dropout 0.1 \
 	--symmetric \
-	--treernn \
+	--gcnn \
+	--pad_tokens True \
 	--character_rnn \
 	--optimizer "adam,lr=0.0001" \
 	--batch_size 256 \

@@ -1649,7 +1649,8 @@ class EnvDataset(Dataset):
         self.num_workers = params.num_workers
         self.batch_size = params.batch_size
         self.same_nb_ops_per_batch = params.same_nb_ops_per_batch
-        self.tree_batch = params.treernn or params.treelstm or params.treesmu
+        self.graph_enc = params.graph_enc
+        self.pad_tokens = params.pad_tokens
 
         # generation, or reloading from file
         if path is not None:
@@ -1810,7 +1811,7 @@ class EnvDataset(Dataset):
             print("")
         '''
         graphs = []
-        if self.tree_batch:
+        if self.graph_enc:
             xword = [[w for w in seq if w in self.env.word2id] for seq in x]
             # Each equation in the batch is a DGLGraph in the list
             for eq in xword:
@@ -1823,6 +1824,9 @@ class EnvDataset(Dataset):
 
         x, x_len = self.env.batch_sequences(x)
         y, y_len = self.env.batch_sequences(y)
+
+        if not self.pad_tokens:
+            x_len -= 2
 
         return (x, x_len), (y, y_len), torch.LongTensor(nb_ops), graphs
 

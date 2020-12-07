@@ -508,12 +508,12 @@ class Trainer(object):
         #    tensors = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5], tensors[6], tensors[7], tensors[8])
 
         # forward / loss
-        if params.treernn or params.treelstm or params.treesmu: # Use tree-based encoder
+        if params.graph_enc: # Use tree-based encoder
             #self.train_integers(encoder, decoder, tensors[7])
             #if not params.character_rnn:
             #    len1 -= tensors[6] # remove the digits from each element in len1
-            len1 -= 2
-            encoded = encoder(forest=graphs, lengths=len1)
+            
+            encoded = encoder(graph=graphs, lengths=len1, pad=params.pad_tokens)
             decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded, src_len=len1)
             
         else: # Use Transformer encoder

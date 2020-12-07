@@ -10,7 +10,7 @@ import os
 import torch
 
 from .transformer import TransformerModel
-from .graph_encoders import TreeRNN, TreeLSTM, TreeSMU
+from .graph_encoders import TreeRNN, TreeLSTM, TreeSMU, GraphCNN
 
 
 logger = getLogger()
@@ -34,11 +34,13 @@ def build_modules(env, params):
     """
     modules = {}
     if params.treernn:
-        modules['encoder'] = TreeRNN(params.emb_dim, params.num_layers, env.una_ops, env.bin_ops, env.function_vocab, env.token_vocab)
+        modules['encoder'] = TreeRNN(params.emb_dim, params.num_module_layers, env.una_ops, env.bin_ops, env.function_vocab, env.token_vocab)
     if params.treelstm:
         modules['encoder'] = TreeLSTM(params.emb_dim, env.una_ops, env.bin_ops, env.function_vocab, env.token_vocab)
     elif params.treesmu:
         modules['encoder'] = TreeSMU(params, env.una_ops, env.bin_ops, env.function_vocab, env.token_vocab)
+    elif params.gcnn:
+        modules['encoder'] = GraphCNN(params.emb_dim, params.num_layers, params.num_module_layers, env.una_ops, env.bin_ops, env.function_vocab, env.token_vocab)
     else:
         modules['encoder'] = TransformerModel(params, env.id2word, is_encoder=True, with_output=False)
     modules['decoder'] = TransformerModel(params, env.id2word, is_encoder=False, with_output=True)

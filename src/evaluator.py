@@ -169,11 +169,10 @@ class Evaluator(object):
             x1, len1, x2, len2, y, graphs = to_cuda(x1, len1, x2, len2, y, graphs)
 
             # forward / loss
-            if params.treernn or params.treelstm or params.treesmu: # Use tree-based encoder
+            if params.graph_enc: # Use tree-based encoder
                 #if not params.character_rnn:
                 #    len1 -= tensors[6] # remove the digits from each element in len1
-                len1 -= 2
-                encoded = encoder(forest=graphs, lengths=len1)
+                encoded = encoder(graph=graphs, lengths=len1, pad=params.pad_tokens)
                 decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded, src_len=len1)
 
             else: # Use Transformer encoder

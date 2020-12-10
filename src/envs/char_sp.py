@@ -266,6 +266,7 @@ class CharSPEnvironment(object):
     def __init__(self, params):
 
         self.max_int = params.max_int
+        self.max_sampled_int = params.max_sampled_int
         self.max_ops = params.max_ops
         self.max_ops_G = params.max_ops_G
         self.int_base = params.int_base
@@ -342,11 +343,11 @@ class CharSPEnvironment(object):
         # vocabulary
         # BOS, EOS, (, ), PAD, E, pi, x, y, z, t, a0, ..., a9, I, INT+, INT-, INT, FLOAT, -, ., 10^, Y, Y', Y'', 0, ..., 9, FUNCTIONS
         self.words = SPECIAL_WORDS + self.constants + list(self.variables.keys()) + list(self.coefficients.keys()) + self.operators + self.symbols + self.elements
-        self.functions = self.operators + ['I', 'INT', 'INT+', 'INT-'] + [PAD_FUNCTION, LEAF_FUNCTION]
+        self.func_tokens = self.operators + ['I', 'INT', 'INT+', 'INT-'] + [PAD_FUNCTION, LEAF_FUNCTION]
         self.tokens = SPECIAL_WORDS + self.constants + list(self.variables.keys()) + self.elements + ['Y', "Y'", "Y''"] + [PAD_TOKEN, NONLEAF_TOKEN]
         self.id2word = {i: s for i, s in enumerate(self.words)}
         self.word2id = {s: i for i, s in self.id2word.items()}
-        self.function_vocab = {s: i for i, s in enumerate(self.functions)}
+        self.function_vocab = {s: i for i, s in enumerate(self.func_tokens)}
         self.token_vocab = {s: i for i, s in enumerate(self.tokens)}
         assert len(self.words) == len(set(self.words))
 
@@ -829,9 +830,9 @@ class CharSPEnvironment(object):
         return expr
 
     def check_int(self, expr, max_int):
-        nums = {atom for atom in expr.atoms() if atom.is_number}
+        nums = {max(sp.fraction(abs(atom))) for atom in expr.atoms() if atom.is_number}
         return not nums or max(nums) < max_int
-
+        
 
     @timeout(3)
     def gen_prim_fwd(self, rng):
@@ -851,13 +852,9 @@ class CharSPEnvironment(object):
         try:
             # generate an expression and rewrite it,
             # avoid issues in 0 and convert to SymPy
-            f_expr = self._generate_expr(nb_ops, self.max_int, rng)
+            f_expr = self._generate_expr(nb_ops, self.max_sampled_int, rng)
             infix = self.prefix_to_infix(f_expr)
-            f_unsimp = self.infix_to_sympy(infix, no_rewrite=True)
-            print(f_unsimp)
             f = self.infix_to_sympy(infix)
-            print(f)
-            print()
 
             # skip constant expressions
             if x not in f.free_symbols:
@@ -870,8 +867,7 @@ class CharSPEnvironment(object):
             f = self.reduce_coefficients(f)
             f = self.simplify_const_with_coeff(f)
             f = self.reindex_coefficients(f)
-            if not self.check_int(f, 10*self.max_int):
-                print("getting trolled here")
+            if not self.check_int(f, self.max_int):
                 self.prim_stats[-2] += 1
                 return None
 
@@ -888,9 +884,8 @@ class CharSPEnvironment(object):
             if any(op.func in INTEGRAL_FUNC for op in sp.preorder_traversal(F)):
                 self.prim_stats[2] += 1
                 return None
-            if not self.check_int(F, 10*self.max_int):
+            if not self.check_int(F, self.max_int):
                 # Expression has terms which exceed the max_int
-                print("trolled again")
                 self.prim_stats[-2] += 1
                 return None
             self.prim_stats[3] += 1
@@ -917,7 +912,6 @@ class CharSPEnvironment(object):
                 logger.debug(f"{self.worker_id:>2} PRIM STATS {self.prim_stats}")
 
         except TimeoutError:
-            print("f")
             raise
         except (ValueError, AttributeError, TypeError, OverflowError, NotImplementedError, UnknownSymPyOperator, ValueErrorExpression) as e:
             return None
@@ -948,7 +942,7 @@ class CharSPEnvironment(object):
         try:
             # generate an expression and rewrite it,
             # avoid issues in 0 and convert to SymPy
-            F_expr = self._generate_expr(nb_ops, self.max_int, rng)
+            F_expr = self._generate_expr(nb_ops, self.max_sampled_int, rng)
             infix = self.prefix_to_infix(F_expr)
             F = self.infix_to_sympy(infix)
 
@@ -1034,7 +1028,6 @@ class CharSPEnvironment(object):
             f, c = remove_mul_const(f, x)
             F = self.PRIM_CACHE.get(f)
             return None if F is None else F * c
-
         x = self.variables['x']
         if rng.randint(40) == 0:
             nb_ops_F = rng.randint(0, 4)
@@ -1045,8 +1038,8 @@ class CharSPEnvironment(object):
         try:
             # generate an expression and rewrite it,
             # avoid issues in 0 and convert to SymPy
-            F_expr = self._generate_expr(nb_ops_F, self.max_int, rng)
-            G_expr = self._generate_expr(nb_ops_G, self.max_int, rng)
+            F_expr = self._generate_expr(nb_ops_F, self.max_sampled_int, rng)
+            G_expr = self._generate_expr(nb_ops_G, self.max_sampled_int, rng)
             F_infix = self.prefix_to_infix(F_expr)
             G_infix = self.prefix_to_infix(G_expr)
             F = self.infix_to_sympy(F_infix)
@@ -1124,6 +1117,11 @@ class CharSPEnvironment(object):
             if x not in h.free_symbols:
                 return None
 
+            # H or h has integers which exceed max_int
+            if not (self.check_int(H, self.max_int) and self.check_int(h, self.max_int)):
+                return None
+
+
             # remove multiplicative constant in h and H
             if rng.randint(2) == 0:
                 h, h_const = remove_mul_const(h, x)
@@ -1168,12 +1166,11 @@ class CharSPEnvironment(object):
         a8 = self.coefficients['a8']
 
         nb_ops = rng.randint(3, self.max_ops + 1)
-
         try:
             # generate an expression and rewrite it,
             # avoid issues in 0 and convert to SymPy
             # here, y has the role of a constant
-            expr = self._generate_expr(nb_ops, self.max_int, rng, require_x=True, require_y=True)
+            expr = self._generate_expr(nb_ops, self.max_sampled_int, rng, require_x=True, require_y=True)
             infix = self.prefix_to_infix(expr)
             expr = self.infix_to_sympy(infix).subs(y, a8)
 
@@ -1254,7 +1251,6 @@ class CharSPEnvironment(object):
         except Exception as e:
             logger.error("An unknown exception of type {0} occurred in line {1} for expression \"{2}\". Arguments:{3!r}.".format(type(e).__name__, sys.exc_info()[-1].tb_lineno, infix, e.args))
             return None
-
         return eq_prefix, expr_prefix
 
     @timeout(8)
@@ -1276,7 +1272,7 @@ class CharSPEnvironment(object):
             # generate an expression and rewrite it,
             # avoid issues in 0 and convert to SymPy
             # here, y and z have the role of constants
-            expr = self._generate_expr(nb_ops, self.max_int, rng, require_x=True, require_y=True, require_z=True)
+            expr = self._generate_expr(nb_ops, self.max_sampled_int, rng, require_x=True, require_y=True, require_z=True)
             infix = self.prefix_to_infix(expr)
             expr = self.infix_to_sympy(infix).subs(y, a8).subs(z, a9)
 
@@ -1378,7 +1374,6 @@ class CharSPEnvironment(object):
         except Exception as e:
             logger.error("An unknown exception of type {0} occurred in line {1} for expression \"{2}\". Arguments:{3!r}.".format(type(e).__name__, sys.exc_info()[-1].tb_lineno, infix, e.args))
             return None
-
         return eq_prefix, expr_prefix
 
     @staticmethod
@@ -1386,14 +1381,16 @@ class CharSPEnvironment(object):
         """
         Register environment parameters.
         """
-        parser.add_argument("--operators", type=str, default="add:2,sub:1",
+        parser.add_argument("--operators", type=str, default="",
                             help="Operators (add, sub, mul, div), followed by weight")
         parser.add_argument("--max_ops", type=int, default=10,
                             help="Maximum number of operators")
         parser.add_argument("--max_ops_G", type=int, default=4,
                             help="Maximum number of operators for G in IPP")
-        parser.add_argument("--max_int", type=int, default=10000,
+        parser.add_argument("--max_int", type=int, default=1000,
                             help="Maximum integer value")
+        parser.add_argument("--max_sampled_int", type=int, default=9,
+                            help="Maximum valued sampled for integers")
         parser.add_argument("--int_base", type=int, default=10,
                             help="Integer representation base")
         parser.add_argument("--balanced", type=bool_flag, default=False,
@@ -1402,7 +1399,7 @@ class CharSPEnvironment(object):
                             help="Float numbers precision")
         parser.add_argument("--positive", type=bool_flag, default=False,
                             help="Do not sample negative numbers")
-        parser.add_argument("--rewrite_functions", type=str, default="simplify",
+        parser.add_argument("--rewrite_functions", type=str, default="",
                             help="Rewrite expressions with SymPy")
         parser.add_argument("--leaf_probs", type=str, default="0.75,0,0.25,0",
                             help="Leaf probabilities of being a variable, a coefficient, an integer, or a constant.")
@@ -1651,6 +1648,7 @@ class EnvDataset(Dataset):
         self.same_nb_ops_per_batch = params.same_nb_ops_per_batch
         self.graph_enc = params.graph_enc
         self.pad_tokens = params.pad_tokens
+        self.export_data = params.export_data
 
         # generation, or reloading from file
         if path is not None:
@@ -1825,9 +1823,8 @@ class EnvDataset(Dataset):
         x, x_len = self.env.batch_sequences(x)
         y, y_len = self.env.batch_sequences(y)
 
-        if not self.pad_tokens:
+        if not self.pad_tokens and not self.export_data:
             x_len -= 2
-
         return (x, x_len), (y, y_len), torch.LongTensor(nb_ops), graphs
 
     def init_rng(self):

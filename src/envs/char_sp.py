@@ -1647,7 +1647,6 @@ class EnvDataset(Dataset):
         self.batch_size = params.batch_size
         self.same_nb_ops_per_batch = params.same_nb_ops_per_batch
         self.graph_enc = params.graph_enc
-        self.pad_tokens = params.pad_tokens
         self.export_data = params.export_data
 
         # generation, or reloading from file
@@ -1823,7 +1822,7 @@ class EnvDataset(Dataset):
         x, x_len = self.env.batch_sequences(x)
         y, y_len = self.env.batch_sequences(y)
 
-        if not self.pad_tokens and not self.export_data:
+        if self.graph_enc and not self.export_data:
             x_len -= 2
         return (x, x_len), (y, y_len), torch.LongTensor(nb_ops), graphs
 

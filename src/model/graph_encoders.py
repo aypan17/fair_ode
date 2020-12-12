@@ -309,7 +309,7 @@ class TreeLSTM(RecursiveNN):
         self.output_bias = torch.nn.parameter.Parameter(torch.zeros(1))
         self.memory_size = 1
 
-    def _compute_output(self, inputs, lens):
+    def _compute_output(self, inputs, lens, pad):
         unpadded_batch = torch.split(inputs, lens.tolist()[::-1], dim=0)[::-1]
         batch = pad_tokens(self, unpadded_batch) if pad else unpadded_batch
         return pad_sequence(batch, padding_value=0.0, batch_first=True).squeeze(2)
@@ -359,7 +359,7 @@ class TreeSMU(RecursiveNN):
         self.output_bias = torch.nn.parameter.Parameter(torch.zeros(1))
         self.memory_size = params.stack_size
 
-    def _compute_output(self, inputs, lens):
+    def _compute_output(self, inputs, lens, pad):
         unpadded_batch = torch.split(inputs, lens.tolist()[::-1], dim=0)[::-1]
         batch = pad_tokens(self, unpadded_batch) if pad else unpadded_batch
         return pad_sequence(batch, padding_value=0.0, batch_first=True).squeeze(2)

@@ -1815,6 +1815,8 @@ class EnvDataset(Dataset):
                 graphs.append(self.deserialize(eq))
         if graphs:
             graphs = dgl.batch(graphs)
+        else:
+            graphs = torch.LongTensor(0)
             
         x = [torch.LongTensor([self.env.word2id[w] for w in seq if w in self.env.word2id]) for seq in x]
         y = [torch.LongTensor([self.env.word2id[w] for w in seq if w in self.env.word2id]) for seq in y]

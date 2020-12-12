@@ -173,6 +173,8 @@ class Evaluator(object):
                 #if not params.character_rnn:
                 #    len1 -= tensors[6] # remove the digits from each element in len1
                 encoded = encoder(graph=graphs, lengths=len1, pad=params.pad_tokens)
+                if params.pad_tokens:
+                    len1 += 2
                 decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded, src_len=len1)
 
             else: # Use Transformer encoder

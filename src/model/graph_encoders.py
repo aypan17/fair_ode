@@ -665,10 +665,6 @@ class GraphCNN(GraphClassifier):
         graph.remove_nodes(pad_node_id)
         #left_subgraph, right_subgraph = self._left_right_subgraphs(graph)
 
-        # TODO: try other readouts
-
-        lengths = lengths-2 if pad else lengths # Account for padding in the lengths
-
         unpadded_batch = torch.split(graph.ndata["features"], lengths.tolist()[::-1], dim=0)[::-1]
         batch = pad_tokens(self, unpadded_batch) if pad else unpadded_batch
         return pad_sequence(batch, padding_value=0.0, batch_first=True).squeeze(2)

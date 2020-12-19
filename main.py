@@ -193,6 +193,8 @@ def get_parser():
                         help="Multi-GPU - Local rank")
     parser.add_argument("--master_port", type=int, default=-1,
                         help="Master port (for multi-node SLURM jobs)")
+    parser.add_argument("--gpu", type=int, default=0,
+                        help="gpu to run on")
 
     return parser
 

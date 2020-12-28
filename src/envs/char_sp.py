@@ -422,6 +422,9 @@ class CharSPEnvironment(object):
         'ln': 1,
         'abs': 1,
         'sign': 1,
+        'ten': 1,
+        'INT+': 1,
+        'INT-': 1,
         # Trigonometric Functions
         'sin': 1,
         'cos': 1,
@@ -478,7 +481,6 @@ class CharSPEnvironment(object):
         # parse operators with their weights
         self.operators = sorted(list(self.OPERATORS.keys()))
         ops = self.OPERATORS.items()
-        print(ops)
         assert len(ops) >= 1 and all(o in self.OPERATORS for o, _ in ops)
         self.all_ops = [o for o, _ in ops]
         self.una_ops = [o for o, _ in ops if self.OPERATORS[o] == 1]
@@ -513,7 +515,7 @@ class CharSPEnvironment(object):
             'g': sp.Function('g', real=True, nonzero=True),
             #'h': sp.Function('h', real=True, nonzero=True),
         })
-        self.symbols = ['I', 'INT+', 'INT-', 'INT', 'FLOAT', '-', '.', '10^', 'Y', "Y'", "Y''"]
+        self.symbols = ['I', 'INT', 'FLOAT', '-', '.', '10^', 'Y', "Y'", "Y''"] #INT+, INT- removed because of decimal encoding
         if self.balanced:
             assert self.int_base > 2
             max_digit = (self.int_base + 1) // 2
@@ -1595,7 +1597,7 @@ class CharSPEnvironment(object):
         Create a dataset for this environment.
         """
         logger.info(f"Creating train iterator for {task} ...")
-        print(self.operators)
+        #print(self.operators)
         dataset = EnvDataset(
             self,
             task,
@@ -1782,6 +1784,7 @@ class EnvDataset(Dataset):
         integers : Tensor
             A long tensor of all the integers in the equation.
         """
+        '''
         if tree.function_name in ['INT+', 'INT-']:
             operations = torch.tensor([-2])
             sign = torch.tensor([self.env.word2id[tree.function_name]])
@@ -1794,7 +1797,8 @@ class EnvDataset(Dataset):
             tokens = value
             left_idx = torch.tensor([-1])
             right_idx = torch.tensor([-1])
-        elif tree.function_name == SYMBOL_ENCODER:  # Leaf
+        '''
+        if tree.function_name == SYMBOL_ENCODER:  # Leaf
             operations = torch.tensor([-1])
             tokens = token = torch.tensor([self.env.word2id[tree.value]])
             left_idx = torch.tensor([-1])
@@ -1906,7 +1910,7 @@ class EnvDataset(Dataset):
         digits : Tensor[M]
             For each equation, the number of digits that were removed from the source.
         integers : Tensor[# of integers]
-            All integers in the batch; will be used to augment the data toe better train 
+            All integers in the batch; will be used to augment the data to better train 
             the NUMBER_ENCODER block.
         """
         operations = torch.tensor([], dtype=torch.long)
@@ -1957,37 +1961,47 @@ class EnvDataset(Dataset):
             depths,
             operation_order, 
             digits,
-            pad_sequence(integers, batch_first=True, padding_value=self.pad_idx),
-            torch.tensor([len(n) for n in integers])
+            pad_sequence(integers, batch_first=True, padding_value=self.pad_idx) if integers else torch.tensor([0]),
+            torch.tensor([len(n) for n in integers]) if integers else torch.tensor([0])
         )
 
     # Given a list of tokens in prefix form, convert to a BinaryEqnTree object for decoding.
     def prefix_to_tree(self, token_list):
         trees = []
+        num_extra_tokens = []
         for i in range(len(token_list)):
-            tree, _ = self._prefix_to_tree(token_list[i])
+            tree, _, extra = self._prefix_to_tree(token_list[i])
             trees.append(tree)
-        return trees
+            num_extra_tokens.append(extra)
+        return trees, torch.tensor(num_extra_tokens)
 
-    def _prefix_to_tree(self, tokens, idx=0):
+    def _prefix_to_tree(self, tokens, idx=0, extra=0):
         token = tokens[idx]
         idx += 1
-        if token in self.env.bin_ops:
-            left, idx = self._prefix_to_tree(tokens, idx=idx)
-            right, idx = self._prefix_to_tree(tokens, idx=idx) 
-            root = BinaryEqnTree(token, left, right)
-        elif token in self.env.una_ops:
-            left, idx = self._prefix_to_tree(tokens, idx=idx)
-            root = BinaryEqnTree(token, left, None)
-        elif token in ['INT+', 'INT-']:
+        if token in ['INT+', 'INT-']:
             val = ""
             while idx < len(tokens) and tokens[idx] in self.env.elements:
                 val += tokens[idx]
                 idx += 1
-            root = BinaryEqnTree(token, None, None, value=int(val))
+            # We assume all integers are length at most 2
+            if len(val) == 1:
+                child = BinaryEqnTree(SYMBOL_ENCODER, None, None, value=val)
+            else:
+                right = BinaryEqnTree(SYMBOL_ENCODER, None, None, value=val[1])
+                left = BinaryEqnTree('ten', BinaryEqnTree(SYMBOL_ENCODER, None, None, value=val[0]), None)
+                child = BinaryEqnTree('add', left, right)
+                extra += 2
+            root = BinaryEqnTree(token, child, None)
+        elif token in self.env.bin_ops:
+            left, idx, extra = self._prefix_to_tree(tokens, idx=idx, extra=extra)
+            right, idx, extra = self._prefix_to_tree(tokens, idx=idx, extra=extra) 
+            root = BinaryEqnTree(token, left, right)
+        elif token in self.env.una_ops:
+            left, idx, extra = self._prefix_to_tree(tokens, idx=idx, extra=extra)
+            root = BinaryEqnTree(token, left, None)
         else:
             root = BinaryEqnTree(SYMBOL_ENCODER, None, None, value=token)
-        return root, idx
+        return root, idx, extra
 
     def collate_fn(self, elements):
         """
@@ -2004,8 +2018,8 @@ class EnvDataset(Dataset):
         '''
         tensorized_batch = None
         if self.tree_batch:
-            xword = [[w for w in seq if w in self.env.word2id] for seq in x]
-            trees = self.prefix_to_tree(xword)
+            equations = [[w for w in seq if w in self.env.word2id] for seq in x]
+            trees, num_extra_tokens = self.prefix_to_tree(equations)
             # operations, tokens, left_idx, right_idx, depths, operation_order, tree_depths
             tensorized_batch = self.tensorize_tree_batch(trees)
 
@@ -2015,7 +2029,8 @@ class EnvDataset(Dataset):
         x, x_len = self.env.batch_sequences(x)
         y, y_len = self.env.batch_sequences(y)
 
-
+        if self.tree_batch:
+            x_len += num_extra_tokens
         return (x, x_len), (y, y_len), torch.LongTensor(nb_ops), tensorized_batch
 
     def init_rng(self):

@@ -12,7 +12,7 @@ import numpy as np
 import torch
 
 import src
-from src.slurm import init_signal_handler, init_distributed_mode
+from src.slurm import init_signal_handler, init_distributed_mode, init_ngc_job
 from src.utils import bool_flag, initialize_exp
 from src.model import check_model_params, build_modules
 from src.envs import ENVS, build_env
@@ -63,14 +63,49 @@ def get_parser():
                         help="Share input and output embeddings")
     parser.add_argument("--sinusoidal_embeddings", type=bool_flag, default=False,
                         help="Use sinusoidal embeddings")
+    
+    # encoder parameters
     parser.add_argument('--symmetric', action='store_true',
                         help='run the version with enforced symmetry on add and mul')
     parser.add_argument('--character_rnn', action='store_true',
                         help='use a character RNN to encode numbers')
+    parser.add_argument('--pad_tokens', type=bool, default=False,
+                        help='pad the output of the encoder with start and end token embeddings')
+    parser.add_argument('--treernn', action='store_true',
+                        help='use a TreeRNN encoder for the model')
     parser.add_argument('--treelstm', action='store_true',
                         help='use a TreeLSTM encoder for the model')
+    parser.add_argument('--gcnn', action='store_true',
+                        help='use a Graph CNN encoder for the model')
+    parser.add_argument('--num_module_layers', type=int, default=2,
+                        help='number of layers per module in the RNN/GCNN model')
+    parser.add_argument('--num_layers', type=int, default=2,
+                        help='number of message passing steps in the GCNN model')
+
+    # smu parameters
     parser.add_argument('--treesmu', action='store_true',
                         help='use a TreeSMU encoder for the model')
+    parser.add_argument('--stack_size', type=int, default=5,
+                        help='max size of the stack/queue')
+    parser.add_argument('--tree_activation', type=str, default='tanh',
+                        help='tree node activation')
+    parser.add_argument('--stack_activation', type=str, default='tanh',
+                        help='stack node activation')
+    parser.add_argument('--no_op', default=False, action='store_true',
+                        help='add no-op as an additional stack op')
+    parser.add_argument('--no_pop', default=False, action='store_true',
+                        help='add only push and no-op')
+    parser.add_argument('--like_LSTM', default=False, action='store_true',
+                        help='make the mem2out stack tree behave as an LSTM+stack')
+    parser.add_argument('--gate_push_pop', default=False, action='store_true',
+                        help='make the push pop action a gate rather than a number')
+    parser.add_argument('--normalize_action', default=False, action='store_true',
+                        help='normalize push-pop magnitude before push and pop')
+    parser.add_argument('--gate_top_k', default=False, action='store_true',
+                        help='gate the top-k instead of weighted average')
+    parser.add_argument('--top_k', type=int, default=1,
+                        help='use the top-k stack elements to compute the output.')
+
 
     # training parameters
     parser.add_argument("--env_base_seed", type=int, default=0,
@@ -158,6 +193,18 @@ def get_parser():
                         help="Multi-GPU - Local rank")
     parser.add_argument("--master_port", type=int, default=-1,
                         help="Master port (for multi-node SLURM jobs)")
+    parser.add_argument("--ngc", action="store_true",
+                        help="Initiate job with ngc.py file; otherwise use default slurm.py")
+
+    # ------------------ Apex Related ------------------
+    parser.add_argument('--world-size', default=-1, type=int, help='number of nodes for distributed training')
+    #parser.add_argument('--local_rank', default=-1, type=int, help='process rank for distributed training')
+    parser.add_argument('--node-rank', default=0, type=int, help='node rank for distributed training')
+    parser.add_argument('--dist-url', default='tcp://224.66.41.62:23456', type=str,
+                        help='url used to set up distributed training')
+    parser.add_argument('--dist-backend', default='nccl', type=str, help='distributed backend')
+    parser.add_argument("--apex_syncbn", action="store_true",
+                        help="learning with apex synchronized batch norm")
 
     return parser
 
@@ -166,7 +213,10 @@ def main(params):
 
     # initialize the multi-GPU / multi-node training
     # initialize experiment / SLURM signal handler for time limit / pre-emption
-    init_distributed_mode(params)
+    if params.ngc:
+        init_ngc_job(params)
+    else:
+        init_distributed_mode(params)
     logger = initialize_exp(params)
     init_signal_handler()
 
@@ -182,6 +232,9 @@ def main(params):
     modules = build_modules(env, params)
     trainer = Trainer(modules, env, params)
     evaluator = Evaluator(trainer)
+
+    torch.cuda.empty_cache()
+    torch.cuda.synchronize()
 
     # evaluation
     if params.eval_only:
@@ -224,6 +277,7 @@ def main(params):
         trainer.save_best_model(scores)
         trainer.save_periodic()
         trainer.end_epoch(scores)
+        torch.cuda.empty_cache()
 
 
 if __name__ == '__main__':

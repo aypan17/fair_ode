@@ -121,7 +121,7 @@ dmypy.json
 ### Python Patch ###
 .venv/
 
-### Data ##
+### Data ###
 
 prim_fwd.test
 prim_fwd.train
@@ -139,6 +139,8 @@ ode2.valid
 ode2/
 
 fwd_small/
+
+dumped/
 
 # End of https://www.gitignore.io/api/python
 

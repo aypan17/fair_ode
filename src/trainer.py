@@ -59,7 +59,7 @@ class Trainer(object):
         if params.multi_gpu and params.amp == -1:
             logger.info("Using nn.parallel.DistributedDataParallel ...")
             for k in self.modules.keys():
-                self.modules[k] = nn.parallel.DistributedDataParallel(self.modules[k], device_ids=[params.local_rank], output_device=params.local_rank, broadcast_buffers=True)
+                self.modules[k] = nn.parallel.DistributedDataParallel(self.modules[k], device_ids=[params.local_rank], output_device=params.local_rank, broadcast_buffers=True, find_unused_parameters=True)
 
         # set optimizers
         self.set_optimizers()

@@ -9,7 +9,7 @@ from logging import getLogger
 import os
 import torch
 
-from .transformer import TransformerModel, TreeLSTM_Encoder
+from .transformer import TransformerModel, TreeLSTM_Encoder, TreeSMU_Encoder
 
 
 logger = getLogger()

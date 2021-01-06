@@ -1,16 +1,17 @@
 #!/usr/bin/env bash
-export NGPU=2; python3 -m torch.distributed.launch --nproc_per_node=$NGPU main.py \
-	--exp_name treelstm_noparaminit \
+python3 main.py \
+	--exp_name treelstm \
+	--fp16 true --amp 1\
 	--emb_dim 256 \
 	--n_dec_layers 6 \
 	--n_heads 8 \
 	--dropout 0.1 \
 	--treelstm \
 	--optimizer "adam,lr=0.0001" \
-	--batch_size 64 \
+	--batch_size 32 \
 	--tasks "prim_fwd" \
-	--reload_data "prim_fwd,data/fwd_train.data,data/fwd_valid.data,data/fwd_test.data" \
-	--reload_size 100 \
-	--epoch_size 100 \
-	--max_epoch 5
+	--reload_precomputed_data "prim_fwd,data_precompute/fwd_train,data_precompute/fwd_valid,data_precompute/fwd_test" \
+	--reload_size 10000 \
+	--epoch_size 10000 \
+	--max_epoch 1
 echo done

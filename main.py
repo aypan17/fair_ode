@@ -138,8 +138,15 @@ def get_parser():
                         help="Export data and disable training.")
     parser.add_argument("--reload_data", type=str, default="",
                         help="Load dataset from the disk (task1,train_path1,valid_path1,test_path1;task2,train_path2,valid_path2,test_path2)")
+    parser.add_argument("--reload_precomputed_data", type=str, default="",
+                        help="Load precomputed tensors from the disk (task1,train_path_prefix,valid_path_prefix,test_path_prefix")
     parser.add_argument("--reload_size", type=int, default=-1,
                         help="Reloaded training set size (-1 for everything)")
+    parser.add_argument("--precompute_tensors", type=str, default="",
+                        help="Precompute the given dataset for faster tree-equation training")
+    parser.add_argument("--compute_augs", type=bool_flag, default=False,
+                        help="Generate augmentations of the precomputed tensors. Only works for precompute_tensors")
+
 
     # environment parameters
     parser.add_argument("--env_name", type=str, default="char_sp",
@@ -244,6 +251,19 @@ def main(params):
         logger.info("__log__:%s" % json.dumps(scores))
         exit()
 
+    # write word2id dictionaries if precomputing
+    if params.precompute_tensors:
+        assert len(params.tasks) == 1
+        trainer.file_handler_data.write(json.dumps(env.word2id))
+        trainer.file_handler_data.write("\n")
+        trainer.file_handler_data.write(json.dumps(env.una_ops))
+        trainer.file_handler_data.write("\n")
+        trainer.file_handler_data.write(json.dumps(env.bin_ops))
+        trainer.file_handler_data.write("\n")
+        trainer.file_handler_data.flush()
+        trainer.precompute_tensors()
+        exit()
+
     # training
     for _ in range(params.max_epoch):
 
@@ -286,6 +306,8 @@ if __name__ == '__main__':
     parser = get_parser()
     params = parser.parse_args()
     print(params.operators)
+
+    params.tree_enc = params.treernn or params.treelstm or params.treesmu
 
     # debug mode
     if params.debug:

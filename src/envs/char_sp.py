@@ -12,10 +12,13 @@ import re
 import sys
 import math
 import random
+import time
 import itertools
 from collections import OrderedDict
 import numpy as np
 import numexpr as ne
+import json
+
 import torch
 from torch.nn.utils.rnn import pad_sequence
 from torch.utils.data.dataset import Dataset
@@ -539,6 +542,36 @@ class CharSPEnvironment(object):
         self.id2word = {i: s for i, s in enumerate(self.words)}
         self.word2id = {s: i for i, s in self.id2word.items()}
         assert len(self.words) == len(set(self.words))
+
+        # Reload the dictionary to ensure that it is identical with the dictionary used to precompute the tensors.
+        if params.reload_precomputed_data != '':
+            s = [x.split(',') for x in params.reload_precomputed_data.split(';') if len(x) > 0]
+            assert len(s) >= 1 and all(len(x) == 4 for x in s) and len(s) == len(set([x[0] for x in s]))
+            data_path = {task: (train_path, valid_path, test_path) for task, train_path, valid_path, test_path in s}
+            assert all(all(os.path.isfile(path+'.data') for path in paths) for paths in data_path.values())
+            
+            w2id, bin_ops, una_ops = "", "", ""
+            for task in data_path:
+                for i in range(3):
+                    with io.open(data_path[task][i]+'.data', mode='r', encoding='utf-8') as f:
+                        for j, line in enumerate(f):
+                            if j == 0:
+                                assert w2id == "" or w2id == line
+                                w2id = line
+                            if j == 1:
+                                assert una_ops == "" or una_ops == line
+                                una_ops = line
+                            if j == 2:
+                                assert bin_ops == "" or bin_ops == line
+                                bin_ops = line
+                            if j >= 3:
+                                break
+                    f.close()
+            self.word2id = json.loads(w2id)
+            self.id2word = {v : k for k, v in self.word2id.items()}
+            self.una_ops = json.loads(una_ops)
+            self.bin_ops = json.loads(bin_ops)
+
 
         # number of words / indices
         self.n_words = params.n_words = len(self.words)
@@ -1597,22 +1630,32 @@ class CharSPEnvironment(object):
         Create a dataset for this environment.
         """
         logger.info(f"Creating train iterator for {task} ...")
-        #print(self.operators)
-        dataset = EnvDataset(
-            self,
-            task,
-            train=True,
-            rng=None,
-            params=params,
-            path=(None if data_path is None else data_path[task][0])
-        )
+        if params.reload_precomputed_data != '':
+            dataset = PrecomputeDataset(
+                self,
+                task,
+                train=True,
+                rng=None,
+                params=params,
+                path=(None if data_path is None else data_path[task][0])
+            )
+        else:
+            dataset = EnvDataset(
+                self,
+                task,
+                train=True,
+                rng=None,
+                params=params,
+                path=(None if data_path is None else data_path[task][0])
+            )
         return DataLoader(
             dataset,
             timeout=(0 if params.num_workers == 0 else 1800),
             batch_size=params.batch_size,
             num_workers=(params.num_workers if data_path is None or params.num_workers == 0 else 1),
             shuffle=False,
-            collate_fn=dataset.collate_fn
+            collate_fn=dataset.collate_fn,
+            pin_memory=True
         )
 
     def create_test_iterator(self, data_type, task, params, data_path):
@@ -1622,7 +1665,9 @@ class CharSPEnvironment(object):
         assert data_type in ['valid', 'test']
         logger.info(f"Creating {data_type} iterator for {task} ...")
 
-        dataset = EnvDataset(
+        if params.reload_precomputed_data != '':
+            print("hi")
+            dataset = PrecomputeDataset(
             self,
             task,
             train=False,
@@ -1630,13 +1675,48 @@ class CharSPEnvironment(object):
             params=params,
             path=(None if data_path is None else data_path[task][1 if data_type == 'valid' else 2])
         )
+        else:
+            dataset = EnvDataset(
+                self,
+                task,
+                train=False,
+                rng=np.random.RandomState(0),
+                params=params,
+                path=(None if data_path is None else data_path[task][1 if data_type == 'valid' else 2])
+            )
         return DataLoader(
             dataset,
             timeout=0,
             batch_size=params.batch_size,
             num_workers=1,
             shuffle=False,
-            collate_fn=dataset.collate_fn
+            collate_fn=dataset.collate_fn,
+            pin_memory=True
+        )
+
+    def create_precompute_iterator(self, params, data_path):
+        """
+        Create a dataset for this environment.
+        """
+        assert data_path is not None
+        logger.info(f"Creating precompute iterator for data in {data_path} ...")
+
+        dataset = EnvDataset(
+            self,
+            task="prim_fwd",
+            train=False,
+            rng=np.random.RandomState(0),
+            params=params,
+            path=data_path
+        )
+        return DataLoader(
+            dataset,
+            timeout=0,
+            batch_size=1,
+            num_workers=1,
+            shuffle=False,
+            collate_fn=dataset.precompute,
+            pin_memory=True
         )
 
 
@@ -1661,10 +1741,13 @@ class EnvDataset(Dataset):
         self.num_workers = params.num_workers
         self.batch_size = params.batch_size
         self.same_nb_ops_per_batch = params.same_nb_ops_per_batch
-        self.tree_batch = params.treelstm or params.treesmu
+        self.tree_enc = params.tree_enc
+        self.precompute_tensors = params.precompute_tensors 
+        self.pad_tokens = params.pad_tokens
+        self.compute_augs = params.compute_augs
 
         # generation, or reloading from file
-        if path is not None:
+        if path is not None and params.reload_precomputed_data == '':
             assert os.path.isfile(path)
             logger.info(f"Loading data from {path} ...")
             with io.open(path, mode='r', encoding='utf-8') as f:
@@ -1686,7 +1769,7 @@ class EnvDataset(Dataset):
         if self.train:
             self.size = 1 << 60
         else:
-            self.size = 5000 if path is None else len(self.data)
+            self.size = 5000 if path is None or params.reload_precomputed_data != '' else len(self.data)
 
     def compute_operation_order(
         self, operations: torch.Tensor, left_idx: torch.Tensor, right_idx: torch.Tensor
@@ -1921,6 +2004,7 @@ class EnvDataset(Dataset):
         integers = []
 
         root_idx = 0
+        t = 0
         for tree in trees:
             (
                 tree_ops,
@@ -1931,18 +2015,23 @@ class EnvDataset(Dataset):
                 tree_integers,
             ) = self.tensorize_tree(tree, [])
             
-            # Append BOS and EOS embedding operations
-            tree_ops = torch.cat([torch.tensor([-1]), tree_ops, torch.tensor([-1])])
-            # Append BOS and EOS tokens to the tokens
-            eos = self.env.word2id['<s>']
-            tree_tokens = torch.cat([torch.tensor([eos]), tree_tokens, torch.tensor([eos])])
-            tree_left_idx = torch.cat([torch.tensor([-1]), tree_left_idx, torch.tensor([-1])])
-            tree_right_idx = torch.cat([torch.tensor([-1]), tree_right_idx, torch.tensor([-1])])
-            
-            # Re-index this tree at its new place in the batch-wide order
-            # Add 1 because we append an BOS token to the start
-            tree_left_idx[tree_left_idx != -1] += root_idx + 1
-            tree_right_idx[tree_right_idx != -1] += root_idx + 1
+            if self.precompute_tensors == '' and self.pad_tokens:
+                # Append BOS and EOS embedding operations
+                tree_ops = torch.cat([torch.tensor([-1]), tree_ops, torch.tensor([-1])])
+                # Append BOS and EOS tokens to the tokens
+                eos = self.env.word2id['<s>']
+                tree_tokens = torch.cat([torch.tensor([eos]), tree_tokens, torch.tensor([eos])])
+                tree_left_idx = torch.cat([torch.tensor([-1]), tree_left_idx, torch.tensor([-1])])
+                tree_right_idx = torch.cat([torch.tensor([-1]), tree_right_idx, torch.tensor([-1])])
+                
+                # Re-index this tree at its new place in the batch-wide order
+                # Add 1 because we append an BOS token to the start
+                tree_left_idx[tree_left_idx != -1] += root_idx + 1
+                tree_right_idx[tree_right_idx != -1] += root_idx + 1
+
+            else: # Do not append for precomputations
+                tree_left_idx[tree_left_idx != -1] += root_idx
+                tree_right_idx[tree_right_idx != -1] += root_idx
 
             operations = torch.cat([operations, tree_ops])
             tokens = torch.cat([tokens, tree_tokens])
@@ -1953,29 +2042,54 @@ class EnvDataset(Dataset):
             root_idx += tree_ops.numel() 
 
         depths, operation_order = self.compute_operation_order(operations, left_idx, right_idx)
+
         return (
             operations,
             tokens,
             left_idx,
             right_idx,
             depths,
-            operation_order, 
-            digits,
-            pad_sequence(integers, batch_first=True, padding_value=self.pad_idx) if integers else torch.tensor([0]),
-            torch.tensor([len(n) for n in integers]) if integers else torch.tensor([0])
-        )
+            operation_order)
+            #digits,
+            #pad_sequence(integers, batch_first=True, padding_value=self.pad_idx) if integers else torch.tensor([0]),
+            #torch.tensor([len(n) for n in integers]) if integers else torch.tensor([0])
+        #)
 
     # Given a list of tokens in prefix form, convert to a BinaryEqnTree object for decoding.
     def prefix_to_tree(self, token_list):
         trees = []
         num_extra_tokens = []
         for i in range(len(token_list)):
-            tree, _, extra = self._prefix_to_tree(token_list[i])
+            tree, idx, extra, _ = self._prefix_to_tree(token_list[i], [])
+            assert idx == len(token_list[i])
             trees.append(tree)
             num_extra_tokens.append(extra)
         return trees, torch.tensor(num_extra_tokens)
 
-    def _prefix_to_tree(self, tokens, idx=0, extra=0):
+    def _prefix_to_tree(self, tokens, addmul, idx=0, extra=0, count=0):
+        """
+        Performs a preorder traversal of tokens to build a tree.
+
+        Parameters
+        ----------
+        tokens
+            A list of the tokens in the tree formed from preorder traversal 
+        idx 
+            An index that tracks the current token in the tree
+        addmul
+            A list of (lchild_idx, rchild_idx, rchild_end_idx+1) for any 'Add' or 'Mul' node in the tree (for data augmentation)
+        extra
+            A counter of the number of nodes previously added to the tree (to process 2-digit numbers)
+        
+        Returns
+        -------
+        root
+            A BinaryEqnTree object rooted at tokens[idx]
+        idx
+            The idx of the next token.
+        extra
+            The number of extra nodes added to the tree rooted at root.
+        """
         token = tokens[idx]
         idx += 1
         if token in ['INT+', 'INT-']:
@@ -1993,15 +2107,20 @@ class EnvDataset(Dataset):
                 extra += 2
             root = BinaryEqnTree(token, child, None)
         elif token in self.env.bin_ops:
-            left, idx, extra = self._prefix_to_tree(tokens, idx=idx, extra=extra)
-            right, idx, extra = self._prefix_to_tree(tokens, idx=idx, extra=extra) 
+            lchild = idx
+            left, idx, extra, count = self._prefix_to_tree(tokens, addmul, idx=idx, extra=extra, count=count)
+            rchild = idx
+            right, idx, extra, count = self._prefix_to_tree(tokens, addmul, idx=idx, extra=extra, count=count) 
+            if token in ['add', 'mul']:
+                count += 1
+                addmul.append((lchild, rchild, idx))
             root = BinaryEqnTree(token, left, right)
         elif token in self.env.una_ops:
-            left, idx, extra = self._prefix_to_tree(tokens, idx=idx, extra=extra)
+            left, idx, extra, count = self._prefix_to_tree(tokens, addmul, idx=idx, extra=extra, count=count)
             root = BinaryEqnTree(token, left, None)
         else:
             root = BinaryEqnTree(SYMBOL_ENCODER, None, None, value=token)
-        return root, idx, extra
+        return root, idx, extra, count
 
     def collate_fn(self, elements):
         """
@@ -2017,7 +2136,7 @@ class EnvDataset(Dataset):
             print("")
         '''
         tensorized_batch = None
-        if self.tree_batch:
+        if self.tree_enc:
             equations = [[w for w in seq if w in self.env.word2id] for seq in x]
             trees, num_extra_tokens = self.prefix_to_tree(equations)
             # operations, tokens, left_idx, right_idx, depths, operation_order, tree_depths
@@ -2025,13 +2144,83 @@ class EnvDataset(Dataset):
 
         x = [torch.LongTensor([self.env.word2id[w] for w in seq if w in self.env.word2id]) for seq in x]
         y = [torch.LongTensor([self.env.word2id[w] for w in seq if w in self.env.word2id]) for seq in y]
-
         x, x_len = self.env.batch_sequences(x)
         y, y_len = self.env.batch_sequences(y)
 
-        if self.tree_batch:
+        if self.tree_enc:
             x_len += num_extra_tokens
+
         return (x, x_len), (y, y_len), torch.LongTensor(nb_ops), tensorized_batch
+
+    # Augments equations
+    def augment(self, tokens, addmul):
+        
+        def get_augments(k):
+            if k == 1:
+                return ['0', '1']
+            elif k == 2:
+                return ['00', '01', '10', '11']
+            else:
+                augs = sorted(np.random.choice((1 << k) - 1, size=3, replace=False))
+                return ['0' * k] + [bin(a+1)[2:].zfill(k) for a in augs]
+        
+        if not addmul or not self.compute_augs:
+            return [tokens], 1
+
+        aug_eq = []
+        augments = get_augments(len(addmul))
+        for aug in augments:
+            token_copy = list(tokens)
+            for i in range(len(aug)):
+                if aug[i] == '1':
+                    lchild, rchild, rchild_end = addmul[i]
+                    new_left = token_copy[rchild:rchild_end]
+                    new_right = token_copy[lchild:rchild]
+                    token_copy[lchild:rchild_end] = new_left + new_right
+            aug_eq.append(token_copy)      
+        return aug_eq, 4 if len(addmul) > 1 else 2
+
+    def precompute(self, elements):
+        assert len(elements) == 1
+        x, y = elements[0][0], elements[0][1]
+        tokens = [w for w in x if w in self.env.word2id]
+        addmul = []
+        tree, idx, _, count = self._prefix_to_tree(tokens, addmul)
+        if idx != len(tokens):
+            print(tree)
+            print(idx)
+            print(tokens)
+            print(count)
+            print(addmul)
+            assert False
+        assert count == len(addmul)
+
+        aug_eq, num_augment = self.augment(tokens, addmul)
+        trees, _ = self.prefix_to_tree(aug_eq)
+
+        operations = torch.tensor([], dtype=torch.long)
+        tokens = torch.tensor([], dtype=torch.long)
+        left_idx = torch.tensor([], dtype=torch.long)
+        right_idx = torch.tensor([], dtype=torch.long)
+        root_idx = 0
+
+        for tree in trees:
+            (tree_ops, tree_tokens, tree_left_idx, tree_right_idx, _, _) = self.tensorize_tree(tree, [])
+            
+            tree_left_idx[tree_left_idx != -1] += root_idx
+            tree_right_idx[tree_right_idx != -1] += root_idx
+
+            operations = torch.cat([operations, tree_ops])
+            tokens = torch.cat([tokens, tree_tokens])
+            left_idx = torch.cat([left_idx, tree_left_idx])
+            right_idx = torch.cat([right_idx, tree_right_idx])
+            root_idx += tree_ops.numel()
+
+        x_aug = [" ".join(eq) for eq in aug_eq]
+        x_aug = ";".join(x_aug)
+        y = " ".join(y)
+        equations = f"{num_augment}|{x_aug}\t{y}"
+        return operations.tolist(), tokens.tolist(), left_idx.tolist(), right_idx.tolist(), equations
 
     def init_rng(self):
         """
@@ -2122,4 +2311,137 @@ class EnvDataset(Dataset):
 
         return x, y
 
+
+class PrecomputeDataset(EnvDataset):
+
+    def __init__(self, env, task, train, rng, params, path):
+        assert path is not None
+        super().__init__(env, task, train, rng, params, path)
+
+        self.data = {}
+        for ext in ['ops', 'tokens', 'left', 'right']:
+            self.load_data(params, path, ext)
+
+        # generation, or reloading from file
+        assert os.path.isfile(path+'.data')
+        logger.info(f"Loading data from {path+'.data'} ...")
+        with io.open(path+'.data', mode='r', encoding='utf-8') as f:
+            # either reload the entire file, or the first N lines (for the training set)
+            if not self.train:
+                lines = [line.rstrip().split('|') for line in f][3:]
+            else:
+                lines = []
+                for i, line in enumerate(f):
+                    if i < 3:
+                        continue
+                    if (i-3) == params.reload_size:
+                        break
+                    if (i-3) % params.n_gpu_per_node == params.local_rank:
+                        lines.append(line.rstrip().split('|'))
+        equations = [xy.split('\t') for _, xy in lines]
+        equations = [(xy[0].split(';'), xy[1]) for xy in equations]
+        logger.info(f"Loaded {len(equations)} equations from the disk.")
+        self.data['data'] = equations
+
+        # dataset size: infinite iterator for train, finite for valid / test
+        if self.train:
+            self.size = 1 << 60
+        else:
+            self.size = len(self.data['ops'])
+
+    def load_data(self, params, path, ext):
+        assert os.path.isfile(path+'.'+ext)
+        logger.info(f"Loading data from {path+'.'+ext} ...")
+        with io.open(path+'.'+ext, mode='r', encoding='utf-8') as f:
+            # either reload the entire file, or the first N lines (for the training set)
+            if not self.train:
+                lines = [json.loads(line) for line in f]
+            else:
+                lines = []
+                for i, line in enumerate(f):
+                    if i == params.reload_size:
+                        break
+                    if i % params.n_gpu_per_node == params.local_rank:
+                        lines.append(json.loads(line))
+        self.data[ext] = lines
+
+    def __getitem__(self, index):
+        """
+        Return a training sample from precomputed tensors.
+        """
+        self.init_rng()
+        if self.train:
+           index = self.rng.randint(len(self.data['ops']))
+
+        ops = self.data['ops'][index]
+        tokens = self.data['tokens'][index]
+        left = self.data['left'][index]
+        right = self.data['right'][index]
+        x, y = self.data['data'][index]
+        x = [aug.split() for aug in x]
+        y = y.split()
+        y = [y] * len(x)
+        assert len(x[0]) >= 1 and len(y[0]) >= 1
+
+        return ops, tokens, left, right, x, y, len(x)
+
+    def batch_tensors(self, ops, toks, left, right, num_augs):
+        operations = torch.tensor([], dtype=torch.long)
+        tokens = torch.tensor([], dtype=torch.long)
+        left_idx = torch.tensor([], dtype=torch.long)
+        right_idx = torch.tensor([], dtype=torch.long)
+        eq_len = []
+        root_idx = 0
+
+        for op, tok, l_idx, r_idx, num in zip(ops, toks, left, right, num_augs):
+            eq_len += [len(op) / num] * num
+            if self.pad_tokens:
+                # Append BOS and EOS embedding operations
+                op = torch.LongTensor([-1]) + torch.LongTensor(op) + torch.LongTensor([-1])
+                # Append BOS and EOS tokens to the tokens
+                eos = torch.LongTensor([self.env.word2id['<s>']])
+                tok = torch.cat([eos, torch.LongTensor(tok), eos])
+                l_idx = torch.cat([torch.LongTensor([-1]), torch.LongTensor(l_idx), torch.LongTensor([-1])])
+                r_idx = torch.cat([torch.LongTensor([-1]), torch.LongTensor(r_idx), torch.LongTensor([-1])])
+
+                # Re-index this tree at its new place in the batch-wide order
+                # Add 1 because we append an BOS token to the start
+                l_idx[l_idx != -1] += root_idx + 1
+                r_idx[r_idx != -1] += root_idx + 1
+
+            else: # Do not append if no padding
+                l_idx = torch.LongTensor(l_idx)
+                r_idx = torch.LongTensor(r_idx)
+                l_idx[l_idx != -1] += root_idx
+                r_idx[r_idx != -1] += root_idx
+
+            operations = torch.cat([operations, torch.LongTensor(op)])
+            tokens = torch.cat([tokens, torch.LongTensor(tok)])
+            left_idx = torch.cat([left_idx, l_idx])
+            right_idx = torch.cat([right_idx, r_idx])
+            root_idx += len(op)
+
+        depths, operation_order = self.compute_operation_order(operations, left_idx, right_idx)
+
+        return (operations, tokens, left_idx, right_idx, torch.LongTensor(eq_len), depths, operation_order)
+
+    def collate_fn(self, elements):
+        """
+        Collate samples into a batch.
+        """
+        ops, tokens, left, right, x_group, y_group, num_augs = zip(*elements)
+        x, y = [], []
+        for j in range(len(ops)):
+            x += x_group[j]
+            y += y_group[j]
+        nb_ops = torch.LongTensor([sum(int(word in self.env.OPERATORS) for word in seq) for seq in x])
+
+        ops, tokens, left, right, x_len, depths, op_order = self.batch_tensors(ops, tokens, left, right, num_augs)
+
+        x = [torch.LongTensor([self.env.word2id[w] for w in seq if w in self.env.word2id]) for seq in x]
+        y = [torch.LongTensor([self.env.word2id[w] for w in seq if w in self.env.word2id]) for seq in y]
+        x, _ = self.env.batch_sequences(x)
+        y, y_len = self.env.batch_sequences(y)
+
+        return (x, x_len), (y, y_len), nb_ops, (ops, tokens, left, right, depths, op_order)
 

@@ -114,7 +114,7 @@ class Trainer(object):
 
         # file handler to export data
         if params.export_data:
-            assert params.reload_data == ''
+            assert params.reload_data == '' and params.precompute_tensors == '' and params.reload_precomputed_data == ''
             params.export_path_prefix = os.path.join(params.dump_path, 'data.prefix')
             params.export_path_infix = os.path.join(params.dump_path, 'data.infix')
             self.file_handler_prefix = io.open(params.export_path_prefix, mode='a', encoding='utf-8')
@@ -122,19 +122,55 @@ class Trainer(object):
             logger.info(f"Data will be stored in prefix in: {params.export_path_prefix} ...")
             logger.info(f"Data will be stored in infix in: {params.export_path_infix} ...")
 
+        # precompute tensors
+        if params.precompute_tensors != '':
+            assert params.reload_data == '' and params.reload_precomputed_data == '' and params.export_data is False
+            task = params.tasks[0] # We check that we are only precomputing one task
+
+            params.export_path_ops = os.path.join(params.dump_path, task+'.ops')
+            params.export_path_tokens = os.path.join(params.dump_path, task+'.tokens')
+            params.export_path_left = os.path.join(params.dump_path, task+'.left')
+            params.export_path_right = os.path.join(params.dump_path, task+'.right')
+            params.export_path_data = os.path.join(params.dump_path, task+'.data')
+            #params.export_path_order = os.path.join(params.dump_path, task+'.order')
+            #params.export_path_ints = os.path.join(params.dump_path, task+'.integers')
+
+            self.file_handler_ops = io.open(params.export_path_ops, mode='a', encoding='utf-8')
+            self.file_handler_tokens = io.open(params.export_path_tokens, mode='a', encoding='utf-8')
+            self.file_handler_left = io.open(params.export_path_left, mode='a', encoding='utf-8')
+            self.file_handler_right = io.open(params.export_path_right, mode='a', encoding='utf-8')
+            self.file_handler_data = io.open(params.export_path_data, mode='a', encoding='utf-8')
+            #self.file_handler_order = io.open(params.export_path_order, mode='a', encoding='utf-8')
+            #self.file_handler_ints = io.open(params.export_path_ints, mode='a', encoding='utf-8')
+
+            logger.info(f"Data will be stored in: {params.dump_path} ...")
+
+            assert os.path.isfile(params.precompute_tensors)
+            self.iterator = self.env.create_precompute_iterator(params, params.precompute_tensors)
+
         # reload exported data
         if params.reload_data != '':
-            assert params.export_data is False
+            assert params.export_data is False and params.precompute_tensors == '' and params.reload_precomputed_data == ''
             s = [x.split(',') for x in params.reload_data.split(';') if len(x) > 0]
             assert len(s) >= 1 and all(len(x) == 4 for x in s) and len(s) == len(set([x[0] for x in s]))
             self.data_path = {task: (train_path, valid_path, test_path) for task, train_path, valid_path, test_path in s}
             assert all(all(os.path.isfile(path) for path in paths) for paths in self.data_path.values())
             for task in self.env.TRAINING_TASKS:
                 assert (task in self.data_path) == (task in params.tasks)
+        elif params.reload_precomputed_data != '':
+            assert params.export_data is False and params.precompute_tensors == ''
+            assert params.tree_enc
+            s = [x.split(',') for x in params.reload_precomputed_data.split(';') if len(x) > 0]
+            assert len(s) >= 1 and all(len(x) == 4 for x in s) and len(s) == len(set([x[0] for x in s]))
+            self.data_path = {task: (train_path, valid_path, test_path) for task, train_path, valid_path, test_path in s}
+            ext = ['.data', '.ops', '.tokens', '.left', '.right']
+            assert all(all(all(os.path.isfile(path+e) for e in ext) for path in paths) for paths in self.data_path.values())
+            for task in self.env.TRAINING_TASKS:
+                assert (task in self.data_path) == (task in params.tasks)
         else:
             self.data_path = None
         # create data loaders
-        if not params.eval_only:
+        if not params.eval_only and not params.precompute_tensors:
             if params.env_base_seed < 0:
                 params.env_base_seed = np.random.randint(1_000_000_000)
             self.dataloader = {
@@ -457,6 +493,32 @@ class Trainer(object):
         self.stats['processed_e'] += len1.size(0)
         self.stats['processed_w'] += (len1 + len2 - 2).sum().item()
 
+    def precompute_tensors(self):
+        """
+        Precompute tensors and export them to the disk.
+        """
+        s = time.time()
+        for ops, tokens, left, right, eqs in self.iterator:
+
+            self.file_handler_ops.write(f'{ops}\n')
+            self.file_handler_ops.flush()
+
+            self.file_handler_tokens.write(f'{tokens}\n')
+            self.file_handler_tokens.flush()
+
+            self.file_handler_left.write(f'{left}\n')
+            self.file_handler_left.flush()
+
+            self.file_handler_right.write(f'{right}\n')
+            self.file_handler_right.flush()
+
+            self.file_handler_data.write(f'{eqs}\n')
+            self.file_handler_data.flush()
+
+        e = time.time()
+        print(e-s)
+
+
     def train_integers(self, encoder, decoder, integers):
         """
         Augment the training with additional equations for the number encoder block.
@@ -505,13 +567,13 @@ class Trainer(object):
         
         x1, len1, x2, len2, y = to_cuda(x1, len1, x2, len2, y)
         if tensors:
-            tensors = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5], tensors[6], tensors[7], tensors[8])
+            tensors = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5])
 
         # forward / loss
         if params.treelstm or params.treesmu: # Use tree-based encoder
             #self.train_integers(encoder, decoder, tensors[7])
-            if not params.character_rnn:
-                len1 -= tensors[6] # remove the digits from each element in len1
+            #if not params.character_rnn:
+            #    len1 -= tensors[6] # remove the digits from each element in len1
             encoded = encoder(x=tensors, lengths=len1, seq_num=params.character_rnn)
             decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded, src_len=len1)
             

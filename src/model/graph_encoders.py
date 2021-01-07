@@ -129,6 +129,8 @@ class TreeNN(torch.nn.Module):
             (num_nodes, self.memory_size, self.d_model), device=tokens.device
         )
 
+        idx = torch.stack((left_idx, right_idx), dim=1)
+        
         for depth in range(num_steps):  
             step_mask = depths == depth  # Indices to compute at this step
             op = operation_order[depth].item()
@@ -139,28 +141,19 @@ class TreeNN(torch.nn.Module):
                 activations = activations.masked_scatter(
                     step_mask.unsqueeze(1), step_activations
                 )
+
             else:
+                step_mask = step_mask.unsqueeze(1)
                 op_name = self.id2word[op]
-                step_ids = torch.nonzero(step_mask, as_tuple=True)[0]
-                left = left_idx.masked_select(step_mask)
-                right = right_idx.masked_select(step_mask) # if we have a unary function this is meaningless
-                predecessors = torch.stack((left, right), dim=1)
-                input_cell = activations[predecessors]
-                input_hidden = memory[predecessors]
-
+                
+                inp = activations[idx]
+                mem = memory[idx]
                 step_activations, step_memory = self._apply_function(
-                    op_name, input_cell, input_hidden
+                    op_name, inp, mem
                 )
-
-                activation_scatter = torch_scatter.scatter(
-                    src=step_activations, index=step_ids, dim=0, dim_size=num_nodes
-                )
-                memory_scatter = torch_scatter.scatter(
-                    src=step_memory, index=step_ids, dim=0, dim_size=num_nodes
-                )
-                activations = activations + activation_scatter
-                memory = memory + memory_scatter
-
+                activations = activations + step_activations * step_mask
+                memory = memory + step_memory * step_mask.unsqueeze(1)
+         
         # Reverse activations because nodes are listed in reverse pre-order.
         return self._compute_output(activations, lengths)
 

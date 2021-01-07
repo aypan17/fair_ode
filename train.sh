@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 python3 main.py \
 	--exp_name treelstm \
-	--fp16 true --amp 1\
 	--emb_dim 256 \
 	--n_dec_layers 6 \
 	--n_heads 8 \

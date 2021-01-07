@@ -8,7 +8,6 @@ Models are implemented using a custom batching forward pass. See `envs/char_sp.p
 import abc
 
 import torch
-import torch_scatter
 import torch.nn as nn
 
 import time
@@ -64,7 +63,7 @@ class TreeNN(torch.nn.Module):
         )
 
     @abc.abstractmethod
-    def _apply_function(self, function_name: str, input_cell: torch.Tensor, input_hidden: torch.Tensor) -> torch.Tensor:
+    def _apply_function(self, function_name: str, input_cell: torch.Tensor, input_hidden: torch.Tensor, train) -> torch.Tensor:
         """
         Compute the activation for an internal node of the tree.
 
@@ -108,7 +107,7 @@ class TreeNN(torch.nn.Module):
         batch = torch.split(inputs, lens.tolist(), dim=0)
         return pad_sequence(batch, padding_value=0.0, batch_first=True).squeeze(2)
 
-    def forward(self, x, lengths, seq_num=False):
+    def forward(self, x, lengths, train=False):
         """
         Given a (possibly batched) graph and the number of nodes per tree, 
         compute the outputs for each tree.
@@ -149,7 +148,7 @@ class TreeNN(torch.nn.Module):
                 inp = activations[idx]
                 mem = memory[idx]
                 step_activations, step_memory = self._apply_function(
-                    op_name, inp, mem
+                    op_name, inp, mem, train
                 )
                 activations = activations + step_activations * step_mask
                 memory = memory + step_memory * step_mask.unsqueeze(1)
@@ -174,21 +173,21 @@ class TreeRNN(TreeNN):
         super().__init__(params, id2word, word2id, una_ops, bin_ops)
 
         self.unary_function_modules = torch.nn.ModuleDict(
-            {f: FunctionModule(1, d_model, params.num_module_layers) for f in una_ops}
+            {f: FunctionModule(1, d_model, params.num_module_layers, params.dropout) for f in una_ops}
         )
         if params.symmetric:   
-            self.unary_function_modules['add'] = FunctionModule(1, d_model, params.num_module_layers)
-            self.unary_function_modules['mul'] = FunctionModule(1, d_model, params.num_module_layers)
+            self.unary_function_modules['add'] = FunctionModule(1, d_model, params.num_module_layers, params.dropout)
+            self.unary_function_modules['mul'] = FunctionModule(1, d_model, params.num_module_layers, params.dropout)
         self.binary_function_modules = torch.nn.ModuleDict(
             {f: FunctionModule(2, d_model, params.num_module_layers) for f in bin_ops}
         )
         self.memory_size = 1
 
-    def _apply_function(self, function_name, inputs, memory):
+    def _apply_function(self, function_name, inputs, memory, train):
         if function_name in self.una_ops:
             module = self.unary_function_modules[function_name]
             inputs = inputs[:, 0, :] 
-            return module(inputs), memory[:, 0, :]
+            return module(inputs, train), memory[:, 0, :]
 
         if function_name in self.bin_ops:
             # Concatenate left and right before function application
@@ -198,7 +197,7 @@ class TreeRNN(TreeNN):
             else:
                 module = self.binary_function_modules[function_name]
                 inputs_together = inputs.view(inputs.size(0), -1)
-            return module(inputs_together), memory[:, 0, :]
+            return module(inputs_together, train), memory[:, 0, :]
 
         assert False
 
@@ -213,22 +212,22 @@ class TreeLSTM(TreeNN):
         super().__init__(params, id2word, word2id, una_ops, bin_ops)
 
         self.unary_function_modules = torch.nn.ModuleDict(
-            {f: UnaryLSTM(self.d_model) for f in una_ops}
+            {f: UnaryLSTM(self.d_model, params.dropout) for f in una_ops}
         )
         self.binary_function_modules = torch.nn.ModuleDict(
-            {f: BinaryLSTM(self.d_model) for f in bin_ops}
+            {f: BinaryLSTM(self.d_model, params.dropout) for f in bin_ops}
         )
         if params.symmetric:   
-            self.binary_function_modules['add'] = BinaryLSTMSym(self.d_model)
-            self.bunary_function_modules['mul'] = BinaryLSTMSym(self.d_model)
+            self.binary_function_modules['add'] = BinaryLSTMSym(self.d_model, params.dropout)
+            self.bunary_function_modules['mul'] = BinaryLSTMSym(self.d_model, params.dropout)
         self.memory_size = 1
 
-    def _apply_function(self, function_name, inputs, memory):
+    def _apply_function(self, function_name, inputs, memory, train):
         if function_name in self.una_ops:
             module = self.unary_function_modules[function_name]
             inputs = inputs[:, 0, :]
             memory = memory[:, 0, :]
-            return module(inputs, memory)
+            return module(inputs, memory, train)
 
         if function_name in self.bin_ops:
             # Concatenate left and right before function application
@@ -237,7 +236,7 @@ class TreeLSTM(TreeNN):
             r_inputs = inputs[:, 1, :]
             l_memory = memory[:, 0, :]
             r_memory = memory[:, 1, :]
-            return module(l_inputs, r_inputs, l_memory, r_memory)
+            return module(l_inputs, r_inputs, l_memory, r_memory, train)
 
         assert False
 
@@ -271,13 +270,13 @@ class TreeSMU(TreeNN):
             self.binary_stack_modules['mul'] = BinaryStackSym(params)
         self.memory_size = params.stack_size
 
-    def _apply_function(self, function_name, inputs, memory):
+    def _apply_function(self, function_name, inputs, memory, train):
         if function_name in self.una_ops:
             module = self.unary_function_modules[function_name]
             stack = self.unary_stack_modules[function_name]
             inputs = inputs[:, 0, :]
             memory = memory[:, 0, :]
-            step_memory = stack(inputs, memory)
+            step_memory = stack(inputs, memory, train)
             return module(inputs, step_memory).squeeze(1), step_memory
 
         if function_name in self.bin_ops:
@@ -288,7 +287,7 @@ class TreeSMU(TreeNN):
             r_inputs = inputs[:, 1, :]
             l_memory = memory[:, 0, :]
             r_memory = memory[:, 1, :]
-            step_memory = stack(l_inputs, r_inputs, l_memory, r_memory)
+            step_memory = stack(l_inputs, r_inputs, l_memory, r_memory, train)
             return module(l_inputs, r_inputs, step_memory).squeeze(1), step_memory
 
         assert False

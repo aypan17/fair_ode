@@ -574,7 +574,7 @@ class Trainer(object):
             #self.train_integers(encoder, decoder, tensors[7])
             #if not params.character_rnn:
             #    len1 -= tensors[6] # remove the digits from each element in len1
-            encoded = encoder(x=tensors, lengths=len1, seq_num=params.character_rnn)
+            encoded = encoder(x=tensors, lengths=len1, train=True)
             decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded, src_len=len1)
             
         else: # Use Transformer encoder

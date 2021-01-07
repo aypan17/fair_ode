@@ -117,7 +117,7 @@ class Evaluator(object):
             return scores
 
         with torch.no_grad():
-            for data_type in ['valid', 'test']:
+            for data_type in ['valid']: #, 'test'
                 for task in self.params.tasks:
                     if self.params.beam_eval:
                         self.enc_dec_step_beam(data_type, task, scores)

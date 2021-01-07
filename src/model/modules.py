@@ -16,7 +16,7 @@ class FunctionModule(torch.nn.Module):
         How many dense layers to apply.
     """
 
-    def __init__(self, arity, d_model, num_layers):
+    def __init__(self, arity, d_model, num_layers, dropout):
         if arity <= 0:
             raise ValueError("A function module must take at least one input.")
         if num_layers <= 0:
@@ -31,20 +31,22 @@ class FunctionModule(torch.nn.Module):
         layers.append(torch.nn.Linear(arity * d_model, d_model))
         layers.append(torch.nn.Sigmoid())
         self.layer_stack = torch.nn.Sequential(*layers)
+        self.dropout = dropout
 
-    def forward(self, inputs):
+    def forward(self, inputs, train):
         return self.layer_stack(inputs)
 
 
 class UnaryLSTM(torch.nn.Module):
-    def __init__(self, d_model: int):
+    def __init__(self, d_model: int, dropout):
         super().__init__()
         self.data = torch.nn.Linear(d_model, d_model, bias=True)
         self.forget = torch.nn.Linear(d_model, d_model, bias=True)
         self.output = torch.nn.Linear(d_model, d_model, bias=True)
         self.input = torch.nn.Linear(d_model, d_model, bias=True)
+        self.dropout = dropout
 
-    def forward(self, h: torch.Tensor, c: torch.Tensor, dropout=None):
+    def forward(self, h: torch.Tensor, c: torch.Tensor, train):
         """
         Computes a forward pass of Unary LSTM node.
         Args:
@@ -60,17 +62,14 @@ class UnaryLSTM(torch.nn.Module):
         f = torch.sigmoid(self.forget(h))
         o = torch.sigmoid(self.output(h))
         u = torch.tanh(self.input(h))
-        if dropout is None:
-            cp = i * u + f * c
-        else:
-            cp = i * F.dropout(u,p=dropout,training=self.training) + f * c
+        cp = i * F.dropout(u,p=self.dropout,training=train) + f * c
         hp = o * torch.tanh(cp)
         return (hp, cp.unsqueeze(1))
 
 
 class BinaryLSTM(torch.nn.Module):
 
-    def __init__(self, d_model: int):
+    def __init__(self, d_model: int, dropout):
         super().__init__()
         self.data_left = torch.nn.Linear(d_model, d_model, bias=False)
         self.data_right = torch.nn.Linear(d_model, d_model, bias=False)
@@ -87,8 +86,9 @@ class BinaryLSTM(torch.nn.Module):
         self.input_left = torch.nn.Linear(d_model, d_model, bias=False)
         self.input_right = torch.nn.Linear(d_model, d_model, bias=False)
         self.input_bias = torch.nn.Parameter(torch.FloatTensor([0] * d_model))
+        self.dropout = dropout
 
-    def forward(self, hl, hr, cl, cr, dropout=None): 
+    def forward(self, hl, hr, cl, cr, train): 
         """
         Computes a forward pass of Binary LSTM node.
         Args:
@@ -106,17 +106,14 @@ class BinaryLSTM(torch.nn.Module):
         f_right = torch.sigmoid(self.forget_right_by_left(hl) + self.forget_right_by_right(hr) + self.forget_bias_right)
         o = torch.sigmoid(self.output_left(hl) + self.output_right(hr) + self.output_bias)
         u = torch.tanh(self.input_left(hl) + self.input_right(hr) + self.input_bias)
-        if dropout is None:
-            cp = i * u + f_left * cl + f_right * cr
-        else:
-            cp = i * F.dropout(u,p=dropout,training=self.training) + f_left * cl + f_right * cr
+        cp = i * F.dropout(u,p=self.dropout,training=train) + f_left * cl + f_right * cr
         hp = o * torch.tanh(cp)
         return (hp, cp.unsqueeze(1))
 
 
 class BinaryLSTMSym(torch.nn.Module):
 
-    def __init__(self, d_model):
+    def __init__(self, d_model, dropout):
         super().__init__()
         self.data = nn.Linear(d_model, d_model, bias=False)
 
@@ -128,8 +125,9 @@ class BinaryLSTMSym(torch.nn.Module):
         self.output_bias = nn.Parameter(torch.FloatTensor([0] * d_model))
         self.input = nn.Linear(d_model, d_model, bias=False)
         self.input_bias = nn.Parameter(torch.FloatTensor([0] * d_model))
+        self.dropout = dropout
 
-    def forward(self, hl, hr, cl, cr, dropout=None):
+    def forward(self, hl, hr, cl, cr, train):
         """
         Computes a forward pass of Binary LSTM node and is permutation invariant to left/right.
         Args:
@@ -149,10 +147,7 @@ class BinaryLSTMSym(torch.nn.Module):
                                hr) + self.forget_bias)
         o = torch.sigmoid(self.output(hl) + self.output(hr) + self.output_bias)
         u = torch.tanh(self.input(hl) + self.input(hr) + self.input_bias)
-        if dropout is None:
-            c = i * u + f_left * cl + f_right * cr
-        else:
-            c = i * F.dropout(u,p=dropout,training=self.training) + f_left * cl + f_right * cr
+        c = i * F.dropout(u,p=self.dropout,training=train) + f_left * cl + f_right * cr
         h = o * torch.tanh(c)
         if trace:
             trace.output = h.tolist()
@@ -361,8 +356,9 @@ class UnaryStack(torch.nn.Module):
         self.like_LSTM = params.like_LSTM
         self.gate_push_pop = params.gate_push_pop
         self.normalize_action = params.normalize_action
+        self.dropout = params.dropout
 
-    def forward(self, inp, stack, dropout=None):
+    def forward(self, inp, stack, train):
         """
         Args:
             inp: (batch_size, d_model)
@@ -386,8 +382,8 @@ class UnaryStack(torch.nn.Module):
         # Push
         push_input = self.input_linear(inp) # (batch_size, 1, d_model)
         push_input = self.stack_activations(push_input)
-        if dropout:
-            push_input = F.dropout(push_input, p=dropout, training=self.training)
+        push_input = F.dropout(push_input, p=self.dropout, training=train)
+
         if self.like_LSTM:
             data_gate = self.data_linear(inp)
             data_gate = torch.sigmoid(data_gate)
@@ -476,8 +472,9 @@ class BinaryStack(torch.nn.Module):
         self.like_LSTM = params.like_LSTM
         self.gate_push_pop = params.gate_push_pop
         self.normalize_action = params.normalize_action
+        self.dropout = params.dropout
 
-    def forward(self, input_left, input_right, stack_left, stack_right, dropout=None):
+    def forward(self, input_left, input_right, stack_left, stack_right, train):
         """
         Args:
             input_left, input_right: (batch_size, d_model)
@@ -504,8 +501,8 @@ class BinaryStack(torch.nn.Module):
         # Push
         push_input = self.input_linear(inp) # (batch_size, 1, d_model)
         push_input = self.stack_activations(push_input)
-        if dropout:
-            push_input = F.dropout(push_input, p=dropout, training=self.training)
+        push_input = F.dropout(push_input, p=self.dropout, training=train)
+
         if self.like_LSTM:
             data_gate = self.data_linear(inp)
             data_gate = torch.sigmoid(data_gate)

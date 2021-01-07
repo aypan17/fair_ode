@@ -183,6 +183,9 @@ class TreeRNN(TreeNN):
         self.unary_function_modules = torch.nn.ModuleDict(
             {f: FunctionModule(1, d_model, params.num_module_layers) for f in una_ops}
         )
+        if params.symmetric:   
+            self.unary_function_modules['add'] = FunctionModule(1, d_model, params.num_module_layers)
+            self.unary_function_modules['mul'] = FunctionModule(1, d_model, params.num_module_layers)
         self.binary_function_modules = torch.nn.ModuleDict(
             {f: FunctionModule(2, d_model, params.num_module_layers) for f in bin_ops}
         )
@@ -196,8 +199,12 @@ class TreeRNN(TreeNN):
 
         if function_name in self.bin_ops:
             # Concatenate left and right before function application
-            module = self.binary_function_modules[function_name]
-            inputs_together = inputs.view(inputs.size(0), -1)
+            if params.symmetric and function_name in ['add', 'mul']:
+                module = self.unary_function_modules[function_name]
+                inputs_together = inputs[:, 0, :] + inputs[:, 1, :]
+            else:
+                module = self.binary_function_modules[function_name]
+                inputs_together = inputs.view(inputs.size(0), -1)
             return module(inputs_together), memory[:, 0, :]
 
         assert False
@@ -218,6 +225,9 @@ class TreeLSTM(TreeNN):
         self.binary_function_modules = torch.nn.ModuleDict(
             {f: BinaryLSTM(self.d_model) for f in bin_ops}
         )
+        if params.symmetric:   
+            self.binary_function_modules['add'] = BinaryLSTMSym(self.d_model)
+            self.bunary_function_modules['mul'] = BinaryLSTMSym(self.d_model)
         self.memory_size = 1
 
     def _apply_function(self, function_name, inputs, memory):
@@ -261,6 +271,11 @@ class TreeSMU(TreeNN):
         self.binary_stack_modules = torch.nn.ModuleDict(
             {f: BinaryStack(params) for f in bin_ops}
         )
+        if params.symmetric:
+            self.binary_function_modules['add'] = BinarySMUSym(params)
+            self.binary_function_modules['mul'] = BinarySMUSym(params)
+            self.binary_stack_modules['add'] = BinaryStackSym(params)
+            self.binary_stack_modules['mul'] = BinaryStackSym(params)
         self.memory_size = params.stack_size
 
     def _apply_function(self, function_name, inputs, memory):

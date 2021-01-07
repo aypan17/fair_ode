@@ -138,6 +138,8 @@ ode2.train
 ode2.valid
 ode2/
 
+data_precompute/
+
 fwd_small/
 
 dumped/

@@ -1,7 +1,7 @@
 import torch 
 import torch.nn.functional as F
 
-class FunctionModule(torch.nn.Module):
+class MLP(torch.nn.Module):
     """
     An MLP block that takes in a fixed number of embedding vectors, and produces single
     embedding vectors.
@@ -16,22 +16,22 @@ class FunctionModule(torch.nn.Module):
         How many dense layers to apply.
     """
 
-    def __init__(self, arity, d_model, num_layers, dropout):
+    def __init__(self, arity, d_model, num_layers, activation):
         if arity <= 0:
             raise ValueError("A function module must take at least one input.")
         if num_layers <= 0:
             raise ValueError("A function module must have at least one layer.")
 
         super().__init__()
+        self.activation = torch.nn.Tanh() if activation == "tanh" else torch.nn.Sigmoid()
 
         layers = []
         for _ in range(num_layers - 1):
             layers.append(torch.nn.Linear(arity * d_model, arity * d_model))
-            layers.append(torch.nn.Sigmoid())
+            layers.append(self.activation)
         layers.append(torch.nn.Linear(arity * d_model, d_model))
-        layers.append(torch.nn.Sigmoid())
+        layers.append(self.activation)
         self.layer_stack = torch.nn.Sequential(*layers)
-        self.dropout = dropout
 
     def forward(self, inputs, train):
         return self.layer_stack(inputs)
@@ -115,16 +115,16 @@ class BinaryLSTMSym(torch.nn.Module):
 
     def __init__(self, d_model, dropout):
         super().__init__()
-        self.data = nn.Linear(d_model, d_model, bias=False)
+        self.data = torch.nn.Linear(d_model, d_model, bias=False)
 
-        self.data_bias = nn.Parameter(torch.FloatTensor([0] * d_model))
-        self.forget_by_self = nn.Linear(d_model, d_model, bias=False)
-        self.forget_by_opposite = nn.Linear(d_model, d_model, bias=False)
-        self.forget_bias = nn.Parameter(torch.FloatTensor([0] * d_model))
-        self.output = nn.Linear(d_model, d_model, bias=False)
-        self.output_bias = nn.Parameter(torch.FloatTensor([0] * d_model))
-        self.input = nn.Linear(d_model, d_model, bias=False)
-        self.input_bias = nn.Parameter(torch.FloatTensor([0] * d_model))
+        self.data_bias = torch.nn.Parameter(torch.FloatTensor([0] * d_model))
+        self.forget_by_self = torch.nn.Linear(d_model, d_model, bias=False)
+        self.forget_by_opposite = torch.nn.Linear(d_model, d_model, bias=False)
+        self.forget_bias = torch.nn.Parameter(torch.FloatTensor([0] * d_model))
+        self.output = torch.nn.Linear(d_model, d_model, bias=False)
+        self.output_bias = torch.nn.Parameter(torch.FloatTensor([0] * d_model))
+        self.input = torch.nn.Linear(d_model, d_model, bias=False)
+        self.input_bias = torch.nn.Parameter(torch.FloatTensor([0] * d_model))
         self.dropout = dropout
 
     def forward(self, hl, hr, cl, cr, train):
@@ -138,6 +138,8 @@ class BinaryLSTMSym(torch.nn.Module):
             (hp, cp): Hidden state and cell state of parent. 
             Hidden dim: [batch_size, d_model]. Cell dim: [batch_size, 1, d_model]
         """
+        cl = cl.squeeze(1)
+        cr = cr.squeeze(1)
         i = torch.sigmoid(self.data(hl) + self.data(hr) + self.data_bias)
         f_left = torch.sigmoid(self.forget_by_self(hl) +
                            self.forget_by_opposite(
@@ -149,11 +151,7 @@ class BinaryLSTMSym(torch.nn.Module):
         u = torch.tanh(self.input(hl) + self.input(hr) + self.input_bias)
         c = i * F.dropout(u,p=self.dropout,training=train) + f_left * cl + f_right * cr
         h = o * torch.tanh(c)
-        if trace:
-            trace.output = h.tolist()
-            trace.memory = c.tolist()
-            trace.i = [f_left.tolist(), f_right.tolist()]
-        return h, c
+        return (h, c.unsqueeze(1))
 
 
 class UnarySMU(torch.nn.Module):

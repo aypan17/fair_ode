@@ -77,10 +77,13 @@ def get_parser():
                         help='use a TreeLSTM encoder for the model')
     parser.add_argument('--gcnn', action='store_true',
                         help='use a Graph CNN encoder for the model')
+    parser.add_argument('--baseline', action='store_true',
+                        help='User a Transformer encoder for the model')
     parser.add_argument('--num_module_layers', type=int, default=2,
                         help='number of layers per module in the RNN/GCNN model')
     parser.add_argument('--num_layers', type=int, default=2,
                         help='number of message passing steps in the GCNN model')
+
 
     # smu parameters
     parser.add_argument('--treesmu', action='store_true',
@@ -108,6 +111,8 @@ def get_parser():
 
 
     # training parameters
+    parser.add_argument("--tune", action='store_true',
+                        help="Run hyperparameter tuning")
     parser.add_argument("--env_base_seed", type=int, default=0,
                         help="Base seed for environments (-1 to use timestamp seed)")
     parser.add_argument("--max_len", type=int, default=512,
@@ -160,8 +165,7 @@ def get_parser():
                         help="Tasks")
     parser.add_argument("--vars", type=int, default=1,
                         help="Tasks")
-    parser.add_argument("--num_bit", type=int, default=10,
-                        help="Tasks")
+
 
     # beam search configuration
     parser.add_argument("--beam_eval", type=bool_flag, default=False,
@@ -214,6 +218,60 @@ def get_parser():
                         help="learning with apex synchronized batch norm")
 
     return parser
+
+def tune(params):
+    # Discrete hparam range
+    dim = [128, 256, 512]
+    dec_layers = [4, 5, 6, 7, 8]
+    heads = [4, 8, 16]
+    sin_emb = [True, False]
+    params.emb_dim = np.random.choice(dim)
+    params.num_dec_layers = np.random.choice(dec_layers)
+    params.n_heads = np.random.choice(heads)
+    params.sinusoidal_embeddings = np.random.choice(sin_emb)
+
+    # Continuous hparam range
+    lr = [0.00003, 0.005]
+    drop = [0, 0.4]
+    attn_drop = [0, 0.4]
+    params.optimizer = "adam,lr="+str(np.random.uniform(lr[0], lr[1]))
+    params.dropout = np.random.uniform(drop[0], drop[1])
+    params.attention_dropout = np.random.uniform(attn_drop[0], attn_drop[1])
+
+    print(f"Tuning dim from: {dim}")
+    print(f"Tuning num_dec_layers from: {dec_layers}")
+    print(f"Tuning num_heads from: {heads}")
+    print(f"Tuning sin_emb from: {sin_emb}")
+    print("============================================")
+    print(f"Tuning learning rate from the interval: {lr}")
+    print(f"Tuning dropout from the interval: {drop}")
+    print(f"Tuning attention dropout from the interval: {attn_drop}")
+
+    if params.tree_enc:
+        #pad_tokens = [True, False]
+        #params.pad_tokens = np.random.choice(pad_tokens)
+        #print(f"Tuning pad_tokens from: {pad_tokens}")
+        params.symmetric = np.random.choice([True, False])
+
+        if params.treesmu:
+            stack_behavior = np.random.choice(['none', 'no-op', 'no-pop'])
+            if stack_behavior == 'no-op':
+                params.no_op = True
+            if stack_behavior == 'no-pop':
+                params.no_pop = True
+            params.gate_push_pop = np.random.choice([True, False])
+            params.normalize_action = np.random.choice([True, False])
+            params.top_k = np.random.choice([1, 2, 3, 4, 5])
+            params.gate_top_k = np.random.choice([True, False]) if params.top_k > 1 else False
+            params.stack_size = np.random.choice(range(params.top_k, 6))
+            print(f"Tuning stack_size from: {params.top_k} to 5")
+
+    elif params.baseline:
+        enc_layers = [4, 5, 6, 7, 8]
+        params.num_enc_layers = np.random.choice(enc_layers)
+        print(f"Tuning num_enc_layers from: {enc_layers}")
+    else:
+        assert False
 
 
 def main(params):
@@ -285,7 +343,7 @@ def main(params):
         logger.info("============ End of epoch %i ============" % trainer.epoch)
 
         # evaluate perplexity
-        scores = evaluator.run_all_evals()
+        #scores = evaluator.run_all_evals()
 
         # print / JSON log
         for k, v in scores.items():
@@ -305,9 +363,8 @@ if __name__ == '__main__':
     # generate parser / parse parameters
     parser = get_parser()
     params = parser.parse_args()
-    print(params.operators)
-
-    params.tree_enc = params.treernn or params.treelstm or params.treesmu
+    assert sum([params.treernn, params.treelstm, params.treesmu, params.baseline]) == 1
+    params.tree_enc = not params.baseline
 
     # debug mode
     if params.debug:
@@ -315,6 +372,9 @@ if __name__ == '__main__':
         if params.exp_id == '':
             params.exp_id = 'debug_%08i' % random.randint(0, 100000000)
         params.debug_slurm = True
+
+    if params.tune:
+        tune(params)
 
     # check parameters
     check_model_params(params)

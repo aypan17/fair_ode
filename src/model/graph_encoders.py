@@ -14,8 +14,8 @@ import time
 
 import src.envs.char_sp as char_sp
 
-from src.model.modules import FunctionModule, UnaryLSTM, BinaryLSTM, \
-                    UnarySMU, BinarySMU, UnaryStack, BinaryStack
+from src.model.modules import MLP, UnaryLSTM, BinaryLSTM, BinaryLSTMSym, \
+                    UnarySMU, BinarySMU, BinarySMUSym, UnaryStack, BinaryStack, BinaryStackSym
 
 START_TOKEN = '<s>'
 END_TOKEN = '</s>'
@@ -173,14 +173,16 @@ class TreeRNN(TreeNN):
         super().__init__(params, id2word, word2id, una_ops, bin_ops)
 
         self.unary_function_modules = torch.nn.ModuleDict(
-            {f: FunctionModule(1, d_model, params.num_module_layers, params.dropout) for f in una_ops}
+            {f: MLP(1, params.emb_dim, params.num_module_layers, params.tree_activation) for f in una_ops}
+        )
+        self.binary_function_modules = torch.nn.ModuleDict(
+            {f: MLP(2, params.emb_dim, params.num_module_layers, params.tree_activation) for f in bin_ops}
         )
         if params.symmetric:   
-            self.unary_function_modules['add'] = FunctionModule(1, d_model, params.num_module_layers, params.dropout)
-            self.unary_function_modules['mul'] = FunctionModule(1, d_model, params.num_module_layers, params.dropout)
-        self.binary_function_modules = torch.nn.ModuleDict(
-            {f: FunctionModule(2, d_model, params.num_module_layers) for f in bin_ops}
-        )
+            self.binary_function_modules['add'] = \
+                MLP(1, params.emb_dim, params.num_module_layers, params.tree_activation)
+            self.biary_function_modules['mul'] = \
+                MLP(1, params.emb_dim, params.num_module_layers, params.tree_activation)
         self.memory_size = 1
 
     def _apply_function(self, function_name, inputs, memory, train):
@@ -219,7 +221,7 @@ class TreeLSTM(TreeNN):
         )
         if params.symmetric:   
             self.binary_function_modules['add'] = BinaryLSTMSym(self.d_model, params.dropout)
-            self.bunary_function_modules['mul'] = BinaryLSTMSym(self.d_model, params.dropout)
+            self.binary_function_modules['mul'] = BinaryLSTMSym(self.d_model, params.dropout)
         self.memory_size = 1
 
     def _apply_function(self, function_name, inputs, memory, train):

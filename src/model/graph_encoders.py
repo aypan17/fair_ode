@@ -181,8 +181,9 @@ class TreeRNN(TreeNN):
         if params.symmetric:   
             self.binary_function_modules['add'] = \
                 MLP(1, params.emb_dim, params.num_module_layers, params.tree_activation)
-            self.biary_function_modules['mul'] = \
+            self.binary_function_modules['mul'] = \
                 MLP(1, params.emb_dim, params.num_module_layers, params.tree_activation)
+        self.symmetric = params.symmetric
         self.memory_size = 1
 
     def _apply_function(self, function_name, inputs, memory, train):
@@ -193,12 +194,12 @@ class TreeRNN(TreeNN):
 
         if function_name in self.bin_ops:
             # Concatenate left and right before function application
-            if params.symmetric and function_name in ['add', 'mul']:
-                module = self.unary_function_modules[function_name]
+            module = self.binary_function_modules[function_name]
+            if self.symmetric and function_name in ['add', 'mul']:
                 inputs_together = inputs[:, 0, :] + inputs[:, 1, :]
             else:
-                module = self.binary_function_modules[function_name]
                 inputs_together = inputs.view(inputs.size(0), -1)
+
             return module(inputs_together, train), memory[:, 0, :]
 
         assert False

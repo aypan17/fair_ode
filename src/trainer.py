@@ -159,7 +159,6 @@ class Trainer(object):
                 assert (task in self.data_path) == (task in params.tasks)
         elif params.reload_precomputed_data != '':
             assert params.export_data is False and params.precompute_tensors == ''
-            assert params.tree_enc
             s = [x.split(',') for x in params.reload_precomputed_data.split(';') if len(x) > 0]
             assert len(s) >= 1 and all(len(x) == 4 for x in s) and len(s) == len(set([x[0] for x in s]))
             self.data_path = {task: (train_path, valid_path, test_path) for task, train_path, valid_path, test_path in s}
@@ -570,7 +569,7 @@ class Trainer(object):
             tensors = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5])
 
         # forward / loss
-        if params.treelstm or params.treesmu: # Use tree-based encoder
+        if params.tree_enc: # Use tree-based encoder
             #self.train_integers(encoder, decoder, tensors[7])
             #if not params.character_rnn:
             #    len1 -= tensors[6] # remove the digits from each element in len1

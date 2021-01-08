@@ -35,7 +35,7 @@ def build_modules(env, params):
     modules = {}
     if params.treernn:
         modules['encoder'] = TreeRNN(params, env.id2word, env.word2id, env.una_ops, env.bin_ops)
-    if params.treelstm:
+    elif params.treelstm:
         modules['encoder'] = TreeLSTM(params, env.id2word, env.word2id, env.una_ops, env.bin_ops)
     elif params.treesmu:
         modules['encoder'] = TreeSMU(params, env.id2word, env.word2id, env.una_ops, env.bin_ops)

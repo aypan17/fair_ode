@@ -2430,18 +2430,21 @@ class PrecomputeDataset(EnvDataset):
         Collate samples into a batch.
         """
         ops, tokens, left, right, x_group, y_group, num_augs = zip(*elements)
+
         x, y = [], []
         for j in range(len(ops)):
             x += x_group[j]
             y += y_group[j]
         nb_ops = torch.LongTensor([sum(int(word in self.env.OPERATORS) for word in seq) for seq in x])
-
-        ops, tokens, left, right, x_len, depths, op_order = self.batch_tensors(ops, tokens, left, right, num_augs)
-
         x = [torch.LongTensor([self.env.word2id[w] for w in seq if w in self.env.word2id]) for seq in x]
         y = [torch.LongTensor([self.env.word2id[w] for w in seq if w in self.env.word2id]) for seq in y]
-        x, _ = self.env.batch_sequences(x)
+        x, x_len_og = self.env.batch_sequences(x)
         y, y_len = self.env.batch_sequences(y)
+
+        if self.tree_enc:
+            ops, tokens, left, right, x_len, depths, op_order = self.batch_tensors(ops, tokens, left, right, num_augs)
+        else:
+            ops, tokens, left, right, depths, op_order = None, None, None, None, None, None
 
         return (x, x_len), (y, y_len), nb_ops, (ops, tokens, left, right, depths, op_order)
 

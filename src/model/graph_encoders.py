@@ -9,6 +9,7 @@ import abc
 
 import torch
 import torch.nn as nn
+import torch_scatter 
 
 import time
 
@@ -106,12 +107,72 @@ class TreeNN(torch.nn.Module):
         """
         batch = torch.split(inputs, lens.tolist(), dim=0)
         return pad_sequence(batch, padding_value=0.0, batch_first=True).squeeze(2)
-
+        '''
     def forward(self, x, lengths, train=False):
         """
         Given a (possibly batched) graph and the number of nodes per tree, 
         compute the outputs for each tree.
         """
+        s = time.time()
+        operations, tokens, left_idx, right_idx, depths, operation_order = x
+        num_steps = operation_order.numel()
+        num_nodes = operations.numel()
+
+        # A buffer where the i-th row is the activations output from the i-th node
+        # The buffer is repeatedly summed into to allow dense gradient computation;
+        # this is valid because each position is summed to exactly once.
+        activations = torch.zeros(
+            (num_nodes, self.d_model), device=tokens.device
+        )
+
+        # A buffer where the i-th row is the memory output from the i-th node.
+        memory = torch.zeros(
+            (num_nodes, self.memory_size, self.d_model), device=tokens.device
+        )
+
+        for depth in range(num_steps):  
+            step_mask = depths == depth  # Indices to compute at this step
+            op = operation_order[depth].item()
+
+            if op == -1: # Embedding lookup or number encoding
+                leaf_tokens = tokens.masked_select(step_mask)
+                step_activations = self.leaf_emb(leaf_tokens)
+                activations = activations.masked_scatter(
+                    step_mask.unsqueeze(1), step_activations
+                )
+            else:
+                op_name = self.id2word[op]
+                step_ids = torch.nonzero(step_mask, as_tuple=True)[0]
+                left = left_idx.masked_select(step_mask)
+                right = right_idx.masked_select(step_mask) # if we have a unary function this is meaningless
+                predecessors = torch.stack((left, right), dim=1)
+                input_cell = activations[predecessors]
+                input_hidden = memory[predecessors]
+
+                step_activations, step_memory = self._apply_function(
+                    op_name, input_cell, input_hidden, train
+                )
+
+                activation_scatter = torch_scatter.scatter(
+                    src=step_activations, index=step_ids, dim=0, dim_size=num_nodes
+                )
+                memory_scatter = torch_scatter.scatter(
+                    src=step_memory, index=step_ids, dim=0, dim_size=num_nodes
+                )
+                activations = activations + activation_scatter
+                memory = memory + memory_scatter
+        e = time.time()
+        print("fwd", e-s)
+        # Reverse activations because nodes are listed in reverse pre-order.
+        return self._compute_output(activations, lengths)
+       '''
+    
+    def forward(self, x, lengths, train=False):
+        """
+        Given a (possibly batched) graph and the number of nodes per tree, 
+        compute the outputs for each tree.
+        """
+        #s = time.time()
         operations, tokens, left_idx, right_idx, depths, operation_order = x
         num_steps = operation_order.numel()
         num_nodes = operations.numel()
@@ -129,22 +190,15 @@ class TreeNN(torch.nn.Module):
         )
 
         idx = torch.stack((left_idx, right_idx), dim=1)
-        
         for depth in range(num_steps):  
-            step_mask = depths == depth  # Indices to compute at this step
+            step_mask = (depths == depth).unsqueeze(1)  # Indices to compute at this step
             op = operation_order[depth].item()
 
             if op == -1: # Embedding lookup or number encoding
-                leaf_tokens = tokens.masked_select(step_mask)
-                step_activations = self.leaf_emb(leaf_tokens)
-                activations = activations.masked_scatter(
-                    step_mask.unsqueeze(1), step_activations
-                )
+                activations += self.leaf_emb(tokens) * step_mask
 
             else:
-                step_mask = step_mask.unsqueeze(1)
-                op_name = self.id2word[op]
-                
+                op_name = self.id2word[op]                
                 inp = activations[idx]
                 mem = memory[idx]
                 step_activations, step_memory = self._apply_function(
@@ -152,11 +206,12 @@ class TreeNN(torch.nn.Module):
                 )
                 activations = activations + step_activations * step_mask
                 memory = memory + step_memory * step_mask.unsqueeze(1)
-         
+
+
         # Reverse activations because nodes are listed in reverse pre-order.
         return self._compute_output(activations, lengths)
-
-
+    
+    
 class TreeRNN(TreeNN):
     """
     A TreeRNN model.

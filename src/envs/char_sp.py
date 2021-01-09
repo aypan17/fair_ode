@@ -1666,7 +1666,6 @@ class CharSPEnvironment(object):
         logger.info(f"Creating {data_type} iterator for {task} ...")
 
         if params.reload_precomputed_data != '':
-            print("hi")
             dataset = PrecomputeDataset(
             self,
             task,
@@ -1827,7 +1826,7 @@ class EnvDataset(Dataset):
             complete[:-1] |= step_mask  # Mark indices computed at this step done
             depth += 1
 
-        return depths, torch.tensor(operation_order, dtype=torch.int)
+        return depths, torch.LongTensor(operation_order)
         
 
     def tensorize_tree(self, tree: BinaryEqnTree, integers, digits=0):
@@ -2041,6 +2040,8 @@ class EnvDataset(Dataset):
             integers.extend(tree_integers)
             root_idx += tree_ops.numel() 
 
+        tokens[tokens == -1] += 1
+
         depths, operation_order = self.compute_operation_order(operations, left_idx, right_idx)
 
         return (
@@ -2149,6 +2150,8 @@ class EnvDataset(Dataset):
 
         if self.tree_enc:
             x_len += num_extra_tokens
+            if not self.pad_tokens:
+                x_len -= 2
 
         return (x, x_len), (y, y_len), torch.LongTensor(nb_ops), tensorized_batch
 
@@ -2355,14 +2358,14 @@ class PrecomputeDataset(EnvDataset):
         with io.open(path+'.'+ext, mode='r', encoding='utf-8') as f:
             # either reload the entire file, or the first N lines (for the training set)
             if not self.train:
-                lines = [json.loads(line) for line in f]
+                lines = [np.array(json.loads(line)) for line in f]
             else:
                 lines = []
                 for i, line in enumerate(f):
                     if i == params.reload_size:
                         break
                     if i % params.n_gpu_per_node == params.local_rank:
-                        lines.append(json.loads(line))
+                        lines.append(np.array(json.loads(line)))
         self.data[ext] = lines
 
     def __getitem__(self, index):
@@ -2384,7 +2387,64 @@ class PrecomputeDataset(EnvDataset):
         assert len(x[0]) >= 1 and len(y[0]) >= 1
 
         return ops, tokens, left, right, x, y, len(x)
+    
+    def compute_operation_order(
+        self, operations, left_idx, right_idx
+    ):
+        """
+        Compute the step at which each node in a tree may execute.
 
+        Preserves these invariants:
+            - Any children of nodes indicated at a given step will have a lower depth.
+            - All nodes with the same depth will have the same operation index.
+
+        Operations are selected with a greedy algorithm, which always picks the operation
+        with the most "available" nodes at a given step to execute at that step.
+
+        Parameters
+        ----------
+        operations
+            An index indicating which operation is applied at each node.
+        left_idx
+            An index indicating the left child of each node, or -1 if the node does not
+            have a left child.
+        right_idx
+            An index indicating the right child of each node, or -1 if the node does not
+            have a right child.
+
+        Returns
+        -------
+        depths : Tensor
+            The depth of each node in the tree.
+        operation_order : Tensor
+            For each step, the operation performed at that step.
+        """
+        num_nodes = operations.size
+        complete = np.zeros(num_nodes + 1, dtype=bool)
+
+        # Add a fake "node" that is always available for leaf tensors to look up
+        complete[num_nodes] = True
+        left_idx_ = np.copy(left_idx)
+        left_idx_[left_idx_ == -1] = num_nodes
+        right_idx_ = np.copy(right_idx)
+        right_idx_[right_idx_ == -1] = num_nodes
+
+        depth = 0
+        depths = np.zeros(num_nodes, dtype=int)
+        operation_order = []
+
+        while not complete.all():
+            available = complete[left_idx_] & complete[right_idx_] & ~complete[:-1]
+            selected_op = operations[np.argmax(available)]
+            step_mask = (operations == selected_op) & available  # Indices for this step
+
+            operation_order.append(selected_op)
+            depths += step_mask * depth  # Set the depth for these indices to `depth`
+            complete[:-1] |= step_mask  # Mark indices computed at this step done
+            depth += 1
+
+        return depths, operation_order
+    
     def batch_tensors(self, ops, toks, left, right, num_augs):
         operations = torch.tensor([], dtype=torch.long)
         tokens = torch.tensor([], dtype=torch.long)
@@ -2394,51 +2454,58 @@ class PrecomputeDataset(EnvDataset):
         root_idx = 0
 
         for op, tok, l_idx, r_idx, num in zip(ops, toks, left, right, num_augs):
-            eq_len += [len(op) / num] * num
+            eq_len += [op.size / num] * num
             if self.pad_tokens:
                 # Append BOS and EOS embedding operations
-                op = torch.LongTensor([-1]) + torch.LongTensor(op) + torch.LongTensor([-1])
+                op_ = np.concatenate([[-1], op, [-1]])
                 # Append BOS and EOS tokens to the tokens
-                eos = torch.LongTensor([self.env.word2id['<s>']])
-                tok = torch.cat([eos, torch.LongTensor(tok), eos])
-                l_idx = torch.cat([torch.LongTensor([-1]), torch.LongTensor(l_idx), torch.LongTensor([-1])])
-                r_idx = torch.cat([torch.LongTensor([-1]), torch.LongTensor(r_idx), torch.LongTensor([-1])])
+                eos = [self.env.word2id['<s>']]
+                tok_ = np.concatenate([eos, tok, eos])
+                l_idx_ = np.concatenate([[-1], l_idx_, [-1]])
+                r_idx_ = np.concatenate([[-1], r_idx_, [-1]])
 
                 # Re-index this tree at its new place in the batch-wide order
                 # Add 1 because we append an BOS token to the start
-                l_idx[l_idx != -1] += root_idx + 1
-                r_idx[r_idx != -1] += root_idx + 1
+                left_idx = np.concatenate([left_idx, l_idx_ + (l_idx_ != -1) * (root_idx+1)])
+                right_idx = np.concatenate([right_idx, r_idx_ + (r_idx_ != -1) * (root_idx+1)])
+                operations = np.concatenate([operations, op_])
+                tokens = np.concatenate([tokens, tok_])
 
             else: # Do not append if no padding
-                l_idx = torch.LongTensor(l_idx)
-                r_idx = torch.LongTensor(r_idx)
-                l_idx[l_idx != -1] += root_idx
-                r_idx[r_idx != -1] += root_idx
+                left_idx = np.concatenate([left_idx, l_idx + (l_idx != -1) * root_idx])
+                right_idx = np.concatenate([right_idx, r_idx + (r_idx != -1) * root_idx])
+                operations = np.concatenate([operations, op])
+                tokens = np.concatenate([tokens, tok])
+            
+            root_idx += op.size
 
-            operations = torch.cat([operations, torch.LongTensor(op)])
-            tokens = torch.cat([tokens, torch.LongTensor(tok)])
-            left_idx = torch.cat([left_idx, l_idx])
-            right_idx = torch.cat([right_idx, r_idx])
-            root_idx += len(op)
+        tokens[tokens == -1] += 1
 
-        depths, operation_order = self.compute_operation_order(operations, left_idx, right_idx)
+        depths, operation_order = self.compute_operation_order(torch.LongTensor(operations), torch.LongTensor(left_idx), torch.LongTensor(right_idx))
 
-        return (operations, tokens, left_idx, right_idx, torch.LongTensor(eq_len), depths, operation_order)
+        return (torch.LongTensor(operations), 
+                torch.LongTensor(tokens), 
+                torch.LongTensor(left_idx), 
+                torch.LongTensor(right_idx), 
+                torch.LongTensor(eq_len), 
+                torch.LongTensor(depths), 
+                torch.LongTensor(operation_order))
 
     def collate_fn(self, elements):
         """
         Collate samples into a batch.
         """
         ops, tokens, left, right, x_group, y_group, num_augs = zip(*elements)
-
+        #s = time.time()
         x, y = [], []
         for j in range(len(ops)):
             x += x_group[j]
             y += y_group[j]
+
         nb_ops = torch.LongTensor([sum(int(word in self.env.OPERATORS) for word in seq) for seq in x])
         x = [torch.LongTensor([self.env.word2id[w] for w in seq if w in self.env.word2id]) for seq in x]
         y = [torch.LongTensor([self.env.word2id[w] for w in seq if w in self.env.word2id]) for seq in y]
-        x, x_len_og = self.env.batch_sequences(x)
+        x, x_len = self.env.batch_sequences(x)
         y, y_len = self.env.batch_sequences(y)
 
         if self.tree_enc:

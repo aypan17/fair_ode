@@ -57,13 +57,16 @@ class UnaryLSTM(torch.nn.Module):
             (hidden, cell): Hidden state and cell state of parent. 
             Hidden dim: [batch_size, d_model]. Cell dim: [batch_size, 1, d_model]
         """
+        #print(h)
         c = c.squeeze(1)
         i = torch.sigmoid(self.data(h))
         f = torch.sigmoid(self.forget(h))
         o = torch.sigmoid(self.output(h))
         u = torch.tanh(self.input(h))
-        cp = i * F.dropout(u,p=self.dropout,training=train) + f * c
+        #cp = i * F.dropout(u,p=self.dropout,training=train) + f * c
+        cp = i * u + f * c
         hp = o * torch.tanh(cp)
+        #print(hp)
         return (hp, cp.unsqueeze(1))
 
 
@@ -106,7 +109,8 @@ class BinaryLSTM(torch.nn.Module):
         f_right = torch.sigmoid(self.forget_right_by_left(hl) + self.forget_right_by_right(hr) + self.forget_bias_right)
         o = torch.sigmoid(self.output_left(hl) + self.output_right(hr) + self.output_bias)
         u = torch.tanh(self.input_left(hl) + self.input_right(hr) + self.input_bias)
-        cp = i * F.dropout(u,p=self.dropout,training=train) + f_left * cl + f_right * cr
+        #cp = i * F.dropout(u,p=self.dropout,training=train) + f_left * cl + f_right * cr
+        cp = i * u + f_left * cl + f_right * cr
         hp = o * torch.tanh(cp)
         return (hp, cp.unsqueeze(1))
 

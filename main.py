@@ -231,7 +231,7 @@ def tune(params):
     params.sinusoidal_embeddings = np.random.choice(sin_emb)
 
     # Continuous hparam range
-    lr = [0.00003, 0.005]
+    lr = [0.005, 0.05]
     drop = [0, 0.4]
     attn_drop = [0, 0.4]
     params.optimizer = "adam,lr="+str(np.random.uniform(lr[0], lr[1]))
@@ -343,7 +343,7 @@ def main(params):
         logger.info("============ End of epoch %i ============" % trainer.epoch)
 
         # evaluate perplexity
-        scores = evaluator.run_all_evals()
+        #scores = evaluator.run_all_evals()
 
         # print / JSON log
         for k, v in scores.items():

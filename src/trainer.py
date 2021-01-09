@@ -168,6 +168,7 @@ class Trainer(object):
                 assert (task in self.data_path) == (task in params.tasks)
         else:
             self.data_path = None
+            
         # create data loaders
         if not params.eval_only and not params.precompute_tensors:
             if params.env_base_seed < 0:

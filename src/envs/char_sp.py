@@ -2446,10 +2446,10 @@ class PrecomputeDataset(EnvDataset):
         return depths, operation_order
     
     def batch_tensors(self, ops, toks, left, right, num_augs):
-        operations = torch.tensor([], dtype=torch.long)
-        tokens = torch.tensor([], dtype=torch.long)
-        left_idx = torch.tensor([], dtype=torch.long)
-        right_idx = torch.tensor([], dtype=torch.long)
+        operations = []
+        tokens = []
+        left_idx = []
+        right_idx = []
         eq_len = []
         root_idx = 0
 
@@ -2481,7 +2481,7 @@ class PrecomputeDataset(EnvDataset):
 
         tokens[tokens == -1] += 1
 
-        depths, operation_order = self.compute_operation_order(torch.LongTensor(operations), torch.LongTensor(left_idx), torch.LongTensor(right_idx))
+        depths, operation_order = self.compute_operation_order(operations.astype(int), left_idx.astype(int), right_idx.astype(int))
 
         return (torch.LongTensor(operations), 
                 torch.LongTensor(tokens), 

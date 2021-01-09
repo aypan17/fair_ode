@@ -79,17 +79,17 @@ def init_distributed_mode(params):
         params.node_id = int(os.environ['SLURM_NODEID'])
 
         # local rank on the current node / global rank
-        params.local_rank = int(os.environ['LOCAL_RANK'])#int(os.environ['SLURM_LOCALID'])
-        params.global_rank = int(os.environ['RANK'])#int(os.environ['SLURM_PROCID'])
+        params.local_rank = int(os.environ['SLURM_LOCALID'])#int(os.environ['LOCAL_RANK'])#
+        params.global_rank = int(os.environ['SLURM_PROCID'])#int(os.environ['RANK'])#
 
         # number of processes / GPUs per node
-        params.world_size = int(os.environ['WORLD_SIZE'])#int(os.environ['SLURM_NTASKS'])
+        params.world_size = int(os.environ['SLURM_NTASKS'])#int(os.environ['WORLD_SIZE'])#
         params.n_gpu_per_node = params.world_size // params.n_nodes
 
         # define master address and master port
         hostnames = subprocess.check_output(['scontrol', 'show', 'hostnames', os.environ['SLURM_JOB_NODELIST']])
-        params.master_addr = os.environ['MASTER_ADDR']#hostnames.split()[0].decode('utf-8')
-        params.master_port = int(os.environ['MASTER_PORT'])
+        params.master_addr = hostnames.split()[0].decode('utf-8')#os.environ['MASTER_ADDR']#
+        params.master_port = 8888#int(os.environ['MASTER_PORT'])
         assert 10001 <= params.master_port <= 30000 or params.world_size == 1
         print(PREFIX + "Master address: %s" % params.master_addr)
         print(PREFIX + "Master port   : %i" % params.master_port)

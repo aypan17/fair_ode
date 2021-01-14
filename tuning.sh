@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 export NGPU=8; python -m torch.distributed.launch --nproc_per_node=$NGPU main.py \
-	--exp_name treernn \
-	--treernn \
+	--exp_name treesmu \
+	--treesmu \
 	--tune \
-	--batch_size 128 \
+	--batch_size 32 \
 	--tasks "prim_fwd" \
 	--reload_precomputed_data "prim_fwd,data_precompute/fwd_train,data_precompute/fwd_valid,data_precompute/fwd_test" \
-	--reload_size 2000000 \
-	--epoch_size 2000000 \
-	--save_periodic 25 \
-	--max_epoch 30
+	--reload_size 100000 \
+	--epoch_size 100000 \
+	--save_periodic 45 \
+	--max_epoch 50
 echo done

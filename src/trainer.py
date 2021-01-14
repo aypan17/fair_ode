@@ -567,7 +567,7 @@ class Trainer(object):
         
         x1, len1, x2, len2, y = to_cuda(x1, len1, x2, len2, y)
         if tensors:
-            tensors = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5])
+            tensors[0], tensors[1], tensors[2], tensors[3], tensors[4] = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4])
 
         # forward / loss
         if params.tree_enc: # Use tree-based encoder
@@ -586,6 +586,7 @@ class Trainer(object):
 
         # optimize
         self.optimize(loss)
+        #torch.cuda.empty_cache()
 
         # number of processed sequences / words
         self.n_equations += params.batch_size

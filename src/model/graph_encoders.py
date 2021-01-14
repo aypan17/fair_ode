@@ -115,7 +115,7 @@ class TreeNN(torch.nn.Module):
         """
         s = time.time()
         operations, tokens, left_idx, right_idx, depths, operation_order = x
-        num_steps = operation_order.numel()
+        num_steps = len(operation_order)#operation_order.numel()
         num_nodes = operations.numel()
 
         # A buffer where the i-th row is the activations output from the i-th node
@@ -132,7 +132,7 @@ class TreeNN(torch.nn.Module):
 
         for depth in range(num_steps):  
             step_mask = depths == depth  # Indices to compute at this step
-            op = operation_order[depth].item()
+            op = operation_order[depth]#.item()
 
             if op == -1: # Embedding lookup or number encoding
                 leaf_tokens = tokens.masked_select(step_mask)
@@ -172,9 +172,9 @@ class TreeNN(torch.nn.Module):
         Given a (possibly batched) graph and the number of nodes per tree, 
         compute the outputs for each tree.
         """
-        #s = time.time()
+        s = time.time()
         operations, tokens, left_idx, right_idx, depths, operation_order = x
-        num_steps = operation_order.numel()
+        num_steps = len(operation_order)
         num_nodes = operations.numel()
 
         # A buffer where the i-th row is the activations output from the i-th node
@@ -188,11 +188,11 @@ class TreeNN(torch.nn.Module):
         memory = torch.zeros(
             (num_nodes, self.memory_size, self.d_model), device=tokens.device
         )
-
+        fwd = 0
         idx = torch.stack((left_idx, right_idx), dim=1)
         for depth in range(num_steps):  
             step_mask = (depths == depth).unsqueeze(1)  # Indices to compute at this step
-            op = operation_order[depth].item()
+            op = operation_order[depth]
 
             if op == -1: # Embedding lookup or number encoding
                 activations += self.leaf_emb(tokens) * step_mask
@@ -201,13 +201,17 @@ class TreeNN(torch.nn.Module):
                 op_name = self.id2word[op]                
                 inp = activations[idx]
                 mem = memory[idx]
+                s1 = time.time()
                 step_activations, step_memory = self._apply_function(
                     op_name, inp, mem, train
                 )
+                e1 = time.time()
+                fwd += e1-s1
                 activations = activations + step_activations * step_mask
                 memory = memory + step_memory * step_mask.unsqueeze(1)
-
-
+        #print("fwd", fwd)
+        e = time.time()
+        #print(e-s)
         # Reverse activations because nodes are listed in reverse pre-order.
         return self._compute_output(activations, lengths)
     

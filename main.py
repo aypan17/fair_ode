@@ -231,7 +231,7 @@ def tune(params):
     params.sinusoidal_embeddings = np.random.choice(sin_emb)
 
     # Continuous hparam range
-    lr = [0.005, 0.05]
+    lr = [0.0024, 0.0008]
     drop = [0, 0.4]
     attn_drop = [0, 0.4]
     params.optimizer = "adam,lr="+str(np.random.uniform(lr[0], lr[1]))
@@ -243,7 +243,7 @@ def tune(params):
     print(f"Tuning num_heads from: {heads}")
     print(f"Tuning sin_emb from: {sin_emb}")
     print("============================================")
-    print(f"Tuning learning rate from the interval: {lr}")
+    #print(f"Tuning learning rate from the interval: {lr}")
     print(f"Tuning dropout from the interval: {drop}")
     print(f"Tuning attention dropout from the interval: {attn_drop}")
 
@@ -263,7 +263,7 @@ def tune(params):
             params.normalize_action = np.random.choice([True, False])
             params.top_k = np.random.choice([1, 2, 3, 4, 5])
             params.gate_top_k = np.random.choice([True, False]) if params.top_k > 1 else False
-            params.stack_size = np.random.choice(range(params.top_k, 6))
+            params.stack_size = 5#np.random.choice(range(params.top_k, 6))
             print(f"Tuning stack_size from: {params.top_k} to 5")
 
     elif params.baseline:

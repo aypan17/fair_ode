@@ -1826,7 +1826,7 @@ class EnvDataset(Dataset):
             complete[:-1] |= step_mask  # Mark indices computed at this step done
             depth += 1
 
-        return depths, torch.LongTensor(operation_order)
+        return depths, operation_order#torch.LongTensor(operation_order)
         
 
     def tensorize_tree(self, tree: BinaryEqnTree, integers, digits=0):
@@ -2127,6 +2127,7 @@ class EnvDataset(Dataset):
         """
         Collate samples into a batch.
         """
+        s = time.time()
         x, y = zip(*elements)
         nb_ops = [sum(int(word in self.env.OPERATORS) for word in seq) for seq in x]
         '''
@@ -2152,7 +2153,8 @@ class EnvDataset(Dataset):
             x_len += num_extra_tokens
             if not self.pad_tokens:
                 x_len -= 2
-
+        e = time.time()
+        #print(e-s)
         return (x, x_len), (y, y_len), torch.LongTensor(nb_ops), tensorized_batch
 
     # Augments equations
@@ -2489,12 +2491,13 @@ class PrecomputeDataset(EnvDataset):
                 torch.LongTensor(right_idx), 
                 torch.LongTensor(eq_len), 
                 torch.LongTensor(depths), 
-                torch.LongTensor(operation_order))
+                operation_order)
 
     def collate_fn(self, elements):
         """
         Collate samples into a batch.
         """
+        e = time.time()
         ops, tokens, left, right, x_group, y_group, num_augs = zip(*elements)
         #s = time.time()
         x, y = [], []
@@ -2512,6 +2515,7 @@ class PrecomputeDataset(EnvDataset):
             ops, tokens, left, right, x_len, depths, op_order = self.batch_tensors(ops, tokens, left, right, num_augs)
         else:
             ops, tokens, left, right, depths, op_order = None, None, None, None, None, None
-
+        s = time.time()
+        #print(s-e)
         return (x, x_len), (y, y_len), nb_ops, (ops, tokens, left, right, depths, op_order)
 

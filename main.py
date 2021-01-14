@@ -228,10 +228,10 @@ def tune(params):
     params.emb_dim = np.random.choice(dim)
     params.num_dec_layers = np.random.choice(dec_layers)
     params.n_heads = np.random.choice(heads)
-    params.sinusoidal_embeddings = np.random.choice(sin_emb)
+    #params.sinusoidal_embeddings = np.random.choice(sin_emb)
 
     # Continuous hparam range
-    lr = [0.0024, 0.0008]
+    lr = [0.0012, 0.004]#[0.0024, 0.0008]
     drop = [0, 0.4]
     attn_drop = [0, 0.4]
     params.optimizer = "adam,lr="+str(np.random.uniform(lr[0], lr[1]))

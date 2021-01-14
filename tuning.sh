@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 export NGPU=8; python -m torch.distributed.launch --nproc_per_node=$NGPU main.py \
-	--exp_name treesmu \
-	--treesmu \
+	--exp_name baseline \
+	--baseline \
 	--tune \
 	--batch_size 32 \
 	--tasks "prim_fwd" \

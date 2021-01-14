@@ -263,7 +263,7 @@ def tune(params):
             params.normalize_action = np.random.choice([True, False])
             params.top_k = np.random.choice([1, 2, 3, 4, 5])
             params.gate_top_k = np.random.choice([True, False]) if params.top_k > 1 else False
-            params.stack_size = 5#np.random.choice(range(params.top_k, 6))
+            params.stack_size = np.random.choice(range(params.top_k, 6))
             print(f"Tuning stack_size from: {params.top_k} to 5")
 
     elif params.baseline:

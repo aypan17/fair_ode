@@ -15,7 +15,7 @@ export NGPU=8; python -m torch.distributed.launch --nproc_per_node=$NGPU main.py
 	--baseline \
 	--batch_size 32 \
 	--tasks "prim_fwd" \
-	--optimizer "adam,lr=0.004" \
+	--optimizer "adam,lr=0.0005" \
 	--emb_dim ${dim[$(( $RANDOM % ${#dim[@]} ))]} \
 	--dropout ${drop[$(( $RANDOM % ${#drop[@]} ))]} \
 	--attention_dropout ${attn_drop[$(( $RANDOM % ${#attn_drop[@]} ))]} \

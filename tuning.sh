@@ -10,10 +10,10 @@ gate=(True False)
 normalize=(True False)
 size=(1 2 3 4 5)
 
-export NGPU=2; python -m torch.distributed.launch --nproc_per_node=$NGPU main.py \
+export NGPU=8; python -m torch.distributed.launch --nproc_per_node=$NGPU main.py \
 	--exp_name baseline \
 	--baseline \
-	--batch_size 1 \
+	--batch_size 32 \
 	--tasks "prim_fwd" \
 	--optimizer "adam,lr=0.004" \
 	--emb_dim ${dim[$(( $RANDOM % ${#dim[@]} ))]} \
@@ -28,7 +28,7 @@ export NGPU=2; python -m torch.distributed.launch --nproc_per_node=$NGPU main.py
 	--stack_size ${size[$(( $RANDOM % ${#size[@]} ))]} \
 	--reload_precomputed_data "prim_fwd,data_precompute/fwd_train,data_precompute/fwd_valid,data_precompute/fwd_test" \
 	--reload_size 100000 \
-	--epoch_size 100000 \
+	--epoch_size 12500 \
 	--save_periodic 45 \
 	--max_epoch 50
 echo done

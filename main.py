@@ -65,7 +65,7 @@ def get_parser():
                         help="Use sinusoidal embeddings")
     
     # encoder parameters
-    parser.add_argument('--symmetric', action='store_true',
+    parser.add_argument('--symmetric', type=bool, default=False,
                         help='run the version with enforced symmetry on add and mul')
     parser.add_argument('--character_rnn', action='store_true',
                         help='use a character RNN to encode numbers')
@@ -100,14 +100,16 @@ def get_parser():
                         help='add only push and no-op')
     parser.add_argument('--like_LSTM', default=False, action='store_true',
                         help='make the mem2out stack tree behave as an LSTM+stack')
-    parser.add_argument('--gate_push_pop', default=False, action='store_true',
+    parser.add_argument('--gate_push_pop', type=bool, default=False,
                         help='make the push pop action a gate rather than a number')
-    parser.add_argument('--normalize_action', default=False, action='store_true',
+    parser.add_argument('--normalize_action', type=bool, default=False,
                         help='normalize push-pop magnitude before push and pop')
     parser.add_argument('--gate_top_k', default=False, action='store_true',
                         help='gate the top-k instead of weighted average')
     parser.add_argument('--top_k', type=int, default=1,
                         help='use the top-k stack elements to compute the output.')
+    parser.add_argument('--behavior', type=str, default="",
+                        help='determine the stack behavior.')
 
 
     # training parameters
@@ -220,6 +222,11 @@ def get_parser():
     return parser
 
 def tune(params):
+    if params.behavior == 'no-op':
+        params.no_op = True
+    if params.behavior == 'no-pop':
+        params.no_pop = True
+    '''
     # Discrete hparam range
     dim = [128, 256, 512]
     dec_layers = [4, 5, 6, 7, 8]
@@ -272,7 +279,7 @@ def tune(params):
         print(f"Tuning num_enc_layers from: {enc_layers}")
     else:
         assert False
-
+    '''
 
 def main(params):
 
@@ -366,15 +373,14 @@ if __name__ == '__main__':
     assert sum([params.treernn, params.treelstm, params.treesmu, params.baseline]) == 1
     params.tree_enc = not params.baseline
 
+    tune(params)
+
     # debug mode
     if params.debug:
         params.exp_name = 'debug'
         if params.exp_id == '':
             params.exp_id = 'debug_%08i' % random.randint(0, 100000000)
         params.debug_slurm = True
-
-    if params.tune:
-        tune(params)
 
     # check parameters
     check_model_params(params)

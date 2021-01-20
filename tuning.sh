@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-dim=(128 256 512)
+dim=(128 256)
 enc_layers=(4 5 6 7 8)
 dec_layers=(4 5 6 7 8)
 drop=(0.0 0.1 0.2 0.3 0.4)

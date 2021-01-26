@@ -9,7 +9,6 @@ import abc
 
 import torch
 import torch.nn as nn
-import torch_scatter 
 
 import time
 

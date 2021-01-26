@@ -1,18 +1,27 @@
 #!/usr/bin/env bash
-export NGPU=8; python -m torch.distributed.launch --nproc_per_node=$NGPU main.py \
-	--exp_name baseline_productivity \
-	--baseline \
-	--n_dec_layers 8 \
-	--n_enc_layers 8 \
-	--n_heads 8 \
-	--dropout 0.3 \
-	--attention_dropout 0.1 \
-	--optimizer "adam,lr=0.0001" \
-	--emb_dim 512 \
-	--batch_size 32 \
-	--tasks "prim_fwd" \
-	--reload_precomputed_data "prim_fwd,data_productivity/fwd_2to8_train,data_productivity/fwd_9to15_valid,data_productivity/fwd_9to16_test" \
-	--reload_size 10000000 \
-	--epoch_size 125000 \
-	--max_epoch 200  
-echo done
+ngc batch run \
+    --name "baseline_localism" \
+    --preempt RUNONCE \
+    --ace nv-us-west-2 \
+    --instance dgx1v.32g.8.norm \
+	--image nvidia/pytorch:20.03-py3 \
+	--result /results \
+	--datasetid 72880:/data \
+	--datasetid 72879:/data \
+	--commandline "export NGPU=8; python -m torch.distributed.launch --nproc_per_node=$NGPU main.py \
+		--exp_name baseline_localism \
+		--baseline \
+		--n_dec_layers 8 \
+		--n_enc_layers 8 \
+		--n_heads 8 \
+		--dropout 0.3 \
+		--attention_dropout 0.1 \
+		--optimizer 'adam,lr=0.0001' \
+		--emb_dim 512 \
+		--batch_size 32 \
+		--tasks 'prim_fwd' \
+		--reload_precomputed_data 'prim_fwd,data/fwd_2to8_train,data/fwd_9to15_valid,data/fwd_9to16_test' \
+		--reload_size 10000000 \
+		--epoch_size 125000 \
+		--max_epoch 200  
+	echo done"

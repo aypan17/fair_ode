@@ -14,6 +14,7 @@ ngc batch run \
 		--n_dec_layers 8 \
 		--n_enc_layers 8 \
 		--n_heads 8 \
+		--dump_path './cnnfresults/dumped/' \
 		--dropout 0.3 \
 		--attention_dropout 0.1 \
 		--optimizer 'adam,lr=0.0001' \

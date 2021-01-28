@@ -17,8 +17,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.nn.utils.rnn import pad_sequence, pack_padded_sequence, pad_packed_sequence
 
-import torch_scatter
-
 
 N_MAX_POSITIONS = 4096  # maximum input sequence length
 

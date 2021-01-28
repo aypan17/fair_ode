@@ -5,9 +5,7 @@ ngc batch run \
     --ace nv-us-west-2 \
     --instance dgx1v.32g.8.norm \
 	--image nvidia/pytorch:20.03-py3 \
-	--result /results \
 	--datasetid 72880:/data \
-	--datasetid 72879:/data \
 	--commandline "export NGPU=8; python -m torch.distributed.launch --nproc_per_node=$NGPU main.py \
 		--exp_name baseline_localism \
 		--baseline \
@@ -16,7 +14,6 @@ ngc batch run \
 		--n_heads 8 \
 		--dump_path './cnnfresults/dumped/' \
 		--dropout 0.3 \
-		--attention_dropout 0.1 \
 		--optimizer 'adam,lr=0.0001' \
 		--emb_dim 512 \
 		--batch_size 32 \

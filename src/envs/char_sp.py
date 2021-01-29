@@ -543,6 +543,7 @@ class CharSPEnvironment(object):
         self.word2id = {s: i for i, s in self.id2word.items()}
         assert len(self.words) == len(set(self.words))
 
+        '''
         # Reload the dictionary to ensure that it is identical with the dictionary used to precompute the tensors.
         if params.reload_precomputed_data != '':
             s = [x.split(',') for x in params.reload_precomputed_data.split(';') if len(x) > 0]
@@ -554,8 +555,13 @@ class CharSPEnvironment(object):
             for task in data_path:
                 for i in range(3):
                     with io.open(data_path[task][i]+'.data', mode='r', encoding='utf-8') as f:
+                        print(data_path[task][i])
                         for j, line in enumerate(f):
+                            print(j)
+                            print(line)
                             if j == 0:
+                                #print(w2id)
+                                #print(line)
                                 assert w2id == "" or w2id == line
                                 w2id = line
                             if j == 1:
@@ -571,7 +577,7 @@ class CharSPEnvironment(object):
             self.id2word = {v : k for k, v in self.word2id.items()}
             self.una_ops = json.loads(una_ops)
             self.bin_ops = json.loads(bin_ops)
-
+        '''
 
         # number of words / indices
         self.n_words = params.n_words = len(self.words)

@@ -47,7 +47,7 @@ def get_parser():
                         help="Use AMP wrapper for float16 / distributed / gradient accumulation. Level of optimization. -1 to disable.")
 
     # model parameters
-    parser.add_argument("--emb_dim", type=int, default=256,
+    parser.add_argument("--emb_dim", type=int, default=8,
                         help="Embedding layer size")
     parser.add_argument("--n_enc_layers", type=int, default=4,
                         help="Number of Transformer layers in the encoder")
@@ -57,12 +57,14 @@ def get_parser():
                         help="Number of Transformer heads")
     parser.add_argument("--dropout", type=float, default=0,
                         help="Dropout")
-    parser.add_argument("--attention_dropout", type=float, default=0,
+    parser.add_argument("--attention_dropout", type=float, default=0.1,
                         help="Dropout in the attention layer")
     parser.add_argument("--share_inout_emb", type=bool_flag, default=True,
                         help="Share input and output embeddings")
     parser.add_argument("--sinusoidal_embeddings", type=bool_flag, default=False,
                         help="Use sinusoidal embeddings")
+    parser.add_argument("--tree_embeddings", type=bool_flag, default=False,
+                        help="Use tree embeddings")
     
     # encoder parameters
     parser.add_argument('--symmetric', type=bool, default=False,
@@ -303,7 +305,7 @@ def main(params):
     env = build_env(params)
     modules = build_modules(env, params)
     trainer = Trainer(modules, env, params)
-    evaluator = Evaluator(trainer)
+    evaluator = Evaluator(trainer, params.tasks[0], params)
 
     torch.cuda.empty_cache()
     torch.cuda.synchronize()
@@ -370,8 +372,8 @@ if __name__ == '__main__':
     # generate parser / parse parameters
     parser = get_parser()
     params = parser.parse_args()
-    assert sum([params.treernn, params.treelstm, params.treesmu, params.baseline]) == 1
-    params.tree_enc = not params.baseline
+    #assert sum([params.treernn, params.treelstm, params.treesmu, params.baseline]) == 1
+    params.tree_enc = not params.baseline and not params.export_data
 
     tune(params)
 

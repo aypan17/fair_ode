@@ -28,6 +28,7 @@ from sympy.parsing.sympy_parser import parse_expr
 from sympy.core.cache import clear_cache
 from sympy.integrals.risch import NonElementaryIntegral
 from sympy.calculus.util import AccumBounds
+from sympy import fraction
 
 from ..utils import bool_flag
 from ..utils import timeout, TimeoutError
@@ -458,7 +459,7 @@ class CharSPEnvironment(object):
         # custom functions
         'f': 1,
         'g': 2,
-        #'h': 3,
+        'h': 3,
     }
 
     def __init__(self, params):
@@ -480,7 +481,10 @@ class CharSPEnvironment(object):
 
         # parse operators with their weights
         self.operators = sorted(list(self.OPERATORS.keys()))
-        ops = self.OPERATORS.items()
+        #ops = self.OPERATORS.items()
+        ops = params.operators.split(',')
+        ops = sorted([x.split(':') for x in ops])
+        print(ops)
         assert len(ops) >= 1 and all(o in self.OPERATORS for o, _ in ops)
         self.all_ops = [o for o, _ in ops]
         self.una_ops = [o for o, _ in ops if self.OPERATORS[o] == 1]
@@ -540,7 +544,7 @@ class CharSPEnvironment(object):
         self.word2id = {s: i for i, s in self.id2word.items()}
         assert len(self.words) == len(set(self.words))
 
-        '''
+        
         # Reload the dictionary to ensure that it is identical with the dictionary used to precompute the tensors.
         if params.reload_precomputed_data != '':
             s = [x.split(',') for x in params.reload_precomputed_data.split(';') if len(x) > 0]
@@ -574,7 +578,7 @@ class CharSPEnvironment(object):
             self.id2word = {v : k for k, v in self.word2id.items()}
             self.una_ops = json.loads(una_ops)
             self.bin_ops = json.loads(bin_ops)
-        '''
+        
 
         # number of words / indices
         self.n_words = params.n_words = len(self.words)
@@ -1055,7 +1059,8 @@ class CharSPEnvironment(object):
         return expr
 
     def check_int(self, expr, max_int):
-        return max({atom for atom in expr.atoms() if atom.is_number}) < max_int
+        nums = [fraction(abs(atom)) for atom in expr.atoms() if atom.is_number]
+        return max([max(f, d) for (f, d) in nums]) < max_int
 
 
     @timeout(3)
@@ -1077,10 +1082,9 @@ class CharSPEnvironment(object):
         try:
             # generate an expression and rewrite it,
             # avoid issues in 0 and convert to SymPy
-            f_expr = self._generate_expr(nb_ops, self.max_int, rng)
+            f_expr = self._generate_expr(nb_ops, self.max_int//10, rng)
             infix = self.prefix_to_infix(f_expr)
             f = self.infix_to_sympy(infix)
-
             # skip constant expressions
             if x not in f.free_symbols:
                 return None
@@ -1145,7 +1149,6 @@ class CharSPEnvironment(object):
         y = F_prefix
         x = self.clean_prefix(x)
         y = self.clean_prefix(y)
-
         return x, y
 
     @timeout(5)

@@ -115,6 +115,7 @@ OPERATORS = {
         'h': 3,
     }
 
+'''
 BINARY = [x for x in OPERATORS if OPERATORS[x] == 2]
 UNARY = [x for x in OPERATORS if OPERATORS[x] == 1]
 
@@ -136,9 +137,7 @@ DIFFERENTIALS = ['d'+str(i) for i in range(1, 3)]
 
 INT = ['INT+', 'INT-']
 DIGITS = [str(x) for x in range(10)]
-
-
-
+'''
 
 logger = getLogger()
 
@@ -426,8 +425,6 @@ class CharSPEnvironment(object):
         'abs': 1,
         'sign': 1,
         'ten': 1,
-        'INT+': 1,
-        'INT-': 1,
         # Trigonometric Functions
         'sin': 1,
         'cos': 1,
@@ -518,7 +515,7 @@ class CharSPEnvironment(object):
             'g': sp.Function('g', real=True, nonzero=True),
             #'h': sp.Function('h', real=True, nonzero=True),
         })
-        self.symbols = ['I', 'INT', 'FLOAT', '-', '.', '10^', 'Y', "Y'", "Y''"] #INT+, INT- removed because of decimal encoding
+        self.symbols = ['I', 'INT', 'INT+', 'INT-', 'FLOAT', '-', '.', '10^', 'Y', "Y'", "Y''"] #INT+, INT- removed because of decimal encoding
         if self.balanced:
             assert self.int_base > 2
             max_digit = (self.int_base + 1) // 2

@@ -93,7 +93,7 @@ class Evaluator(object):
 
     ENV = None
 
-    def __init__(self, trainer):
+    def __init__(self, trainer, task, params):
         """
         Initialize evaluator.
         """

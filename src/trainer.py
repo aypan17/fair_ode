@@ -567,7 +567,7 @@ class Trainer(object):
         
         x1, len1, x2, len2, y = to_cuda(x1, len1, x2, len2, y)
         if tensors:
-            tensors[0], tensors[1], tensors[2], tensors[3], tensors[4] = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4])
+            tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5] = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5])
 
         # forward / loss
         if params.tree_enc: # Use tree-based encoder
@@ -578,9 +578,11 @@ class Trainer(object):
             decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded, src_len=len1)
             
         else: # Use Transformer encoder
-            encoded = encoder('fwd', x=x1, lengths=len1, causal=False)
+            if params.tree_embeddings:
+                encoded = encoder('fwd', x=x1, lengths=len1, causal=False, tree_pos = tensors[0])
+            else:
+                encoded = encoder('fwd', x=x1, lengths=len1, causal=False)
             decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded.transpose(0, 1), src_len=len1)
-        
         _, loss = decoder('predict', tensor=decoded, pred_mask=pred_mask, y=y, get_scores=False)
         self.stats[task].append(loss.item())
 

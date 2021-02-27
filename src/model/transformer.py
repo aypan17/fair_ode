@@ -39,8 +39,8 @@ def create_sinusoidal_embeddings(n_pos, dim, out):
     ])
     out[:, 0::2] = torch.FloatTensor(np.sin(position_enc[:, 0::2]))
     out[:, 1::2] = torch.FloatTensor(np.cos(position_enc[:, 1::2]))
-    out.detach_()
     out.requires_grad = False
+    out.detach_()
 
 
 def get_masks(slen, lengths, causal):
@@ -192,6 +192,10 @@ class TransformerModel(nn.Module):
         self.position_embeddings = Embedding(N_MAX_POSITIONS, self.dim)
         if params.sinusoidal_embeddings:
             create_sinusoidal_embeddings(N_MAX_POSITIONS, self.dim, out=self.position_embeddings.weight)
+        if params.tree_embeddings:
+            self.p = torch.nn.Parameter(torch.ones(2) * 0.9)
+            self.tree_weight = torch.cat([p**i for i in range(self.dim//2)])
+            self.tree_pos_enc = True
         self.embeddings = Embedding(self.n_words, self.dim, padding_idx=self.pad_index)
         self.layer_norm_emb = nn.LayerNorm(self.dim, eps=1e-12)
 
@@ -231,7 +235,7 @@ class TransformerModel(nn.Module):
         else:
             raise Exception("Unknown mode: %s" % mode)
 
-    def fwd(self, x, lengths, causal, src_enc=None, src_len=None, positions=None, cache=None, previous_state=None):
+    def fwd(self, x, lengths, causal, src_enc=None, src_len=None, positions=None, cache=None, previous_state=None, tree_pos=None):
         """
         Inputs:
             `x` LongTensor(slen, bs), containing word indices
@@ -281,7 +285,11 @@ class TransformerModel(nn.Module):
         # embeddings
         if previous_state is None:
             tensor = self.embeddings(x)
-            tensor = tensor + self.position_embeddings(positions).expand_as(tensor)
+            if tree_pos is not None:
+                assert self.tree_pos_enc
+                tensor = tensor + tree_pos * self.tree_weight
+            else:
+                tensor = tensor + self.position_embeddings(positions).expand_as(tensor)
             tensor = self.layer_norm_emb(tensor)
             tensor = F.dropout(tensor, p=self.dropout, training=self.training)
             tensor *= mask.unsqueeze(-1).to(tensor.dtype)

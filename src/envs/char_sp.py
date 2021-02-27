@@ -1747,9 +1747,11 @@ class EnvDataset(Dataset):
         self.batch_size = params.batch_size
         self.same_nb_ops_per_batch = params.same_nb_ops_per_batch
         self.tree_enc = params.tree_enc
+        self.tree_pos = params.tree_embeddings
         self.precompute_tensors = params.precompute_tensors 
         self.pad_tokens = params.pad_tokens
         self.compute_augs = params.compute_augs
+        self.d_model = params.emb_dim
 
         # generation, or reloading from file
         if path is not None and params.reload_precomputed_data == '':
@@ -2333,6 +2335,8 @@ class PrecomputeDataset(EnvDataset):
         for ext in ['ops', 'tokens', 'left', 'right']:
             self.load_data(params, path, ext)
 
+        self.calculate_tree_pos()
+
         # generation, or reloading from file
         assert os.path.isfile(path+'.data')
         logger.info(f"Loading data from {path+'.data'} ...")
@@ -2376,6 +2380,19 @@ class PrecomputeDataset(EnvDataset):
                         lines.append(np.array(json.loads(line)))
         self.data[ext] = lines
 
+    def calculate_tree_pos(self):
+        self.data['pos'] = []
+        for (left, right) in zip(self.data['left'], self.data['right']):
+            slen = len(left)
+            tree_pos = [[0] * self.d_model for _ in range(slen)]
+            for i in range(0, slen):
+                if left[i] != -1:
+                    tree_pos[left[i]] = ([1, 0] + tree_pos[i])[:self.d_model]
+                if right[i] != -1:
+                    tree_pos[right[i]] = ([0, 1] + tree_pos[i])[:self.d_model]
+            self.data['pos'].append(tree_pos)
+        self.data['pos'] = np.array(self.data['pos'])
+
     def __getitem__(self, index):
         """
         Return a training sample from precomputed tensors.
@@ -2389,12 +2406,13 @@ class PrecomputeDataset(EnvDataset):
         left = self.data['left'][index]
         right = self.data['right'][index]
         x, y = self.data['data'][index]
+        tree_pos = self.data['pos'][index]
         x = [aug.split() for aug in x]
         y = y.split()
         y = [y] * len(x)
         assert len(x[0]) >= 1 and len(y[0]) >= 1
 
-        return ops, tokens, left, right, x, y, len(x)
+        return ops, tokens, left, right, x, y, len(x), tree_pos_enc
     
     def compute_operation_order(
         self, operations, left_idx, right_idx
@@ -2504,8 +2522,7 @@ class PrecomputeDataset(EnvDataset):
         Collate samples into a batch.
         """
         e = time.time()
-        ops, tokens, left, right, x_group, y_group, num_augs = zip(*elements)
-        #s = time.time()
+        ops, tokens, left, right, x_group, y_group, num_augs, tree_pos_enc = zip(*elements)
         x, y = [], []
         for j in range(len(ops)):
             x += x_group[j]
@@ -2521,7 +2538,6 @@ class PrecomputeDataset(EnvDataset):
             ops, tokens, left, right, x_len, depths, op_order = self.batch_tensors(ops, tokens, left, right, num_augs)
         else:
             ops, tokens, left, right, depths, op_order = None, None, None, None, None, None
-        s = time.time()
-        #print(s-e)
-        return (x, x_len), (y, y_len), nb_ops, (ops, tokens, left, right, depths, op_order)
+
+        return (x, x_len), (y, y_len), nb_ops, (torch.LongTensor(tree_pos_enc), ops, tokens, left, right, depths, op_order)
 

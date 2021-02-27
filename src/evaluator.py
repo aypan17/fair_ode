@@ -103,6 +103,9 @@ class Evaluator(object):
         self.env = trainer.env
         Evaluator.ENV = trainer.env
 
+        self.val_iter = self.env.create_test_iterator('valid', task, params=params, data_path=self.trainer.data_path)
+        self.test_iter = self.env.create_test_iterator('test', task, params=params, data_path=self.trainer.data_path)
+
     def run_all_evals(self):
         """
         Run all evaluations.
@@ -151,7 +154,7 @@ class Evaluator(object):
             logger.info(f"Writing evaluation results in {eval_path} ...")
 
         # iterator
-        iterator = self.env.create_test_iterator(data_type, task, params=params, data_path=self.trainer.data_path)
+        iterator = self.val_iter if data_type == 'valid' else self.test_iter
         eval_size = len(iterator.dataset)
 
         for (x1, len1), (x2, len2), nb_ops, tensors in iterator:
@@ -169,7 +172,7 @@ class Evaluator(object):
             x1, len1, x2, len2, y = to_cuda(x1, len1, x2, len2, y)
             if tensors:
                 #tensors = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5])
-                tensors[0], tensors[1], tensors[2], tensors[3], tensors[4] = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4])
+                tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5] = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5])
 
 
             # forward / loss
@@ -284,7 +287,7 @@ class Evaluator(object):
 
             x1, len1, x2, len2, y = to_cuda(x1, len1, x2, len2, y)
             if tensors:
-                tensors = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5])
+                tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5] = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5])
 
             # forward / loss
             if params.tree_enc: # Use tree-based encoder
@@ -294,7 +297,10 @@ class Evaluator(object):
                 decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded, src_len=len1)
 
             else: # Use Transformer encoder
-                encoded = encoder('fwd', x=x1, lengths=len1, causal=False)
+                if params.tree_embeddings:
+                    encoded = encoder('fwd', x=x1, lengths=len1, causal=False, tree_pos = tensors[0])
+                else:
+                    encoded = encoder('fwd', x=x1, lengths=len1, causal=False)
                 decoded = decoder('fwd', x=x2, lengths=len2, causal=True, src_enc=encoded.transpose(0, 1), src_len=len1)
 
             bs = len(len1)
@@ -330,7 +336,7 @@ class Evaluator(object):
 
             # generate
             _, _, generations = decoder.generate_beam(
-                encoded if params.treelstm or params.treesmu else encoded.transpose(0, 1),
+                encoded if params.tree_enc else encoded.transpose(0, 1),
                 len1,
                 beam_size=params.beam_size,
                 length_penalty=params.beam_length_penalty,

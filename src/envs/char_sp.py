@@ -1747,7 +1747,7 @@ class EnvDataset(Dataset):
         self.batch_size = params.batch_size
         self.same_nb_ops_per_batch = params.same_nb_ops_per_batch
         self.tree_enc = params.tree_enc
-        self.tree_pos = params.tree_embeddings
+        self.tree_pos_enc = params.tree_embeddings
         self.precompute_tensors = params.precompute_tensors 
         self.pad_tokens = params.pad_tokens
         self.compute_augs = params.compute_augs
@@ -2335,7 +2335,7 @@ class PrecomputeDataset(EnvDataset):
         for ext in ['ops', 'tokens', 'left', 'right']:
             self.load_data(params, path, ext)
 
-        self.calculate_tree_pos()
+        self.calculate_tree_pos_enc()
 
         # generation, or reloading from file
         assert os.path.isfile(path+'.data')
@@ -2380,17 +2380,17 @@ class PrecomputeDataset(EnvDataset):
                         lines.append(np.array(json.loads(line)))
         self.data[ext] = lines
 
-    def calculate_tree_pos(self):
+    def calculate_tree_pos_enc(self):
         self.data['pos'] = []
         for (left, right) in zip(self.data['left'], self.data['right']):
             slen = len(left)
-            tree_pos = [[0] * self.d_model for _ in range(slen)]
+            tree_pos_enc = [[0] * self.d_model for _ in range(slen)]
             for i in range(0, slen):
                 if left[i] != -1:
-                    tree_pos[left[i]] = ([1, 0] + tree_pos[i])[:self.d_model]
+                    tree_pos_enc[left[i]] = ([1, 0] + tree_pos_enc[i])[:self.d_model]
                 if right[i] != -1:
-                    tree_pos[right[i]] = ([0, 1] + tree_pos[i])[:self.d_model]
-            self.data['pos'].append(tree_pos)
+                    tree_pos_enc[right[i]] = ([0, 1] + tree_pos_enc[i])[:self.d_model]
+            self.data['pos'].append(tree_pos_enc)
         self.data['pos'] = np.array(self.data['pos'])
 
     def __getitem__(self, index):
@@ -2406,7 +2406,7 @@ class PrecomputeDataset(EnvDataset):
         left = self.data['left'][index]
         right = self.data['right'][index]
         x, y = self.data['data'][index]
-        tree_pos = self.data['pos'][index]
+        tree_pos_enc = self.data['pos'][index]
         x = [aug.split() for aug in x]
         y = y.split()
         y = [y] * len(x)

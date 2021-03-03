@@ -578,6 +578,7 @@ class CharSPEnvironment(object):
             self.id2word = {v : k for k, v in self.word2id.items()}
             self.una_ops = json.loads(una_ops)
             self.bin_ops = json.loads(bin_ops)
+            self.words = list(self.word2id.keys())
         
 
         # number of words / indices

@@ -517,7 +517,7 @@ class CharSPEnvironment(object):
         self.functions = OrderedDict({
             'f': sp.Function('f', real=True, nonzero=True),
             'g': sp.Function('g', real=True, nonzero=True),
-            #'h': sp.Function('h', real=True, nonzero=True),
+            'h': sp.Function('h', real=True, nonzero=True),
         })
         self.symbols = ['I', 'INT', 'INT+', 'INT-', 'FLOAT', '-', '.', '10^', 'Y', "Y'", "Y''"] #INT+, INT- removed because of decimal encoding
         if self.balanced:

@@ -179,6 +179,7 @@ def init_ngc_job(params):
         - global_rank
         - world_size
     """
+    params.is_slurm_job = 'SLURM_JOB_ID' in os.environ and not params.debug_slurm
     device_count = torch.cuda.device_count()
     torch.cuda.set_device(params.local_rank)
     torch.distributed.init_process_group(backend = 'nccl', init_method = 'env://')
@@ -186,14 +187,21 @@ def init_ngc_job(params):
     if 'NGC_ARRAY_INDEX' in os.environ: ## NGC cluster 
         node_rank  = int(os.environ['NGC_ARRAY_INDEX'])
         params.node_id = node_rank
+        params.multi_node = True
         print(' -- init NGC: ', 
             'node_rank', node_rank, 'local_rank', params.local_rank)
     else: 
+        params.node_id = 0
+        params.multi_node = False
         node_rank = params.node_rank
         print('-- No multinode')
 
     params.global_rank = node_rank * device_count + params.local_rank
     params.world_size  = torch.distributed.get_world_size() #os.environ['world_size']
+    params.multi_gpu = params.world_size > 1
+    params.n_gpu_per_node = device_count
+    params.is_master = params.node_id == 0
+
     print('node_rank', params.node_id, 
         'device_count', device_count,
          'local_rank', params.local_rank,

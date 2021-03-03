@@ -210,6 +210,8 @@ def get_parser():
                         help="Master port (for multi-node SLURM jobs)")
     parser.add_argument("--ngc", action="store_true",
                         help="Initiate job with ngc.py file; otherwise use default slurm.py")
+    parser.add_argument("--n_nodes", type=int, default=1,
+                        help="Number of nodes to run the job on --- only flag for multi-node.")
 
     # ------------------ Apex Related ------------------
     parser.add_argument('--world-size', default=-1, type=int, help='number of nodes for distributed training')

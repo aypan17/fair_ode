@@ -556,13 +556,8 @@ class CharSPEnvironment(object):
             for task in data_path:
                 for i in range(3):
                     with io.open(data_path[task][i]+'.data', mode='r', encoding='utf-8') as f:
-                        print(data_path[task][i])
                         for j, line in enumerate(f):
-                            print(j)
-                            print(line)
                             if j == 0:
-                                #print(w2id)
-                                #print(line)
                                 assert w2id == "" or w2id == line
                                 w2id = line
                             if j == 1:
@@ -2540,5 +2535,6 @@ class PrecomputeDataset(EnvDataset):
         else:
             ops, tokens, left, right, depths, op_order = None, None, None, None, None, None
 
-        return (x, x_len), (y, y_len), nb_ops, (torch.LongTensor(tree_pos_enc), ops, tokens, left, right, depths, op_order)
+        #return (x, x_len), (y, y_len), nb_ops, (torch.LongTensor(tree_pos_enc), ops, tokens, left, right, depths, op_order)
+        return (x, x_len), (y, y_len), nb_ops, (ops, tokens, left, right, depths, op_order)
 

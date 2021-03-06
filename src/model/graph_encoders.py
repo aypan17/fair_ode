@@ -172,7 +172,8 @@ class TreeNN(torch.nn.Module):
         compute the outputs for each tree.
         """
         s = time.time()
-        _, operations, tokens, left_idx, right_idx, depths, operation_order = x
+        #_, operations, tokens, left_idx, right_idx, depths, operation_order = x
+        operations, tokens, left_idx, right_idx, depths, operation_order = x
         num_steps = len(operation_order)
         num_nodes = operations.numel()
 

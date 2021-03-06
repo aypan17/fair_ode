@@ -171,8 +171,9 @@ class Evaluator(object):
 
             x1, len1, x2, len2, y = to_cuda(x1, len1, x2, len2, y)
             if tensors:
-                #tensors = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5])
-                tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5] = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5])
+                ##tensors = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5])
+                #tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5] = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5])
+                tensors[0], tensors[1], tensors[2], tensors[3], tensors[4] = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4])
 
 
             # forward / loss

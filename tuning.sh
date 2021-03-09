@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-dim=(128 256)
+dim=(8)
 enc_layers=(4 5 6 7 8)
 dec_layers=(4 5 6 7 8)
 drop=(0.0 0.1 0.2 0.3 0.4)
@@ -10,12 +10,12 @@ gate=(True False)
 normalize=(True False)
 size=(1 2 3 4 5)
 
-export NGPU=8; python -m torch.distributed.launch --nproc_per_node=$NGPU main.py \
+export NGPU=4; python -m torch.distributed.launch --nproc_per_node=$NGPU main.py \
 	--exp_name baseline \
-	--baseline \
-	--batch_size 32 \
+	--treelstm \
+	--batch_size 2 \
 	--tasks "prim_fwd" \
-	--optimizer "adam,lr=0.0005" \
+	--optimizer "adam,lr=0.00001" \
 	--emb_dim ${dim[$(( $RANDOM % ${#dim[@]} ))]} \
 	--dropout ${drop[$(( $RANDOM % ${#drop[@]} ))]} \
 	--attention_dropout ${attn_drop[$(( $RANDOM % ${#attn_drop[@]} ))]} \
@@ -26,9 +26,9 @@ export NGPU=8; python -m torch.distributed.launch --nproc_per_node=$NGPU main.py
 	--gate_push_pop ${gate[$(( $RANDOM % ${#gate[@]} ))]} \
 	--normalize_action ${normalize[$(( $RANDOM % ${#normalize[@]} ))]} \
 	--stack_size ${size[$(( $RANDOM % ${#size[@]} ))]} \
-	--reload_precomputed_data "prim_fwd,data_precompute/fwd_train,data_precompute/fwd_valid,data_precompute/fwd_test" \
-	--reload_size 100000 \
-	--epoch_size 12500 \
+	--reload_precomputed_data "prim_fwd,data_precompute/fwd_valid,data_precompute/fwd_valid,data_precompute/fwd_test" \
+	--reload_size 10 \
+	--epoch_size 10 \
 	--save_periodic 45 \
-	--max_epoch 50
+	--max_epoch 1
 echo done

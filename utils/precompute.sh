@@ -2,5 +2,5 @@
 python3 main.py \
 	--exp_name precompute \
 	--tasks "prim_fwd" \
-	--precompute_tensors "data/fwd_test.data"
+	--precompute_tensors "data_sorted/split_ai"
 echo done

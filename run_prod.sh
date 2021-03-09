@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-export NGPU=8; python -m torch.distributed.launch --nproc_per_node=$NGPU main.py \
+export NGPU=1; python -m torch.distributed.launch --nproc_per_node=$NGPU main.py \
 	--exp_name lstm_productivity \
-	--treelstm \
+	--baseline \
 	--n_dec_layers 6 \
 	--n_heads 8 \
 	--dropout 0.3 \
@@ -11,7 +11,7 @@ export NGPU=8; python -m torch.distributed.launch --nproc_per_node=$NGPU main.py
 	--batch_size 32 \
 	--tasks "prim_fwd" \
 	--reload_precomputed_data "prim_fwd,data_productivity/fwd_2to8_train,data_productivity/fwd_9to15_valid,data_productivity/fwd_9to16_test" \
-	--reload_size 10000000 \
-	--epoch_size 125000 \
-	--max_epoch 200  
+	--reload_size 100 \
+	--epoch_size 125 \
+	--max_epoch 1  
 echo done

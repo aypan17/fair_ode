@@ -2354,6 +2354,11 @@ class PrecomputeDataset(EnvDataset):
         logger.info(f"Loaded {len(equations)} equations from the disk.")
         self.data['data'] = equations
 
+        assert len(self.data['ops']) == len(self.data['tokens'])
+        assert len(self.data['ops']) == len(self.data['left'])
+        assert len(self.data['ops']) == len(self.data['right'])
+        assert len(self.data['ops']) == len(self.data['data'])
+
         # dataset size: infinite iterator for train, finite for valid / test
         if self.train:
             self.size = 1 << 60

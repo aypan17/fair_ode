@@ -48,7 +48,7 @@ def get_parser():
                         help="Use AMP wrapper for float16 / distributed / gradient accumulation. Level of optimization. -1 to disable.")
 
     # transformer parameters
-    parser.add_argument("--emb_dim", type=int, default=256,
+    parser.add_argument("--emb_dim", type=int, default=8,
                         help="Embedding layer size")
     parser.add_argument("--n_enc_layers", type=int, default=4,
                         help="Number of Transformer layers in the encoder")
@@ -138,8 +138,14 @@ def get_parser():
                         help="Export data and disable training.")
     parser.add_argument("--reload_data", type=str, default="",
                         help="Load dataset from the disk (task1,train_path1,valid_path1,test_path1;task2,train_path2,valid_path2,test_path2)")
+    parser.add_argument("--reload_precomputed_data", type=str, default="",
+                        help="Load precomputed graphs from the disk (task,train_path_prefix,valid_path_prefix,test_path_prefix")
     parser.add_argument("--reload_size", type=int, default=-1,
                         help="Reloaded training set size (-1 for everything)")
+    parser.add_argument("--precompute_graphs", type=str, default="",
+                        help="Precompute the given dataset for faster tree-equation training")
+    parser.add_argument("--compute_augs", type=bool_flag, default=False,
+                        help="Generate augmentations of the precomputed tensors. Only works for precompute_tensors")
 
     # environment parameters
     parser.add_argument("--env_name", type=str, default="char_sp",
@@ -226,6 +232,19 @@ def main(params):
         for k, v in scores.items():
             logger.info("%s -> %.6f" % (k, v))
         logger.info("__log__:%s" % json.dumps(scores))
+        exit()
+
+    # write word2id dictionaries if precomputing
+    if params.precompute_graphs:
+        assert len(params.tasks) == 1
+        trainer.file_handler_data.write(json.dumps(env.word2id))
+        trainer.file_handler_data.write("\n")
+        trainer.file_handler_data.write(json.dumps(env.una_ops))
+        trainer.file_handler_data.write("\n")
+        trainer.file_handler_data.write(json.dumps(env.bin_ops))
+        trainer.file_handler_data.write("\n")
+        trainer.file_handler_data.flush()
+        trainer.precompute_graphs()
         exit()
 
     # training

@@ -162,6 +162,144 @@ def eval_test_zero(eq):
     return outputs
 
 
+class BinaryEqnTree:
+
+    NULL = "#"
+
+    def __init__(self, function_name, lchild, rchild, value=None,
+                 is_a_floating_point=False, raw=None, label=None, depth=None):
+        """
+
+        Args:
+            function_name: the name of the node
+            lchild: the left child (a BinaryEqnTree or None)
+            rchild: the right child (a BinaryEqnTree or None)
+        """
+        #TODO: make value a more general construct, i.e. a dictionary, or an object so that more than one value can be stored at a node
+        if lchild is None and rchild is not None:
+            raise ValueError("A tree can have the following children:" + "\n"
+            "    lchild=None, rchild=None or" + "\n"
+            "    lchild!=None, rchild=None or" + "\n"
+            "    lchild!=None, rchild!=None or" + "\n"
+            "Got the following instead:" + "\n"
+            "    lchild=%s, rchild=%s" % (repr(lchild), repr(rchild)))
+        self.function_name = function_name
+        self.lchild = lchild
+        self.rchild = rchild
+        self.is_a_floating_point = is_a_floating_point
+        self.value = value
+        self.is_binary = lchild is not None and rchild is not None
+        self.is_unary = lchild is not None and rchild is None
+        self.is_leaf = lchild is None and rchild is None
+        self.raw = raw
+        self.label = label
+        self.depth = depth
+        self.cls = None
+
+    def apply(self, fn):
+        if self.lchild is not None:
+            self.lchild.apply(fn)
+        if self.rchild is not None:
+            self.rchild.apply(fn)
+        fn(self)
+
+
+    def get_depth(self):
+        left = 0
+        right = 0
+        if self.lchild:
+            left = self.lchild.get_depth()
+        if self.rchild:
+            right = self.rchild.get_depth()
+        return 1 + max(left, right)
+
+    """
+    Runs a DFS to label all nodes and create the children, embedding dictionaries.
+
+    Args: 
+        BinaryEqnTree: tree in the batch to be labeled and embedded.
+
+        unused_id: one-element list containing lowest value unused id in the batch. Need list for mutability.
+                    Updated with every call.
+
+        current_depth: integer equal to the depth of the node calling the 
+
+        children: a Dict<id, list<id>> whose key is the id of a node and value is the list of its children ids.
+                    Updated with every call.
+
+        parent: a Dict<id, id> whose key is the id of a child and value is the id of its parent.
+                    Update with every call.
+
+        embedding: a Dict<id, embedding_vector> whose key is the id of a node in the tree
+                    and value is the embedding vector of the node; a node w/o embedding has value None.
+                    Updated with every call.
+
+        buckets: a list of defaultDict<function_name, [list<lchild_id>, list<rchild_id>]> indexed by depth. 
+                    Each defaultDict has function_name keys and [list<lchild_id>, list<rchild_id>] values 
+                    that contain the lchild and rchild ids of the [function_name] block.
+                    Updated with every call.
+
+    Returns:
+        idx: the integer id of the node that calls labels_embeddings.
+    """
+    def label_and_map_tree(self, unused_id, current_depth, children, parent, embedding, buckets):
+        idx = unused_id[0]
+        unused_id[0] += 1
+        self.depth = current_depth
+        current_depth -= 1
+        children[idx] = []
+        embedding[idx] = self.value
+        if self.lchild is not None:
+            lchild_id = self.lchild.label_and_map_tree(unused_id, current_depth, children, parent, embedding, buckets)
+            children[idx].append(lchild_id)
+            buckets[self.depth][self.function_name][0].append(lchild_id)
+        if self.rchild is not None:
+            rchild_id = self.rchild.label_and_map_tree(unused_id, current_depth, children, parent, embedding, buckets)
+            children[idx].append(rchild_id)
+            buckets[self.depth][self.function_name][1].append(rchild_id)
+        for child_id in children[idx]:
+            parent[child_id] = idx
+        return idx
+
+    def is_numeric(self):
+        if self.function_name != "Equality":
+            print("Warning: is_numeric should only be called on the root of an equation tree")
+            return False #raise ValueError("is_numeric should only be called on the root of an equation tree")
+        return self._is_numeric()
+
+    def _is_numeric(self):
+        if self.is_leaf:
+            return self.is_a_floating_point
+        if self.is_unary:
+            return self.lchild._is_numeric()
+        if self.is_binary:
+            return self.lchild._is_numeric() or self.rchild._is_numeric()
+        raise AssertionError(str(self))
+
+    def __str__(self):
+        if self.is_binary:
+            return "{}({}, {})".format(self.function_name,
+                                       str(self.lchild),
+                                       str(self.rchild))
+        elif self.is_unary:
+            return "{}({})".format(self.function_name,
+                                   str(self.lchild))
+        elif self.is_leaf:
+            return "{}={}".format(self.function_name, self.value)
+        else:
+            raise RuntimeError("Invalid tree:\n%s" % repr(self))
+
+
+    def __repr__(self):
+        return "BinaryEqnTree({},{},{},{},{},{},{})".format(repr(self.function_name),
+                                         repr(self.lchild),
+                                         repr(self.rchild),
+                                         repr(self.is_a_floating_point),
+                                         repr(self.raw),
+                                         repr(self.label),
+                                         repr(self.depth))
+
+
 class CharSPEnvironment(object):
 
     TRAINING_TASKS = {'prim_fwd', 'prim_bwd', 'prim_ibp', 'ode1', 'ode2'}
@@ -1415,14 +1553,24 @@ class CharSPEnvironment(object):
         Create a dataset for this environment.
         """
         logger.info(f"Creating train iterator for {task} ...")
-        dataset = EnvDataset(
-            self,
-            task,
-            train=True,
-            rng=None,
-            params=params,
-            path=(None if data_path is None else data_path[task][0])
-        )
+        if params.reload_precomputed_data != '':
+            dataset = PrecomputeDataset(
+                self,
+                task,
+                train=True,
+                rng=None,
+                params=params,
+                path=(None if data_path is None else data_path[task][0])
+            )
+        else:
+            dataset = EnvDataset(
+                self,
+                task,
+                train=True,
+                rng=None,
+                params=params,
+                path=(None if data_path is None else data_path[task][0])
+            )
         return DataLoader(
             dataset,
             timeout=(0 if params.num_workers == 0 else 1800),
@@ -1439,7 +1587,8 @@ class CharSPEnvironment(object):
         assert data_type in ['valid', 'test']
         logger.info(f"Creating {data_type} iterator for {task} ...")
 
-        dataset = EnvDataset(
+        if params.reload_precomputed_data != '':
+            dataset = PrecomputeDataset(
             self,
             task,
             train=False,
@@ -1447,6 +1596,15 @@ class CharSPEnvironment(object):
             params=params,
             path=(None if data_path is None else data_path[task][1 if data_type == 'valid' else 2])
         )
+        else:
+            dataset = EnvDataset(
+                self,
+                task,
+                train=False,
+                rng=np.random.RandomState(0),
+                params=params,
+                path=(None if data_path is None else data_path[task][1 if data_type == 'valid' else 2])
+            )
         return DataLoader(
             dataset,
             timeout=0,
@@ -1454,6 +1612,30 @@ class CharSPEnvironment(object):
             num_workers=1,
             shuffle=False,
             collate_fn=dataset.collate_fn
+        )
+
+    def create_precompute_iterator(self, params, data_path):
+        """
+        Create a dataset for this environment.
+        """
+        assert data_path is not None
+        logger.info(f"Creating precompute iterator for data in {data_path} ...")
+
+        dataset = EnvDataset(
+            self,
+            task="prim_fwd",
+            train=False,
+            rng=np.random.RandomState(0),
+            params=params,
+            path=data_path
+        )
+        return DataLoader(
+            dataset,
+            timeout=0,
+            batch_size=1,
+            num_workers=0,
+            shuffle=False,
+            collate_fn=dataset.precompute
         )
 
 
@@ -1648,9 +1830,13 @@ class EnvDataset(Dataset):
         self.same_nb_ops_per_batch = params.same_nb_ops_per_batch
         self.graph_enc = params.graph_enc
         self.export_data = params.export_data
+        self.precompute_graphs = params.precompute_graphs
+        self.pad_tokens = params.pad_tokens
+        self.compute_augs = params.compute_augs
+        self.d_model = params.emb_dim
 
         # generation, or reloading from file
-        if path is not None:
+        if path is not None and params.reload_precomputed_data == '':
             assert os.path.isfile(path)
             logger.info(f"Loading data from {path} ...")
             with io.open(path, mode='r', encoding='utf-8') as f:
@@ -1672,7 +1858,7 @@ class EnvDataset(Dataset):
         if self.train:
             self.size = 1 << 60
         else:
-            self.size = 5000 if path is None else len(self.data)
+            self.size = 5000 if path is None or params.reload_precomputed_data != '' else len(self.data)
  
     def _deserialize(self, equation, function_vocab, token_vocab):
         """
@@ -1826,7 +2012,143 @@ class EnvDataset(Dataset):
 
         if self.graph_enc and not self.export_data:
             x_len -= 2
+
         return (x, x_len), (y, y_len), torch.LongTensor(nb_ops), graphs
+
+    # Augments equations
+    def augment(self, tokens, addmul):
+        
+        def get_augments(k):
+            if k == 1:
+                return ['0', '1']
+            elif k == 2:
+                return ['00', '01', '10', '11']
+            else:
+                augs = sorted(np.random.choice((1 << k) - 1, size=3, replace=False))
+                return ['0' * k] + [bin(a+1)[2:].zfill(k) for a in augs]
+        
+        if not addmul or not self.compute_augs:
+            return [tokens], 1
+
+        aug_eq = []
+        augments = get_augments(len(addmul))
+        for aug in augments:
+            token_copy = list(tokens)
+            for i in range(len(aug)):
+                if aug[i] == '1':
+                    lchild, rchild, rchild_end = addmul[i]
+                    new_left = token_copy[rchild:rchild_end]
+                    new_right = token_copy[lchild:rchild]
+                    token_copy[lchild:rchild_end] = new_left + new_right
+            aug_eq.append(token_copy)      
+        return aug_eq, 4 if len(addmul) > 1 else 2
+
+    def _prefix_to_tree(self, tokens, addmul, idx=0, extra=0, count=0):
+        """
+        Performs a preorder traversal of tokens to build a tree.
+
+        Parameters
+        ----------
+        tokens
+            A list of the tokens in the tree formed from preorder traversal 
+        idx 
+            An index that tracks the current token in the tree
+        addmul
+            A list of (lchild_idx, rchild_idx, rchild_end_idx+1) for any 'Add' or 'Mul' node in the tree (for data augmentation)
+        extra
+            A counter of the number of nodes previously added to the tree (to process 2-digit numbers)
+        
+        Returns
+        -------
+        root
+            A BinaryEqnTree object rooted at tokens[idx]
+        idx
+            The idx of the next token.
+        extra
+            The number of extra nodes added to the tree rooted at root.
+        """
+        token = tokens[idx]
+        idx += 1
+        if token in ['INT+', 'INT-']:
+            val = ""
+            while idx < len(tokens) and tokens[idx] in self.env.elements:
+                val += tokens[idx]
+                idx += 1
+            # We assume all integers are length at most 2
+            if len(val) == 1:
+                child = BinaryEqnTree(SYMBOL_ENCODER, None, None, value=val)
+            else:
+                right = BinaryEqnTree(SYMBOL_ENCODER, None, None, value=val[1])
+                left = BinaryEqnTree('ten', BinaryEqnTree(SYMBOL_ENCODER, None, None, value=val[0]), None)
+                child = BinaryEqnTree('add', left, right)
+                extra += 2
+            root = BinaryEqnTree(token, child, None)
+        elif token in self.env.bin_ops:
+            lchild = idx
+            left, idx, extra, count = self._prefix_to_tree(tokens, addmul, idx=idx, extra=extra, count=count)
+            rchild = idx
+            right, idx, extra, count = self._prefix_to_tree(tokens, addmul, idx=idx, extra=extra, count=count) 
+            if token in ['add', 'mul']:
+                count += 1
+                addmul.append((lchild, rchild, idx))
+            root = BinaryEqnTree(token, left, right)
+        elif token in self.env.una_ops:
+            left, idx, extra, count = self._prefix_to_tree(tokens, addmul, idx=idx, extra=extra, count=count)
+            root = BinaryEqnTree(token, left, None)
+        else:
+            root = BinaryEqnTree(SYMBOL_ENCODER, None, None, value=token)
+        return root, idx, extra, count
+
+    def precompute(self, elements):
+        assert len(elements) == 1
+        x, y = elements[0][0], elements[0][1]
+        tokens = [w for w in x if w in self.env.word2id]
+        addmul = []
+
+        # Check that we have a well-formed equation
+        tree, idx, _, count = self._prefix_to_tree(tokens, addmul)
+        if idx != len(tokens):
+            print(tree)
+            print(idx)
+            print(tokens)
+            print(count)
+            print(addmul)
+            assert False
+        assert count == len(addmul)
+
+        graphs = []
+        aug_eq, num_augment = self.augment(tokens, addmul)
+        for eq in aug_eq:
+            graphs.append(self.deserialize(list(eq)))
+        graphs = dgl.batch(graphs)
+
+        '''
+        operations = torch.tensor([], dtype=torch.long)
+        tokens = torch.tensor([], dtype=torch.long)
+        left_idx = torch.tensor([], dtype=torch.long)
+        right_idx = torch.tensor([], dtype=torch.long)
+        root_idx = 0
+
+        for tree in trees:
+            (tree_ops, tree_tokens, tree_left_idx, tree_right_idx, _, _) = self.tensorize_tree(tree, [])
+            
+            tree_left_idx[tree_left_idx != -1] += root_idx
+            tree_right_idx[tree_right_idx != -1] += root_idx
+
+            operations = torch.cat([operations, tree_ops])
+            tokens = torch.cat([tokens, tree_tokens])
+            left_idx = torch.cat([left_idx, tree_left_idx])
+            right_idx = torch.cat([right_idx, tree_right_idx])
+            root_idx += tree_ops.numel()
+        '''
+
+        x_aug = [" ".join(eq) for eq in aug_eq]
+        x_aug = ";".join(x_aug)
+        y = " ".join(y)
+        equations = f"{num_augment}|{x_aug}\t{y}"
+
+        return graphs, equations
+        #return operations.tolist(), tokens.tolist(), left_idx.tolist(), right_idx.tolist(), equations
 
     def init_rng(self):
         """
@@ -1918,4 +2240,94 @@ class EnvDataset(Dataset):
         return x, y
 
 
+class PrecomputeDataset(EnvDataset):
 
+    def __init__(self, env, task, train, rng, params, path):
+        assert path is not None
+        super().__init__(env, task, train, rng, params, path)
+
+        self.data = {}
+
+        # reloading from file
+        assert os.path.isfile(path+'.data')
+        logger.info(f"Loading data from {path+'.data'} ...")
+        with io.open(path+'.data', mode='r', encoding='utf-8') as f:
+            # either reload the entire file, or the first N lines (for the training set)
+            if not self.train:
+                lines = [line.rstrip().split('|') for line in f][3:]
+            else:
+                lines = []
+                for i, line in enumerate(f):
+                    if i < 3:
+                        continue
+                    if (i-3) == params.reload_size:
+                        break
+                    if (i-3) % params.n_gpu_per_node == params.local_rank:
+                        lines.append(line.rstrip().split('|'))
+        equations = [xy.split('\t') for _, xy in lines]
+        equations = [(xy[0].split(';'), xy[1]) for xy in equations]
+        logger.info(f"Loaded {len(equations)} equations from the disk.")
+        self.data['data'] = equations
+
+        self.load_graphs(params, path+'.graphs')
+        assert len(self.data['data']) == len(self.data['graphs'])
+
+        # dataset size: infinite iterator for train, finite for valid / test
+        if self.train:
+            self.size = 1 << 60
+        else:
+            self.size = len(self.data['data'])
+
+    def load_graphs(self, params, path):
+        assert os.path.isfile(path)
+        logger.info(f"Loading data from {path} ...")
+        with io.open(path, mode='r', encoding='utf-8') as f:
+            # either reload the entire file, or the first N lines (for the training set)
+            if self.train:
+                reload_size = min(params.reload_size, len(self.data['data']))
+                idx = [params.local_rank + i for i in range(0, reload_size, params.n_gpu_per_node)]
+                graphs, _ = dgl.data.utils.load_graphs(path, idx_list=idx)
+            else: 
+                graphs, _ = dgl.data.utils.load_graphs(path)    
+
+        self.data['graphs'] = graphs
+
+    def __getitem__(self, index):
+        """
+        Return a training sample from precomputed tensors.
+        """
+        self.init_rng()
+        if self.train:
+           index = self.rng.randint(len(self.data['graphs']))
+
+        graphs = self.data['graphs'][index]
+        x, y = self.data['data'][index]
+        x = [aug.split() for aug in x]
+        y = y.split()
+        y = [y] * len(x)
+        assert len(x[0]) >= 1 and len(y[0]) >= 1
+
+        return graphs, x, y, len(x)
+
+
+    def collate_fn(self, elements):
+        """
+        Collate samples into a batch.
+        """
+        e = time.time()
+        graphs, x_group, y_group, num_augs = zip(*elements)
+        x, y = [], []
+        for j in range(len(x_group)):
+            x += x_group[j]
+            y += y_group[j]
+
+        nb_ops = torch.LongTensor([sum(int(word in self.env.OPERATORS) for word in seq) for seq in x])
+        x = [torch.LongTensor([self.env.word2id[w] for w in seq if w in self.env.word2id]) for seq in x]
+        y = [torch.LongTensor([self.env.word2id[w] for w in seq if w in self.env.word2id]) for seq in y]
+        x, x_len = self.env.batch_sequences(x)
+        y, y_len = self.env.batch_sequences(y)
+
+        if self.graph_enc and not self.export_data:
+            x_len -= 2
+        
+        return (x, x_len), (y, y_len), nb_ops, dgl.batch(graphs)

@@ -18,6 +18,8 @@ import time
 from torch import nn
 from torch.nn.utils import clip_grad_norm_
 
+import dgl
+
 from .optim import get_optimizer
 from .utils import to_cuda
 
@@ -114,13 +116,30 @@ class Trainer(object):
 
         # file handler to export data
         if params.export_data:
-            assert params.reload_data == ''
+            assert params.reload_data == '' and params.precompute_graphs == '' and params.reload_precomputed_data == ''
             params.export_path_prefix = os.path.join(params.dump_path, 'data.prefix')
             params.export_path_infix = os.path.join(params.dump_path, 'data.infix')
             self.file_handler_prefix = io.open(params.export_path_prefix, mode='a', encoding='utf-8')
             self.file_handler_infix = io.open(params.export_path_infix, mode='a', encoding='utf-8')
             logger.info(f"Data will be stored in prefix in: {params.export_path_prefix} ...")
             logger.info(f"Data will be stored in infix in: {params.export_path_infix} ...")
+
+        # precompute graphs
+        if params.precompute_graphs != '':
+            assert params.reload_data == '' and params.reload_precomputed_data == '' and params.export_data is False
+            assert len(params.tasks) == 1 # Check that we are only precomputing one task
+            task = params.tasks[0] 
+
+            params.export_path_graphs = os.path.join(params.dump_path, task+'.graphs')
+            params.export_path_data = os.path.join(params.dump_path, task+'.data')
+
+            self.graphs_file = params.export_path_graphs
+            self.file_handler_data = io.open(params.export_path_data, mode='a', encoding='utf-8')
+
+            logger.info(f"Data will be stored in: {params.dump_path} ...")
+
+            assert os.path.isfile(params.precompute_graphs)
+            self.iterator = self.env.create_precompute_iterator(params, params.precompute_graphs)
 
         # reload exported data
         if params.reload_data != '':
@@ -131,10 +150,22 @@ class Trainer(object):
             assert all(all(os.path.isfile(path) for path in paths) for paths in self.data_path.values())
             for task in self.env.TRAINING_TASKS:
                 assert (task in self.data_path) == (task in params.tasks)
+
+        elif params.reload_precomputed_data != '':
+            assert params.export_data is False and params.precompute_graphs == ''
+            s = [x.split(',') for x in params.reload_precomputed_data.split(';') if len(x) > 0]
+            assert len(s) >= 1 and all(len(x) == 4 for x in s) and len(s) == len(set([x[0] for x in s]))
+            self.data_path = {task: (train_path, valid_path, test_path) for task, train_path, valid_path, test_path in s}
+            ext = ['.data', '.graphs']
+            assert all(all(all(os.path.isfile(path+e) for e in ext) for path in paths) for paths in self.data_path.values())
+            for task in self.env.TRAINING_TASKS:
+                assert (task in self.data_path) == (task in params.tasks)
+
         else:
             self.data_path = None
+
         # create data loaders
-        if not params.eval_only:
+        if not params.eval_only and not params.precompute_graphs:
             if params.env_base_seed < 0:
                 params.env_base_seed = np.random.randint(1_000_000_000)
             self.dataloader = {
@@ -456,6 +487,22 @@ class Trainer(object):
         self.n_equations += self.params.batch_size
         self.stats['processed_e'] += len1.size(0)
         self.stats['processed_w'] += (len1 + len2 - 2).sum().item()
+
+    def precompute_graphs(self):
+        """
+        Precompute tensors and export them to the disk.
+        """
+        s = time.time()
+        graphs = []
+
+        for graph, eqs in self.iterator:
+            graphs.append(graph)
+            self.file_handler_data.write(f'{eqs}\n')
+            self.file_handler_data.flush()
+
+        dgl.data.utils.save_graphs(self.graphs_file, graphs)
+        e = time.time()
+        print(f"Time taken: {e-s}")
 
     def train_integers(self, encoder, decoder, integers):
         """

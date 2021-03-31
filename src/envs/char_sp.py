@@ -222,6 +222,7 @@ def eval_test_zero(eq):
         outputs.append(float(sp.Abs(_eq.evalf())))
     return outputs
 
+
 class BinaryEqnTree:
 
     NULL = "#"
@@ -459,7 +460,7 @@ class CharSPEnvironment(object):
         # custom functions
         'f': 1,
         'g': 2,
-        'h': 3,
+        #'h': 3,
     }
 
     def __init__(self, params):
@@ -481,9 +482,9 @@ class CharSPEnvironment(object):
 
         # parse operators with their weights
         self.operators = sorted(list(self.OPERATORS.keys()))
-        #ops = self.OPERATORS.items()
-        ops = params.operators.split(',')
-        ops = sorted([x.split(':') for x in ops])
+        ops = self.OPERATORS.items()
+        #ops = params.operators.split(',')
+        #ops = sorted([x.split(':') for x in ops])
         print(ops)
         assert len(ops) >= 1 and all(o in self.OPERATORS for o, _ in ops)
         self.all_ops = [o for o, _ in ops]
@@ -528,7 +529,7 @@ class CharSPEnvironment(object):
             self.elements = [str(i) for i in range(abs(self.int_base))]
         assert 1 <= self.n_variables <= len(self.variables)
         assert 0 <= self.n_coefficients <= len(self.coefficients)
-        assert all(k in self.OPERATORS for k in self.functions.keys())
+        #assert all(k in self.OPERATORS for k in self.functions.keys())
         assert all(v in self.OPERATORS for v in self.SYMPY_OPERATORS.values())
 
         # SymPy elements
@@ -1704,7 +1705,7 @@ class CharSPEnvironment(object):
 
         dataset = EnvDataset(
             self,
-            task="prim_fwd",
+            task="None",
             train=False,
             rng=np.random.RandomState(0),
             params=params,
@@ -1831,6 +1832,36 @@ class EnvDataset(Dataset):
             depth += 1
 
         return depths, operation_order#torch.LongTensor(operation_order)
+
+
+    def get_parents(self, left, right):
+        """
+        Get id of parent nodes given left and right child ids.
+
+        Parameters
+        ----------
+        left
+            A tensor of indicies corresponding to the left child of each node, 
+            or -1 if the node does not have a left child.
+        right
+            A tensor of indicies corresponding to the right child of each node, 
+            or -1 if the node does not have a right child.
+
+        Returns
+        -------
+        parents
+            A tensor of indicies corresponding to the parent node of each node,
+            or -1 if the node does not have a parent (the root node).
+        """
+        left = left.tolist()
+        right = right.tolist()
+        parents = [-1] * len(left)
+        for idx in range(len(left)): 
+            if left[idx] != -1:
+                parents[left[idx]] = idx
+            if right[idx] != -1:
+                parents[right[idx]] = idx
+        return torch.tensor(parents)
         
 
     def tensorize_tree(self, tree: BinaryEqnTree, integers, digits=0):
@@ -1860,11 +1891,11 @@ class EnvDataset(Dataset):
             An index (into INDEX_TO_LEAF) indicating the token represented at each leaf
             node, or -1 for non-leaf nodes. Used to look up leaf embeddings at runtime.
         left_idx : Tensor
-            An index indicating the left child of each node, or -1 if
-            the node does not have a left child.
+            A tensor of indicies corresponding to the left child of each node, 
+            or -1 if the node does not have a left child.
         right_idx : Tensor
-            An index indicating the right child of each node, or -1 if
-            the node does not have a right child.
+            A tensor of indicies corresponding to the right child of each node, 
+            or -1 if the node does not have a right child.
         digits : int
             A counter that tracks the number of digits deleted from the source equation.
         integers : Tensor
@@ -2211,13 +2242,17 @@ class EnvDataset(Dataset):
         tokens = torch.tensor([], dtype=torch.long)
         left_idx = torch.tensor([], dtype=torch.long)
         right_idx = torch.tensor([], dtype=torch.long)
+        parent_idx = torch.tensor([], dtype=torch.long)
         root_idx = 0
 
         for tree in trees:
             (tree_ops, tree_tokens, tree_left_idx, tree_right_idx, _, _) = self.tensorize_tree(tree, [])
             
+            tree_parent_idx = self.get_parents(tree_left_idx, tree_right_idx)
+
             tree_left_idx[tree_left_idx != -1] += root_idx
             tree_right_idx[tree_right_idx != -1] += root_idx
+            tree_parent_idx[tree_parent_idx != -1] += root_idx
 
             operations = torch.cat([operations, tree_ops])
             tokens = torch.cat([tokens, tree_tokens])
@@ -2229,7 +2264,7 @@ class EnvDataset(Dataset):
         x_aug = ";".join(x_aug)
         y = " ".join(y)
         equations = f"{num_augment}|{x_aug}\t{y}"
-        return operations.tolist(), tokens.tolist(), left_idx.tolist(), right_idx.tolist(), equations
+        return operations.tolist(), tokens.tolist(), left_idx.tolist(), right_idx.tolist(), parent_idx.to_list(), equations
 
     def init_rng(self):
         """
@@ -2328,7 +2363,7 @@ class PrecomputeDataset(EnvDataset):
         super().__init__(env, task, train, rng, params, path)
 
         self.data = {}
-        for ext in ['ops', 'tokens', 'left', 'right']:
+        for ext in ['ops', 'tokens', 'left', 'right', 'parents']:
             self.load_data(params, path, ext)
 
         self.calculate_tree_pos_enc()
@@ -2357,6 +2392,7 @@ class PrecomputeDataset(EnvDataset):
         assert len(self.data['ops']) == len(self.data['tokens'])
         assert len(self.data['ops']) == len(self.data['left'])
         assert len(self.data['ops']) == len(self.data['right'])
+        assert len(self.data['ops']) == len(self.data['parents'])
         assert len(self.data['ops']) == len(self.data['data'])
 
         # dataset size: infinite iterator for train, finite for valid / test
@@ -2406,6 +2442,7 @@ class PrecomputeDataset(EnvDataset):
         tokens = self.data['tokens'][index]
         left = self.data['left'][index]
         right = self.data['right'][index]
+        parents = self.data['parents'][index]
         x, y = self.data['data'][index]
         tree_pos_enc = self.data['pos'][index]
         x = [aug.split() for aug in x]
@@ -2413,7 +2450,7 @@ class PrecomputeDataset(EnvDataset):
         y = [y] * len(x)
         assert len(x[0]) >= 1 and len(y[0]) >= 1
 
-        return ops, tokens, left, right, x, y, len(x), tree_pos_enc
+        return ops, tokens, left, right, parents, x, y, len(x), tree_pos_enc
     
     def compute_operation_order(
         self, operations, left_idx, right_idx
@@ -2472,15 +2509,16 @@ class PrecomputeDataset(EnvDataset):
 
         return depths, operation_order
     
-    def batch_tensors(self, ops, toks, left, right, num_augs):
+    def batch_tensors(self, ops, toks, left, right, parent, num_augs):
         operations = []
         tokens = []
         left_idx = []
         right_idx = []
+        parent_idx = []
         eq_len = []
         root_idx = 0
 
-        for op, tok, l_idx, r_idx, num in zip(ops, toks, left, right, num_augs):
+        for op, tok, l_idx, r_idx, p_idx, num in zip(ops, toks, left, right, parent, num_augs):
             eq_len += [op.size / num] * num
             if self.pad_tokens:
                 # Append BOS and EOS embedding operations
@@ -2488,19 +2526,22 @@ class PrecomputeDataset(EnvDataset):
                 # Append BOS and EOS tokens to the tokens
                 eos = [self.env.word2id['<s>']]
                 tok_ = np.concatenate([eos, tok, eos])
-                l_idx_ = np.concatenate([[-1], l_idx_, [-1]])
-                r_idx_ = np.concatenate([[-1], r_idx_, [-1]])
+                l_idx_ = np.concatenate([[-1], l_idx, [-1]])
+                r_idx_ = np.concatenate([[-1], r_idx, [-1]])
+                p_idx_ = np.concatenate([[-1], p_idx, [-1]])
 
                 # Re-index this tree at its new place in the batch-wide order
                 # Add 1 because we append an BOS token to the start
                 left_idx = np.concatenate([left_idx, l_idx_ + (l_idx_ != -1) * (root_idx+1)])
                 right_idx = np.concatenate([right_idx, r_idx_ + (r_idx_ != -1) * (root_idx+1)])
+                parent_idx = np.concatenate([parent_idx, p_idx_ + (p_idx_ != -1) * (root_idx+1)])
                 operations = np.concatenate([operations, op_])
                 tokens = np.concatenate([tokens, tok_])
 
             else: # Do not append if no padding
                 left_idx = np.concatenate([left_idx, l_idx + (l_idx != -1) * root_idx])
                 right_idx = np.concatenate([right_idx, r_idx + (r_idx != -1) * root_idx])
+                parent_idx = np.concatenate([parent_idx, p_idx + (p_idx != -1) * root_idx])
                 operations = np.concatenate([operations, op])
                 tokens = np.concatenate([tokens, tok])
             
@@ -2513,7 +2554,8 @@ class PrecomputeDataset(EnvDataset):
         return (torch.LongTensor(operations), 
                 torch.LongTensor(tokens), 
                 torch.LongTensor(left_idx), 
-                torch.LongTensor(right_idx), 
+                torch.LongTensor(right_idx),
+                torch.LongTensor(parent_idx), 
                 torch.LongTensor(eq_len), 
                 torch.LongTensor(depths), 
                 operation_order)
@@ -2523,7 +2565,7 @@ class PrecomputeDataset(EnvDataset):
         Collate samples into a batch.
         """
         e = time.time()
-        ops, tokens, left, right, x_group, y_group, num_augs, tree_pos_enc = zip(*elements)
+        ops, tokens, left, right, parent, x_group, y_group, num_augs, tree_pos_enc = zip(*elements)
         x, y = [], []
         for j in range(len(ops)):
             x += x_group[j]
@@ -2536,10 +2578,10 @@ class PrecomputeDataset(EnvDataset):
         y, y_len = self.env.batch_sequences(y)
 
         if self.tree_enc:
-            ops, tokens, left, right, x_len, depths, op_order = self.batch_tensors(ops, tokens, left, right, num_augs)
+            ops, tokens, left, right, parent, x_len, depths, op_order = self.batch_tensors(ops, tokens, left, right, parent, num_augs)
         else:
-            ops, tokens, left, right, depths, op_order = None, None, None, None, None, None
+            ops, tokens, left, right, parent, depths, op_order = None, None, None, None, None, None, None
 
         #return (x, x_len), (y, y_len), nb_ops, (torch.LongTensor(tree_pos_enc), ops, tokens, left, right, depths, op_order)
-        return (x, x_len), (y, y_len), nb_ops, (ops, tokens, left, right, depths, op_order)
+        return (x, x_len), (y, y_len), nb_ops, (ops, tokens, left, right, parent, depths, op_order)
 

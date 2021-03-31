@@ -10,7 +10,7 @@ import os
 import torch
 
 from .transformer import TransformerModel
-from .graph_encoders import TreeRNN, TreeLSTM, TreeSMU
+from .graph_encoders import GCNN, TreeRNN, TreeLSTM, TreeSMU
 
 
 logger = getLogger()
@@ -35,6 +35,8 @@ def build_modules(env, params):
     modules = {}
     if params.treernn:
         modules['encoder'] = TreeRNN(params, env.id2word, env.word2id, env.una_ops, env.bin_ops)
+    elif params.gcnn:
+        modules['encoder'] = GCNN(params, env.id2word, env.word2id, env.una_ops, env.bin_ops)
     elif params.treelstm:
         modules['encoder'] = TreeLSTM(params, env.id2word, env.word2id, env.una_ops, env.bin_ops)
     elif params.treesmu:

@@ -125,12 +125,14 @@ class Trainer(object):
         # precompute tensors
         if params.precompute_tensors != '':
             assert params.reload_data == '' and params.reload_precomputed_data == '' and params.export_data is False
-            task = params.tasks[0] # We check that we are only precomputing one task
+            assert len(params.tasks) == 1 # Check that we are only precomputing one task
+            task = params.tasks[0]
 
             params.export_path_ops = os.path.join(params.dump_path, task+'.ops')
             params.export_path_tokens = os.path.join(params.dump_path, task+'.tokens')
             params.export_path_left = os.path.join(params.dump_path, task+'.left')
             params.export_path_right = os.path.join(params.dump_path, task+'.right')
+            params.export_path_parents = os.path.join(params.dump_path, task+'.parents')
             params.export_path_data = os.path.join(params.dump_path, task+'.data')
             #params.export_path_order = os.path.join(params.dump_path, task+'.order')
             #params.export_path_ints = os.path.join(params.dump_path, task+'.integers')
@@ -139,6 +141,7 @@ class Trainer(object):
             self.file_handler_tokens = io.open(params.export_path_tokens, mode='a', encoding='utf-8')
             self.file_handler_left = io.open(params.export_path_left, mode='a', encoding='utf-8')
             self.file_handler_right = io.open(params.export_path_right, mode='a', encoding='utf-8')
+            self.file_handler_parents = io.open(params.export_path_parents, mode='a', encoding='utf-8')
             self.file_handler_data = io.open(params.export_path_data, mode='a', encoding='utf-8')
             #self.file_handler_order = io.open(params.export_path_order, mode='a', encoding='utf-8')
             #self.file_handler_ints = io.open(params.export_path_ints, mode='a', encoding='utf-8')
@@ -498,7 +501,7 @@ class Trainer(object):
         Precompute tensors and export them to the disk.
         """
         s = time.time()
-        for ops, tokens, left, right, eqs in self.iterator:
+        for ops, tokens, left, right, parents, eqs in self.iterator:
 
             self.file_handler_ops.write(f'{ops}\n')
             self.file_handler_ops.flush()
@@ -512,11 +515,14 @@ class Trainer(object):
             self.file_handler_right.write(f'{right}\n')
             self.file_handler_right.flush()
 
+            self.file_handler_right.write(f'{parents}\n')
+            self.file_handler_right.flush()
+
             self.file_handler_data.write(f'{eqs}\n')
             self.file_handler_data.flush()
 
         e = time.time()
-        print(e-s)
+        print(f"Time taken: {e-s}")
 
 
     def train_integers(self, encoder, decoder, integers):
@@ -567,8 +573,8 @@ class Trainer(object):
         
         x1, len1, x2, len2, y = to_cuda(x1, len1, x2, len2, y)
         if tensors:
-            #tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5] = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5])
-            tensors[0], tensors[1], tensors[2], tensors[3], tensors[4] = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4])
+            tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5] = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4], tensors[5])
+            #tensors[0], tensors[1], tensors[2], tensors[3], tensors[4] = to_cuda(tensors[0], tensors[1], tensors[2], tensors[3], tensors[4])
 
         # forward / loss
         if params.tree_enc: # Use tree-based encoder

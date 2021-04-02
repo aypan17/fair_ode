@@ -1744,6 +1744,7 @@ class EnvDataset(Dataset):
         self.batch_size = params.batch_size
         self.same_nb_ops_per_batch = params.same_nb_ops_per_batch
         self.tree_enc = params.tree_enc
+        self.graph_op_order = params.gcnn
         self.tree_pos_enc = params.tree_embeddings
         self.precompute_tensors = params.precompute_tensors 
         self.pad_tokens = params.pad_tokens
@@ -2508,6 +2509,34 @@ class PrecomputeDataset(EnvDataset):
             depth += 1
 
         return depths, operation_order
+
+    def compute_graph_operation_order(self, operations):
+        """
+        Compute the step at which each node in the graph may execute.
+        Because we are running message passing, we can apply the operations in any order.
+
+        Parameters
+        ----------
+        operations
+            An index indicating which operation is applied at each node.
+
+        Returns
+        -------
+        depths : Tensor
+            The depth of each node in the tree.
+        operation_order : Tensor
+            For each step, the operation performed at that step.
+        """
+        depth = 0
+        depths = np.zeros(operations.size, dtype=int)
+        operation_order = []
+        for op in set(operations):
+            if op != -1:
+                op_mask = operations == op
+                depths += op_mask * depth
+                depth += 1
+                operation_order.append(op)
+        return depths, operation_order
     
     def batch_tensors(self, ops, toks, left, right, parent, num_augs):
         operations = []
@@ -2549,7 +2578,10 @@ class PrecomputeDataset(EnvDataset):
 
         tokens[tokens == -1] += 1
 
-        depths, operation_order = self.compute_operation_order(operations.astype(int), left_idx.astype(int), right_idx.astype(int))
+        if self.graph_op_order:
+            depths, operation_order = self.compute_graph_operation_order(operations.astype(int))
+        else:
+            depths, operation_order = self.compute_operation_order(operations.astype(int), left_idx.astype(int), right_idx.astype(int))
 
         return (torch.LongTensor(operations), 
                 torch.LongTensor(tokens), 

@@ -282,14 +282,13 @@ class GCNN(TreeNN):
         for layer in range(self.num_layers):
 
             layer_activations = torch.clone(activations)
+            inp = layer_activations[idx]
+            mem = memory[idx]
 
             for depth in range(1, num_steps):  
                 step_mask = (depths == depth).unsqueeze(1)  # Indices to compute at this step
                 op = operation_order[depth]
-                op_name = self.id2word[op]
-
-                inp = layer_activations[idx]
-                mem = memory[idx]
+                op_name = self.id2word[op]                
                 step_activations, step_memory = self._apply_function(
                     op_name, inp, mem, train
                 )
@@ -302,7 +301,7 @@ class GCNN(TreeNN):
         activations = activations[:-1]
         # Reverse activations because nodes are listed in reverse pre-order.
         return self._compute_output(activations, lengths)
-
+        
 
 class TreeRNN(TreeNN):
     """

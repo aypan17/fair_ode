@@ -212,91 +212,6 @@ class TreeNN(torch.nn.Module):
                 memory = memory + step_memory * step_mask.unsqueeze(1)
 
         return self._compute_output(activations, lengths)
-
-
-class GCNN(TreeNN):
-    """
-    A GCNN model.
-
-    For full parameters, see the docstring for `TreeNN`.
-
-    Parameters
-    ----------
-    num_module_layers
-        How many layers to use for each internal module.
-    """
-
-    def __init__(self, params, id2word, word2id, una_ops, bin_ops):
-        super().__init__(params, id2word, word2id, una_ops, bin_ops)
-
-        self.ops = una_ops + bin_ops
-        self.function_modules = torch.nn.ModuleDict(
-            {f: MLP(4, params.emb_dim, params.num_module_layers, params.tree_activation) for f in self.ops}
-        )
-        self.memory_size = 1
-
-        self.num_layers = params.num_layers
-        self.layer_norm = nn.ModuleList()
-        for _ in range(self.num_layers):
-            self.layer_norm.append(nn.LayerNorm(self.d_model, eps=1e-12))
-
-    def _apply_function(self, function_name, inputs, memory, train):
-        if function_name in self.ops:
-            module = self.function_modules[function_name]
-            # Concatenate left, right, parent, self before function application
-            inputs_together = inputs.view(inputs.size(0), -1)
-            return module(inputs_together, train), memory[:, 0, :]
-        assert False
-
-    def forward(self, x, lengths, train=False):
-        """
-        Given a (possibly batched) graph and the number of nodes per tree, 
-        compute the outputs for each tree.
-        """
-
-        #_, operations, tokens, left_idx, right_idx, depths, operation_order = x
-        operations, tokens, left_idx, right_idx, parent_idx, depths, operation_order = x
-        num_steps = len(operation_order)
-        num_nodes = operations.numel()
-
-        # A buffer storing the hidden embeddings of each node
-        activations = self.leaf_emb(tokens)
-        activations = torch.cat([activations, torch.zeros((1, self.d_model), device=tokens.device)])
-
-        # A buffer where the i-th row is the memory output from the i-th node.
-        memory = torch.zeros(
-            (num_nodes+1, self.memory_size, self.d_model), device=tokens.device
-        )
-
-        self_idx = torch.arange(len(left_idx), device=tokens.device)
-        self_idx = torch.cat([self_idx, torch.tensor([-1], device=tokens.device)])
-        left_idx = torch.cat([left_idx, torch.tensor([-1], device=tokens.device)])
-        right_idx = torch.cat([right_idx, torch.tensor([-1], device=tokens.device)])
-        parent_idx = torch.cat([parent_idx, torch.tensor([-1], device=tokens.device)])
-        depths = torch.cat([depths, torch.tensor([-1], device=tokens.device)])
-
-        idx = torch.stack((left_idx, right_idx, parent_idx, self_idx), dim=1)
-
-        for layer in range(self.num_layers):
-
-            layer_activations = torch.clone(activations)
-            inp = layer_activations[idx]
-            mem = memory[idx]
-
-            for depth in range(1, num_steps):  
-                step_mask = (depths == depth).unsqueeze(1)  # Indices to compute at this step
-                op = operation_order[depth]
-                op_name = self.id2word[op]                
-                step_activations, step_memory = self._apply_function(
-                    op_name, inp, mem, train
-                )
-                layer_activations = layer_activations + step_activations * step_mask
-                memory = memory + step_memory * step_mask.unsqueeze(1)
-
-            activations = activations + layer_activations
-            activations = self.layer_norm[layer](activations)
-
-        return self._compute_output(activations, lengths)
         
 
 class TreeRNN(TreeNN):
@@ -436,3 +351,90 @@ class TreeSMU(TreeNN):
             return module(l_inputs, r_inputs, step_memory).squeeze(1), step_memory
 
         assert False
+
+
+class GCNN(TreeNN):
+    """
+    A GCNN model.
+
+    For full parameters, see the docstring for `TreeNN`.
+
+    Parameters
+    ----------
+    num_module_layers
+        How many layers to use for each internal module.
+    """
+
+    def __init__(self, params, id2word, word2id, una_ops, bin_ops):
+        super().__init__(params, id2word, word2id, una_ops, bin_ops)
+
+        self.ops = una_ops + bin_ops
+        self.function_modules = torch.nn.ModuleDict(
+            {f: MLP(4, params.emb_dim, params.num_module_layers, params.tree_activation) for f in self.ops}
+        )
+        self.memory_size = 1
+
+        self.num_layers = params.num_layers
+        self.layer_norm = nn.ModuleList()
+        for _ in range(self.num_layers):
+            self.layer_norm.append(nn.LayerNorm(self.d_model, eps=1e-12))
+
+    def _apply_function(self, function_name, inputs, memory, train):
+        if function_name in self.ops:
+            module = self.function_modules[function_name]
+            # Concatenate left, right, parent, self before function application
+            inputs_together = inputs.view(inputs.size(0), -1)
+            return module(inputs_together, train), memory[:, 0, :]
+        assert False
+
+    def forward(self, x, lengths, train=False):
+        """
+        Given a (possibly batched) graph and the number of nodes per tree, 
+        compute the outputs for each tree.
+        """
+
+        #_, operations, tokens, left_idx, right_idx, depths, operation_order = x
+        operations, tokens, left_idx, right_idx, parent_idx, depths, operation_order = x
+        num_steps = len(operation_order)
+        num_nodes = operations.numel()
+
+        # A buffer storing the hidden embeddings of each node
+        activations = self.leaf_emb(tokens)
+        activations = torch.cat([activations, torch.zeros((1, self.d_model), device=tokens.device)])
+
+        # A buffer where the i-th row is the memory output from the i-th node.
+        memory = torch.zeros(
+            (num_nodes+1, self.memory_size, self.d_model), device=tokens.device
+        )
+
+        self_idx = torch.arange(len(left_idx), device=tokens.device)
+        self_idx = torch.cat([self_idx, torch.tensor([-1], device=tokens.device)])
+        left_idx = torch.cat([left_idx, torch.tensor([-1], device=tokens.device)])
+        right_idx = torch.cat([right_idx, torch.tensor([-1], device=tokens.device)])
+        parent_idx = torch.cat([parent_idx, torch.tensor([-1], device=tokens.device)])
+        depths = torch.cat([depths, torch.tensor([-1], device=tokens.device)])
+
+        idx = torch.stack((left_idx, right_idx, parent_idx, self_idx), dim=1)
+
+        for layer in range(self.num_layers):
+
+            layer_activations = torch.clone(activations)
+            inp = layer_activations[idx]
+            mem = memory[idx]
+
+            for depth in range(1, num_steps):  
+                step_mask = (depths == depth).unsqueeze(1)  # Indices to compute at this step
+                op = operation_order[depth]
+                op_name = self.id2word[op]                
+                step_activations, step_memory = self._apply_function(
+                    op_name, inp, mem, train
+                )
+                layer_activations = layer_activations + step_activations * step_mask
+                memory = memory + step_memory * step_mask.unsqueeze(1)
+
+            activations = activations + layer_activations
+            activations = self.layer_norm[layer](activations)
+
+        activations = activations[:-1]
+
+        return self._compute_output(activations, lengths)

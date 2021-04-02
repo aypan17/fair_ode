@@ -198,12 +198,11 @@ class TreeNN(torch.nn.Module):
         for depth in range(num_steps):  
             step_mask = (depths == depth).unsqueeze(1)  # Indices to compute at this step
             op = operation_order[depth]
-
             if op == -1: # Embedding lookup or number encoding
                 activations += self.leaf_emb(tokens) * step_mask
 
             else:
-                op_name = self.id2word[op]                
+                op_name = self.id2word[op]          
                 inp = activations[idx]
                 mem = memory[idx]
                 step_activations, step_memory = self._apply_function(
@@ -212,7 +211,6 @@ class TreeNN(torch.nn.Module):
                 activations = activations + step_activations * step_mask
                 memory = memory + step_memory * step_mask.unsqueeze(1)
 
-        # Reverse activations because nodes are listed in reverse pre-order.
         return self._compute_output(activations, lengths)
 
 
@@ -298,8 +296,6 @@ class GCNN(TreeNN):
             activations = activations + layer_activations
             activations = self.layer_norm[layer](activations)
 
-        activations = activations[:-1]
-        # Reverse activations because nodes are listed in reverse pre-order.
         return self._compute_output(activations, lengths)
         
 

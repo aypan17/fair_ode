@@ -80,6 +80,9 @@ OPERATORS = {
         'ln': 1,
         'abs': 1,
         'sign': 1,
+        'INT+': 1,
+        'INT-': 1,
+        'ten': 1,
         # Trigonometric Functions
         'sin': 1,
         'cos': 1,
@@ -426,6 +429,8 @@ class CharSPEnvironment(object):
         'ln': 1,
         'abs': 1,
         'sign': 1,
+        'INT+': 1,
+        'INT-': 1,
         'ten': 1,
         # Trigonometric Functions
         'sin': 1,
@@ -520,7 +525,7 @@ class CharSPEnvironment(object):
             'g': sp.Function('g', real=True, nonzero=True),
             'h': sp.Function('h', real=True, nonzero=True),
         })
-        self.symbols = ['I', 'INT', 'INT+', 'INT-', 'FLOAT', '-', '.', '10^', 'Y', "Y'", "Y''"] #INT+, INT- removed because of decimal encoding
+        self.symbols = ['I', 'INT', 'FLOAT', '-', '.', '10^', 'Y', "Y'", "Y''"] #INT+, INT- removed because of decimal encoding
         if self.balanced:
             assert self.int_base > 2
             max_digit = (self.int_base + 1) // 2
@@ -2604,16 +2609,18 @@ class PrecomputeDataset(EnvDataset):
             y += y_group[j]
 
         nb_ops = torch.LongTensor([sum(int(word in self.env.OPERATORS) for word in seq) for seq in x])
+
         x = [torch.LongTensor([self.env.word2id[w] for w in seq if w in self.env.word2id]) for seq in x]
         y = [torch.LongTensor([self.env.word2id[w] for w in seq if w in self.env.word2id]) for seq in y]
         x, x_len = self.env.batch_sequences(x)
         y, y_len = self.env.batch_sequences(y)
 
+
         if self.tree_enc:
             ops, tokens, left, right, parent, x_len, depths, op_order = self.batch_tensors(ops, tokens, left, right, parent, num_augs)
         else:
             ops, tokens, left, right, parent, depths, op_order = None, None, None, None, None, None, None
-
+            
         #return (x, x_len), (y, y_len), nb_ops, (torch.LongTensor(tree_pos_enc), ops, tokens, left, right, depths, op_order)
         return (x, x_len), (y, y_len), nb_ops, (ops, tokens, left, right, parent, depths, op_order)
 
